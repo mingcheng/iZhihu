@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/browser">
+
+        <ListPreference
+            android:key="@string/key_font_size"
+            android:title="@string/font_size"
+            android:summary="@string/font_size_summary"
+            android:entries="@array/font_size_entries"
+            android:entryValues="@array/font_size_entries_values"
+            android:dialogTitle="@string/font_size"
+            android:defaultValue="@string/default_font_size"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/share">
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/caches">
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/about">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="http://www.android.com" />
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Read Zhihu</string>
+    <string name="preference">Preference</string>
+    <string name="about">About</string>
+    <string name="tab_index">Main</string>
+    <string name="tab_favorite">Favorite</string>
+    <string name="browser">Browser</string>
+    <string name="share">Share</string>
+    <string name="caches">Caches</string>
+    <string name="font_size">Font Size</string>
+    <string name="tiny">Tiny</string>
+    <string name="small">Small</string>
+    <string name="medium">Medium</string>
+    <string name="large">Large</string>
+    <string name="huge">Huge</string>
+    <string name="font_size_summary">Select your favourite font size to read.</string>
+    <string name="refersh">Refersh</string>
+    <string name="key_font_size">font_size</string>
+</resources>

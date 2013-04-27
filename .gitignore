@@ -1,0 +1,36 @@
+.DS_Store
+/*.iml
+/.idea
+/proguard_logs/
+/nbandroid/
+/proguard.cfg
+/build.xml
+/*.properties
+Thumbs.db
+.*.swp
+
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+out/
+
+# Local configuration file (sdk path, etc)
+./local.properties
+proguard-project.txt
+
+# Eclipse project files
+.classpath
+.project
+
+/.classpath
+/.project
