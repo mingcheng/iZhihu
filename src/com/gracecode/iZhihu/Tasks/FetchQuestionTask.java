@@ -21,6 +21,8 @@ public class FetchQuestionTask extends AsyncTask<Void, Void, Void> {
 
     public abstract interface Callback {
         public void onPostExecute();
+
+        public void onPreExecute();
     }
 
     public FetchQuestionTask(Context context, Callback callback) {
@@ -56,6 +58,11 @@ public class FetchQuestionTask extends AsyncTask<Void, Void, Void> {
 
         return null;
 
+    }
+
+    @Override
+    protected void onPreExecute() {
+        callback.onPreExecute();
     }
 
     @Override

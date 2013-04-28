@@ -119,16 +119,14 @@ public class Requester {
     }
 
     private String getRequestUrl(String offset) {
-
         String timeStampString = String.valueOf(System.currentTimeMillis()).substring(0, TIME_STAMP_LENGTH);
         String signString = getSignString(timeStampString);
 
-        return "http://192.168.200.210/izhihu_data.json";
-//        return String.format(URL_REQUEST,
-//            timeStampString,
-//            signString,
-//            offset,
-//            DEVICE_UUID);
+        return String.format(URL_REQUEST,
+            timeStampString,
+            signString,
+            offset,
+            DEVICE_UUID);
     }
 
     private String getSignString(String stamp) {

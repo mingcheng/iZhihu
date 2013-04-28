@@ -17,21 +17,56 @@ import com.gracecode.iZhihu.R;
  * Date: 13-4-27
  */
 public class QuestionsAdapter extends CursorAdapter {
+    private final LayoutInflater layoutInflater;
+    private final Context context;
+    private final Cursor cursor;
 
     public QuestionsAdapter(Context context, Cursor cursor) {
         super(context, cursor, false);
+        this.context = context;
+        this.cursor = cursor;
+        layoutInflater = LayoutInflater.from(context);
+
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
-        return layoutInflater.inflate(R.layout.listview_question_item, viewGroup, false);
+        View view = layoutInflater.inflate(R.layout.listview_question_item, null);
+
+        TextView txtTitle = (TextView) view.findViewById(R.id.title);
+        TextView txtDescription = (TextView) view.findViewById(R.id.description);
+
+        view.setTag(R.id.title, txtTitle);
+        view.setTag(R.id.description, txtDescription);
+
+        return view;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View v;
+
+        if (!cursor.moveToPosition(position)) {
+            throw new IllegalStateException("Couldn't move cursor to position " + position);
+        }
+
+        if (convertView == null) {
+            v = newView(context, cursor, parent);
+        } else {
+            v = convertView;
+        }
+        bindView(v, context, cursor);
+        return v;
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         String title = cursor.getString(cursor.getColumnIndex("question_title"));
-        String description = cursor.getString(cursor.getColumnIndex("question_description"));
+        String content = cursor.getString(cursor.getColumnIndex("content"));
+        String userName = cursor.getString(cursor.getColumnIndex("user_name"));
+
+        content = Html.fromHtml(content).toString().trim();
+
 
         TextView txtTitle = (TextView) view.findViewById(R.id.title);
         TextView txtDescription = (TextView) view.findViewById(R.id.description);
@@ -42,11 +77,6 @@ public class QuestionsAdapter extends CursorAdapter {
         }
 
         txtTitle.setText(title);
-        if (description.length() > 0) {
-            description = Html.fromHtml(description).toString().trim();
-            txtDescription.setText(description);
-        } else {
-            txtDescription.setVisibility(View.GONE);
-        }
+        txtDescription.setText((userName.length() > 1 ? userName.trim() + "：" : "") + content);
     }
 }

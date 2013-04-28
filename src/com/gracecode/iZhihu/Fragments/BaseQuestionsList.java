@@ -63,7 +63,6 @@ public class BaseQuestionsList extends ListFragment {
 
     @Override
     public void onDestroy() {
-
         super.onDestroy();
     }
 

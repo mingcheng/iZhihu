@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +31,7 @@ public class Database {
             "    question_description text, content text, update_at text, " +
             "    unread integer DEFAULT 0, stared integer DEFAULT 0 );"
     };
+    private static final int PRE_LIMIT_PAGE_SIZE = 25;
 
     protected static File databaseFile;
     protected static DatabaseOpenHelper databaseOpenHelper;
@@ -67,7 +69,7 @@ public class Database {
 
     public Cursor getRecentQuestions() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-        return db.query(DATABASE_QUESTIONS_TABLE_NAME, null, null, null, null, null, "update_at DESC");
+        return db.query(DATABASE_QUESTIONS_TABLE_NAME, null, null, null, null, null, "update_at DESC LIMIT " + PRE_LIMIT_PAGE_SIZE);
     }
 
     public Cursor getFavoritesQuestion() {
@@ -89,7 +91,7 @@ public class Database {
         return 0;
     }
 
-    public long insertSingleQuestion(JSONObject question) throws JSONException {
+    public long insertSingleQuestion(JSONObject question) throws JSONException, SQLiteException {
         SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -106,7 +108,7 @@ public class Database {
         contentValues.put("update_at", question.getString("update_at"));
         contentValues.put("user_avatar", question.getString("user_avatar"));
 
-        return db.insert(DATABASE_QUESTIONS_TABLE_NAME, null, contentValues);
+        return db.insertOrThrow(DATABASE_QUESTIONS_TABLE_NAME, null, contentValues);
     }
 
 

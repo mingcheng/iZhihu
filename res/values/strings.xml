@@ -17,4 +17,5 @@
     <string name="font_size_summary">Select your favourite font size to read.</string>
     <string name="refersh">Refersh</string>
     <string name="key_font_size">font_size</string>
+    <string name="loading">Loading, Please Wait...</string>
 </resources>

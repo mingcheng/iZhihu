@@ -1,6 +1,7 @@
 package com.gracecode.iZhihu.Activity;
 
 import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +19,7 @@ public class Main extends BaseActivity {
 
     }
 
-    private void rebuildTables() {
+    private void rebuildTables() throws RuntimeException {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.removeAllTabs();
 
@@ -31,7 +32,7 @@ public class Main extends BaseActivity {
             .setTabListener(new MainTabListener(context, FavoritesList.class.getName()));
 
         actionBar.addTab(mainTab);
-        //actionBar.addTab(favoritesTab);
+        actionBar.addTab(favoritesTab);
     }
 
     @Override
@@ -48,10 +49,27 @@ public class Main extends BaseActivity {
 
     public void fetchQuestionsFromServer() {
         new FetchQuestionTask(context, new FetchQuestionTask.Callback() {
+            private ProgressDialog progressDialog;
+
+            @Override
+            public void onPreExecute() {
+                progressDialog = ProgressDialog.show(Main.this,
+                    getString(R.string.app_name), getString(R.string.loading), false, false);
+            }
+
             @Override
             public void onPostExecute() {
-                rebuildTables();
+                try {
+                    rebuildTables();
+                } catch (RuntimeException e) {
+
+                } finally {
+                    if (progressDialog != null) {
+                        progressDialog.dismiss();
+                    }
+                }
             }
+
         }).execute();
     }
 

@@ -24,6 +24,8 @@
         android:textColor="@android:color/primary_text_light"
         android:maxLines="2"
         android:layout_toRightOf="@id/unread_flag"
+        android:ellipsize="end"
+        android:scrollHorizontally="true"
         />
 
     <TextView
@@ -37,7 +39,8 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@id/title"
         android:paddingTop="3sp"
-        android:paddingLeft="10sp"
+        android:ellipsize="end"
+        android:scrollHorizontally="true"
         />
 
 
