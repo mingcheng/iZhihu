@@ -14,25 +14,29 @@ import android.content.Context;
 public final class MainTabListener implements ActionBar.TabListener {
     private final Context context;
     private final String className;
+    private boolean alreadyAdded = false;
     public Fragment fragment;
 
     public MainTabListener(Context context, String className) {
         this.context = context;
         this.className = className;
+        this.fragment = Fragment.instantiate(context, className);
     }
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        fragment = Fragment.instantiate(context, className);
-        fragmentTransaction.add(android.R.id.content, fragment);
+        if (alreadyAdded) {
+            fragmentTransaction.show(fragment);
+            return;
+        } else {
+            fragmentTransaction.add(android.R.id.content, fragment);
+            alreadyAdded = true;
+        }
     }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        if (fragment != null) {
-            fragmentTransaction.remove(fragment);
-            fragment = null;
-        }
+        fragmentTransaction.hide(fragment);
     }
 
     @Override

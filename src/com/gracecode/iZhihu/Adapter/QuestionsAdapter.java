@@ -31,32 +31,7 @@ public class QuestionsAdapter extends CursorAdapter {
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        View view = layoutInflater.inflate(R.layout.listview_question_item, null);
-
-        TextView txtTitle = (TextView) view.findViewById(R.id.title);
-        TextView txtDescription = (TextView) view.findViewById(R.id.description);
-
-        view.setTag(R.id.title, txtTitle);
-        view.setTag(R.id.description, txtDescription);
-
-        return view;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View v;
-
-        if (!cursor.moveToPosition(position)) {
-            throw new IllegalStateException("Couldn't move cursor to position " + position);
-        }
-
-        if (convertView == null) {
-            v = newView(context, cursor, parent);
-        } else {
-            v = convertView;
-        }
-        bindView(v, context, cursor);
-        return v;
+        return layoutInflater.inflate(R.layout.listview_question_item, null);
     }
 
     @Override
@@ -66,7 +41,7 @@ public class QuestionsAdapter extends CursorAdapter {
         String userName = cursor.getString(cursor.getColumnIndex("user_name"));
 
         content = Html.fromHtml(content).toString().trim();
-
+        content = (userName.length() > 1 ? userName.trim() + "：" : "") + content;
 
         TextView txtTitle = (TextView) view.findViewById(R.id.title);
         TextView txtDescription = (TextView) view.findViewById(R.id.description);
@@ -74,9 +49,16 @@ public class QuestionsAdapter extends CursorAdapter {
 
         if (cursor.getInt(cursor.getColumnIndex("unread")) != 0) {
             viewUnreadFlag.setVisibility(View.INVISIBLE);
+        } else {
+            viewUnreadFlag.setVisibility(View.VISIBLE);
         }
 
         txtTitle.setText(title);
-        txtDescription.setText((userName.length() > 1 ? userName.trim() + "：" : "") + content);
+        txtDescription.setText(content);
+        if (content.length() > 1) {
+            txtDescription.setVisibility(View.VISIBLE);
+        } else {
+            txtDescription.setVisibility(View.GONE);
+        }
     }
 }

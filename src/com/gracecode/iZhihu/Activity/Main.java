@@ -13,12 +13,6 @@ import com.gracecode.iZhihu.Tasks.FetchQuestionTask;
 
 public class Main extends BaseActivity {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
     private void rebuildTables() throws RuntimeException {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.removeAllTabs();
@@ -33,6 +27,11 @@ public class Main extends BaseActivity {
 
         actionBar.addTab(mainTab);
         actionBar.addTab(favoritesTab);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override

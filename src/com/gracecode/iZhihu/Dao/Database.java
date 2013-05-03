@@ -11,13 +11,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 
-/**
- * Created with IntelliJ IDEA.
- * <p/>
- * User: mingcheng
- * Date: 13-4-27
- */
-public class Database {
+public final class Database {
 
     private final static int DATABASE_VERSION = 1;
     private static final String FILE_DATABASE_NAME = "zhihu.sqlite";

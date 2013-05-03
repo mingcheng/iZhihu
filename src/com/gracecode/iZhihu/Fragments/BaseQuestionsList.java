@@ -3,13 +3,14 @@ package com.gracecode.iZhihu.Fragments;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
+import com.gracecode.iZhihu.Activity.Detail;
 import com.gracecode.iZhihu.Dao.Database;
 import com.gracecode.iZhihu.R;
 
@@ -46,8 +47,8 @@ public class BaseQuestionsList extends ListFragment {
 
     public void onListItemClick(ListView parent, View v, int position, long id) {
         if (questions != null && questions.moveToPosition(position)) {
-            String title = questions.getString(questions.getColumnIndex("question_title"));
-            Toast.makeText(activity, title, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(activity, Detail.class);
+            startActivity(intent);
         }
     }
 
