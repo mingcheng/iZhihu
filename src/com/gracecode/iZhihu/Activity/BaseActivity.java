@@ -28,9 +28,7 @@ public abstract class BaseActivity extends Activity {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 
         context = getApplicationContext();
-
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-
     }
 
     @Override

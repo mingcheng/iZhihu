@@ -18,4 +18,6 @@
     <string name="refersh">Refersh</string>
     <string name="key_font_size">font_size</string>
     <string name="loading">Loading, Please Wait...</string>
+    <string name="notfound">Sorry, Not found that question.</string>
+    <string name="favorite">Favorite</string>
 </resources>

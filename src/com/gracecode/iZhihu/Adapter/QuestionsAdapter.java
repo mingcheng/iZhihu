@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import com.gracecode.iZhihu.Dao.Database;
 import com.gracecode.iZhihu.R;
 
 /**
@@ -36,9 +37,9 @@ public class QuestionsAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        String title = cursor.getString(cursor.getColumnIndex("question_title"));
-        String content = cursor.getString(cursor.getColumnIndex("content"));
-        String userName = cursor.getString(cursor.getColumnIndex("user_name"));
+        String title = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_TITLE));
+        String content = cursor.getString(cursor.getColumnIndex(Database.COLUM_CONTENT));
+        String userName = cursor.getString(cursor.getColumnIndex(Database.COLUM_USER_NAME));
 
         content = Html.fromHtml(content).toString().trim();
         content = (userName.length() > 1 ? userName.trim() + "：" : "") + content;
@@ -47,7 +48,7 @@ public class QuestionsAdapter extends CursorAdapter {
         TextView txtDescription = (TextView) view.findViewById(R.id.description);
         View viewUnreadFlag = view.findViewById(R.id.unread_flag);
 
-        if (cursor.getInt(cursor.getColumnIndex("unread")) != 0) {
+        if (cursor.getInt(cursor.getColumnIndex(Database.COLUM_UNREAD)) != 0) {
             viewUnreadFlag.setVisibility(View.INVISIBLE);
         } else {
             viewUnreadFlag.setVisibility(View.VISIBLE);

@@ -2,6 +2,7 @@ package com.gracecode.iZhihu.Tasks;
 
 import android.accounts.NetworkErrorException;
 import android.content.Context;
+import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
 import android.util.Log;
 import com.gracecode.iZhihu.Dao.Database;
@@ -12,7 +13,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class FetchQuestionTask extends AsyncTask<Void, Void, Void> {
+public class FetchQuestionTask extends AsyncTask<Boolean, Void, Void> {
     private final static int MAX_FETCH_TIMES = 3600 * 1000 * 2; // 2 hours
     private final Callback callback;
     private final Requester requester;
@@ -33,9 +34,9 @@ public class FetchQuestionTask extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Void... voids) {
-
-        if (System.currentTimeMillis() - requester.getLastRequestTimeStamp() < MAX_FETCH_TIMES) {
+    protected Void doInBackground(Boolean... focusRefresh) {
+        Boolean focus = focusRefresh[0];
+        if (focus || System.currentTimeMillis() - requester.getLastRequestTimeStamp() < MAX_FETCH_TIMES) {
             Log.i(getClass().getName(), "Already fetched at recently, so ignore.");
             return null;
         }
@@ -44,10 +45,10 @@ public class FetchQuestionTask extends AsyncTask<Void, Void, Void> {
             JSONArray fetchedData = requester.fetch();
             for (int i = 0, length = fetchedData.length(); i < length; i++) {
                 JSONObject item = (JSONObject) fetchedData.get(i);
-
                 database.insertSingleQuestion(item);
             }
-
+        } catch (SQLiteException e) {
+            e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         } catch (IOException e) {

@@ -13,19 +13,39 @@ import java.io.File;
 
 public final class Database {
 
+    public static final String COLUM_ID = "id";
+    public static final String COLUM_QUESTION_ID = "question_id";
+    public static final String COLUM_QUESTION_TITLE = "question_title";
+    public static final String COLUM_CONTENT = "content";
+    public static final String COLUM_USER_NAME = "user_name";
+    public static final String COLUM_UNREAD = "unread";
+    public static final String COLUM_STARED = "stared";
+    public static final String COLUM_ANSWER_ID = "answer_id";
+    public static final String COLUM_QUESTION_DESCRIPTION = "question_description";
+    public static final String COLUM_UPDATE_AT = "update_at";
+    public static final String COLUM_USER_AVATAR = "user_avatar";
+
+
     private final static int DATABASE_VERSION = 1;
     private static final String FILE_DATABASE_NAME = "zhihu.sqlite";
 
     private static final String DATABASE_QUESTIONS_TABLE_NAME = "izhihu";
+    private static final Object COLUM_SERVER_ID = "server_id";
+
     private final static String[] SQL_CREATE_TABLES = {
         "CREATE TABLE " + DATABASE_QUESTIONS_TABLE_NAME + " (" +
-            "    _id INTEGER PRIMARY KEY AUTOINCREMENT , " +
-            "    id integer NOT NULL, server_id integer, answer_id integer, question_id integer, " +
-            "    user_name text,  user_avatar text, question_title text, " +
-            "    question_description text, content text, update_at text, " +
-            "    unread integer DEFAULT 0, stared integer DEFAULT 0 );"
+            "_id INTEGER PRIMARY KEY AUTOINCREMENT , " +
+            COLUM_ID + " integer NOT NULL UNIQUE, " + COLUM_SERVER_ID + " integer, " +
+            COLUM_ANSWER_ID + " integer, " + COLUM_QUESTION_ID + " integer UNIQUE, " +
+            COLUM_USER_NAME + " text,  " + COLUM_USER_AVATAR + " text, " + COLUM_QUESTION_TITLE + " text, " +
+            COLUM_QUESTION_DESCRIPTION + " text, " + COLUM_CONTENT + " text, " + COLUM_UPDATE_AT + " text, " +
+            COLUM_UNREAD + " integer DEFAULT 0, " + COLUM_STARED + " integer DEFAULT 0 );"
     };
     private static final int PRE_LIMIT_PAGE_SIZE = 25;
+    private static final int VALUE_READED = 1;
+    private static final int VALUE_STARED = 1;
+    private static final int VALUE_UNSTARED = 0;
+
 
     protected static File databaseFile;
     protected static DatabaseOpenHelper databaseOpenHelper;
@@ -63,7 +83,7 @@ public final class Database {
 
     public Cursor getRecentQuestions() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-        return db.query(DATABASE_QUESTIONS_TABLE_NAME, null, null, null, null, null, "update_at DESC LIMIT " + PRE_LIMIT_PAGE_SIZE);
+        return db.query(DATABASE_QUESTIONS_TABLE_NAME, null, null, null, null, null, COLUM_UPDATE_AT + " DESC LIMIT " + PRE_LIMIT_PAGE_SIZE);
     }
 
     public Cursor getFavoritesQuestion() {
@@ -73,16 +93,26 @@ public final class Database {
 
     public Cursor getSingleQuestion(int id) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-
-        return null;
+        String sql = "SELECT * FROM " + DATABASE_QUESTIONS_TABLE_NAME + " WHERE " + COLUM_ID + " = " + id + " LIMIT 1";
+        return db.rawQuery(sql, null);
     }
 
     public int markSingleQuestionAsReaded(int id) {
-        return 0;
+        SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUM_UNREAD, VALUE_READED);
+
+        return db.update(DATABASE_QUESTIONS_TABLE_NAME, contentValues, COLUM_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
-    public int markSingleQuestionAsFavourated(int id) {
-        return 0;
+    public int markQuestionAsFavourated(int id, boolean flag) {
+        SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUM_STARED, flag ? VALUE_STARED : VALUE_UNSTARED);
+
+        return db.update(DATABASE_QUESTIONS_TABLE_NAME, contentValues, COLUM_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
     public long insertSingleQuestion(JSONObject question) throws JSONException, SQLiteException {
@@ -90,17 +120,17 @@ public final class Database {
 
         ContentValues contentValues = new ContentValues();
 
-        contentValues.put("id", question.getInt("id"));
-        contentValues.put("question_id", question.getInt("question_id"));
-        contentValues.put("answer_id", question.getInt("answer_id"));
+        contentValues.put(COLUM_ID, question.getInt(COLUM_ID));
+        contentValues.put(COLUM_QUESTION_ID, question.getInt(COLUM_QUESTION_ID));
+        contentValues.put(COLUM_ANSWER_ID, question.getInt(COLUM_ANSWER_ID));
 
-        contentValues.put("question_title", question.getString("question_title"));
-        contentValues.put("question_description", question.getString("question_description"));
-        contentValues.put("content", question.getString("content"));
+        contentValues.put(COLUM_QUESTION_TITLE, question.getString(COLUM_QUESTION_TITLE));
+        contentValues.put(COLUM_QUESTION_DESCRIPTION, question.getString(COLUM_QUESTION_DESCRIPTION));
+        contentValues.put(COLUM_CONTENT, question.getString(COLUM_CONTENT));
 
-        contentValues.put("user_name", question.getString("user_name"));
-        contentValues.put("update_at", question.getString("update_at"));
-        contentValues.put("user_avatar", question.getString("user_avatar"));
+        contentValues.put(COLUM_USER_NAME, question.getString(COLUM_USER_NAME));
+        contentValues.put(COLUM_UPDATE_AT, question.getString(COLUM_UPDATE_AT));
+        contentValues.put(COLUM_USER_AVATAR, question.getString(COLUM_USER_AVATAR));
 
         return db.insertOrThrow(DATABASE_QUESTIONS_TABLE_NAME, null, contentValues);
     }

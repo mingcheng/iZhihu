@@ -37,7 +37,7 @@ public class Main extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        fetchQuestionsFromServer();
+        fetchQuestionsFromServer(false);
     }
 
     @Override
@@ -46,14 +46,16 @@ public class Main extends BaseActivity {
         return true;
     }
 
-    public void fetchQuestionsFromServer() {
+    public void fetchQuestionsFromServer(final Boolean focus) {
         new FetchQuestionTask(context, new FetchQuestionTask.Callback() {
             private ProgressDialog progressDialog;
 
             @Override
             public void onPreExecute() {
-                progressDialog = ProgressDialog.show(Main.this,
-                    getString(R.string.app_name), getString(R.string.loading), false, false);
+                if (focus) {
+                    progressDialog = ProgressDialog.show(Main.this,
+                        getString(R.string.app_name), getString(R.string.loading), false, false);
+                }
             }
 
             @Override
@@ -69,14 +71,14 @@ public class Main extends BaseActivity {
                 }
             }
 
-        }).execute();
+        }).execute(focus);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_refresh:
-                fetchQuestionsFromServer();
+                fetchQuestionsFromServer(true);
                 return true;
         }
 

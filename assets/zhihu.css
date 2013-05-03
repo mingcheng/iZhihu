@@ -1,0 +1,72 @@
+/* vim: set et sw=4 ts=4 sts=4 ft=css fdm=marker ff=unix fenc=utf8 nobomb: */
+/**
+ * @author mingcheng<lucky#gracecode.com>
+ * @date   2013-05-03
+ * @link   http://www.gracecode.com/
+ */
+
+body {
+    font-size: 16px;
+    color: #333;
+    padding: 1em;
+    line-height: 1.5em;
+}
+
+body hr  {
+    text-align: center;
+    width: 50%;
+    display: block;
+    margin: 1em auto;
+    height: 1px;
+    border: 1px solid #eaeaea;
+    border-top: 0px;
+}
+
+body a {
+    color: #000;
+}
+
+
+body .question h1 {
+    font-size: 1.1em;
+    color: #111;
+    margin: 0 0 1em 0;
+}
+
+body .question p {
+    line-height: 1.6em;
+    margin: .5em 0;
+    white-space: mode;
+}
+
+body .question img {
+    max-width: 95%;
+    border-radius: 5px;
+    border: 1px solid #eaeaea;
+    padding: .2em;
+    background: #fff;
+}
+
+body .question img {
+}
+
+body .question a,
+body .question a:link {
+    border-bottom: 1px dotted #999;
+    white-space: wrap-all;
+}
+
+.question_description {
+    color: #999;
+    padding: 0 0 0 1em;
+    font-size: small;
+    line-height: 1.5em;
+}
+
+.user_name {
+    border-top: 1px solid #eaeaea;
+    padding: .5em 0;
+    margin: 1em 0 2em 0;
+    font-size: small;
+    color: #777;
+}

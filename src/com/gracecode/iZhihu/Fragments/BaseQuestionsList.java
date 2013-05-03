@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import com.gracecode.iZhihu.Activity.Detail;
+import com.gracecode.iZhihu.Adapter.QuestionsAdapter;
 import com.gracecode.iZhihu.Dao.Database;
 import com.gracecode.iZhihu.R;
 
@@ -40,6 +41,14 @@ public class BaseQuestionsList extends ListFragment {
     }
 
     @Override
+    public void onStart() {
+        QuestionsAdapter adapter = (QuestionsAdapter) getListAdapter();
+        adapter.notifyDataSetChanged();
+
+        super.onStart();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.frag_questions, container, false);
@@ -48,6 +57,10 @@ public class BaseQuestionsList extends ListFragment {
     public void onListItemClick(ListView parent, View v, int position, long id) {
         if (questions != null && questions.moveToPosition(position)) {
             Intent intent = new Intent(activity, Detail.class);
+
+            int questionsId = questions.getInt(questions.getColumnIndex(Database.COLUM_ID));
+            intent.putExtra(Database.COLUM_ID, questionsId);
+
             startActivity(intent);
         }
     }
@@ -65,6 +78,9 @@ public class BaseQuestionsList extends ListFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (database != null) {
+            database.close();
+            database = null;
+        }
     }
-
 }
