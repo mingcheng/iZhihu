@@ -36,12 +36,14 @@ public class FetchQuestionTask extends AsyncTask<Boolean, Void, Void> {
     @Override
     protected Void doInBackground(Boolean... focusRefresh) {
         Boolean focus = focusRefresh[0];
-        if (focus || System.currentTimeMillis() - requester.getLastRequestTimeStamp() < MAX_FETCH_TIMES) {
+        if (!focus && System.currentTimeMillis() - requester.getLastRequestTimeStamp() < MAX_FETCH_TIMES) {
             Log.i(getClass().getName(), "Already fetched at recently, so ignore.");
             return null;
         }
 
         try {
+            //Thread.sleep(2000);
+
             JSONArray fetchedData = requester.fetch();
             for (int i = 0, length = fetchedData.length(); i < length; i++) {
                 JSONObject item = (JSONObject) fetchedData.get(i);

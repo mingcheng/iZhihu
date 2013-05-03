@@ -20,4 +20,7 @@
     <string name="loading">Loading, Please Wait...</string>
     <string name="notfound">Sorry, Not found that question.</string>
     <string name="favorite">Favorite</string>
+    <string name="feedback">Feedback</string>
+    <string name="mark_as_stared">Marked as favorites</string>
+    <string name="cancel_mark_as_stared">Cancel marked as favorites</string>
 </resources>

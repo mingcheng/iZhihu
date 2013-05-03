@@ -3,17 +3,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menu_share"
+        android:title="@string/share"
+        android:visible="false"
+        android:icon="@android:drawable/ic_menu_share"
+        android:showAsAction="always"
+        />
+
+    <item
         android:id="@+id/menu_favorite"
         android:title="@string/favorite"
-        android:icon="@android:drawable/star_on"
+        android:icon="@drawable/ic_action_star"
         android:showAsAction="always"
+        />
+
+    <item
+        android:title="@string/font_size"
+        android:showAsAction="never"
         />
 
     <item
         android:id="@+id/menu_preference"
         android:icon="@android:drawable/ic_menu_preferences"
         android:title="@string/preference"
-        android:showAsAction="never"
+        android:showAsAction="collapseActionView"
         />
-
 </menu>

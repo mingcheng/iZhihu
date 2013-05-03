@@ -25,6 +25,9 @@ public final class Database {
     public static final String COLUM_UPDATE_AT = "update_at";
     public static final String COLUM_USER_AVATAR = "user_avatar";
 
+    public static final int VALUE_READED = 1;
+    public static final int VALUE_STARED = 1;
+    public static final int VALUE_UNSTARED = 0;
 
     private final static int DATABASE_VERSION = 1;
     private static final String FILE_DATABASE_NAME = "zhihu.sqlite";
@@ -42,9 +45,7 @@ public final class Database {
             COLUM_UNREAD + " integer DEFAULT 0, " + COLUM_STARED + " integer DEFAULT 0 );"
     };
     private static final int PRE_LIMIT_PAGE_SIZE = 25;
-    private static final int VALUE_READED = 1;
-    private static final int VALUE_STARED = 1;
-    private static final int VALUE_UNSTARED = 0;
+
 
 
     protected static File databaseFile;

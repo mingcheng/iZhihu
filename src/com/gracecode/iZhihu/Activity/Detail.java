@@ -1,15 +1,17 @@
 package com.gracecode.iZhihu.Activity;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
-import android.webkit.WebView;
+import android.view.MenuItem;
 import android.widget.Toast;
 import com.gracecode.iZhihu.Dao.Database;
+import com.gracecode.iZhihu.Fragments.QuestionDetail;
 import com.gracecode.iZhihu.R;
 
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,10 +23,10 @@ public class Detail extends BaseActivity {
     private static final String DEFAULT_CHARSET = "utf-8";
     private static final String TEMPLATE_FILE_NAME = "detail.html";
 
-    private static WebView webView;
-    private Intent intent;
     private Database database;
     private int questionId;
+    private QuestionDetail fragQuestionDetail;
+    private Cursor cursor;
 
     private String getFileContent(InputStream fis) throws IOException {
         InputStreamReader isr = new InputStreamReader(fis, DEFAULT_CHARSET);
@@ -60,48 +62,103 @@ public class Detail extends BaseActivity {
         return template;
     }
 
+    private Cursor getCursorFromDatabase() {
+        this.cursor = database.getSingleQuestion(questionId);
+        if (cursor.getCount() != 1) {
+            Toast.makeText(context, getString(R.string.notfound), Toast.LENGTH_LONG).show();
+            finish();
+        }
+        cursor.moveToFirst();
+
+        return cursor;
+    }
+
+    private boolean isStared() {
+        return getCursorFromDatabase().getInt(cursor.getColumnIndex(Database.COLUM_STARED))
+            == Database.VALUE_STARED ? true : false;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.detail);
-
-        this.webView = (WebView) findViewById(R.id.webview);
-        this.intent = getIntent();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         this.database = new Database(context);
         this.questionId = getIntent().getIntExtra(Database.COLUM_ID, 0);
+        this.fragQuestionDetail = new QuestionDetail();
 
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        getCursorFromDatabase();
+        getFragmentManager()
+            .beginTransaction()
+            .replace(android.R.id.content, fragQuestionDetail)
+            .commit();
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        Cursor cursor = database.getSingleQuestion(questionId);
-        if (cursor.getCount() != 1) {
-            Toast.makeText(context, getString(R.string.notfound), Toast.LENGTH_LONG).show();
-            finish();
-        }
-
-        cursor.moveToFirst();
         String title = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_TITLE));
         String content = cursor.getString(cursor.getColumnIndex(Database.COLUM_CONTENT));
         String author = cursor.getString(cursor.getColumnIndex(Database.COLUM_USER_NAME));
         String description = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_DESCRIPTION));
 
+
+        content = formatContent(content);
+
         String data = String.format(getTemplateString(), title, description, author, content);
 
-        webView.loadDataWithBaseURL("file:///android_asset/", data, "text/html", DEFAULT_CHARSET, null);
+        int fontSize = Integer.parseInt(
+            sharedPreferences.getString(getString(R.string.key_font_size), getString(R.string.default_font_size)));
 
+
+        fragQuestionDetail.getWebView()
+            .loadDataWithBaseURL("file:///android_asset/", data, "text/html", DEFAULT_CHARSET, null);
         database.markSingleQuestionAsReaded(questionId);
+    }
+
+    private String formatContent(String content) {
+
+        Pattern pattern = Pattern.compile("<hr>");
+        Matcher matcher = pattern.matcher(content);
+        content = matcher.replaceAll("</p><p>");
+
+        pattern = Pattern.compile("<p>\\s+");
+        matcher = pattern.matcher(content);
+        content = matcher.replaceAll("<p>");
+
+        pattern = Pattern.compile("<p></p>");
+        matcher = pattern.matcher(content);
+        content = matcher.replaceAll("");
+
+        return "<p>" + content + "</p>";
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail, menu);
+
+        MenuItem item = menu.findItem(R.id.menu_favorite);
+        item.setIcon(isStared() ? R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
+
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_favorite:
+                database.markQuestionAsFavourated(questionId, !isStared());
+
+                boolean isStared = isStared();
+                item.setIcon(isStared ? R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
+                Toast.makeText(context,
+                    getString(isStared ? R.string.mark_as_stared : R.string.cancel_mark_as_stared), Toast.LENGTH_SHORT).show();
+
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

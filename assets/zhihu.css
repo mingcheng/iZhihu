@@ -5,22 +5,61 @@
  * @link   http://www.gracecode.com/
  */
 
+ * {
+ 	color: inherit;
+ 	text-rendering: optimizeLegibility;
+ }
+
+
 body {
+text-shadow: 0 1px 0 #fff;
+
     font-size: 16px;
     color: #333;
     padding: 1em;
     line-height: 1.5em;
 }
 
-body hr  {
-    text-align: center;
-    width: 50%;
-    display: block;
-    margin: 1em auto;
-    height: 1px;
-    border: 1px solid #eaeaea;
-    border-top: 0px;
+a {
+    color: #333;
+    text-decoration:none;
+    font-weight: 700;
+    border-bottom: 1px dotted #333;
 }
+
+ul, ol {
+    margin: 0;
+    padding: 5px 0;
+    list-style-position: inside;
+}
+
+sup {
+    border-left: 2px solid #999;
+    padding: 5px 0 5px 10px;
+    display: block;
+    vertical-align: baseline;
+    font-size: 100%;
+}
+
+sup img {
+    max-width: 280px;
+}
+
+blockquote {
+    margin: 10px 0;
+    padding-left: 10px;
+    border-left: 2px solid #999;
+    font-size: 90%;
+    color: #666;
+}
+
+
+
+hr {
+    margin: 0;
+    border-width: 0;
+}
+
 
 body a {
     color: #000;
@@ -33,18 +72,21 @@ body .question h1 {
     margin: 0 0 1em 0;
 }
 
+body .question {
+   word-wrap: break-word;
+}
+
 body .question p {
     line-height: 1.6em;
     margin: .5em 0;
-    white-space: mode;
 }
 
 body .question img {
     max-width: 95%;
-    border-radius: 5px;
-    border: 1px solid #eaeaea;
+    border: 1px solid #ccc;
     padding: .2em;
     background: #fff;
+    display: block;
 }
 
 body .question img {
@@ -57,9 +99,9 @@ body .question a:link {
 }
 
 .question_description {
-    color: #999;
-    padding: 0 0 0 1em;
-    font-size: small;
+    color: #777;
+    padding: 0em;
+    font-size: .9em;
     line-height: 1.5em;
 }
 
@@ -69,4 +111,14 @@ body .question a:link {
     margin: 1em 0 2em 0;
     font-size: small;
     color: #777;
+    font-weight: normal;
+}
+
+
+.end {
+width: 113px;
+height: 40px;
+background: url(izhihu.png) no-repeat center;
+margin: 3em auto 1em auto;
+background-size: 113px 40px;
 }

@@ -9,6 +9,7 @@
     <ImageView
         android:layout_marginRight="10dp"
         android:id="@+id/unread_flag"
+        android:visibility="visible"
         android:layout_height="10sp"
         android:layout_width="10sp"
         android:background="@android:color/holo_blue_light"

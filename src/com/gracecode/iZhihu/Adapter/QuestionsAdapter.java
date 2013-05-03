@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.gracecode.iZhihu.Dao.Database;
 import com.gracecode.iZhihu.R;
@@ -30,9 +31,20 @@ public class QuestionsAdapter extends CursorAdapter {
 
     }
 
+
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup viewGroup) {
-        return layoutInflater.inflate(R.layout.listview_question_item, null);
+        View view = layoutInflater.inflate(R.layout.listview_question_item, null);
+
+        TextView txtTitle = (TextView) view.findViewById(R.id.title);
+        TextView txtDescription = (TextView) view.findViewById(R.id.description);
+        ImageView unReadFlag = (ImageView) view.findViewById(R.id.unread_flag);
+
+        view.setTag(R.id.title, txtTitle);
+        view.setTag(R.id.description, txtDescription);
+        view.setTag(R.id.unread_flag, unReadFlag);
+
+        return view;
     }
 
     @Override
@@ -41,6 +53,9 @@ public class QuestionsAdapter extends CursorAdapter {
         String content = cursor.getString(cursor.getColumnIndex(Database.COLUM_CONTENT));
         String userName = cursor.getString(cursor.getColumnIndex(Database.COLUM_USER_NAME));
 
+        boolean isStared = (cursor.getInt(cursor.getColumnIndex(Database.COLUM_STARED)) == Database.VALUE_STARED) ? true : false;
+        boolean isUnreaded = (cursor.getInt(cursor.getColumnIndex(Database.COLUM_UNREAD)) == Database.VALUE_READED) ? false : true;
+
         content = Html.fromHtml(content).toString().trim();
         content = (userName.length() > 1 ? userName.trim() + "：" : "") + content;
 
@@ -48,18 +63,19 @@ public class QuestionsAdapter extends CursorAdapter {
         TextView txtDescription = (TextView) view.findViewById(R.id.description);
         View viewUnreadFlag = view.findViewById(R.id.unread_flag);
 
-        if (cursor.getInt(cursor.getColumnIndex(Database.COLUM_UNREAD)) != 0) {
-            viewUnreadFlag.setVisibility(View.INVISIBLE);
+        if (isStared) {
+            viewUnreadFlag.setBackgroundResource(android.R.color.holo_red_light);
         } else {
+            viewUnreadFlag.setBackgroundResource(android.R.color.holo_blue_light);
+        }
+
+        if (isStared || isUnreaded) {
             viewUnreadFlag.setVisibility(View.VISIBLE);
+        } else {
+            viewUnreadFlag.setVisibility(View.INVISIBLE);
         }
 
         txtTitle.setText(title);
         txtDescription.setText(content);
-        if (content.length() > 1) {
-            txtDescription.setVisibility(View.VISIBLE);
-        } else {
-            txtDescription.setVisibility(View.GONE);
-        }
     }
 }

@@ -5,15 +5,21 @@
     <item
         android:id="@+id/menu_refresh"
         android:title="@string/refersh"
+        android:icon="@drawable/ic_action_refersh"
         android:showAsAction="always"
         />
-
     <item
         android:id="@+id/menu_preference"
         android:icon="@android:drawable/ic_menu_preferences"
         android:title="@string/preference"
         android:showAsAction="never"
         />
+    <item
+        android:id="@+id/menu_feedback"
+        android:title="@string/feedback"
+        android:showAsAction="never"
+        />
+
     <item
         android:id="@+id/menu_about"
         android:title="@string/about"
