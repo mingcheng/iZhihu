@@ -44,8 +44,7 @@ public final class Database {
             COLUM_QUESTION_DESCRIPTION + " text, " + COLUM_CONTENT + " text, " + COLUM_UPDATE_AT + " text, " +
             COLUM_UNREAD + " integer DEFAULT 0, " + COLUM_STARED + " integer DEFAULT 0 );"
     };
-    private static final int PRE_LIMIT_PAGE_SIZE = 25;
-
+    public static final int PRE_LIMIT_PAGE_SIZE = 25;
 
 
     protected static File databaseFile;
@@ -82,9 +81,14 @@ public final class Database {
         this.databaseOpenHelper = new DatabaseOpenHelper(context, databaseFile.getAbsolutePath());
     }
 
-    public Cursor getRecentQuestions() {
+    public Cursor getRecentQuestions(int offset) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-        return db.query(DATABASE_QUESTIONS_TABLE_NAME, null, null, null, null, null, COLUM_UPDATE_AT + " DESC ");
+        return db.query(DATABASE_QUESTIONS_TABLE_NAME, null, null, null, null, null,
+            COLUM_UPDATE_AT + " DESC LIMIT " + PRE_LIMIT_PAGE_SIZE + " OFFSET " + offset);
+    }
+
+    public Cursor getRecentQuestions() {
+        return getRecentQuestions(0);
     }
 
     public Cursor getFavoritesQuestion() {

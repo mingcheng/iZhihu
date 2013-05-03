@@ -105,7 +105,6 @@ public class Detail extends BaseActivity {
         String author = cursor.getString(cursor.getColumnIndex(Database.COLUM_USER_NAME));
         String description = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_DESCRIPTION));
 
-
         content = formatContent(content);
 
         String data = String.format(getTemplateString(), title, description, author, content);
@@ -150,7 +149,7 @@ public class Detail extends BaseActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_favorite:
-                new ToggleStarTask(context, new ToggleStarTask.Callback() {
+                ToggleStarTask toggleStarTask = new ToggleStarTask(context, new ToggleStarTask.Callback() {
                     @Override
                     public void onPostExecute() {
                         boolean isStared = isStared();
@@ -163,7 +162,9 @@ public class Detail extends BaseActivity {
                     @Override
                     public void onPreExecute() {
                     }
-                }).execute(new ToggleStarTask.Item(questionId, !isStared()));
+                });
+
+                toggleStarTask.execute(new ToggleStarTask.Item(questionId, !isStared()));
                 return true;
         }
 
