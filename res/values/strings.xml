@@ -23,4 +23,8 @@
     <string name="feedback">Feedback</string>
     <string name="mark_as_stared">Marked as favorites</string>
     <string name="cancel_mark_as_stared">Cancel marked as favorites</string>
+    <string name="author_email">lucky@gracecode.com</string>
+    <string name="feedback_title">Feedback for %%s %%s</string>
+    <string name="choose_email_client">Choose an Email client:</string>
+    <string name="view_at_zhihu">View at Zhihu</string>
 </resources>

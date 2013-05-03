@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.gracecode.iZhihu.Dao.Database;
 import com.gracecode.iZhihu.Fragments.QuestionDetail;
 import com.gracecode.iZhihu.R;
+import com.gracecode.iZhihu.Tasks.ToggleStarTask;
 
 import java.io.*;
 import java.util.regex.Matcher;
@@ -146,18 +147,26 @@ public class Detail extends BaseActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_favorite:
-                database.markQuestionAsFavourated(questionId, !isStared());
+                new ToggleStarTask(context, new ToggleStarTask.Callback() {
+                    @Override
+                    public void onPostExecute() {
+                        boolean isStared = isStared();
+                        item.setIcon(isStared ? R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
 
-                boolean isStared = isStared();
-                item.setIcon(isStared ? R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
-                Toast.makeText(context,
-                    getString(isStared ? R.string.mark_as_stared : R.string.cancel_mark_as_stared), Toast.LENGTH_SHORT).show();
+                        String showMessage = getString(isStared ? R.string.mark_as_stared : R.string.cancel_mark_as_stared);
+                        Toast.makeText(context, showMessage, Toast.LENGTH_SHORT).show();
+                    }
 
+                    @Override
+                    public void onPreExecute() {
+                    }
+                }).execute(new ToggleStarTask.Item(questionId, !isStared()));
                 return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

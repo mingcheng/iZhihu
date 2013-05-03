@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
@@ -15,6 +17,7 @@ public abstract class BaseActivity extends Activity {
     protected static ActionBar actionBar;
     protected static Context context;
     protected static SharedPreferences sharedPreferences;
+    protected static PackageInfo packageInfo;
 
     public BaseActivity() {
         super();
@@ -29,6 +32,12 @@ public abstract class BaseActivity extends Activity {
 
         context = getApplicationContext();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -41,6 +50,16 @@ public abstract class BaseActivity extends Activity {
 
             case android.R.id.home:
                 finish();
+                return true;
+
+            case R.id.menu_feedback:
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.author_email)});
+                String subject =
+                    String.format(getString(R.string.feedback_title), getString(R.string.app_name), packageInfo.versionName);
+                i.putExtra(Intent.EXTRA_SUBJECT, subject);
+                startActivity(Intent.createChooser(i, getString(R.string.choose_email_client)));
                 return true;
 
             case R.id.menu_about:

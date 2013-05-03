@@ -18,6 +18,11 @@
         />
 
     <item
+        android:title="@string/view_at_zhihu"
+        android:showAsAction="never"
+        />
+
+    <item
         android:title="@string/font_size"
         android:showAsAction="never"
         />

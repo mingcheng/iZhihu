@@ -84,7 +84,7 @@ public final class Database {
 
     public Cursor getRecentQuestions() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-        return db.query(DATABASE_QUESTIONS_TABLE_NAME, null, null, null, null, null, COLUM_UPDATE_AT + " DESC LIMIT " + PRE_LIMIT_PAGE_SIZE);
+        return db.query(DATABASE_QUESTIONS_TABLE_NAME, null, null, null, null, null, COLUM_UPDATE_AT + " DESC ");
     }
 
     public Cursor getFavoritesQuestion() {

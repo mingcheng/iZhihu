@@ -78,7 +78,7 @@ body .question {
 
 body .question p {
     line-height: 1.6em;
-    margin: .5em 0;
+    margin: .7em 0;
 }
 
 body .question img {
@@ -87,6 +87,7 @@ body .question img {
     padding: .2em;
     background: #fff;
     display: block;
+    margin: .5em 0;
 }
 
 body .question img {

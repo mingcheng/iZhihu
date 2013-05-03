@@ -15,13 +15,7 @@ import com.gracecode.iZhihu.Adapter.QuestionsAdapter;
 import com.gracecode.iZhihu.Dao.Database;
 import com.gracecode.iZhihu.R;
 
-/**
- * Created with IntelliJ IDEA.
- * <p/>
- * User: mingcheng
- * Date: 13-4-27
- */
-public class BaseQuestionsList extends ListFragment {
+public abstract class BaseQuestionsList extends ListFragment {
     protected Activity activity;
     protected Context context;
     protected Database database;

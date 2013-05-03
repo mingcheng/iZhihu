@@ -47,7 +47,7 @@ public class Main extends BaseActivity {
     }
 
     public void fetchQuestionsFromServer(final Boolean focus) {
-        new FetchQuestionTask(context, new FetchQuestionTask.Callback() {
+        FetchQuestionTask task = new FetchQuestionTask(context, new FetchQuestionTask.Callback() {
             private ProgressDialog progressDialog;
 
             @Override
@@ -71,7 +71,9 @@ public class Main extends BaseActivity {
                 }
             }
 
-        }).execute(focus);
+        });
+
+        task.execute(focus);
     }
 
     @Override
