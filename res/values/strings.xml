@@ -40,4 +40,7 @@
     <string name="key_analytics">analytics</string>
     <string name="analytics">Enable analytics</string>
     <string name="analytics_summary">Help make iZhihu better by opting into anonymous statistics reporting</string>
+    <string name="key_indent">key_indent</string>
+    <string name="paragraph_indents">Paragraph indents</string>
+    <string name="paragraph_summary">Indents one characters on each paragraph</string>
 </resources>

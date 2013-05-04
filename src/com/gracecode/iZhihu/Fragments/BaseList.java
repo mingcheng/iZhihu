@@ -15,13 +15,13 @@ import com.gracecode.iZhihu.Adapter.QuestionsAdapter;
 import com.gracecode.iZhihu.Dao.Database;
 import com.gracecode.iZhihu.R;
 
-public abstract class BaseQuestionsList extends ListFragment {
+public abstract class BaseList extends ListFragment {
     protected Activity activity;
     protected Context context;
     protected Database database;
     protected Cursor questions;
 
-    public BaseQuestionsList() {
+    public BaseList() {
         super();
     }
 

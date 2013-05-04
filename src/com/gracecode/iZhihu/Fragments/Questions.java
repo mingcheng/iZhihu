@@ -12,7 +12,7 @@ import com.gracecode.iZhihu.Tasks.GetMoreLocalQuestionsTask;
  * User: mingcheng
  * Date: 13-4-27
  */
-public class QuestionsList extends BaseQuestionsList implements AbsListView.OnScrollListener {
+public class Questions extends BaseList implements AbsListView.OnScrollListener {
     private QuestionsAdapter questionsAdapter;
     private int currentPage = 1;
     private boolean isRunning = false;

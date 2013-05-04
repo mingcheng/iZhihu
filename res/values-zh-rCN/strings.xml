@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">读知乎</string>
+    <string name="preference">选项</string>
+    <string name="about">关于</string>
+    <string name="tab_index">主页</string>
+    <string name="tab_favorite">收藏</string>
+    <string name="browser">浏览</string>
+    <string name="share">分享</string>
+    <string name="caches">缓存</string>
+    <string name="font_size">文字大小</string>
+    <string name="tiny">极小</string>
+    <string name="small">较小</string>
+    <string name="medium">正常</string>
+    <string name="large">较大</string>
+    <string name="huge">极大</string>
+    <string name="font_size_summary">选择您喜欢的阅读文字大小</string>
+    <string name="refersh">刷新</string>
+    <string name="loading">正在载入中，请您稍候…</string>
+    <string name="notfound">抱歉，没有找到对应的数据</string>
+    <string name="favorite">收藏</string>
+    <string name="feedback">反馈</string>
+    <string name="mark_as_stared">已标记为收藏</string>
+    <string name="cancel_mark_as_stared">取消收藏</string>
+    <string name="feedback_title" formatted="false">针对 %s %s 的反馈</string>
+    <string name="choose_email_client">请选择电子邮件客户端：</string>
+    <string name="view_at_zhihu">网页版</string>
+    <string name="donate_summary">感谢您的使用。如果您觉得这应用对您有帮助，欢迎您给点杯咖啡给作者 :^)</string>
+    <string name="donate">点杯咖啡</string>
+    <string name="about_summary">欢迎使用「读知乎」客户端</string>
+    <string name="version_tail">版本：</string>
+    <string name="feedback_summary">欢迎您提供任何的意见和建议</string>
+    <string name="analytics">匿名统计</string>
+    <string name="analytics_summary">匿名的统计信息将有助于作者改进「读知乎」</string>
+</resources>

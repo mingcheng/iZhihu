@@ -4,7 +4,7 @@ package com.gracecode.iZhihu.Fragments;
 import android.os.Bundle;
 import com.gracecode.iZhihu.Adapter.QuestionsAdapter;
 
-public class FavoritesList extends BaseQuestionsList {
+public class Favorites extends BaseList {
     private QuestionsAdapter questionsAdapter;
 
     @Override

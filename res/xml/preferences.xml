@@ -14,6 +14,13 @@
             android:dialogTitle="@string/font_size"
             android:defaultValue="@string/default_font_size"
             />
+
+        <CheckBoxPreference
+            android:key="@string/key_indent"
+            android:title="@string/paragraph_indents"
+            android:defaultValue="false"
+            android:summary="@string/paragraph_summary"
+            />
     </PreferenceCategory>
 
     <!--<PreferenceCategory-->

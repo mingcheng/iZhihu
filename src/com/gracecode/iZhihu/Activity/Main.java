@@ -5,8 +5,8 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.gracecode.iZhihu.Fragments.FavoritesList;
-import com.gracecode.iZhihu.Fragments.QuestionsList;
+import com.gracecode.iZhihu.Fragments.Favorites;
+import com.gracecode.iZhihu.Fragments.Questions;
 import com.gracecode.iZhihu.Listener.MainTabListener;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.FetchQuestionTask;
@@ -24,11 +24,11 @@ public class Main extends BaseActivity {
 
         ActionBar.Tab mainTab = actionBar.newTab()
             .setText(getString(R.string.tab_index))
-            .setTabListener(new MainTabListener(context, QuestionsList.class.getName()));
+            .setTabListener(new MainTabListener(context, Questions.class.getName()));
 
         ActionBar.Tab favoritesTab = actionBar.newTab()
             .setText(getString(R.string.tab_favorite))
-            .setTabListener(new MainTabListener(context, FavoritesList.class.getName()));
+            .setTabListener(new MainTabListener(context, Favorites.class.getName()));
 
         actionBar.addTab(mainTab);
         actionBar.addTab(favoritesTab);

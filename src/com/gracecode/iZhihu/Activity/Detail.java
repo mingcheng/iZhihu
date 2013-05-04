@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import com.gracecode.iZhihu.Dao.Database;
-import com.gracecode.iZhihu.Fragments.QuestionDetail;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.ToggleStarTask;
 import com.gracecode.iZhihu.Util;
@@ -15,12 +14,7 @@ import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created with IntelliJ IDEA.
- * <p/>
- * User: mingcheng
- * Date: 13-4-27
- */
+
 public class Detail extends BaseActivity {
     private static final String DEFAULT_CHARSET = "utf-8";
     private static final String TEMPLATE_DETAIL_FILE = "detail.html";
@@ -28,7 +22,7 @@ public class Detail extends BaseActivity {
 
     private Database database;
     private int id;
-    private QuestionDetail fragQuestionDetail;
+    private com.gracecode.iZhihu.Fragments.Detail fragQuestionDetail;
     private Cursor cursor;
     private String title;
     private String content;
@@ -94,7 +88,7 @@ public class Detail extends BaseActivity {
 
         this.database = new Database(context);
         this.id = getIntent().getIntExtra(Database.COLUM_ID, 0);
-        this.fragQuestionDetail = new QuestionDetail();
+        this.fragQuestionDetail = new com.gracecode.iZhihu.Fragments.Detail();
 
         getCursorFromDatabase();
         getFragmentManager()
@@ -113,10 +107,7 @@ public class Detail extends BaseActivity {
         this.description = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_DESCRIPTION));
         this.questionId = cursor.getInt(cursor.getColumnIndex(Database.COLUM_QUESTION_ID));
 
-        int fontSize = Integer.parseInt(
-            sharedPreferences.getString(getString(R.string.key_font_size), getString(R.string.default_font_size)));
-
-        String data = String.format(getTemplateString(), fontSize, title, description, author, formatContent(content));
+        String data = String.format(getTemplateString(), getClassName(), title, description, author, formatContent(content));
         fragQuestionDetail.getWebView()
             .loadDataWithBaseURL(URL_ASSETS_PREFIX, data, "text/html", DEFAULT_CHARSET, null);
 
@@ -143,11 +134,9 @@ public class Detail extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (id != 0) {
-            getMenuInflater().inflate(R.menu.detail, menu);
-            MenuItem item = menu.findItem(R.id.menu_favorite);
-            item.setIcon(isStared() ? R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
-        }
+        getMenuInflater().inflate(R.menu.detail, menu);
+        MenuItem item = menu.findItem(R.id.menu_favorite);
+        item.setIcon(isStared() ? R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
         return true;
     }
 
@@ -189,5 +178,39 @@ public class Detail extends BaseActivity {
             database.close();
             database = null;
         }
+    }
+
+    public String getClassName() {
+        String className = "";
+        int fontSize = Integer.parseInt(
+            sharedPreferences.getString(getString(R.string.key_font_size), getString(R.string.default_font_size)));
+
+        boolean needIndent = sharedPreferences.getBoolean(getString(R.string.key_indent), false);
+
+        switch (fontSize) {
+            case 12:
+                className += " tiny";
+                break;
+            case 14:
+                className += " small";
+                break;
+            case 16:
+                className += " normal";
+                break;
+            case 18:
+                className += " big";
+                break;
+            case 20:
+                className += " huge";
+                break;
+            default:
+                className += " normal";
+        }
+
+        if (needIndent) {
+            className += " indent";
+        }
+
+        return className;
     }
 }

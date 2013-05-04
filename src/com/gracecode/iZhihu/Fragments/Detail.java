@@ -15,7 +15,7 @@ import android.webkit.WebViewFragment;
  * User: mingcheng
  * Date: 13-4-27
  */
-public class QuestionDetail extends WebViewFragment {
+public class Detail extends WebViewFragment {
 
     private WebView webView;
 

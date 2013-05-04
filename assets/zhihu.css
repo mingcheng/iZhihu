@@ -5,11 +5,10 @@
  * @link   http://www.gracecode.com/
  */
 
-* {
+p {
     color: inherit;
     text-rendering: optimizeLegibility;
 }
-
 
 body {
     text-shadow: 0 1px 0 #fff;
@@ -156,4 +155,28 @@ body .question a:link {
 
 .about dd {
     margin:  .5em 0 .5em 1em;
+}
+
+.indent p {
+    text-indent: 1em;
+}
+
+.tiny {
+    font-size: 12px;
+}
+
+.small {
+    font-size: 14px;
+}
+
+.normal {
+    font-size: 16px;
+}
+
+.big {
+    font-size: 18px;
+}
+
+.huge {
+    font-size: 20px;
 }
