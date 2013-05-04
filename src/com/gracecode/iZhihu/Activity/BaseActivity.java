@@ -40,6 +40,8 @@ public abstract class BaseActivity extends Activity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
+
+        // setTheme(android.R.style.Theme_Holo_Light);
     }
 
     @Override

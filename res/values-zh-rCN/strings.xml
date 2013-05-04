@@ -25,7 +25,7 @@
     <string name="feedback_title" formatted="false">针对 %s %s 的反馈</string>
     <string name="choose_email_client">请选择电子邮件客户端：</string>
     <string name="view_at_zhihu">网页版</string>
-    <string name="donate_summary">感谢您的使用。如果您觉得这应用对您有帮助，欢迎您给点杯咖啡给作者 :^)</string>
+    <string name="donate_summary">如您觉得这应用对您有帮助，万分感谢您点杯咖啡犒劳下作者 :^)</string>
     <string name="donate">点杯咖啡</string>
     <string name="about_summary">欢迎使用「读知乎」客户端</string>
     <string name="version_tail">版本：</string>

@@ -9,15 +9,12 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class FetchQuestionTask extends BaseTasks<Boolean, Void, Void> {
+public class FetchQuestion extends BaseTasks<Boolean, Void, Void> {
     private final static int MAX_FETCH_TIMES = 3600 * 1000 * 2; // 2 hours
 
-    public FetchQuestionTask(Context context, Callback callback) {
+    public FetchQuestion(Context context, Callback callback) {
         super(context, callback);
     }
-
-
-
 
     @Override
     protected Void doInBackground(Boolean... booleans) {
@@ -29,7 +26,7 @@ public class FetchQuestionTask extends BaseTasks<Boolean, Void, Void> {
 
                 //Thread.sleep(2000);
 
-                JSONArray fetchedData = requester.fetch();
+                JSONArray fetchedData = requester.fetch(3000);
                 for (int i = 0, length = fetchedData.length(); i < length; i++) {
                     JSONObject item = (JSONObject) fetchedData.get(i);
                     database.insertSingleQuestion(item);

@@ -36,6 +36,7 @@ public class Detail extends WebViewFragment {
     private String author;
     private String description;
     private int questionId;
+    private String updateAt;
 
     private String getFileContent(InputStream fis) throws IOException {
         InputStreamReader isr = new InputStreamReader(fis, DEFAULT_CHARSET);
@@ -104,6 +105,7 @@ public class Detail extends WebViewFragment {
             title, description, author, formatContent(content));
 
         getWebView().loadDataWithBaseURL(URL_ASSETS_PREFIX, data, MIME_TYPE, DEFAULT_CHARSET, null);
+
     }
 
     private void getQuestionData() {
@@ -113,6 +115,7 @@ public class Detail extends WebViewFragment {
             return;
         }
         this.title = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_TITLE));
+        this.updateAt = cursor.getString(cursor.getColumnIndex(Database.COLUM_UPDATE_AT));
         this.content = cursor.getString(cursor.getColumnIndex(Database.COLUM_CONTENT));
         this.author = cursor.getString(cursor.getColumnIndex(Database.COLUM_USER_NAME));
         this.description = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_DESCRIPTION));
@@ -149,7 +152,9 @@ public class Detail extends WebViewFragment {
         matcher = pattern.matcher(content);
         content = matcher.replaceAll("");
 
-        return "<p>" + content + "</p>";
+        content = "<p>" + content + "</p>";
+
+        return content + "<p class='update-at'>" + updateAt + "</p>";
     }
 
     private String getClassName() {

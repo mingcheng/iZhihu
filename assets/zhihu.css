@@ -180,3 +180,9 @@ body .question a:link {
 .huge {
     font-size: 20px;
 }
+
+.update-at {
+    font-size: 12px!important;
+    text-align: right;
+    color: #ccc;
+}

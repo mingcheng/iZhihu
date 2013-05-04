@@ -25,7 +25,7 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Requester {
 
-    private static final String URL_REQUEST = "http://z.ihu.im/?method=sync&timestamp=%s&sign=%s&start=%s&device=%s";
+    private static final String URL_REQUEST = "http://z.ihu.im/?method=sync&timestamp=%s&sign=%s&start=%d&device=%s";
     private static final String DEVICE_UUID = android.os.Build.SERIAL;
     private static final String APP_KEY = "133ff1e10a8b244767ef734fb86f37fd";
     private static final int DEFAULT_START_OFFSET = 1;
@@ -80,7 +80,7 @@ public class Requester {
     }
 
     synchronized public JSONArray fetch(Integer offset) throws IOException, NetworkErrorException, JSONException {
-        String requestUrl = getRequestUrl(String.valueOf(offset));
+        String requestUrl = getRequestUrl(offset);
         Log.i(context.getPackageName(), "The request URL is " + requestUrl);
 
         HttpGet httpGet = new HttpGet(requestUrl);
@@ -118,7 +118,7 @@ public class Requester {
         markRequestTimestamp(0l);
     }
 
-    private String getRequestUrl(String offset) {
+    private String getRequestUrl(int offset) {
         String timeStampString = String.valueOf(System.currentTimeMillis()).substring(0, TIME_STAMP_LENGTH);
         String signString = getSignString(timeStampString);
 

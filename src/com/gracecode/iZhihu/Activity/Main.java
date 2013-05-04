@@ -10,7 +10,7 @@ import com.gracecode.iZhihu.Fragments.Favorites;
 import com.gracecode.iZhihu.Fragments.Questions;
 import com.gracecode.iZhihu.Listener.MainTabListener;
 import com.gracecode.iZhihu.R;
-import com.gracecode.iZhihu.Tasks.FetchQuestionTask;
+import com.gracecode.iZhihu.Tasks.FetchQuestion;
 
 public class Main extends BaseActivity {
 
@@ -58,7 +58,7 @@ public class Main extends BaseActivity {
     }
 
     public void fetchQuestionsFromServer(final Boolean focus) {
-        FetchQuestionTask task = new FetchQuestionTask(context, new FetchQuestionTask.Callback() {
+        FetchQuestion task = new FetchQuestion(context, new FetchQuestion.Callback() {
             private ProgressDialog progressDialog;
 
             @Override
