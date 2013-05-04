@@ -32,4 +32,6 @@
     <string name="feedback_summary">欢迎您提供任何的意见和建议</string>
     <string name="analytics">匿名统计</string>
     <string name="analytics_summary">匿名的统计信息将有助于作者改进「读知乎」</string>
+    <string name="paragraph_indents">段落缩进</string>
+    <string name="paragraph_summary">每个段落缩进一个字符</string>
 </resources>

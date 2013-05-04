@@ -2,6 +2,7 @@ package com.gracecode.iZhihu.Activity;
 
 import android.app.ActionBar;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,8 +15,13 @@ import com.gracecode.iZhihu.Tasks.FetchQuestionTask;
 public class Main extends BaseActivity {
 
     private boolean isFirstRun() {
-
-        return false;
+        Boolean isFirstrun = sharedPreferences.getBoolean(getString(R.string.app_name), true);
+        if (isFirstrun) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(getString(R.string.app_name), false);
+            editor.commit();
+        }
+        return isFirstrun;
     }
 
     private void rebuildTables() throws RuntimeException {
@@ -42,7 +48,7 @@ public class Main extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        fetchQuestionsFromServer(false);
+        fetchQuestionsFromServer(isFirstRun() ? true : false);
     }
 
     @Override

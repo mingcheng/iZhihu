@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 import java.io.File;
 
-public final class Database {
+public final class Database implements Cloneable {
 
     public static final String COLUM_ID = "id";
     public static final String COLUM_QUESTION_ID = "question_id";
