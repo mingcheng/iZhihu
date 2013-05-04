@@ -83,7 +83,10 @@ public final class Database {
 
     public Cursor getRecentQuestions(int offset) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-        return db.query(DATABASE_QUESTIONS_TABLE_NAME, null, null, null, null, null,
+        return db.query(DATABASE_QUESTIONS_TABLE_NAME, new String[]{
+            "_id", COLUM_ID, COLUM_QUESTION_ID, COLUM_STARED, COLUM_UNREAD, COLUM_USER_NAME,
+            COLUM_QUESTION_TITLE, COLUM_QUESTION_DESCRIPTION, COLUM_CONTENT
+        }, null, null, null, null,
             COLUM_UPDATE_AT + " DESC LIMIT " + PRE_LIMIT_PAGE_SIZE + " OFFSET " + offset);
     }
 
@@ -93,7 +96,10 @@ public final class Database {
 
     public Cursor getFavoritesQuestion() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-        return db.query(DATABASE_QUESTIONS_TABLE_NAME, null, " stared = 1 ", null, null, null, "update_at DESC");
+        return db.query(DATABASE_QUESTIONS_TABLE_NAME, new String[]{
+            "_id", COLUM_ID, COLUM_QUESTION_ID, COLUM_STARED, COLUM_UNREAD, COLUM_USER_NAME,
+            COLUM_QUESTION_TITLE, COLUM_QUESTION_DESCRIPTION, COLUM_CONTENT
+        }, " stared = 1 ", null, null, null, "update_at DESC");
     }
 
     public Cursor getSingleQuestion(int id) {

@@ -38,7 +38,6 @@ public abstract class BaseQuestionsList extends ListFragment {
     public void onStart() {
         QuestionsAdapter adapter = (QuestionsAdapter) getListAdapter();
         adapter.notifyDataSetChanged();
-
         super.onStart();
     }
 

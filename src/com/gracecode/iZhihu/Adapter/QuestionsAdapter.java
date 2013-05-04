@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.gracecode.iZhihu.Dao.Database;
 import com.gracecode.iZhihu.R;
 
+import java.util.HashMap;
+
 /**
  * Created with IntelliJ IDEA.
  * <p/>
@@ -19,16 +21,25 @@ import com.gracecode.iZhihu.R;
  * Date: 13-4-27
  */
 public class QuestionsAdapter extends CursorAdapter {
+    private static final int MAX_DESPCRIPTION_LENGTH = 100;
     private final LayoutInflater layoutInflater;
     private final Context context;
     private final Cursor cursor;
+    private HashMap<Integer, CacheItem> cacheItemHashMap;
+
+    private static class CacheItem {
+        public String title;
+        public String description;
+        public Boolean isUnread;
+        public Boolean isStared;
+    }
 
     public QuestionsAdapter(Context context, Cursor cursor) {
         super(context, cursor, false);
         this.context = context;
         this.cursor = cursor;
+        this.cacheItemHashMap = new HashMap<Integer, CacheItem>();
         layoutInflater = LayoutInflater.from(context);
-
     }
 
 
@@ -48,34 +59,67 @@ public class QuestionsAdapter extends CursorAdapter {
     }
 
     @Override
+    public void changeCursor(Cursor cursor) {
+        clear();
+        cursor.moveToFirst();
+        while (cursor.moveToNext()) {
+            getFromCaches(cursor);
+        }
+        super.changeCursor(cursor);
+    }
+
+    private CacheItem getFromCaches(Cursor cursor) {
+        int position = cursor.getPosition();
+
+        if (cacheItemHashMap.containsKey(position)) {
+            return cacheItemHashMap.get(position);
+        } else {
+            String title = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_TITLE));
+            String content = cursor.getString(cursor.getColumnIndex(Database.COLUM_CONTENT));
+            String userName = cursor.getString(cursor.getColumnIndex(Database.COLUM_USER_NAME));
+            int maxLength = content.length() > MAX_DESPCRIPTION_LENGTH ? MAX_DESPCRIPTION_LENGTH : content.length();
+
+            content = Html.fromHtml(content).toString().trim();
+            content = (userName.length() > 1 ? userName.trim() + "：" : "") + content;
+
+            boolean isStared = (cursor.getInt(cursor.getColumnIndex(Database.COLUM_STARED)) == Database.VALUE_STARED) ? true : false;
+            boolean isUnreaded = (cursor.getInt(cursor.getColumnIndex(Database.COLUM_UNREAD)) == Database.VALUE_READED) ? false : true;
+
+            CacheItem item = new CacheItem();
+            item.description = content.substring(0, maxLength);
+            item.title = title;
+            item.isStared = isStared;
+            item.isUnread = isUnreaded;
+
+            cacheItemHashMap.put(position, item);
+            return item;
+        }
+    }
+
+    public void clear() {
+        cacheItemHashMap.clear();
+    }
+
+    @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        String title = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_TITLE));
-        String content = cursor.getString(cursor.getColumnIndex(Database.COLUM_CONTENT));
-        String userName = cursor.getString(cursor.getColumnIndex(Database.COLUM_USER_NAME));
+        TextView txtTitle = (TextView) view.getTag(R.id.title);
+        TextView txtDescription = (TextView) view.getTag(R.id.description);
+        ImageView viewUnreadFlag = (ImageView) view.getTag(R.id.unread_flag);
 
-        boolean isStared = (cursor.getInt(cursor.getColumnIndex(Database.COLUM_STARED)) == Database.VALUE_STARED) ? true : false;
-        boolean isUnreaded = (cursor.getInt(cursor.getColumnIndex(Database.COLUM_UNREAD)) == Database.VALUE_READED) ? false : true;
-
-        content = Html.fromHtml(content).toString().trim();
-        content = (userName.length() > 1 ? userName.trim() + "：" : "") + content;
-
-        TextView txtTitle = (TextView) view.findViewById(R.id.title);
-        TextView txtDescription = (TextView) view.findViewById(R.id.description);
-        View viewUnreadFlag = view.findViewById(R.id.unread_flag);
-
-        if (isStared) {
+        CacheItem item = getFromCaches(cursor);
+        if (item.isStared) {
             viewUnreadFlag.setBackgroundResource(android.R.color.holo_red_light);
         } else {
             viewUnreadFlag.setBackgroundResource(android.R.color.holo_blue_light);
         }
 
-        if (isStared || isUnreaded) {
+        if (item.isStared || item.isUnread) {
             viewUnreadFlag.setVisibility(View.VISIBLE);
         } else {
             viewUnreadFlag.setVisibility(View.INVISIBLE);
         }
 
-        txtTitle.setText(title);
-        txtDescription.setText(content);
+        txtTitle.setText(item.title);
+        txtDescription.setText(item.description);
     }
 }
