@@ -81,17 +81,17 @@ public final class Database {
         this.databaseOpenHelper = new DatabaseOpenHelper(context, databaseFile.getAbsolutePath());
     }
 
-    public Cursor getRecentQuestions(int offset) {
+    public Cursor getRecentQuestions(int page) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         return db.query(DATABASE_QUESTIONS_TABLE_NAME, new String[]{
             "_id", COLUM_ID, COLUM_QUESTION_ID, COLUM_STARED, COLUM_UNREAD, COLUM_USER_NAME,
             COLUM_QUESTION_TITLE, COLUM_QUESTION_DESCRIPTION, COLUM_CONTENT
         }, null, null, null, null,
-            COLUM_UPDATE_AT + " DESC LIMIT " + PRE_LIMIT_PAGE_SIZE + " OFFSET " + offset);
+            COLUM_UPDATE_AT + " DESC LIMIT " + PRE_LIMIT_PAGE_SIZE * page);
     }
 
     public Cursor getRecentQuestions() {
-        return getRecentQuestions(0);
+        return getRecentQuestions(1);
     }
 
     public Cursor getFavoritesQuestion() {

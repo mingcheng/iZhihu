@@ -13,7 +13,7 @@ abstract class BaseTasks<Params, Progress, Result> extends AsyncTask<Params, Pro
     protected final Callback callback;
 
     public abstract interface Callback {
-        public abstract void onPostExecute();
+        public abstract void onPostExecute(Object result);
 
         public abstract void onPreExecute();
     }
@@ -32,6 +32,6 @@ abstract class BaseTasks<Params, Progress, Result> extends AsyncTask<Params, Pro
 
     @Override
     protected void onPostExecute(Result result) {
-        callback.onPostExecute();
+        callback.onPostExecute(result);
     }
 }

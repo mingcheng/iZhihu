@@ -59,7 +59,7 @@ public class Main extends BaseActivity {
             }
 
             @Override
-            public void onPostExecute() {
+            public void onPostExecute(Object o) {
                 try {
                     rebuildTables();
                 } catch (RuntimeException e) {

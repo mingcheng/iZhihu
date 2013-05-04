@@ -151,7 +151,7 @@ public class Detail extends BaseActivity {
             case R.id.menu_favorite:
                 ToggleStarTask toggleStarTask = new ToggleStarTask(context, new ToggleStarTask.Callback() {
                     @Override
-                    public void onPostExecute() {
+                    public void onPostExecute(Object o) {
                         boolean isStared = isStared();
                         item.setIcon(isStared ? R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
 
