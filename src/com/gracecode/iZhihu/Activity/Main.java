@@ -13,6 +13,11 @@ import com.gracecode.iZhihu.Tasks.FetchQuestionTask;
 
 public class Main extends BaseActivity {
 
+    private boolean isFirstRun() {
+
+        return false;
+    }
+
     private void rebuildTables() throws RuntimeException {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.removeAllTabs();

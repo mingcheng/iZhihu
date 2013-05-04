@@ -41,6 +41,13 @@
             android:summary="@string/donate_summary"
             />
 
+        <CheckBoxPreference
+            android:key="@string/key_analytics"
+            android:title="@string/analytics"
+            android:defaultValue="true"
+            android:summary="@string/analytics_summary"
+            />
+
         <Preference
             android:key="@string/key_about"
             android:title="@string/about"

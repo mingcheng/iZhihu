@@ -10,11 +10,12 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import com.flurry.android.FlurryAgent;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
 
-
 public abstract class BaseActivity extends Activity {
+    private static final String FLURRY_KEY = "T25PQCHWSVRS9RGQSR46";
     protected static ActionBar actionBar;
     protected static Context context;
     protected static SharedPreferences sharedPreferences;
@@ -42,10 +43,27 @@ public abstract class BaseActivity extends Activity {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+        Boolean openAnalytics = sharedPreferences.getBoolean(getString(R.string.key_analytics), true);
+        if (openAnalytics) {
+            FlurryAgent.onStartSession(context, FLURRY_KEY);
+        }
+    }
+
+    public void onStop() {
+        FlurryAgent.onEndSession(context);
+        super.onStop();
+    }
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.menu_preference:
-                Intent intent = new Intent(this, Preference.class);
+                intent = new Intent(this, Preference.class);
                 startActivity(intent);
                 return true;
 
@@ -61,6 +79,8 @@ public abstract class BaseActivity extends Activity {
                 return true;
 
             case R.id.menu_about:
+                intent = new Intent(this, About.class);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);

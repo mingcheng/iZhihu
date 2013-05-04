@@ -9,6 +9,7 @@ import com.gracecode.iZhihu.Dao.Database;
 import com.gracecode.iZhihu.Fragments.QuestionDetail;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.ToggleStarTask;
+import com.gracecode.iZhihu.Util;
 
 import java.io.*;
 import java.util.regex.Matcher;
@@ -22,12 +23,18 @@ import java.util.regex.Pattern;
  */
 public class Detail extends BaseActivity {
     private static final String DEFAULT_CHARSET = "utf-8";
-    private static final String TEMPLATE_FILE_NAME = "detail.html";
+    private static final String TEMPLATE_DETAIL_FILE = "detail.html";
+    private static final String URL_ASSETS_PREFIX = "file:///android_asset/";
 
     private Database database;
-    private int questionId;
+    private int id;
     private QuestionDetail fragQuestionDetail;
     private Cursor cursor;
+    private String title;
+    private String content;
+    private String author;
+    private String description;
+    private int questionId;
 
     private String getFileContent(InputStream fis) throws IOException {
         InputStreamReader isr = new InputStreamReader(fis, DEFAULT_CHARSET);
@@ -55,7 +62,7 @@ public class Detail extends BaseActivity {
     private String getTemplateString() {
         String template = "";
         try {
-            template = getFileContent(getAssets().open(TEMPLATE_FILE_NAME));
+            template = getFileContent(getAssets().open(TEMPLATE_DETAIL_FILE));
         } catch (IOException e) {
             return "%s";
         }
@@ -64,7 +71,7 @@ public class Detail extends BaseActivity {
     }
 
     private Cursor getCursorFromDatabase() {
-        this.cursor = database.getSingleQuestion(questionId);
+        this.cursor = database.getSingleQuestion(id);
         if (cursor.getCount() != 1) {
             Toast.makeText(context, getString(R.string.notfound), Toast.LENGTH_LONG).show();
             finish();
@@ -86,7 +93,7 @@ public class Detail extends BaseActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         this.database = new Database(context);
-        this.questionId = getIntent().getIntExtra(Database.COLUM_ID, 0);
+        this.id = getIntent().getIntExtra(Database.COLUM_ID, 0);
         this.fragQuestionDetail = new QuestionDetail();
 
         getCursorFromDatabase();
@@ -100,22 +107,21 @@ public class Detail extends BaseActivity {
     public void onStart() {
         super.onStart();
 
-        String title = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_TITLE));
-        String content = cursor.getString(cursor.getColumnIndex(Database.COLUM_CONTENT));
-        String author = cursor.getString(cursor.getColumnIndex(Database.COLUM_USER_NAME));
-        String description = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_DESCRIPTION));
-
-        content = formatContent(content);
-
-        String data = String.format(getTemplateString(), title, description, author, content);
+        this.title = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_TITLE));
+        this.content = cursor.getString(cursor.getColumnIndex(Database.COLUM_CONTENT));
+        this.author = cursor.getString(cursor.getColumnIndex(Database.COLUM_USER_NAME));
+        this.description = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_DESCRIPTION));
+        this.questionId = cursor.getInt(cursor.getColumnIndex(Database.COLUM_QUESTION_ID));
 
         int fontSize = Integer.parseInt(
             sharedPreferences.getString(getString(R.string.key_font_size), getString(R.string.default_font_size)));
 
-
+        String data = String.format(getTemplateString(), fontSize, title, description, author, formatContent(content));
         fragQuestionDetail.getWebView()
-            .loadDataWithBaseURL("file:///android_asset/", data, "text/html", DEFAULT_CHARSET, null);
-        database.markSingleQuestionAsReaded(questionId);
+            .loadDataWithBaseURL(URL_ASSETS_PREFIX, data, "text/html", DEFAULT_CHARSET, null);
+
+
+        database.markSingleQuestionAsReaded(id);
     }
 
     private String formatContent(String content) {
@@ -137,11 +143,11 @@ public class Detail extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.detail, menu);
-
-        MenuItem item = menu.findItem(R.id.menu_favorite);
-        item.setIcon(isStared() ? R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
-
+        if (id != 0) {
+            getMenuInflater().inflate(R.menu.detail, menu);
+            MenuItem item = menu.findItem(R.id.menu_favorite);
+            item.setIcon(isStared() ? R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
+        }
         return true;
     }
 
@@ -164,7 +170,12 @@ public class Detail extends BaseActivity {
                     }
                 });
 
-                toggleStarTask.execute(new ToggleStarTask.Item(questionId, !isStared()));
+                toggleStarTask.execute(new ToggleStarTask.Item(id, !isStared()));
+                return true;
+
+            case R.id.menu_view_at_zhihu:
+                String url = getString(R.string.url_zhihu_questioin_pre) + questionId;
+                Util.openWithBrowser(this, url);
                 return true;
         }
 

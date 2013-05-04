@@ -25,7 +25,12 @@ public class QuestionsAdapter extends CursorAdapter {
     private final LayoutInflater layoutInflater;
     private final Context context;
     private final Cursor cursor;
+    private int idxTitle;
     private HashMap<Integer, CacheItem> cacheItemHashMap;
+    private int idxContent;
+    private int idxUserName;
+    private int idxStared;
+    private int idxUnread;
 
     private static class CacheItem {
         public String title;
@@ -62,6 +67,13 @@ public class QuestionsAdapter extends CursorAdapter {
     public void changeCursor(Cursor cursor) {
         clear();
         cursor.moveToFirst();
+
+        this.idxTitle = cursor.getColumnIndex(Database.COLUM_QUESTION_TITLE);
+        this.idxContent = cursor.getColumnIndex(Database.COLUM_CONTENT);
+        this.idxUserName = cursor.getColumnIndex(Database.COLUM_USER_NAME);
+        this.idxStared = cursor.getColumnIndex(Database.COLUM_STARED);
+        this.idxUnread = cursor.getColumnIndex(Database.COLUM_UNREAD);
+
         while (cursor.moveToNext()) {
             getFromCaches(cursor);
         }
@@ -74,16 +86,16 @@ public class QuestionsAdapter extends CursorAdapter {
         if (cacheItemHashMap.containsKey(position)) {
             return cacheItemHashMap.get(position);
         } else {
-            String title = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_TITLE));
-            String content = cursor.getString(cursor.getColumnIndex(Database.COLUM_CONTENT));
-            String userName = cursor.getString(cursor.getColumnIndex(Database.COLUM_USER_NAME));
+            String title = cursor.getString(idxTitle);
+            String content = cursor.getString(idxContent);
+            String userName = cursor.getString(idxUserName);
             int maxLength = content.length() > MAX_DESPCRIPTION_LENGTH ? MAX_DESPCRIPTION_LENGTH : content.length();
 
             content = Html.fromHtml(content).toString().trim();
             content = (userName.length() > 1 ? userName.trim() + "：" : "") + content;
 
-            boolean isStared = (cursor.getInt(cursor.getColumnIndex(Database.COLUM_STARED)) == Database.VALUE_STARED) ? true : false;
-            boolean isUnreaded = (cursor.getInt(cursor.getColumnIndex(Database.COLUM_UNREAD)) == Database.VALUE_READED) ? false : true;
+            boolean isStared = (cursor.getInt(idxStared) == Database.VALUE_STARED) ? true : false;
+            boolean isUnreaded = (cursor.getInt(idxUnread) == Database.VALUE_READED) ? false : true;
 
             CacheItem item = new CacheItem();
             item.description = content.substring(0, maxLength);

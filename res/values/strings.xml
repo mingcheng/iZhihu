@@ -36,4 +36,8 @@
     <string name="key_donate">donate</string>
     <string name="url_donate">https://me.alipay.com/feelinglucky</string>
     <string name="feedback_summary">Have some opinions and suggestions?</string>
+    <string name="url_zhihu_questioin_pre">http://www.zhihu.com/question/</string>
+    <string name="key_analytics">analytics</string>
+    <string name="analytics">Enable analytics</string>
+    <string name="analytics_summary">Help make iZhihu better by opting into anonymous statistics reporting</string>
 </resources>
