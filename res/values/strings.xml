@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Read Zhihu</string>
+    <string name="app_name">iZhihu</string>
     <string name="preference">Preference</string>
     <string name="about">About</string>
     <string name="tab_index">Main</string>
@@ -24,7 +24,16 @@
     <string name="mark_as_stared">Marked as favorites</string>
     <string name="cancel_mark_as_stared">Cancel marked as favorites</string>
     <string name="author_email">lucky@gracecode.com</string>
-    <string name="feedback_title">Feedback for %%s %%s</string>
+    <string name="feedback_title" formatted="false">Feedback for %s %s</string>
     <string name="choose_email_client">Choose an Email client:</string>
     <string name="view_at_zhihu">View at Zhihu</string>
+    <string name="donate_summary">Give me a cup of coffee :^)</string>
+    <string name="donate">Donate</string>
+    <string name="version">Version</string>
+    <string name="key_about">about</string>
+    <string name="about_summary">Thanks for use iZhihu</string>
+    <string name="version_tail">Version:</string>
+    <string name="key_donate">donate</string>
+    <string name="url_donate">https://me.alipay.com/feelinglucky</string>
+    <string name="feedback_summary">Have some opinions and suggestions?</string>
 </resources>

@@ -16,22 +16,35 @@
             />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="@string/share">
+    <!--<PreferenceCategory-->
+    <!--android:title="@string/share">-->
 
+    <!--</PreferenceCategory>-->
 
-    </PreferenceCategory>
+    <!--<PreferenceCategory-->
+    <!--android:title="@string/caches">-->
 
-    <PreferenceCategory
-        android:title="@string/caches">
-
-    </PreferenceCategory>
+    <!--</PreferenceCategory>-->
 
     <PreferenceCategory
         android:title="@string/about">
 
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="http://www.android.com" />
+        <Preference
+            android:key="@string/feedback"
+            android:title="@string/feedback"
+            android:summary="@string/feedback_summary"
+            />
+
+        <Preference
+            android:key="@string/key_donate"
+            android:title="@string/donate"
+            android:summary="@string/donate_summary"
+            />
+
+        <Preference
+            android:key="@string/key_about"
+            android:title="@string/about"
+            android:summary="@string/about_summary"
+            />
     </PreferenceCategory>
 </PreferenceScreen>

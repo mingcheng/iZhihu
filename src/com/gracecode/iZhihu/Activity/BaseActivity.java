@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import com.gracecode.iZhihu.R;
+import com.gracecode.iZhihu.Util;
 
 
 public abstract class BaseActivity extends Activity {
@@ -53,13 +54,10 @@ public abstract class BaseActivity extends Activity {
                 return true;
 
             case R.id.menu_feedback:
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("message/rfc822");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[]{getString(R.string.author_email)});
                 String subject =
                     String.format(getString(R.string.feedback_title), getString(R.string.app_name), packageInfo.versionName);
-                i.putExtra(Intent.EXTRA_SUBJECT, subject);
-                startActivity(Intent.createChooser(i, getString(R.string.choose_email_client)));
+
+                Util.sendMail(this, new String[]{getString(R.string.author_email)}, subject, null);
                 return true;
 
             case R.id.menu_about:
