@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.gracecode.iZhihu.Dao.Database.Question;
+import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.R;
 
 import java.util.Hashtable;

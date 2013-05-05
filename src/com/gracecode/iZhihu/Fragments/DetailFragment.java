@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.webkit.WebViewFragment;
 import android.widget.Toast;
 import com.gracecode.iZhihu.Dao.Database;
+import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.R;
 
 import java.io.*;
@@ -30,7 +31,7 @@ public class DetailFragment extends WebViewFragment {
     private Activity activity;
     private SharedPreferences sharedPreferences;
 
-    private Database.Question question;
+    private Question question;
 
     private String getFileContent(InputStream fis) throws IOException {
         InputStreamReader isr = new InputStreamReader(fis, DEFAULT_CHARSET);

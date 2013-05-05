@@ -31,4 +31,9 @@ public class About extends BaseActivity {
         super.onStart();
         fragWebView.getWebView().loadUrl(URL_ASSETS_PREFIX + TEMPLATE_README_FILE);
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+    }
 }

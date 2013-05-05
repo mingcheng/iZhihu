@@ -48,12 +48,14 @@ public final class Database {
             COLUM_UNREAD + " integer DEFAULT 0, " + COLUM_STARED + " integer DEFAULT 0 );"
     };
     public static final int PRE_LIMIT_PAGE_SIZE = 25;
-    private static final int FIRST_PAGE = 1;
+    public static final int FIRST_PAGE = 1;
     private static final String[] SELECT_ALL = new String[]{
         "_id", COLUM_ID, COLUM_QUESTION_ID, COLUM_ANSWER_ID,
         COLUM_STARED, COLUM_UNREAD,
         COLUM_USER_NAME, COLUM_USER_AVATAR,
-        COLUM_QUESTION_TITLE, COLUM_QUESTION_DESCRIPTION, COLUM_CONTENT
+        COLUM_UPDATE_AT,
+        COLUM_QUESTION_TITLE, COLUM_QUESTION_DESCRIPTION,
+        COLUM_CONTENT
     };
 
     protected static File databaseFile;
@@ -69,6 +71,7 @@ public final class Database {
     private int idxDespcrition;
     private int idxStared;
     private int idxUnread;
+    private int idxUpdateAt;
 
     private class DatabaseOpenHelper extends SQLiteOpenHelper {
         public DatabaseOpenHelper(Context context, String name) {
@@ -93,40 +96,6 @@ public final class Database {
         }
     }
 
-    public final class Question {
-        public int id;
-        public int questionId;
-
-        public String title;
-        public String content;
-        public String description;
-        public String userName;
-        public String updateAt;
-        public boolean stared;
-        public boolean unread;
-
-        public boolean markAsRead() {
-            int result = markSingleQuestionAsReaded(id);
-            return (result > 1) ? true : false;
-        }
-
-        public boolean toggleStar(boolean flag) {
-            int result = database.markQuestionAsStared(id, flag);
-            return (result > 1) ? true : false;
-        }
-
-        public boolean isStared() {
-            return database.isStared(id);
-        }
-
-        public boolean markAsStared() {
-            return toggleStar(true);
-        }
-
-        public boolean markAsUnStared() {
-            return toggleStar(false);
-        }
-    }
 
     public Database(Context context) {
         this.context = context;
@@ -193,10 +162,11 @@ public final class Database {
         this.idxDespcrition = cursor.getColumnIndex(Database.COLUM_QUESTION_DESCRIPTION);
         this.idxStared = cursor.getColumnIndex(Database.COLUM_STARED);
         this.idxUnread = cursor.getColumnIndex(Database.COLUM_UNREAD);
+        this.idxUpdateAt = cursor.getColumnIndex(Database.COLUM_UPDATE_AT);
     }
 
     private Question convertCursorIntoQuestion(Cursor cursor) {
-        Question question = new Question();
+        Question question = new Question(this);
         question.id = cursor.getInt(idxId);
         question.questionId = cursor.getInt(idxQuestionId);
 
@@ -204,6 +174,8 @@ public final class Database {
         question.content = cursor.getString(idxContent);
         question.description = cursor.getString(idxDespcrition);
         question.userName = cursor.getString(idxUserName);
+        question.updateAt = cursor.getString(idxUpdateAt);
+
         question.stared = (cursor.getInt(idxStared) == VALUE_STARED) ? true : false;
         question.unread = (cursor.getInt(idxUnread) == VALUE_UNREADED) ? true : false;
 
@@ -233,7 +205,7 @@ public final class Database {
      * @throws QuestionNotFoundException
      */
     public Question getSingleQuestion(int id) {
-        Question question = new Question();
+        Question question = new Question(this);
         try {
             Cursor cursor = getSingleQuestionCursor(id);
             getIndexFromCursor(cursor);

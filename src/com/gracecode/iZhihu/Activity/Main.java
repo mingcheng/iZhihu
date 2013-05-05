@@ -13,6 +13,8 @@ import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.FetchQuestion;
 
 public class Main extends BaseActivity {
+    private static final String CURRENT_TAB_POSITION = "currentTabPosition";
+    private int moveToTab = 0;
 
     private boolean isFirstRun() {
         Boolean isFirstrun = sharedPreferences.getBoolean(getString(R.string.app_name), true);
@@ -43,12 +45,23 @@ public class Main extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        if (savedInstanceState != null) {
+//            moveToTab = savedInstanceState.getInt(CURRENT_TAB_POSITION);
+//        }
     }
 
     @Override
     public void onStart() {
         super.onStart();
         fetchQuestionsFromServer(isFirstRun() ? true : false);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+//        ActionBar.Tab selectTab = actionBar.getSelectedTab();
+
+        // outState.putInt(CURRENT_TAB_POSITION, actionBar.getSelectedTab().getPosition());
+        super.onSaveInstanceState(outState);
     }
 
     @Override
