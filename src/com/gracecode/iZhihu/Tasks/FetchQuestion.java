@@ -24,7 +24,7 @@ public class FetchQuestion extends BaseTasks<Boolean, Void, Void> {
                     return null;
                 }
 
-                //Thread.sleep(2000);
+                Thread.sleep(2000);
 
                 JSONArray fetchedData = requester.fetch(3000);
                 for (int i = 0, length = fetchedData.length(); i < length; i++) {
@@ -39,6 +39,8 @@ public class FetchQuestion extends BaseTasks<Boolean, Void, Void> {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NetworkErrorException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 

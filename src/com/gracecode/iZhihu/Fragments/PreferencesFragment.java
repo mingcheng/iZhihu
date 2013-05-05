@@ -12,7 +12,7 @@ import com.gracecode.iZhihu.Activity.About;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
 
-public class Preferences extends PreferenceFragment {
+public class PreferencesFragment extends PreferenceFragment {
     private Activity activity;
     private PackageInfo packageInfo;
 

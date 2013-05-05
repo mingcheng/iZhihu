@@ -3,7 +3,6 @@ package com.gracecode.iZhihu.Fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
@@ -18,7 +17,7 @@ import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Detail extends WebViewFragment {
+public class DetailFragment extends WebViewFragment {
     private static final String DEFAULT_CHARSET = "utf-8";
     private static final String TEMPLATE_DETAIL_FILE = "detail.html";
     private static final String URL_ASSETS_PREFIX = "file:///android_asset/";
@@ -30,13 +29,8 @@ public class Detail extends WebViewFragment {
     private Database database;
     private Activity activity;
     private SharedPreferences sharedPreferences;
-    private Cursor cursor;
-    private String title;
-    private String content;
-    private String author;
-    private String description;
-    private int questionId;
-    private String updateAt;
+
+    private Database.Question question;
 
     private String getFileContent(InputStream fis) throws IOException {
         InputStreamReader isr = new InputStreamReader(fis, DEFAULT_CHARSET);
@@ -72,18 +66,15 @@ public class Detail extends WebViewFragment {
         return template;
     }
 
-
-    public Detail(int id, Context context) {
+    public DetailFragment(int id, Context context) {
         this.id = id;
         this.context = context;
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,42 +91,18 @@ public class Detail extends WebViewFragment {
     public void onStart() {
         super.onStart();
 
-        getQuestionData();
+        try {
+            question = database.getSingleQuestion(id);
+        } catch (Database.QuestionNotFoundException e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            activity.finish();
+        }
+
         String data = String.format(getTemplateString(), getClassName(),
-            title, description, author, formatContent(content));
+            question.title, question.description, question.userName, formatContent(question.content));
 
         getWebView().loadDataWithBaseURL(URL_ASSETS_PREFIX, data, MIME_TYPE, DEFAULT_CHARSET, null);
-
-    }
-
-    private void getQuestionData() {
-        this.cursor = getCursorFromDatabase();
-
-        if (cursor == null) {
-            return;
-        }
-        this.title = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_TITLE));
-        this.updateAt = cursor.getString(cursor.getColumnIndex(Database.COLUM_UPDATE_AT));
-        this.content = cursor.getString(cursor.getColumnIndex(Database.COLUM_CONTENT));
-        this.author = cursor.getString(cursor.getColumnIndex(Database.COLUM_USER_NAME));
-        this.description = cursor.getString(cursor.getColumnIndex(Database.COLUM_QUESTION_DESCRIPTION));
-        this.questionId = cursor.getInt(cursor.getColumnIndex(Database.COLUM_QUESTION_ID));
-    }
-
-    public boolean isStared() {
-        int index = cursor.getColumnIndex(Database.COLUM_STARED);
-        return (getCursorFromDatabase().getInt(index) == Database.VALUE_STARED) ? true : false;
-    }
-
-    private Cursor getCursorFromDatabase() {
-        Cursor cursor = database.getSingleQuestion(id);
-        if (cursor.getCount() != 1) {
-            Toast.makeText(activity, getString(R.string.notfound), Toast.LENGTH_LONG).show();
-            return null;
-        }
-        cursor.moveToFirst();
-
-        return cursor;
+        question.markAsRead();
     }
 
     private String formatContent(String content) {
@@ -154,7 +121,7 @@ public class Detail extends WebViewFragment {
 
         content = "<p>" + content + "</p>";
 
-        return content + "<p class='update-at'>" + updateAt + "</p>";
+        return content + "<p class='update-at'>" + question.updateAt + "</p>";
     }
 
     private String getClassName() {
@@ -191,22 +158,23 @@ public class Detail extends WebViewFragment {
         return className;
     }
 
+    public boolean isStared() {
+        if (question == null) {
+            return false;
+        }
+        return question.isStared();
+    }
+
     public int getQuestionId() {
-        return questionId;
+        return question.questionId;
     }
 
     @Override
     public void onDestroy() {
-        if (cursor != null) {
-            cursor.close();
-            cursor = null;
-        }
-
         if (database != null) {
             database.close();
             database = null;
         }
-
         super.onDestroy();
     }
 }

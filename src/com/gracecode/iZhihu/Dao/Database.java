@@ -6,26 +6,30 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import com.gracecode.iZhihu.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 
-public final class Database implements Cloneable {
-
+public final class Database {
     public static final String COLUM_ID = "id";
     public static final String COLUM_QUESTION_ID = "question_id";
+    public static final String COLUM_SERVER_ID = "server_id";
+    public static final String COLUM_ANSWER_ID = "answer_id";
+
     public static final String COLUM_QUESTION_TITLE = "question_title";
     public static final String COLUM_CONTENT = "content";
     public static final String COLUM_USER_NAME = "user_name";
     public static final String COLUM_UNREAD = "unread";
     public static final String COLUM_STARED = "stared";
-    public static final String COLUM_ANSWER_ID = "answer_id";
     public static final String COLUM_QUESTION_DESCRIPTION = "question_description";
     public static final String COLUM_UPDATE_AT = "update_at";
     public static final String COLUM_USER_AVATAR = "user_avatar";
 
     public static final int VALUE_READED = 1;
+    public static final int VALUE_UNREADED = 0;
     public static final int VALUE_STARED = 1;
     public static final int VALUE_UNSTARED = 0;
 
@@ -33,7 +37,6 @@ public final class Database implements Cloneable {
     private static final String FILE_DATABASE_NAME = "zhihu.sqlite";
 
     private static final String DATABASE_QUESTIONS_TABLE_NAME = "izhihu";
-    private static final Object COLUM_SERVER_ID = "server_id";
 
     private final static String[] SQL_CREATE_TABLES = {
         "CREATE TABLE " + DATABASE_QUESTIONS_TABLE_NAME + " (" +
@@ -45,11 +48,27 @@ public final class Database implements Cloneable {
             COLUM_UNREAD + " integer DEFAULT 0, " + COLUM_STARED + " integer DEFAULT 0 );"
     };
     public static final int PRE_LIMIT_PAGE_SIZE = 25;
-
+    private static final int FIRST_PAGE = 1;
+    private static final String[] SELECT_ALL = new String[]{
+        "_id", COLUM_ID, COLUM_QUESTION_ID, COLUM_ANSWER_ID,
+        COLUM_STARED, COLUM_UNREAD,
+        COLUM_USER_NAME, COLUM_USER_AVATAR,
+        COLUM_QUESTION_TITLE, COLUM_QUESTION_DESCRIPTION, COLUM_CONTENT
+    };
 
     protected static File databaseFile;
     protected static DatabaseOpenHelper databaseOpenHelper;
     protected static Context context;
+    private final Database database;
+
+    private int idxId;
+    private int idxQuestionId;
+    private int idxTitle;
+    private int idxContent;
+    private int idxUserName;
+    private int idxDespcrition;
+    private int idxStared;
+    private int idxUnread;
 
     private class DatabaseOpenHelper extends SQLiteOpenHelper {
         public DatabaseOpenHelper(Context context, String name) {
@@ -74,38 +93,156 @@ public final class Database implements Cloneable {
         }
     }
 
+    public final class Question {
+        public int id;
+        public int questionId;
+
+        public String title;
+        public String content;
+        public String description;
+        public String userName;
+        public String updateAt;
+        public boolean stared;
+        public boolean unread;
+
+        public boolean markAsRead() {
+            int result = markSingleQuestionAsReaded(id);
+            return (result > 1) ? true : false;
+        }
+
+        public boolean toggleStar(boolean flag) {
+            int result = database.markQuestionAsStared(id, flag);
+            return (result > 1) ? true : false;
+        }
+
+        public boolean isStared() {
+            return database.isStared(id);
+        }
+
+        public boolean markAsStared() {
+            return toggleStar(true);
+        }
+
+        public boolean markAsUnStared() {
+            return toggleStar(false);
+        }
+    }
 
     public Database(Context context) {
         this.context = context;
         this.databaseFile = new File(context.getCacheDir(), FILE_DATABASE_NAME);
         this.databaseOpenHelper = new DatabaseOpenHelper(context, databaseFile.getAbsolutePath());
+        this.database = this;
     }
 
-    public Cursor getRecentQuestions(int page) {
+    protected Cursor getRecentQuestionsCursor(int page) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-        return db.query(DATABASE_QUESTIONS_TABLE_NAME, new String[]{
-            "_id", COLUM_ID, COLUM_QUESTION_ID, COLUM_STARED, COLUM_UNREAD, COLUM_USER_NAME,
-            COLUM_QUESTION_TITLE, COLUM_QUESTION_DESCRIPTION, COLUM_CONTENT
-        }, null, null, null, null,
-            COLUM_UPDATE_AT + " DESC LIMIT " + PRE_LIMIT_PAGE_SIZE * page);
+        Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, null, null, null, null,
+            COLUM_UPDATE_AT + " DESC " + "LIMIT " + PRE_LIMIT_PAGE_SIZE +
+                " OFFSET " + (page - 1) * PRE_LIMIT_PAGE_SIZE);
+        cursor.moveToFirst();
+        return cursor;
     }
 
-    public Cursor getRecentQuestions() {
-        return getRecentQuestions(1);
+    protected Cursor getRecentQuestionsCursor() {
+        return getRecentQuestionsCursor(FIRST_PAGE);
     }
 
-    public Cursor getFavoritesQuestion() {
+    protected Cursor getStaredQuestionsCursor() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-        return db.query(DATABASE_QUESTIONS_TABLE_NAME, new String[]{
-            "_id", COLUM_ID, COLUM_QUESTION_ID, COLUM_STARED, COLUM_UNREAD, COLUM_USER_NAME,
-            COLUM_QUESTION_TITLE, COLUM_QUESTION_DESCRIPTION, COLUM_CONTENT
-        }, " stared = 1 ", null, null, null, "update_at DESC");
+        return db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, " stared = 1 ", null, null, null,
+            COLUM_UPDATE_AT + " DESC");
     }
 
-    public Cursor getSingleQuestion(int id) {
+    public ArrayList<Question> getRecentQuestions() {
+        return getRecentQuestions(FIRST_PAGE);
+    }
+
+    public ArrayList<Question> getRecentQuestions(int page) {
+        ArrayList<Question> questionArrayList = new ArrayList<Question>();
+        Cursor cursor = getRecentQuestionsCursor(page);
+
+        for (getIndexFromCursor(cursor); cursor.moveToNext(); ) {
+            Question question = convertCursorIntoQuestion(cursor);
+            questionArrayList.add(question);
+        }
+
+        cursor.close();
+        return questionArrayList;
+    }
+
+    public ArrayList<Question> getStaredQuestions() {
+        ArrayList<Question> questionArrayList = new ArrayList<Question>();
+        Cursor cursor = getStaredQuestionsCursor();
+
+        for (getIndexFromCursor(cursor); cursor.moveToNext(); ) {
+            Question question = convertCursorIntoQuestion(cursor);
+            questionArrayList.add(question);
+        }
+
+        cursor.close();
+        return questionArrayList;
+    }
+
+    private void getIndexFromCursor(Cursor cursor) {
+        this.idxId = cursor.getColumnIndex(Database.COLUM_ID);
+        this.idxQuestionId = cursor.getColumnIndex(Database.COLUM_QUESTION_ID);
+        this.idxTitle = cursor.getColumnIndex(Database.COLUM_QUESTION_TITLE);
+        this.idxContent = cursor.getColumnIndex(Database.COLUM_CONTENT);
+        this.idxUserName = cursor.getColumnIndex(Database.COLUM_USER_NAME);
+        this.idxDespcrition = cursor.getColumnIndex(Database.COLUM_QUESTION_DESCRIPTION);
+        this.idxStared = cursor.getColumnIndex(Database.COLUM_STARED);
+        this.idxUnread = cursor.getColumnIndex(Database.COLUM_UNREAD);
+    }
+
+    private Question convertCursorIntoQuestion(Cursor cursor) {
+        Question question = new Question();
+        question.id = cursor.getInt(idxId);
+        question.questionId = cursor.getInt(idxQuestionId);
+
+        question.title = cursor.getString(idxTitle);
+        question.content = cursor.getString(idxContent);
+        question.description = cursor.getString(idxDespcrition);
+        question.userName = cursor.getString(idxUserName);
+        question.stared = (cursor.getInt(idxStared) == VALUE_STARED) ? true : false;
+        question.unread = (cursor.getInt(idxUnread) == VALUE_UNREADED) ? true : false;
+
+        return question;
+    }
+
+    protected Cursor getSingleQuestionCursor(int id) throws QuestionNotFoundException {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-        String sql = "SELECT * FROM " + DATABASE_QUESTIONS_TABLE_NAME + " WHERE " + COLUM_ID + " = " + id + " LIMIT 1";
-        return db.rawQuery(sql, null);
+
+        Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, COLUM_ID + " = " + id, null, null, null, null);
+        cursor.moveToFirst();
+
+        if (cursor.getCount() < 1) {
+            cursor.close();
+            throw new QuestionNotFoundException(context.getString(R.string.notfound));
+        }
+
+        return cursor;
+    }
+
+
+    /**
+     * 获取单条问题
+     *
+     * @param id
+     * @return
+     * @throws QuestionNotFoundException
+     */
+    public Question getSingleQuestion(int id) {
+        Question question = new Question();
+        try {
+            Cursor cursor = getSingleQuestionCursor(id);
+            getIndexFromCursor(cursor);
+            question = convertCursorIntoQuestion(cursor);
+            cursor.close();
+        } catch (QuestionNotFoundException e) {
+            e.printStackTrace();
+        }
+        return question;
     }
 
     public int markSingleQuestionAsReaded(int id) {
@@ -117,7 +254,23 @@ public final class Database implements Cloneable {
         return db.update(DATABASE_QUESTIONS_TABLE_NAME, contentValues, COLUM_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
-    public int markQuestionAsFavourated(int id, boolean flag) {
+    protected boolean isStared(int id) {
+        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
+        String sql = "SELECT " + COLUM_STARED + " FROM " + DATABASE_QUESTIONS_TABLE_NAME +
+            " WHERE " + COLUM_ID + " = " + id + " LIMIT 1";
+
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor.getCount() != 1) {
+            return false;
+        }
+
+        cursor.moveToFirst();
+        int result = cursor.getInt(cursor.getColumnIndex(Database.COLUM_STARED));
+        cursor.close();
+        return (result == VALUE_STARED) ? true : false;
+    }
+
+    public int markQuestionAsStared(int id, boolean flag) {
         SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -126,6 +279,15 @@ public final class Database implements Cloneable {
         return db.update(DATABASE_QUESTIONS_TABLE_NAME, contentValues, COLUM_ID + " = ?", new String[]{String.valueOf(id)});
     }
 
+
+    /**
+     * 从 JSON 数据中直接插入到数据库
+     *
+     * @param question
+     * @return
+     * @throws JSONException
+     * @throws SQLiteException
+     */
     public long insertSingleQuestion(JSONObject question) throws JSONException, SQLiteException {
         SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
 
@@ -147,10 +309,19 @@ public final class Database implements Cloneable {
     }
 
 
+    /**
+     * 关闭数据库
+     */
     public void close() {
         if (databaseOpenHelper != null) {
             databaseOpenHelper.close();
             databaseOpenHelper = null;
+        }
+    }
+
+    public class QuestionNotFoundException extends SQLiteException {
+        public QuestionNotFoundException(String message) {
+            super(message);
         }
     }
 }

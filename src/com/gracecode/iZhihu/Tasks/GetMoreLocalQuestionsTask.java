@@ -12,7 +12,7 @@ public class GetMoreLocalQuestionsTask extends BaseTasks<Integer, Void, Cursor> 
     @Override
     protected Cursor doInBackground(Integer... pages) {
         for (Integer page : pages) {
-            return database.getRecentQuestions(page);
+            //return database.getRecentQuestions(page);
         }
 
         return null;

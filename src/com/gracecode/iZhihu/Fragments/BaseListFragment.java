@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +14,16 @@ import com.gracecode.iZhihu.Adapter.QuestionsAdapter;
 import com.gracecode.iZhihu.Dao.Database;
 import com.gracecode.iZhihu.R;
 
-public abstract class BaseList extends ListFragment {
+import java.util.ArrayList;
+
+public abstract class BaseListFragment extends ListFragment {
+    protected QuestionsAdapter questionsAdapter;
     protected Activity activity;
     protected Context context;
     protected Database database;
-    protected Cursor questions;
+    protected ArrayList<Database.Question> questions;
 
-    public BaseList() {
+    public BaseListFragment() {
         super();
     }
 
@@ -32,12 +34,14 @@ public abstract class BaseList extends ListFragment {
         this.activity = getActivity();
         this.context = activity.getApplicationContext();
         this.database = new Database(context);
+        this.questions = new ArrayList<Database.Question>();
     }
 
     @Override
     public void onStart() {
-        QuestionsAdapter adapter = (QuestionsAdapter) getListAdapter();
-        adapter.notifyDataSetChanged();
+        if (questionsAdapter != null) {
+//            questionsAdapter.notifyDataSetChanged();
+        }
         super.onStart();
     }
 
@@ -48,24 +52,19 @@ public abstract class BaseList extends ListFragment {
     }
 
     public void onListItemClick(ListView parent, View v, int position, long id) {
-        if (questions != null && questions.moveToPosition(position)) {
-            Intent intent = new Intent(activity, Detail.class);
+        Database.Question question = questions.get(position);
 
-            int questionsId = questions.getInt(questions.getColumnIndex(Database.COLUM_ID));
-            intent.putExtra(Database.COLUM_ID, questionsId);
-
-            startActivity(intent);
-        }
+        Intent intent = new Intent(activity, Detail.class);
+        intent.putExtra(Database.COLUM_ID, question.id);
+        startActivity(intent);
     }
 
-    public Cursor getRecentQuestion() {
-        questions = database.getRecentQuestions();
-        return questions;
+    public ArrayList<Database.Question> getRecentQuestion() {
+        return database.getRecentQuestions();
     }
 
-    public Cursor getFavoritesQuestion() {
-        questions = database.getFavoritesQuestion();
-        return questions;
+    public ArrayList<Database.Question> getStaredQuestions() {
+        return database.getStaredQuestions();
     }
 
     @Override

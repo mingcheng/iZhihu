@@ -22,7 +22,7 @@ public class ToggleStarTask extends BaseTasks<ToggleStarTask.Item, Void, Void> {
     protected Void doInBackground(Item... items) {
         for (Item item : items) {
             synchronized (database) {
-                database.markQuestionAsFavourated(item.id, item.stared);
+                database.markQuestionAsStared(item.id, item.stared);
             }
         }
 

@@ -1,7 +1,7 @@
 package com.gracecode.iZhihu.Activity;
 
 import android.os.Bundle;
-import com.gracecode.iZhihu.Fragments.Preferences;
+import com.gracecode.iZhihu.Fragments.PreferencesFragment;
 import com.gracecode.iZhihu.R;
 
 public class Preference extends BaseActivity {
@@ -15,7 +15,7 @@ public class Preference extends BaseActivity {
 
         getFragmentManager()
             .beginTransaction()
-            .replace(android.R.id.content, new Preferences())
+            .replace(android.R.id.content, new PreferencesFragment())
             .commit();
     }
 }

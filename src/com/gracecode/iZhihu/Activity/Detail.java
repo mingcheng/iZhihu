@@ -5,6 +5,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 import com.gracecode.iZhihu.Dao.Database;
+import com.gracecode.iZhihu.Fragments.DetailFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.ToggleStarTask;
 import com.gracecode.iZhihu.Util;
@@ -12,7 +13,7 @@ import com.gracecode.iZhihu.Util;
 
 public class Detail extends BaseActivity {
     private int id;
-    private com.gracecode.iZhihu.Fragments.Detail fragQuestionDetail;
+    private DetailFragment fragQuestionDetail;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -20,8 +21,8 @@ public class Detail extends BaseActivity {
 
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        this.id = getIntent().getIntExtra(Database.COLUM_ID, com.gracecode.iZhihu.Fragments.Detail.ID_NOT_FOUND);
-        this.fragQuestionDetail = new com.gracecode.iZhihu.Fragments.Detail(id, this);
+        this.id = getIntent().getIntExtra(Database.COLUM_ID, DetailFragment.ID_NOT_FOUND);
+        this.fragQuestionDetail = new DetailFragment(id, this);
 
         getFragmentManager()
             .beginTransaction()

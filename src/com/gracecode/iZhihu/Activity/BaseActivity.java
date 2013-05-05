@@ -10,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
-import com.flurry.android.FlurryAgent;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
 
@@ -50,12 +49,12 @@ public abstract class BaseActivity extends Activity {
 
         Boolean openAnalytics = sharedPreferences.getBoolean(getString(R.string.key_analytics), true);
         if (openAnalytics) {
-            FlurryAgent.onStartSession(context, FLURRY_KEY);
+//            FlurryAgent.onStartSession(context, FLURRY_KEY);
         }
     }
 
     public void onStop() {
-        FlurryAgent.onEndSession(context);
+//        FlurryAgent.onEndSession(context);
         super.onStop();
     }
 

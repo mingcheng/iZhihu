@@ -43,4 +43,6 @@
     <string name="key_indent">key_indent</string>
     <string name="paragraph_indents">Paragraph indents</string>
     <string name="paragraph_summary">Indents one characters on each paragraph</string>
+    <string name="colon">:</string>
+    <string name="database_faild">Write database faild.</string>
 </resources>

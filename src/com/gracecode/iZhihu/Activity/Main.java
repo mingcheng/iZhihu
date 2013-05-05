@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.gracecode.iZhihu.Fragments.Favorites;
-import com.gracecode.iZhihu.Fragments.Questions;
+import com.gracecode.iZhihu.Fragments.QuestionsListFragment;
+import com.gracecode.iZhihu.Fragments.StaredListFragment;
 import com.gracecode.iZhihu.Listener.MainTabListener;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.FetchQuestion;
@@ -30,11 +30,11 @@ public class Main extends BaseActivity {
 
         ActionBar.Tab mainTab = actionBar.newTab()
             .setText(getString(R.string.tab_index))
-            .setTabListener(new MainTabListener(context, Questions.class.getName()));
+            .setTabListener(new MainTabListener(context, QuestionsListFragment.class.getName()));
 
         ActionBar.Tab favoritesTab = actionBar.newTab()
             .setText(getString(R.string.tab_favorite))
-            .setTabListener(new MainTabListener(context, Favorites.class.getName()));
+            .setTabListener(new MainTabListener(context, StaredListFragment.class.getName()));
 
         actionBar.addTab(mainTab);
         actionBar.addTab(favoritesTab);
