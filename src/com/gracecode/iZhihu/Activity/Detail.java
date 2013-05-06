@@ -1,5 +1,6 @@
 package com.gracecode.iZhihu.Activity;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +10,10 @@ import com.gracecode.iZhihu.Fragments.DetailFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.ToggleStarTask;
 import com.gracecode.iZhihu.Util;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 
 public class Detail extends BaseActivity {
@@ -67,6 +72,21 @@ public class Detail extends BaseActivity {
             case R.id.menu_view_at_zhihu:
                 String url = getString(R.string.url_zhihu_questioin_pre) + fragQuestionDetail.getQuestionId();
                 Util.openWithBrowser(this, url);
+                return true;
+
+            case R.id.menu_share:
+                Bitmap bitmap = fragQuestionDetail.getCapture();
+                try {
+                    FileOutputStream fileOutPutStream = new FileOutputStream("/storage/sdcard0/izhihu.png");
+                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutPutStream);
+
+                    fileOutPutStream.flush();
+                    fileOutPutStream.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 return true;
         }
 

@@ -3,11 +3,15 @@ package com.gracecode.iZhihu.Fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Picture;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.webkit.WebViewFragment;
 import android.widget.Toast;
 import com.gracecode.iZhihu.Dao.Database;
@@ -102,6 +106,12 @@ public class DetailFragment extends WebViewFragment {
         String data = String.format(getTemplateString(), getClassName(),
             question.title, question.description, question.userName, formatContent(question.content));
 
+//        getWebView().setScrollbarFadingEnabled(false);
+        getWebView().setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+
+        getWebView().getSettings().setLoadWithOverviewMode(true);
+        getWebView().getSettings().setUseWideViewPort(true);
+
         getWebView().loadDataWithBaseURL(URL_ASSETS_PREFIX, data, MIME_TYPE, DEFAULT_CHARSET, null);
         question.markAsRead();
     }
@@ -176,6 +186,24 @@ public class DetailFragment extends WebViewFragment {
 
     public int getQuestionId() {
         return question.questionId;
+    }
+
+    /**
+     * 截取所有网页内容到 Bitmap
+     *
+     * @return
+     */
+    public Bitmap getCapture() {
+        WebView webView = getWebView();
+        Picture picture = webView.capturePicture();
+
+        int height = picture.getHeight() * (webView.getWidth() / picture.getWidth());
+        Bitmap bitmap = Bitmap.createBitmap(webView.getWidth(),
+            height, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(bitmap);
+        webView.draw(canvas);
+        return bitmap;
     }
 
     @Override
