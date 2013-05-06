@@ -66,6 +66,7 @@ body a {
 
 
 body .question h1 {
+font-weight: normal;
     font-size: 1.1em;
     color: #111;
     margin: 0 0 1em 0;
@@ -166,19 +167,19 @@ body .question a:link {
 }
 
 .small {
-    font-size: 14px;
-}
-
-.normal {
     font-size: 16px;
 }
 
-.big {
+.normal {
     font-size: 18px;
 }
 
-.huge {
+.big {
     font-size: 20px;
+}
+
+.huge {
+    font-size: 22px;
 }
 
 .update-at {
