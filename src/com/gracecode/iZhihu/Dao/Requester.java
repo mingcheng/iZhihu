@@ -28,7 +28,7 @@ public class Requester {
     private static final String URL_REQUEST = "http://z.ihu.im/?method=sync&timestamp=%s&sign=%s&start=%d&device=%s";
     private static final String DEVICE_UUID = android.os.Build.SERIAL;
     private static final String APP_KEY = "133ff1e10a8b244767ef734fb86f37fd";
-    private static final int DEFAULT_START_OFFSET = 1;
+    public static final int DEFAULT_START_OFFSET = -1;
     private static final int TIME_STAMP_LENGTH = 10;
     private static final String KEY_LAST_QUERY_TIMESTAMP = "last_query_timestamp";
     private static final int HTTP_STATUS_OK = 200;

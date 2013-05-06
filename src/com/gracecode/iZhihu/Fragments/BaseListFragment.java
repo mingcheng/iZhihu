@@ -19,7 +19,7 @@ import com.gracecode.iZhihu.R;
 import java.util.ArrayList;
 
 public abstract class BaseListFragment extends ListFragment {
-    private static final String KEY_SELECTED_POSITION = "SELECTED_POSITION";
+    public static final String KEY_SELECTED_POSITION = "SELECTED_POSITION";
     public static final int SELECT_NONE = -1;
     protected QuestionsAdapter questionsAdapter;
     protected Activity activity;
@@ -58,6 +58,7 @@ public abstract class BaseListFragment extends ListFragment {
         super.onStart();
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -69,13 +70,17 @@ public abstract class BaseListFragment extends ListFragment {
         super.onSaveInstanceState(savedInstanceState);
     }
 
+    public boolean savePref(String key, int value) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(key, value);
+        return editor.commit();
+    }
+
     public void onListItemClick(ListView parent, View v, int position, long id) {
         Question question = questions.get(position);
 
         selectedPosition = position;
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(KEY_SELECTED_POSITION, position);
-        editor.commit();
+        savePref(KEY_SELECTED_POSITION, position);
 
         Intent intent = new Intent(activity, Detail.class);
         intent.putExtra(Database.COLUM_ID, question.id);

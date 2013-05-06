@@ -12,12 +12,20 @@ public class StaredListFragment extends BaseListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        questions.addAll(getStaredQuestions());
     }
 
     @Override
     public void onStart() {
+        questions.clear();
+        questions.addAll(getStaredQuestions());
         super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        int position = getListView().getSelectedItemPosition();
+        savePref(KEY_SELECTED_POSITION, position);
+        super.onStop();
     }
 
     @Override
@@ -37,6 +45,8 @@ public class StaredListFragment extends BaseListFragment {
             } finally {
                 questionsAdapter.notifyDataSetChanged();
             }
+        } else {
+
         }
     }
 }

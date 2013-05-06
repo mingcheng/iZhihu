@@ -8,7 +8,7 @@ public class Util {
 
     public static void openWithBrowser(Activity activity, String url) {
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        i.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
+        //i.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
         activity.startActivity(i);
     }
 

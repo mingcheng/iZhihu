@@ -1,6 +1,6 @@
 package com.gracecode.iZhihu.Fragments;
 
-import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.AbsListView;
 import com.gracecode.iZhihu.Dao.Database;
@@ -8,30 +8,37 @@ import com.gracecode.iZhihu.Dao.Question;
 
 import java.util.ArrayList;
 
-/**
- * Created with IntelliJ IDEA.
- * <p/>
- * User: mingcheng
- * Date: 13-4-27
- */
 public class QuestionsListFragment extends BaseListFragment implements AbsListView.OnScrollListener {
     private static final String KEY_CURRENT_PAGE = "currentPage";
     private int currentPage = Database.FIRST_PAGE;
     private boolean isRunning = false;
-    private int arrayListSize = 0;
 
-    private boolean needLoadMorequestion() {
-        if (questions.isEmpty() || arrayListSize != questions.size()) {
-            return true;
+    private class GetMoreLocalQuestions extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            questions.addAll(database.getRecentQuestions(++currentPage));
+            return null;
         }
-        return false;
+
+        @Override
+        protected void onPreExecute() {
+            isRunning = true;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            questionsAdapter.notifyDataSetChanged();
+            isRunning = false;
+        }
+
     }
 
     private void getMoreLocalQuestions() {
-        if (isRunning || !needLoadMorequestion()) return;
-        questions.addAll(database.getRecentQuestions(++currentPage));
-
-        arrayListSize = questions.size();
+        if (isRunning) {
+            return;
+        }
+        new GetMoreLocalQuestions().execute();
     }
 
     @Override
@@ -51,11 +58,10 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
 
     @Override
     public void onStop() {
+        int position = getListView().getSelectedItemPosition();
+        savePref(KEY_SELECTED_POSITION, position);
+        savePref(KEY_CURRENT_PAGE, currentPage);
         super.onStop();
-
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(KEY_CURRENT_PAGE, currentPage);
-        editor.commit();
     }
 
     @Override

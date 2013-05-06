@@ -24,9 +24,8 @@ public class FetchQuestion extends BaseTasks<Boolean, Void, Void> {
                     return null;
                 }
 
-                Thread.sleep(2000);
-
-                JSONArray fetchedData = requester.fetch(3000);
+                int startId = database.getStartId();
+                JSONArray fetchedData = requester.fetch(startId);
                 for (int i = 0, length = fetchedData.length(); i < length; i++) {
                     JSONObject item = (JSONObject) fetchedData.get(i);
                     database.insertSingleQuestion(item);
@@ -40,10 +39,7 @@ public class FetchQuestion extends BaseTasks<Boolean, Void, Void> {
             e.printStackTrace();
         } catch (NetworkErrorException e) {
             e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
-
         return null;
     }
 }

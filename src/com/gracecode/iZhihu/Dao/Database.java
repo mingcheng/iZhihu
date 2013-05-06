@@ -58,10 +58,10 @@ public final class Database {
         COLUM_CONTENT
     };
 
-    protected static File databaseFile;
-    protected static DatabaseOpenHelper databaseOpenHelper;
-    protected static Context context;
-    private final Database database;
+    protected File databaseFile;
+    protected DatabaseOpenHelper databaseOpenHelper;
+    protected Context context;
+    private Database database;
 
     private int idxId;
     private int idxQuestionId;
@@ -72,6 +72,24 @@ public final class Database {
     private int idxStared;
     private int idxUnread;
     private int idxUpdateAt;
+
+
+    public int getStartId() {
+        int returnId = Requester.DEFAULT_START_OFFSET;
+        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT max(" + COLUM_ID + ") AS " +
+            COLUM_ID + " FROM " + DATABASE_QUESTIONS_TABLE_NAME + " LIMIT 1;", null);
+        cursor.moveToFirst();
+
+        int maxId = cursor.getInt(cursor.getColumnIndex(COLUM_ID));
+        if (cursor.getCount() == 1 && maxId != 0) {
+            returnId = maxId;
+        }
+        cursor.close();
+
+        return returnId;
+    }
 
     private class DatabaseOpenHelper extends SQLiteOpenHelper {
         public DatabaseOpenHelper(Context context, String name) {
