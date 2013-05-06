@@ -12,6 +12,8 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 public abstract class BaseActivity extends Activity {
     private static final String FLURRY_KEY = "T25PQCHWSVRS9RGQSR46";
@@ -19,6 +21,7 @@ public abstract class BaseActivity extends Activity {
     protected static Context context;
     protected static SharedPreferences sharedPreferences;
     protected static PackageInfo packageInfo;
+    private boolean openAnalytics = true;
 
     public BaseActivity() {
         super();
@@ -40,22 +43,29 @@ public abstract class BaseActivity extends Activity {
             e.printStackTrace();
         }
 
+        openAnalytics = sharedPreferences.getBoolean(getString(R.string.key_analytics), true);
+        if (openAnalytics) {
+            MobclickAgent.onError(this);
+        }
+        UmengUpdateAgent.update(this);
         // setTheme(android.R.style.Theme_Holo_Light);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
 
-        Boolean openAnalytics = sharedPreferences.getBoolean(getString(R.string.key_analytics), true);
         if (openAnalytics) {
-//            FlurryAgent.onStartSession(context, FLURRY_KEY);
+            MobclickAgent.setDebugMode(true);
+            MobclickAgent.onResume(context);
         }
     }
 
-    public void onStop() {
-//        FlurryAgent.onEndSession(context);
-        super.onStop();
+    public void onPause() {
+        if (openAnalytics) {
+            MobclickAgent.onPause(context);
+        }
+        super.onPause();
     }
 
 
