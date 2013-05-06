@@ -15,6 +15,8 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
 
     private class GetMoreLocalQuestionsTask extends AsyncTask<Void, Void, Void> {
 
+        private static final long LOAD_DELAY_TIME = 1000;
+
         @Override
         protected Void doInBackground(Void... voids) {
             if (currentPage > database.getTotalPages()) {
@@ -22,7 +24,7 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
             }
 
             try {
-                Thread.sleep(3000);
+                Thread.sleep(LOAD_DELAY_TIME);
                 ArrayList<Question> newDatas = database.getRecentQuestions(++currentPage);
                 questions.addAll(newDatas);
             } catch (InterruptedException e) {

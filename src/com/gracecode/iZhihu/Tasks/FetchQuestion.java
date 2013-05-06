@@ -3,6 +3,8 @@ package com.gracecode.iZhihu.Tasks;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
+import android.widget.Toast;
+import com.gracecode.iZhihu.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,7 +41,7 @@ public class FetchQuestion extends BaseTasks<Boolean, Void, Void> {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (NetworkErrorException e) {
-            e.printStackTrace();
+            Toast.makeText(context, context.getString(R.string.network_error), Toast.LENGTH_LONG).show();
         }
         return null;
     }

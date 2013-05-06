@@ -7,6 +7,8 @@ import android.util.Log;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +34,7 @@ public class Requester {
     private static final int TIME_STAMP_LENGTH = 10;
     private static final String KEY_LAST_QUERY_TIMESTAMP = "last_query_timestamp";
     private static final int HTTP_STATUS_OK = 200;
+    private static final int TIMEOUT_SECONDS = 5;
 
     protected static Context context;
     private final SharedPreferences sharedPreferences;
@@ -87,6 +90,10 @@ public class Requester {
         httpGet.addHeader("Platform", "Android");
 
         DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+
+        HttpParams httpParams = defaultHttpClient.getParams();
+        HttpConnectionParams.setConnectionTimeout(httpParams, TIMEOUT_SECONDS * 1000);
+        HttpConnectionParams.setSoTimeout(httpParams, TIMEOUT_SECONDS * 1000);
 
         HttpResponse httpResponse = defaultHttpClient.execute(httpGet);
         if (httpResponse.getStatusLine().getStatusCode() == HTTP_STATUS_OK) {
