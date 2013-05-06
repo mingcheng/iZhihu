@@ -122,6 +122,14 @@ public class DetailFragment extends WebViewFragment {
 
         content = "<p>" + content + "</p>";
 
+        if (sharedPreferences.getBoolean(getString(R.string.key_symbol), false)) {
+            content = content.replaceAll("“", "「");
+            content = content.replaceAll("”", "」");
+
+            content = content.replaceAll("‘", "『");
+            content = content.replaceAll("’", "』");
+        }
+
         return content + "<p class='update-at'>" + question.updateAt + "</p>";
     }
 

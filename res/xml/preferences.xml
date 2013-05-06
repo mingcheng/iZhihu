@@ -21,6 +21,13 @@
             android:defaultValue="false"
             android:summary="@string/paragraph_summary"
             />
+
+        <CheckBoxPreference
+            android:key="@string/key_symbol"
+            android:title="@string/tradition_symbol"
+            android:defaultValue="false"
+            android:summary="@string/tradition_symbol_summary"
+            />
     </PreferenceCategory>
 
     <!--<PreferenceCategory-->

@@ -34,4 +34,6 @@
     <string name="analytics_summary">匿名的统计信息将有助于作者改进「读知乎」</string>
     <string name="paragraph_indents">段落缩进</string>
     <string name="paragraph_summary">每个段落缩进一个字符</string>
+    <string name="tradition_symbol">正确的中文引号</string>
+    <string name="tradition_symbol_summary">「」和『』才是真正的中文引号，推荐您使用正确的中文引号</string>
 </resources>

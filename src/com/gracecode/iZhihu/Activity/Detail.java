@@ -23,7 +23,6 @@ public class Detail extends BaseActivity {
 
         this.id = getIntent().getIntExtra(Database.COLUM_ID, DetailFragment.ID_NOT_FOUND);
         this.fragQuestionDetail = new DetailFragment(id, this);
-
         getFragmentManager()
             .beginTransaction()
             .replace(android.R.id.content, fragQuestionDetail)

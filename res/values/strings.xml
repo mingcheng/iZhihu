@@ -45,4 +45,7 @@
     <string name="paragraph_summary">Indents one characters on each paragraph</string>
     <string name="colon">:</string>
     <string name="database_faild">Write database faild.</string>
+    <string name="key_symbol">symbol</string>
+    <string name="tradition_symbol">Tradition Symbol</string>
+    <string name="tradition_symbol_summary">Use tradition Chinese symbol to read.</string>
 </resources>
