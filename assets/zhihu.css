@@ -133,6 +133,29 @@ body .question a:link {
     margin: 1em auto 2em;
 }
 
+.about h1 ,
+.about h2 ,
+.about h3 {
+    font-weight: 700;
+}
+
+.about h1 {
+    font-size: 1.3em;
+}
+
+.about h2 {
+    font-size: 1.2em;
+}
+
+.about h3 {
+    font-size: 1.1em;
+}
+
+.about h2,
+.about h3 {
+    margin: 1em 0 1em 0;
+}
+
 .about  p {
     text-align: justify;
 }

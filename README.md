@@ -56,7 +56,7 @@
 
 * lucky@gracecode.com
 * Twitter: @feelinglucky
-* Weibo: @手气就是不错
+* Weibo: @手气还不错
 * www.gracecode.com
 * www.zhihu.com/people/mingcheng
 
