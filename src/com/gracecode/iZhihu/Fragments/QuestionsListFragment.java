@@ -13,11 +13,21 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
     private int currentPage = Database.FIRST_PAGE;
     private boolean isRunning = false;
 
-    private class GetMoreLocalQuestions extends AsyncTask<Void, Void, Void> {
+    private class GetMoreLocalQuestionsTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            questions.addAll(database.getRecentQuestions(++currentPage));
+            if (currentPage > database.getTotalPages()) {
+                return null;
+            }
+
+            try {
+                Thread.sleep(3000);
+                ArrayList<Question> newDatas = database.getRecentQuestions(++currentPage);
+                questions.addAll(newDatas);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 
@@ -38,12 +48,13 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
         if (isRunning) {
             return;
         }
-        new GetMoreLocalQuestions().execute();
+        new GetMoreLocalQuestionsTask().execute();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        questions.addAll(getRecentQuestion());
     }
 
     @Override
@@ -52,7 +63,6 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
 
         currentPage = sharedPref.getInt(KEY_CURRENT_PAGE, Database.FIRST_PAGE);
         getAllRecentQuestion();
-
         getListView().setOnScrollListener(this);
     }
 

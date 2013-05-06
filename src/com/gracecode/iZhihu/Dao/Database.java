@@ -42,10 +42,12 @@ public final class Database {
         "CREATE TABLE " + DATABASE_QUESTIONS_TABLE_NAME + " (" +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT , " +
             COLUM_ID + " integer NOT NULL UNIQUE, " + COLUM_SERVER_ID + " integer, " +
-            COLUM_ANSWER_ID + " integer, " + COLUM_QUESTION_ID + " integer UNIQUE, " +
+            COLUM_ANSWER_ID + " integer, " + COLUM_QUESTION_ID + " integer, " +
             COLUM_USER_NAME + " text,  " + COLUM_USER_AVATAR + " text, " + COLUM_QUESTION_TITLE + " text, " +
             COLUM_QUESTION_DESCRIPTION + " text, " + COLUM_CONTENT + " text, " + COLUM_UPDATE_AT + " text, " +
-            COLUM_UNREAD + " integer DEFAULT 0, " + COLUM_STARED + " integer DEFAULT 0 );"
+            COLUM_UNREAD + " integer DEFAULT 0, " + COLUM_STARED + " integer DEFAULT 0 );",
+        "CREATE INDEX " + COLUM_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ID + ");",
+        "CREATE INDEX " + COLUM_ANSWER_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ANSWER_ID + ");"
     };
     public static final int PRE_LIMIT_PAGE_SIZE = 25;
     public static final int FIRST_PAGE = 1;
@@ -91,6 +93,22 @@ public final class Database {
         return returnId;
     }
 
+    public long getTotalQuestionsCount() {
+        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT count(" + COLUM_ID + ") AS " +
+            COLUM_ID + " FROM " + DATABASE_QUESTIONS_TABLE_NAME + " LIMIT 1;", null);
+        cursor.moveToFirst();
+
+        long count = cursor.getLong(cursor.getColumnIndex(COLUM_ID));
+        cursor.close();
+        return count;
+    }
+
+    public int getTotalPages() {
+        return (int) Math.ceil(getTotalQuestionsCount() / PRE_LIMIT_PAGE_SIZE);
+    }
+
     private class DatabaseOpenHelper extends SQLiteOpenHelper {
         public DatabaseOpenHelper(Context context, String name) {
             super(context, name, null, DATABASE_VERSION);
@@ -125,8 +143,7 @@ public final class Database {
     protected Cursor getRecentQuestionsCursor(int page) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, null, null, null, null,
-            COLUM_UPDATE_AT + " DESC " + "LIMIT " + PRE_LIMIT_PAGE_SIZE +
-                " OFFSET " + (page - 1) * PRE_LIMIT_PAGE_SIZE);
+            COLUM_UPDATE_AT + " DESC " + "LIMIT " + (page - 1) * PRE_LIMIT_PAGE_SIZE + "," + PRE_LIMIT_PAGE_SIZE);
         cursor.moveToFirst();
         return cursor;
     }
@@ -295,7 +312,9 @@ public final class Database {
         contentValues.put(COLUM_UPDATE_AT, question.getString(COLUM_UPDATE_AT));
         contentValues.put(COLUM_USER_AVATAR, question.getString(COLUM_USER_AVATAR));
 
-        return db.insertOrThrow(DATABASE_QUESTIONS_TABLE_NAME, null, contentValues);
+        long result = db.insert(DATABASE_QUESTIONS_TABLE_NAME, null, contentValues);
+        db.close();
+        return result;
     }
 
 

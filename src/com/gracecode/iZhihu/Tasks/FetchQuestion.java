@@ -26,6 +26,7 @@ public class FetchQuestion extends BaseTasks<Boolean, Void, Void> {
 
                 int startId = database.getStartId();
                 JSONArray fetchedData = requester.fetch(startId);
+
                 for (int i = 0, length = fetchedData.length(); i < length; i++) {
                     JSONObject item = (JSONObject) fetchedData.get(i);
                     database.insertSingleQuestion(item);
