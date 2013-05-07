@@ -22,20 +22,11 @@ public final class MainTabListener implements ActionBar.TabListener {
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-//        if (alreadyAdded) {
-//            fragmentTransaction.show(fragment);
-//            return;
-//        } else {
-//            fragmentTransaction.add(android.R.id.content, fragment);
-//            alreadyAdded = true;
-//        }
-
         viewPager.setCurrentItem(tab.getPosition());
     }
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-//        fragmentTransaction.hide(fragment);
     }
 
     @Override

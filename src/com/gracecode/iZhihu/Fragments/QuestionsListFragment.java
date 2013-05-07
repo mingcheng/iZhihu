@@ -62,7 +62,6 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
                 Question question = questions.get(selectedPosition);
                 questions.remove(selectedPosition);
                 questions.add(selectedPosition, database.getSingleQuestion(question.id));
-                selectedPosition = SELECT_NONE;
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
             } finally {

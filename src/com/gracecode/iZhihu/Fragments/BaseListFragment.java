@@ -59,6 +59,11 @@ public abstract class BaseListFragment extends ListFragment {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         selectedPosition = sharedPref.getInt(KEY_SELECTED_POSITION, SELECT_NONE);
         if (selectedPosition != SELECT_NONE) {
             getListView().setSelection(selectedPosition);

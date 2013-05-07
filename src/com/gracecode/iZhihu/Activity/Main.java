@@ -11,6 +11,8 @@ import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.FetchQuestion;
 
 public class Main extends BaseActivity {
+    private ScrollTabsFragment scrollTabsFragment;
+
     /**
      * 判断是否第一次启动
      *
@@ -26,37 +28,21 @@ public class Main extends BaseActivity {
         return isFirstrun;
     }
 
-//    private void rebuildTables() throws RuntimeException {
-//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-//        actionBar.removeAllTabs();
-//
-//        ActionBar.Tab mainTab = actionBar.newTab()
-//            .setText(getString(R.string.tab_index))
-//            .setTabListener(new MainTabListener(context, QuestionsListFragment.class.getName()));
-//
-//        ActionBar.Tab favoritesTab = actionBar.newTab()
-//            .setText(getString(R.string.tab_favorite))
-//            .setTabListener(new MainTabListener(context, StaredListFragment.class.getName()));
-//
-//        actionBar.addTab(mainTab);
-//        actionBar.addTab(favoritesTab);
-//    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        scrollTabsFragment = new ScrollTabsFragment();
         getFragmentManager()
             .beginTransaction()
-            .replace(android.R.id.content, new ScrollTabsFragment())
+            .replace(android.R.id.content, scrollTabsFragment)
             .commit();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        //fetchQuestionsFromServer(isFirstRun() ? true : false);
+        fetchQuestionsFromServer(isFirstRun() ? true : false);
     }
 
     @Override
@@ -80,7 +66,7 @@ public class Main extends BaseActivity {
             @Override
             public void onPostExecute(Object o) {
                 try {
-                    //rebuildTables();
+                    scrollTabsFragment.notifyDatasetChanged();
                 } catch (RuntimeException e) {
                     Toast.makeText(context, getString(R.string.rebuild_ui_faild), Toast.LENGTH_LONG).show();
                 } finally {

@@ -23,7 +23,6 @@ public class StaredListFragment extends BaseListFragment {
                 if (!question.isStared()) {
                     questions.remove(selectedPosition);
                 }
-                selectedPosition = SELECT_NONE;
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
             } finally {
