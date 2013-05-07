@@ -19,7 +19,7 @@ import com.gracecode.iZhihu.R;
 import java.util.ArrayList;
 
 public abstract class BaseListFragment extends ListFragment {
-    public static final String KEY_SELECTED_POSITION = "SELECTED_POSITION";
+    public static final String KEY_SELECTED_POSITION = "KEY_SELECTED_POSITION";
     public static final int SELECT_NONE = -1;
     protected QuestionsAdapter questionsAdapter;
     protected Activity activity;
@@ -40,24 +40,10 @@ public abstract class BaseListFragment extends ListFragment {
         this.activity = getActivity();
         this.context = activity.getApplicationContext();
         this.database = new Database(context);
-        this.questions = new ArrayList<Question>();
+        this.questions = getInitialData();
         this.questionsAdapter = new QuestionsAdapter(context, questions);
         this.sharedPref = context.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
-
-        selectedPosition = sharedPref.getInt(KEY_SELECTED_POSITION, SELECT_NONE);
     }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        setListAdapter(questionsAdapter);
-        super.onStart();
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -70,6 +56,33 @@ public abstract class BaseListFragment extends ListFragment {
         super.onSaveInstanceState(savedInstanceState);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        selectedPosition = sharedPref.getInt(KEY_SELECTED_POSITION, SELECT_NONE);
+        if (selectedPosition != SELECT_NONE) {
+            getListView().setSelection(selectedPosition);
+        }
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        setListAdapter(questionsAdapter);
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onStop() {
+        if (selectedPosition == SELECT_NONE) {
+            savePref(KEY_SELECTED_POSITION, getListView().getFirstVisiblePosition());
+        }
+        super.onStop();
+    }
+
+    public ArrayList<Question> getInitialData() {
+        return new ArrayList<Question>();
+    }
+
     public boolean savePref(String key, int value) {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(key, value);
@@ -78,9 +91,10 @@ public abstract class BaseListFragment extends ListFragment {
 
     public void onListItemClick(ListView parent, View v, int position, long id) {
         Question question = questions.get(position);
-
         selectedPosition = position;
-        savePref(KEY_SELECTED_POSITION, position);
+        if (selectedPosition != SELECT_NONE) {
+            savePref(KEY_SELECTED_POSITION, position);
+        }
 
         Intent intent = new Intent(activity, Detail.class);
         intent.putExtra(Database.COLUM_ID, question.id);

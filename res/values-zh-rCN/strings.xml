@@ -4,7 +4,7 @@
     <string name="preference">选项</string>
     <string name="about">关于</string>
     <string name="tab_index">主页</string>
-    <string name="tab_favorite">收藏</string>
+    <string name="tab_stared">收藏</string>
     <string name="browser">浏览</string>
     <string name="share">分享</string>
     <string name="caches">缓存</string>

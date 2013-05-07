@@ -9,7 +9,7 @@ import com.gracecode.iZhihu.Dao.Question;
 import java.util.ArrayList;
 
 public class QuestionsListFragment extends BaseListFragment implements AbsListView.OnScrollListener {
-    private static final String KEY_CURRENT_PAGE = "currentPage";
+    private static final String KEY_CURRENT_PAGE = "KEY_CURRENT_PAGE";
     private int currentPage = Database.FIRST_PAGE;
     private boolean isRunning = false;
 
@@ -54,40 +54,14 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        questions.addAll(getRecentQuestion());
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
-
         currentPage = sharedPref.getInt(KEY_CURRENT_PAGE, Database.FIRST_PAGE);
-        getAllRecentQuestion();
-        getListView().setOnScrollListener(this);
-    }
-
-    @Override
-    public void onStop() {
-        int position = getListView().getSelectedItemPosition();
-        savePref(KEY_SELECTED_POSITION, position);
-        savePref(KEY_CURRENT_PAGE, currentPage);
-        super.onStop();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
         if (selectedPosition != SELECT_NONE) {
             try {
                 Question question = questions.get(selectedPosition);
                 questions.remove(selectedPosition);
                 questions.add(selectedPosition, database.getSingleQuestion(question.id));
-
-                getListView().setSelection(selectedPosition);
-
                 selectedPosition = SELECT_NONE;
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
@@ -95,7 +69,18 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
                 questionsAdapter.notifyDataSetChanged();
             }
         }
+    }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getListView().setOnScrollListener(this);
+    }
+
+    @Override
+    public void onStop() {
+        savePref(KEY_CURRENT_PAGE, currentPage);
+        super.onStop();
     }
 
     @Override
@@ -110,11 +95,12 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
         }
     }
 
-    public ArrayList<Question> getAllRecentQuestion() {
-        questions.clear();
+    @Override
+    public ArrayList<Question> getInitialData() {
+        ArrayList<Question> q = new ArrayList<Question>();
         for (int i = Database.FIRST_PAGE; i <= currentPage; i++) {
-            questions.addAll(database.getRecentQuestions(i));
+            q.addAll(database.getRecentQuestions(i));
         }
-        return questions;
+        return q;
     }
 }

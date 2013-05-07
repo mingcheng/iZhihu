@@ -4,7 +4,7 @@
     <string name="preference">Preference</string>
     <string name="about">About</string>
     <string name="tab_index">Main</string>
-    <string name="tab_favorite">Favorite</string>
+    <string name="tab_stared">Favorite</string>
     <string name="browser">Browser</string>
     <string name="share">Share</string>
     <string name="caches">Caches</string>
