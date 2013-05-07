@@ -1,21 +1,21 @@
 package com.gracecode.iZhihu.Activity;
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.gracecode.iZhihu.Fragments.QuestionsListFragment;
-import com.gracecode.iZhihu.Fragments.StaredListFragment;
-import com.gracecode.iZhihu.Listener.MainTabListener;
+import android.widget.Toast;
+import com.gracecode.iZhihu.Fragments.ScrollTabsFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.FetchQuestion;
 
 public class Main extends BaseActivity {
-    private static final String CURRENT_TAB_POSITION = "currentTabPosition";
-    private int moveToTab = 0;
-
+    /**
+     * 判断是否第一次启动
+     *
+     * @return
+     */
     private boolean isFirstRun() {
         Boolean isFirstrun = sharedPreferences.getBoolean(getString(R.string.app_name), true);
         if (isFirstrun) {
@@ -26,42 +26,37 @@ public class Main extends BaseActivity {
         return isFirstrun;
     }
 
-    private void rebuildTables() throws RuntimeException {
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.removeAllTabs();
-
-        ActionBar.Tab mainTab = actionBar.newTab()
-            .setText(getString(R.string.tab_index))
-            .setTabListener(new MainTabListener(context, QuestionsListFragment.class.getName()));
-
-        ActionBar.Tab favoritesTab = actionBar.newTab()
-            .setText(getString(R.string.tab_favorite))
-            .setTabListener(new MainTabListener(context, StaredListFragment.class.getName()));
-
-        actionBar.addTab(mainTab);
-        actionBar.addTab(favoritesTab);
-    }
+//    private void rebuildTables() throws RuntimeException {
+//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+//        actionBar.removeAllTabs();
+//
+//        ActionBar.Tab mainTab = actionBar.newTab()
+//            .setText(getString(R.string.tab_index))
+//            .setTabListener(new MainTabListener(context, QuestionsListFragment.class.getName()));
+//
+//        ActionBar.Tab favoritesTab = actionBar.newTab()
+//            .setText(getString(R.string.tab_favorite))
+//            .setTabListener(new MainTabListener(context, StaredListFragment.class.getName()));
+//
+//        actionBar.addTab(mainTab);
+//        actionBar.addTab(favoritesTab);
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (savedInstanceState != null) {
-//            moveToTab = savedInstanceState.getInt(CURRENT_TAB_POSITION);
-//        }
+
+
+        getFragmentManager()
+            .beginTransaction()
+            .replace(android.R.id.content, new ScrollTabsFragment())
+            .commit();
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        fetchQuestionsFromServer(isFirstRun() ? true : false);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-//        ActionBar.Tab selectTab = actionBar.getSelectedTab();
-
-        // outState.putInt(CURRENT_TAB_POSITION, actionBar.getSelectedTab().getPosition());
-        super.onSaveInstanceState(outState);
+        //fetchQuestionsFromServer(isFirstRun() ? true : false);
     }
 
     @Override
@@ -85,9 +80,9 @@ public class Main extends BaseActivity {
             @Override
             public void onPostExecute(Object o) {
                 try {
-                    rebuildTables();
+                    //rebuildTables();
                 } catch (RuntimeException e) {
-
+                    Toast.makeText(context, getString(R.string.rebuild_ui_faild), Toast.LENGTH_LONG).show();
                 } finally {
                     if (progressDialog != null) {
                         progressDialog.dismiss();

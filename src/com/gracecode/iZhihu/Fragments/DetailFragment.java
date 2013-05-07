@@ -191,6 +191,7 @@ public class DetailFragment extends WebViewFragment {
     /**
      * 截取所有网页内容到 Bitmap
      *
+     * @TODO 内存的问题
      * @return
      */
     public Bitmap getCapture() {
@@ -201,8 +202,12 @@ public class DetailFragment extends WebViewFragment {
         Bitmap bitmap = Bitmap.createBitmap(webView.getWidth(),
             height, Bitmap.Config.ARGB_8888);
 
-        Canvas canvas = new Canvas(bitmap);
-        webView.draw(canvas);
+        try {
+            Canvas canvas = new Canvas(bitmap);
+            webView.draw(canvas);
+        } catch (OutOfMemoryError error) {
+
+        }
         return bitmap;
     }
 

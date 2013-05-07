@@ -49,4 +49,5 @@
     <string name="tradition_symbol">Tradition Symbol</string>
     <string name="tradition_symbol_summary">Use tradition Chinese symbol to read.</string>
     <string name="network_error">Network Error, Please check your internet connection.</string>
+    <string name="rebuild_ui_faild">Sorry, Some shits happened.</string>
 </resources>
