@@ -54,9 +54,13 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
-        currentPage = sharedPref.getInt(KEY_CURRENT_PAGE, Database.FIRST_PAGE);
         if (selectedPosition != SELECT_NONE) {
             try {
                 Question question = questions.get(selectedPosition);
@@ -97,6 +101,8 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
     @Override
     public ArrayList<Question> getInitialData() {
         ArrayList<Question> q = new ArrayList<Question>();
+
+        this.currentPage = sharedPref.getInt(KEY_CURRENT_PAGE, Database.FIRST_PAGE);
         for (int i = Database.FIRST_PAGE; i <= currentPage; i++) {
             q.addAll(database.getRecentQuestions(i));
         }

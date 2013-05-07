@@ -24,7 +24,7 @@ public abstract class BaseListFragment extends ListFragment {
     protected QuestionsAdapter questionsAdapter;
     protected Activity activity;
     protected Context context;
-    protected Database database;
+    protected static Database database;
     protected ArrayList<Question> questions;
     protected int selectedPosition;
     protected SharedPreferences sharedPref;
@@ -39,10 +39,11 @@ public abstract class BaseListFragment extends ListFragment {
 
         this.activity = getActivity();
         this.context = activity.getApplicationContext();
+        this.sharedPref = context.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+
         this.database = new Database(context);
         this.questions = getInitialData();
         this.questionsAdapter = new QuestionsAdapter(context, questions);
-        this.sharedPref = context.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
     }
 
     @Override
