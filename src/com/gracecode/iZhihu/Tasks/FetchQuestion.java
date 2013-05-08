@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-public class FetchQuestion extends BaseTasks<Boolean, Void, Void> {
+public class FetchQuestion extends BaseTasks<Boolean, Void, Integer> {
     private final static int MAX_FETCH_TIMES = 3600 * 1000 * 2; // 2 hours
 
     public FetchQuestion(Context context, Callback callback) {
@@ -19,21 +19,27 @@ public class FetchQuestion extends BaseTasks<Boolean, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(Boolean... booleans) {
+    protected Integer doInBackground(Boolean... booleans) {
+        int affectedRows = 0;
+
         try {
             for (Boolean focus : booleans) {
                 if (!focus && System.currentTimeMillis() - requester.getLastRequestTimeStamp() < MAX_FETCH_TIMES) {
                     return null;
                 }
 
-                int startId = database.getStartId();
+                int startId = questionsDatabase.getStartId();
                 JSONArray fetchedData = requester.fetch(startId);
 
                 for (int i = 0, length = fetchedData.length(); i < length; i++) {
                     JSONObject item = (JSONObject) fetchedData.get(i);
-                    database.insertSingleQuestion(item);
+                    if (questionsDatabase.insertSingleQuestion(item) >= 1) {
+                        affectedRows++;
+                    }
                 }
             }
+
+            return affectedRows;
         } catch (SQLiteException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -42,7 +48,8 @@ public class FetchQuestion extends BaseTasks<Boolean, Void, Void> {
             e.printStackTrace();
         } catch (NetworkErrorException e) {
             Toast.makeText(context, context.getString(R.string.network_error), Toast.LENGTH_LONG).show();
+        } finally {
+            return affectedRows;
         }
-        return null;
     }
 }

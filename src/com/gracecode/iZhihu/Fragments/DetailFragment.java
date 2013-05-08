@@ -7,31 +7,37 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.webkit.WebViewFragment;
 import android.widget.Toast;
-import com.gracecode.iZhihu.Dao.Database;
+import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.R;
+import com.gracecode.iZhihu.Util;
 
 import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DetailFragment extends WebViewFragment {
+    private static final String KEY_SCROLL_BY = "key_scroll_by_";
     private static final String DEFAULT_CHARSET = "utf-8";
     private static final String TEMPLATE_DETAIL_FILE = "detail.html";
     private static final String URL_ASSETS_PREFIX = "file:///android_asset/";
     private static final String MIME_TYPE = "text/html";
     public static final int ID_NOT_FOUND = 0;
+    private static final int DONT_HAVE_SCROLLY = 0;
+    private static final long AUTO_SCROLL_DELAY = 500;
 
     private final int id;
     private final Context context;
-    private Database database;
+    private QuestionsDatabase questionsDatabase;
     private Activity activity;
     private SharedPreferences sharedPreferences;
 
@@ -86,9 +92,9 @@ public class DetailFragment extends WebViewFragment {
 
         this.activity = getActivity();
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        this.database = new Database(context);
+        this.questionsDatabase = new QuestionsDatabase(context);
 
-        database.markSingleQuestionAsReaded(id);
+        questionsDatabase.markSingleQuestionAsReaded(id);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -97,8 +103,8 @@ public class DetailFragment extends WebViewFragment {
         super.onStart();
 
         try {
-            question = database.getSingleQuestion(id);
-        } catch (Database.QuestionNotFoundException e) {
+            question = questionsDatabase.getSingleQuestion(id);
+        } catch (QuestionsDatabase.QuestionNotFoundException e) {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
             activity.finish();
         }
@@ -107,13 +113,65 @@ public class DetailFragment extends WebViewFragment {
             question.title, question.description, question.userName, formatContent(question.content));
 
 //        getWebView().setScrollbarFadingEnabled(false);
-        getWebView().setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+        getWebView().setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
 
         getWebView().getSettings().setLoadWithOverviewMode(true);
         getWebView().getSettings().setUseWideViewPort(true);
+        getWebView().getSettings().setJavaScriptEnabled(true);
+
+        getWebView().setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                decideAutoScroll();
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                Util.openWithBrowser(getActivity(), url);
+                return true;
+            }
+        });
 
         getWebView().loadDataWithBaseURL(URL_ASSETS_PREFIX, data, MIME_TYPE, DEFAULT_CHARSET, null);
         question.markAsRead();
+    }
+
+    private String getKeyScrollById() {
+        return KEY_SCROLL_BY + this.id;
+    }
+
+    /**
+     * 判断是否需要自动滚动
+     */
+    private void decideAutoScroll() {
+        final int savedScrollY = sharedPreferences.getInt(getKeyScrollById(), DONT_HAVE_SCROLLY);
+        boolean needAutoScroll = sharedPreferences.getBoolean(getString(R.string.key_auto_scroll), true);
+
+        if (needAutoScroll && savedScrollY != DONT_HAVE_SCROLLY) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getWebView().scrollTo(0, savedScrollY);
+                }
+            }, AUTO_SCROLL_DELAY);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(getKeyScrollById(), getWebView().getScrollY());
+        editor.commit();
     }
 
     private String formatContent(String content) {
@@ -191,8 +249,8 @@ public class DetailFragment extends WebViewFragment {
     /**
      * 截取所有网页内容到 Bitmap
      *
-     * @TODO 内存的问题
      * @return
+     * @TODO 内存的问题
      */
     public Bitmap getCapture() {
         WebView webView = getWebView();
@@ -213,9 +271,9 @@ public class DetailFragment extends WebViewFragment {
 
     @Override
     public void onDestroy() {
-        if (database != null) {
-            database.close();
-            database = null;
+        if (questionsDatabase != null) {
+            questionsDatabase.close();
+            questionsDatabase = null;
         }
         super.onDestroy();
     }

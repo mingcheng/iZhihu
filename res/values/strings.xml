@@ -44,10 +44,15 @@
     <string name="paragraph_indents">Paragraph indents</string>
     <string name="paragraph_summary">Indents one characters on each paragraph</string>
     <string name="colon">:</string>
-    <string name="database_faild">Write database faild.</string>
+    <string name="database_faild">Write questionsDatabase faild.</string>
     <string name="key_symbol">symbol</string>
     <string name="tradition_symbol">Tradition Symbol</string>
     <string name="tradition_symbol_summary">Use tradition Chinese symbol to read.</string>
     <string name="network_error">Network Error, Please check your internet connection.</string>
     <string name="rebuild_ui_faild">Sorry, Some shits happened.</string>
+    <string name="affectRows">New %d questions.</string>
+    <string name="auto_scroll_summary">Auto scroll to last time read location.</string>
+    <string name="auto_scroll">Auto scroll</string>
+    <string name="key_auto_scroll">key_auto_scroll</string>
+    <string name="read">Read</string>
 </resources>

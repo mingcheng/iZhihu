@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 
 public final class Question implements Parcelable {
-    private final Database database;
+    private final QuestionsDatabase questionsDatabase;
     public int id;
     public int questionId;
 
@@ -17,22 +17,22 @@ public final class Question implements Parcelable {
     public boolean stared;
     public boolean unread;
 
-    public Question(Database database) {
-        this.database = database;
+    public Question(QuestionsDatabase questionsDatabase) {
+        this.questionsDatabase = questionsDatabase;
     }
 
     public boolean markAsRead() {
-        int result = database.markSingleQuestionAsReaded(id);
+        int result = questionsDatabase.markSingleQuestionAsReaded(id);
         return (result > 1) ? true : false;
     }
 
     public boolean toggleStar(boolean flag) {
-        int result = database.markQuestionAsStared(id, flag);
+        int result = questionsDatabase.markQuestionAsStared(id, flag);
         return (result > 1) ? true : false;
     }
 
     public boolean isStared() {
-        return database.isStared(id);
+        return questionsDatabase.isStared(id);
     }
 
     public boolean markAsStared() {

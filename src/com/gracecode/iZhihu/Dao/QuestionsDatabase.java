@@ -13,7 +13,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.ArrayList;
 
-public final class Database {
+public final class QuestionsDatabase {
     public static final String COLUM_ID = "id";
     public static final String COLUM_QUESTION_ID = "question_id";
     public static final String COLUM_SERVER_ID = "server_id";
@@ -63,7 +63,7 @@ public final class Database {
     protected File databaseFile;
     protected DatabaseOpenHelper databaseOpenHelper;
     protected Context context;
-    private Database database;
+    private QuestionsDatabase questionsDatabase;
 
     private int idxId;
     private int idxQuestionId;
@@ -133,11 +133,11 @@ public final class Database {
     }
 
 
-    public Database(Context context) {
+    public QuestionsDatabase(Context context) {
         this.context = context;
         this.databaseFile = new File(context.getCacheDir(), FILE_DATABASE_NAME);
         this.databaseOpenHelper = new DatabaseOpenHelper(context, databaseFile.getAbsolutePath());
-        this.database = this;
+        this.questionsDatabase = this;
     }
 
     protected Cursor getRecentQuestionsCursor(int page) {
@@ -189,15 +189,15 @@ public final class Database {
     }
 
     private void getIndexFromCursor(Cursor cursor) {
-        this.idxId = cursor.getColumnIndex(Database.COLUM_ID);
-        this.idxQuestionId = cursor.getColumnIndex(Database.COLUM_QUESTION_ID);
-        this.idxTitle = cursor.getColumnIndex(Database.COLUM_QUESTION_TITLE);
-        this.idxContent = cursor.getColumnIndex(Database.COLUM_CONTENT);
-        this.idxUserName = cursor.getColumnIndex(Database.COLUM_USER_NAME);
-        this.idxDespcrition = cursor.getColumnIndex(Database.COLUM_QUESTION_DESCRIPTION);
-        this.idxStared = cursor.getColumnIndex(Database.COLUM_STARED);
-        this.idxUnread = cursor.getColumnIndex(Database.COLUM_UNREAD);
-        this.idxUpdateAt = cursor.getColumnIndex(Database.COLUM_UPDATE_AT);
+        this.idxId = cursor.getColumnIndex(QuestionsDatabase.COLUM_ID);
+        this.idxQuestionId = cursor.getColumnIndex(QuestionsDatabase.COLUM_QUESTION_ID);
+        this.idxTitle = cursor.getColumnIndex(QuestionsDatabase.COLUM_QUESTION_TITLE);
+        this.idxContent = cursor.getColumnIndex(QuestionsDatabase.COLUM_CONTENT);
+        this.idxUserName = cursor.getColumnIndex(QuestionsDatabase.COLUM_USER_NAME);
+        this.idxDespcrition = cursor.getColumnIndex(QuestionsDatabase.COLUM_QUESTION_DESCRIPTION);
+        this.idxStared = cursor.getColumnIndex(QuestionsDatabase.COLUM_STARED);
+        this.idxUnread = cursor.getColumnIndex(QuestionsDatabase.COLUM_UNREAD);
+        this.idxUpdateAt = cursor.getColumnIndex(QuestionsDatabase.COLUM_UPDATE_AT);
     }
 
     private Question convertCursorIntoQuestion(Cursor cursor) {
@@ -272,7 +272,7 @@ public final class Database {
         }
 
         cursor.moveToFirst();
-        int result = cursor.getInt(cursor.getColumnIndex(Database.COLUM_STARED));
+        int result = cursor.getInt(cursor.getColumnIndex(QuestionsDatabase.COLUM_STARED));
         cursor.close();
         return (result == VALUE_STARED) ? true : false;
     }

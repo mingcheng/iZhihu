@@ -64,8 +64,13 @@ public class Main extends BaseActivity {
             }
 
             @Override
-            public void onPostExecute(Object o) {
+            public void onPostExecute(Object affectedRows) {
                 try {
+                    int i = (Integer) affectedRows;
+                    if (focus && i > 0) {
+                        Toast.makeText(context,
+                            String.format(getString(R.string.affectRows), i), Toast.LENGTH_LONG).show();
+                    }
                     scrollTabsFragment.notifyDatasetChanged();
                 } catch (RuntimeException e) {
                     Toast.makeText(context, getString(R.string.rebuild_ui_faild), Toast.LENGTH_LONG).show();

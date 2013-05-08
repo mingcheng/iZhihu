@@ -3,14 +3,14 @@ package com.gracecode.iZhihu.Fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.AbsListView;
-import com.gracecode.iZhihu.Dao.Database;
+import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Dao.Question;
 
 import java.util.ArrayList;
 
 public class QuestionsListFragment extends BaseListFragment implements AbsListView.OnScrollListener {
     private static final String KEY_CURRENT_PAGE = "KEY_CURRENT_PAGE";
-    private int currentPage = Database.FIRST_PAGE;
+    private int currentPage = QuestionsDatabase.FIRST_PAGE;
     private boolean isRunning = false;
 
     private class GetMoreLocalQuestionsTask extends AsyncTask<Void, Void, Void> {
@@ -19,13 +19,13 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
 
         @Override
         protected Void doInBackground(Void... voids) {
-            if (currentPage > database.getTotalPages()) {
+            if (currentPage > questionsDatabase.getTotalPages()) {
                 return null;
             }
 
             try {
                 Thread.sleep(LOAD_DELAY_TIME);
-                ArrayList<Question> newDatas = database.getRecentQuestions(++currentPage);
+                ArrayList<Question> newDatas = questionsDatabase.getRecentQuestions(++currentPage);
                 questions.addAll(newDatas);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -65,7 +65,7 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
             try {
                 Question question = questions.get(selectedPosition);
                 questions.remove(selectedPosition);
-                questions.add(selectedPosition, database.getSingleQuestion(question.id));
+                questions.add(selectedPosition, questionsDatabase.getSingleQuestion(question.id));
             } catch (IndexOutOfBoundsException e) {
                 e.printStackTrace();
             } finally {
@@ -102,9 +102,9 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
     public ArrayList<Question> getInitialData() {
         ArrayList<Question> q = new ArrayList<Question>();
 
-        this.currentPage = sharedPref.getInt(KEY_CURRENT_PAGE, Database.FIRST_PAGE);
-        for (int i = Database.FIRST_PAGE; i <= currentPage; i++) {
-            q.addAll(database.getRecentQuestions(i));
+        this.currentPage = sharedPref.getInt(KEY_CURRENT_PAGE, QuestionsDatabase.FIRST_PAGE);
+        for (int i = QuestionsDatabase.FIRST_PAGE; i <= currentPage; i++) {
+            q.addAll(questionsDatabase.getRecentQuestions(i));
         }
         return q;
     }

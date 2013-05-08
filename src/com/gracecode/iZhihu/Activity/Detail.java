@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import com.gracecode.iZhihu.Dao.Database;
+import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Fragments.DetailFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.ToggleStarTask;
@@ -17,7 +17,7 @@ import java.io.IOException;
 
 
 public class Detail extends BaseActivity {
-    private int id;
+    public int id;
     private DetailFragment fragQuestionDetail;
 
     @Override
@@ -26,7 +26,7 @@ public class Detail extends BaseActivity {
 
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        this.id = getIntent().getIntExtra(Database.COLUM_ID, DetailFragment.ID_NOT_FOUND);
+        this.id = getIntent().getIntExtra(QuestionsDatabase.COLUM_ID, DetailFragment.ID_NOT_FOUND);
         this.fragQuestionDetail = new DetailFragment(id, this);
         getFragmentManager()
             .beginTransaction()

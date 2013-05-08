@@ -15,14 +15,13 @@ public class ToggleStarTask extends BaseTasks<ToggleStarTask.Item, Void, Void> {
 
     public ToggleStarTask(Context context, Callback callback) {
         super(context, callback);
-
     }
 
     @Override
     protected Void doInBackground(Item... items) {
         for (Item item : items) {
-            synchronized (database) {
-                database.markQuestionAsStared(item.id, item.stared);
+            synchronized (questionsDatabase) {
+                questionsDatabase.markQuestionAsStared(item.id, item.stared);
             }
         }
 

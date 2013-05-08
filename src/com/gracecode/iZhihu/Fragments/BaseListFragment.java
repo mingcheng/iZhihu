@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import com.gracecode.iZhihu.Activity.Detail;
 import com.gracecode.iZhihu.Adapter.QuestionsAdapter;
-import com.gracecode.iZhihu.Dao.Database;
+import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.R;
 
@@ -24,7 +24,7 @@ public abstract class BaseListFragment extends ListFragment {
     protected QuestionsAdapter questionsAdapter;
     protected Activity activity;
     protected Context context;
-    protected static Database database;
+    protected static QuestionsDatabase questionsDatabase;
     protected ArrayList<Question> questions;
     protected int selectedPosition;
     protected SharedPreferences sharedPref;
@@ -41,7 +41,7 @@ public abstract class BaseListFragment extends ListFragment {
         this.context = activity.getApplicationContext();
         this.sharedPref = context.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
 
-        this.database = new Database(context);
+        this.questionsDatabase = new QuestionsDatabase(context);
         this.questions = getInitialData();
         this.questionsAdapter = new QuestionsAdapter(context, questions);
     }
@@ -103,25 +103,25 @@ public abstract class BaseListFragment extends ListFragment {
         }
 
         Intent intent = new Intent(activity, Detail.class);
-        intent.putExtra(Database.COLUM_ID, question.id);
+        intent.putExtra(QuestionsDatabase.COLUM_ID, question.id);
         startActivity(intent);
     }
 
 
     public ArrayList<Question> getRecentQuestion() {
-        return database.getRecentQuestions();
+        return questionsDatabase.getRecentQuestions();
     }
 
     public ArrayList<Question> getStaredQuestions() {
-        return database.getStaredQuestions();
+        return questionsDatabase.getStaredQuestions();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (database != null) {
-            database.close();
-            database = null;
+        if (questionsDatabase != null) {
+            questionsDatabase.close();
+            questionsDatabase = null;
         }
     }
 }
