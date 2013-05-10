@@ -81,8 +81,8 @@ public class FetchThumbnailTask extends AsyncTask<Void, Integer, Integer> {
                             Header contentType = httpResponse.getFirstHeader("Content-Type");
                             boolean isCached = database.markAsCached(url,
                                 localCacheFile.getAbsolutePath(),
-                                entity.getContentLength(),
                                 contentType.getValue(),
+                                statusCode,
                                 DEFAULT_WIDTH,
                                 DEFAULT_HEIGHT);
 
@@ -92,9 +92,8 @@ public class FetchThumbnailTask extends AsyncTask<Void, Integer, Integer> {
                             }
                         }
                     } else {
-                        // @todo 增加错误的标记，避免下次再访问
+                        database.markAsCached(url, null, null, statusCode, DEFAULT_WIDTH, DEFAULT_HEIGHT);
                         getRequest.abort();
-                        // ...
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

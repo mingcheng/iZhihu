@@ -57,7 +57,8 @@
     <string name="read">Read</string>
     <string name="key_clear_caches">key_clear_caches</string>
     <string name="clear_caches">Clear Offline Image Caches</string>
-    <string name="clear_caches_summary">Total offline image caches size is %fMb.</string>
+    <string name="clear_caches_summary" formatted="false">Total cached %d offline images with %.2fMB of its size.
+    </string>
     <string name="key_enable_cache">key_enable_cache</string>
     <string name="enable_cache">Enable offline images</string>
     <string name="enable_cache_summary">Enable offline images for none-network use.</string>

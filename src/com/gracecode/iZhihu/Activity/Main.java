@@ -15,6 +15,7 @@ import com.gracecode.iZhihu.Tasks.FetchQuestionTask;
 public class Main extends BaseActivity {
     private ScrollTabsFragment scrollTabsFragment;
     private Intent fetchThumbnailsServiceIntent;
+    private boolean isNeedCacheThumbnails = true;
 
     /**
      * 判断是否第一次启动
@@ -41,13 +42,14 @@ public class Main extends BaseActivity {
             .replace(android.R.id.content, scrollTabsFragment)
             .commit();
 
+        isNeedCacheThumbnails = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
         fetchThumbnailsServiceIntent = new Intent(this, FetchThumbnailsService.class);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (true) {
+        if (isNeedCacheThumbnails) {
             startService(fetchThumbnailsServiceIntent);
         }
         fetchQuestionsFromServer(isFirstRun() ? true : false);
@@ -86,7 +88,7 @@ public class Main extends BaseActivity {
                     if (progressDialog != null) {
                         progressDialog.dismiss();
                     }
-                    if (true && i > 0) {
+                    if (isNeedCacheThumbnails && i > 0) {
                         startService(fetchThumbnailsServiceIntent);
                     }
                 }

@@ -41,7 +41,7 @@
     <string name="auto_scroll">自动滚动</string>
     <string name="read">阅读</string>
     <string name="clear_caches">清除离线图片</string>
-    <string name="clear_caches_summary">总计已缓存 %fMB 的离线图片</string>
+    <string name="clear_caches_summary" formatted="false">总计已缓存 %d 张离线图片，总计 %.2fMB.</string>
     <string name="enable_cache">离线图片</string>
     <string name="enable_cache_summary">自动保存图片到本地，供离线阅读使用</string>
     <string name="only_wifi_cache">只在 WIFI 下缓存</string>

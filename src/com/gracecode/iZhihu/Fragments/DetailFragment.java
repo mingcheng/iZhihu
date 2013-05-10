@@ -9,6 +9,7 @@ import android.graphics.Picture;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DetailFragment extends WebViewFragment {
+    private static final String TAG = DetailFragment.class.getName();
     private static final String KEY_SCROLL_BY = "key_scroll_by_";
     private static final String TEMPLATE_DETAIL_FILE = "detail.html";
     private static final String URL_ASSETS_PREFIX = "file:///android_asset/";
@@ -44,6 +46,9 @@ public class DetailFragment extends WebViewFragment {
     private SharedPreferences sharedPreferences;
 
     private Question question;
+    private boolean isNeedIndent = false;
+    private boolean isNeedReplaceSymbol = false;
+    private boolean isNeedCacheThumbnails = true;
 
     private String getTemplateString() {
         String template = "";
@@ -74,13 +79,16 @@ public class DetailFragment extends WebViewFragment {
         this.questionsDatabase = new QuestionsDatabase(context);
         this.thumbnailsDatabase = new ThumbnailsDatabase(context);
 
-        questionsDatabase.markSingleQuestionAsReaded(id);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
+        this.isNeedIndent = sharedPreferences.getBoolean(getString(R.string.key_indent), false);
+        this.isNeedReplaceSymbol = sharedPreferences.getBoolean(getString(R.string.key_symbol), false);
+        this.isNeedCacheThumbnails = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
 
         try {
             question = questionsDatabase.getSingleQuestion(id);
@@ -167,26 +175,30 @@ public class DetailFragment extends WebViewFragment {
 
         content = "<p>" + content + "</p>";
 
-        if (sharedPreferences.getBoolean(getString(R.string.key_symbol), false)) {
-            content = content.replaceAll("“", "「");
-            content = content.replaceAll("”", "」");
-
-            content = content.replaceAll("‘", "『");
-            content = content.replaceAll("’", "』");
-        }
-
         return content + "<p class='update-at'>" + question.updateAt + "</p>";
+    }
+
+    private String replaceSymbol(String content) {
+        content = content.replaceAll("“", "「");
+        content = content.replaceAll("”", "」");
+        content = content.replaceAll("‘", "『");
+        content = content.replaceAll("’", "』");
+        return content;
     }
 
     private String formatContent(String content) {
         content = formatParagraph(content);
 
-        // @todo 根据配置判断
-        if (true) {
+        if (isNeedReplaceSymbol) {
+            content = replaceSymbol(content);
+        }
+
+        if (isNeedCacheThumbnails) {
             List<String> imageUrls = Util.getImageUrls(content);
             for (String url : imageUrls) {
                 if (thumbnailsDatabase.isCached(url)) {
                     String localPathString = thumbnailsDatabase.getCachedPath(url);
+                    Log.v(TAG, "Found offline cache file, replace online image " + url + " with file://" + localPathString);
                     content = content.replace(url, "file://" + localPathString);
                 } else {
                     thumbnailsDatabase.add(url);
@@ -201,8 +213,6 @@ public class DetailFragment extends WebViewFragment {
         String className = "";
         int fontSize = Integer.parseInt(
             sharedPreferences.getString(getString(R.string.key_font_size), getString(R.string.default_font_size)));
-
-        boolean needIndent = sharedPreferences.getBoolean(getString(R.string.key_indent), false);
 
         switch (fontSize) {
             case 12:
@@ -224,7 +234,7 @@ public class DetailFragment extends WebViewFragment {
                 className += " normal";
         }
 
-        if (needIndent) {
+        if (isNeedIndent) {
             className += " indent";
         }
 

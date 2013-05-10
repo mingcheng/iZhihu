@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import org.apache.http.HttpStatus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -133,11 +134,17 @@ public class ThumbnailsDatabase {
     }
 
     public int clearAll() {
+        List<String> cachedThumbnails = getCachedThumbnails();
+        for (int i = 0, size = cachedThumbnails.size(); i < size; i++) {
+            File thumbnail = new File(cachedThumbnails.get(i));
+            thumbnail.delete();
+        }
+
         SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
         return db.delete(DATABASE_THUMBNAILS_TABLE_NAME, null, null);
     }
 
-    public boolean markAsCached(String url, String localPath, long size, String mimeType, int width, int height) {
+    public boolean markAsCached(String url, String localPath, String mimeType, int status, int width, int height) {
         File localPathFile = new File(localPath);
         if (!localPathFile.isFile() || !localPathFile.exists()) {
             return false;
@@ -149,9 +156,10 @@ public class ThumbnailsDatabase {
         contentValues.put(COLUM_LOCAL_PATH, localPath);
         contentValues.put(COLUM_WIDTH, width);
         contentValues.put(COLUM_HEIGHT, height);
-        contentValues.put(COLUM_SIZE, (size != 0) ? size : localPathFile.length());
+        contentValues.put(COLUM_SIZE, localPathFile.length());
         contentValues.put(COLUM_MIME_TYPE, mimeType);
         contentValues.put(COLUM_TIMESTAMP, System.currentTimeMillis());
+        contentValues.put(COLUM_STATUS, status);
 
         int result = db.update(DATABASE_THUMBNAILS_TABLE_NAME, contentValues, COLUM_URL + " = ?", new String[]{url});
         return result >= 1 ? true : false;
@@ -160,7 +168,7 @@ public class ThumbnailsDatabase {
     public List<String> getNotCachedThumbnails() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{COLUM_URL},
-            COLUM_LOCAL_PATH + " IS NULL", null, null, null, COLUM_ID + " DESC", null);
+            COLUM_LOCAL_PATH + " IS NULL AND " + COLUM_STATUS + " IS NULL", null, null, null, COLUM_ID + " DESC", null);
 
         int idxUrl = cursor.getColumnIndex(COLUM_URL);
         List<String> result = new ArrayList<String>();
@@ -172,12 +180,30 @@ public class ThumbnailsDatabase {
         return result;
     }
 
+
+    public List<String> getCachedThumbnails() {
+        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
+        Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{COLUM_LOCAL_PATH},
+            COLUM_LOCAL_PATH + " IS NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, COLUM_ID + " DESC", null);
+
+        int idxUrl = cursor.getColumnIndex(COLUM_LOCAL_PATH);
+        List<String> result = new ArrayList<String>();
+
+        for (int i = 0, count = cursor.getCount(); i < count; i++) {
+            cursor.moveToPosition(i);
+            result.add(cursor.getString(idxUrl));
+        }
+        return result;
+    }
+
+
     public int getTotalCachedCount() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{"COUNT(" + COLUM_ID + ") AS " + COLUM_ID},
-            COLUM_LOCAL_PATH + " NOT NULL", null, null, null, null, null);
+            COLUM_LOCAL_PATH + " NOT NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, null, null);
 
-        int result = cursor.getCount();
+        cursor.moveToFirst();
+        int result = cursor.getInt(cursor.getColumnIndex(COLUM_ID));
         cursor.close();
         return result;
     }
@@ -185,7 +211,7 @@ public class ThumbnailsDatabase {
     public long getTotalCachedSize() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{"SUM(" + COLUM_ID + ") AS " + COLUM_ID},
-            COLUM_LOCAL_PATH + " NOT NULL", null, null, null, null, null);
+            COLUM_LOCAL_PATH + " NOT NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, null, null);
 
         cursor.moveToFirst();
         long result = cursor.getLong(cursor.getColumnIndex(COLUM_ID));
