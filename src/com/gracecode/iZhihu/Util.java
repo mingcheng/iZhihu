@@ -20,6 +20,14 @@ public class Util {
         activity.startActivity(i);
     }
 
+    public static String replaceSymbol(String content) {
+        content = content.replaceAll("“", "「");
+        content = content.replaceAll("”", "」");
+        content = content.replaceAll("‘", "『");
+        content = content.replaceAll("’", "』");
+        return content;
+    }
+
     public static void sendMail(Activity activity, String[] to, String subject, String content) {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");

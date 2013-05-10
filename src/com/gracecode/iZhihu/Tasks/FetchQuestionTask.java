@@ -20,10 +20,13 @@ public class FetchQuestionTask extends BaseTasks<Boolean, Void, Integer> {
     private final static int MAX_FETCH_TIMES = 3600 * 1000 * 2; // 2 hours
     private final static String TAG = FetchQuestionTask.class.getName();
     private static ThumbnailsDatabase fetchThumbnailsDatabase;
+    private boolean isNeedCacheThumbnails = true;
 
     public FetchQuestionTask(Context context, Callback callback) {
         super(context, callback);
         fetchThumbnailsDatabase = new ThumbnailsDatabase(context);
+
+        isNeedCacheThumbnails = sharedPreferences.getBoolean(context.getString(R.string.key_enable_cache), true);
     }
 
     @Override
@@ -42,25 +45,20 @@ public class FetchQuestionTask extends BaseTasks<Boolean, Void, Integer> {
 
                 for (int i = 0, length = fetchedData.length(); i < length; i++) {
                     JSONObject item = (JSONObject) fetchedData.get(i);
+                    if (questionsDatabase.insertSingleQuestion(item) >= 1) {
+                        affectedRows++;
 
-                    synchronized (questionsDatabase) {
-                        if (questionsDatabase.insertSingleQuestion(item) >= 1) {
-                            affectedRows++;
-
-                            heap += item.getString(QuestionsDatabase.COLUM_CONTENT) +
-                                item.getString(QuestionsDatabase.COLUM_QUESTION_DESCRIPTION);
-                        }
+                        heap += item.getString(QuestionsDatabase.COLUM_CONTENT) +
+                            item.getString(QuestionsDatabase.COLUM_QUESTION_DESCRIPTION);
                     }
                 }
 
                 // @todo 增加配置判断
-                if (true) {
+                if (isNeedCacheThumbnails) {
                     List<String> needCachedUrls = Util.getImageUrls(heap);
                     for (String url : needCachedUrls) {
-                        synchronized (fetchThumbnailsDatabase) {
-                            if (!fetchThumbnailsDatabase.add(url)) {
-                                Log.i(TAG, "Cant add image " + url + " into cache request queue.");
-                            }
+                        if (!fetchThumbnailsDatabase.add(url)) {
+                            Log.i(TAG, "Cant add image " + url + " into cache request queue.");
                         }
                     }
                 }

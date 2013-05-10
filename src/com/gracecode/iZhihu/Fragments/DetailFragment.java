@@ -97,8 +97,12 @@ public class DetailFragment extends WebViewFragment {
             activity.finish();
         }
 
-        String data = String.format(getTemplateString(), getClassName(),
-            question.title, question.description, question.userName, formatContent(question.content));
+        String data = String.format(getTemplateString(),
+            getClassName(),
+            isNeedReplaceSymbol ? Util.replaceSymbol(question.title) : question.title,
+            formatContent(question.description),
+            question.userName,
+            formatContent(question.content) + "<p class='update-at'>" + question.updateAt + "</p>");
 
 //        getWebView().setScrollbarFadingEnabled(false);
         getWebView().setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
@@ -175,22 +179,15 @@ public class DetailFragment extends WebViewFragment {
 
         content = "<p>" + content + "</p>";
 
-        return content + "<p class='update-at'>" + question.updateAt + "</p>";
-    }
-
-    private String replaceSymbol(String content) {
-        content = content.replaceAll("“", "「");
-        content = content.replaceAll("”", "」");
-        content = content.replaceAll("‘", "『");
-        content = content.replaceAll("’", "』");
         return content;
     }
+
 
     private String formatContent(String content) {
         content = formatParagraph(content);
 
         if (isNeedReplaceSymbol) {
-            content = replaceSymbol(content);
+            content = Util.replaceSymbol(content);
         }
 
         if (isNeedCacheThumbnails) {
@@ -275,6 +272,10 @@ public class DetailFragment extends WebViewFragment {
         return bitmap;
     }
 
+    public boolean markStar(boolean status) {
+        return questionsDatabase.markQuestionAsStared(id, status) > 0 ? true : false;
+    }
+
     @Override
     public void onDestroy() {
         if (questionsDatabase != null) {
@@ -288,4 +289,5 @@ public class DetailFragment extends WebViewFragment {
         }
         super.onDestroy();
     }
+
 }

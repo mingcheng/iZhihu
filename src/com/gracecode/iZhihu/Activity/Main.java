@@ -42,7 +42,6 @@ public class Main extends BaseActivity {
             .replace(android.R.id.content, scrollTabsFragment)
             .commit();
 
-        isNeedCacheThumbnails = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
         fetchThumbnailsServiceIntent = new Intent(this, FetchThumbnailsService.class);
     }
 
@@ -52,6 +51,8 @@ public class Main extends BaseActivity {
         if (isNeedCacheThumbnails) {
             startService(fetchThumbnailsServiceIntent);
         }
+
+        isNeedCacheThumbnails = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
         fetchQuestionsFromServer(isFirstRun() ? true : false);
     }
 

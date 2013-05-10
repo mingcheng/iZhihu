@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.gracecode.iZhihu"
           android:versionCode="20130510"
-          android:versionName="0.93beta">
+          android:versionName="0.96beta">
 
     <uses-sdk
         android:minSdkVersion="15"

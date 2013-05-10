@@ -210,7 +210,7 @@ public class ThumbnailsDatabase {
 
     public long getTotalCachedSize() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-        Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{"SUM(" + COLUM_ID + ") AS " + COLUM_ID},
+        Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{"SUM(" + COLUM_SIZE + ") AS " + COLUM_ID},
             COLUM_LOCAL_PATH + " NOT NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, null, null);
 
         cursor.moveToFirst();

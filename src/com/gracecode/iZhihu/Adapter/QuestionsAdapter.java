@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.R;
+import com.gracecode.iZhihu.Util;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -75,7 +76,7 @@ public final class QuestionsAdapter extends BaseAdapter {
         }
 
         holder.description.setText(getConvertDescription(question));
-        holder.title.setText(question.title);
+        holder.title.setText(Util.replaceSymbol(question.title));
 
         ImageView flag = holder.flag;
         if (question.stared) {

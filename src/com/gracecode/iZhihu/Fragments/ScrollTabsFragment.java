@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +28,7 @@ public class ScrollTabsFragment extends Fragment {
     private SharedPreferences sharedPref;
     private ActionBar actionBar;
     private static ViewPager viewPager;
+    private ListPagerAdapter listAdapter;
 
 
     @Override
@@ -54,7 +55,7 @@ public class ScrollTabsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        new setAdapterTask().execute();
+        notifyDatasetChanged();
     }
 
     @Override
@@ -72,11 +73,28 @@ public class ScrollTabsFragment extends Fragment {
         this.actionBar = activity.getActionBar();
         this.sharedPref = context.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
 
+        listAdapter = new ListPagerAdapter(activity);
+
+        // @todo this's shit!
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                viewPager.setAdapter(listAdapter);
+                viewPager.setOnPageChangeListener(listAdapter);
+            }
+        });
         rebuildTables();
     }
 
     public void notifyDatasetChanged() {
-        new setAdapterTask().execute();
+
+// @see http://stackoverflow.com/questions/7700226/display-fragment-viewpager-within-a-fragment
+        new Handler().post(new Runnable() {
+            @Override
+            public void run() {
+                listAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     public boolean savePref(String key, int value) {
@@ -85,20 +103,9 @@ public class ScrollTabsFragment extends Fragment {
         return editor.commit();
     }
 
-    private class setAdapterTask extends AsyncTask<Void, Void, Void> {
-        protected Void doInBackground(Void... params) {
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            ListPagerAdapter adapter = new ListPagerAdapter(activity);
-            viewPager.setAdapter(adapter);
-            viewPager.setOnPageChangeListener(adapter);
-
-            int selectIndex = sharedPref.getInt(KEY_CURRENT_TAB, ListPagerAdapter.FIRST_TAB);
-            actionBar.setSelectedNavigationItem(selectIndex);
-            viewPager.setCurrentItem(selectIndex);
-        }
-    }
+//    private void setAdapterTask() {
+//        int selectIndex = sharedPref.getInt(KEY_CURRENT_TAB, ListPagerAdapter.FIRST_TAB);
+//        actionBar.setSelectedNavigationItem(selectIndex);
+//        viewPager.setCurrentItem(selectIndex);
+//    }
 }
