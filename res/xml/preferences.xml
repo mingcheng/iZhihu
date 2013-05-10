@@ -42,10 +42,29 @@
 
     <!--</PreferenceCategory>-->
 
-    <!--<PreferenceCategory-->
-    <!--android:title="@string/caches">-->
+    <PreferenceCategory
+        android:title="@string/caches">
 
-    <!--</PreferenceCategory>-->
+        <CheckBoxPreference
+            android:key="@string/key_enable_cache"
+            android:title="@string/enable_cache"
+            android:defaultValue="true"
+            android:summary="@string/enable_cache_summary"
+            />
+
+        <CheckBoxPreference
+            android:key="@string/key_only_wifi_cache"
+            android:title="@string/only_wifi_cache"
+            android:defaultValue="false"
+            android:summary="@string/only_wifi_cache_summary"
+            />
+
+        <Preference
+            android:key="@string/key_clear_caches"
+            android:title="@string/clear_caches"
+            android:summary="@string/clear_caches_summary"
+            />
+    </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/about">

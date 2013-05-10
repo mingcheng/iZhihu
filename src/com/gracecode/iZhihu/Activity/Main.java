@@ -1,6 +1,7 @@
 package com.gracecode.iZhihu.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,10 +9,12 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import com.gracecode.iZhihu.Fragments.ScrollTabsFragment;
 import com.gracecode.iZhihu.R;
-import com.gracecode.iZhihu.Tasks.FetchQuestion;
+import com.gracecode.iZhihu.Service.FetchThumbnailsService;
+import com.gracecode.iZhihu.Tasks.FetchQuestionTask;
 
 public class Main extends BaseActivity {
     private ScrollTabsFragment scrollTabsFragment;
+    private Intent fetchThumbnailsServiceIntent;
 
     /**
      * 判断是否第一次启动
@@ -37,11 +40,16 @@ public class Main extends BaseActivity {
             .beginTransaction()
             .replace(android.R.id.content, scrollTabsFragment)
             .commit();
+
+        fetchThumbnailsServiceIntent = new Intent(this, FetchThumbnailsService.class);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        if (true) {
+            startService(fetchThumbnailsServiceIntent);
+        }
         fetchQuestionsFromServer(isFirstRun() ? true : false);
     }
 
@@ -52,7 +60,7 @@ public class Main extends BaseActivity {
     }
 
     public void fetchQuestionsFromServer(final Boolean focus) {
-        FetchQuestion task = new FetchQuestion(context, new FetchQuestion.Callback() {
+        FetchQuestionTask task = new FetchQuestionTask(context, new FetchQuestionTask.Callback() {
             private ProgressDialog progressDialog;
 
             @Override
@@ -65,8 +73,8 @@ public class Main extends BaseActivity {
 
             @Override
             public void onPostExecute(Object affectedRows) {
+                int i = (Integer) affectedRows;
                 try {
-                    int i = (Integer) affectedRows;
                     if (focus && i > 0) {
                         Toast.makeText(context,
                             String.format(getString(R.string.affectRows), i), Toast.LENGTH_LONG).show();
@@ -77,6 +85,9 @@ public class Main extends BaseActivity {
                 } finally {
                     if (progressDialog != null) {
                         progressDialog.dismiss();
+                    }
+                    if (true && i > 0) {
+                        startService(fetchThumbnailsServiceIntent);
                     }
                 }
             }

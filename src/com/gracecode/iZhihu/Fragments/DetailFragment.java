@@ -16,18 +16,19 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebViewFragment;
 import android.widget.Toast;
-import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Dao.Question;
+import com.gracecode.iZhihu.Dao.QuestionsDatabase;
+import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
 
-import java.io.*;
+import java.io.IOException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DetailFragment extends WebViewFragment {
     private static final String KEY_SCROLL_BY = "key_scroll_by_";
-    private static final String DEFAULT_CHARSET = "utf-8";
     private static final String TEMPLATE_DETAIL_FILE = "detail.html";
     private static final String URL_ASSETS_PREFIX = "file:///android_asset/";
     private static final String MIME_TYPE = "text/html";
@@ -37,39 +38,17 @@ public class DetailFragment extends WebViewFragment {
 
     private final int id;
     private final Context context;
-    private QuestionsDatabase questionsDatabase;
     private Activity activity;
+    private static QuestionsDatabase questionsDatabase;
+    private static ThumbnailsDatabase thumbnailsDatabase;
     private SharedPreferences sharedPreferences;
 
     private Question question;
 
-    private String getFileContent(InputStream fis) throws IOException {
-        InputStreamReader isr = new InputStreamReader(fis, DEFAULT_CHARSET);
-        BufferedReader br = new BufferedReader(isr);
-        StringBuffer sbContent = new StringBuffer();
-        String sLine = "";
-
-        while ((sLine = br.readLine()) != null) {
-            String s = sLine.toString() + "\n";
-            sbContent = sbContent.append(s);
-        }
-
-        isr.close();
-        br.close();
-        return sbContent.toString();
-    }
-
-    private String getFileContent(String filePath) throws IOException {
-        FileInputStream fis = new FileInputStream(filePath);
-        String content = getFileContent(fis);
-        fis.close();
-        return content;
-    }
-
     private String getTemplateString() {
         String template = "";
         try {
-            template = getFileContent(activity.getAssets().open(TEMPLATE_DETAIL_FILE));
+            template = Util.getFileContent(activity.getAssets().open(TEMPLATE_DETAIL_FILE));
         } catch (IOException e) {
             return "%s";
         }
@@ -93,6 +72,7 @@ public class DetailFragment extends WebViewFragment {
         this.activity = getActivity();
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
         this.questionsDatabase = new QuestionsDatabase(context);
+        this.thumbnailsDatabase = new ThumbnailsDatabase(context);
 
         questionsDatabase.markSingleQuestionAsReaded(id);
         return super.onCreateView(inflater, container, savedInstanceState);
@@ -133,7 +113,7 @@ public class DetailFragment extends WebViewFragment {
             }
         });
 
-        getWebView().loadDataWithBaseURL(URL_ASSETS_PREFIX, data, MIME_TYPE, DEFAULT_CHARSET, null);
+        getWebView().loadDataWithBaseURL(URL_ASSETS_PREFIX, data, MIME_TYPE, Util.DEFAULT_CHARSET, null);
         question.markAsRead();
     }
 
@@ -161,8 +141,6 @@ public class DetailFragment extends WebViewFragment {
     @Override
     public void onResume() {
         super.onResume();
-
-
     }
 
     @Override
@@ -174,8 +152,7 @@ public class DetailFragment extends WebViewFragment {
         editor.commit();
     }
 
-    private String formatContent(String content) {
-
+    private String formatParagraph(String content) {
         Pattern pattern = Pattern.compile("<hr>");
         Matcher matcher = pattern.matcher(content);
         content = matcher.replaceAll("</p><p>");
@@ -199,6 +176,25 @@ public class DetailFragment extends WebViewFragment {
         }
 
         return content + "<p class='update-at'>" + question.updateAt + "</p>";
+    }
+
+    private String formatContent(String content) {
+        content = formatParagraph(content);
+
+        // @todo 根据配置判断
+        if (true) {
+            List<String> imageUrls = Util.getImageUrls(content);
+            for (String url : imageUrls) {
+                if (thumbnailsDatabase.isCached(url)) {
+                    String localPathString = thumbnailsDatabase.getCachedPath(url);
+                    content = content.replace(url, "file://" + localPathString);
+                } else {
+                    thumbnailsDatabase.add(url);
+                }
+            }
+        }
+
+        return content;
     }
 
     private String getClassName() {
@@ -274,6 +270,11 @@ public class DetailFragment extends WebViewFragment {
         if (questionsDatabase != null) {
             questionsDatabase.close();
             questionsDatabase = null;
+        }
+
+        if (thumbnailsDatabase != null) {
+            thumbnailsDatabase.close();
+            thumbnailsDatabase = null;
         }
         super.onDestroy();
     }

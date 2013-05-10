@@ -25,7 +25,7 @@ import java.security.NoSuchAlgorithmException;
  * User: mingcheng
  * Date: 13-4-27
  */
-public class Requester {
+public class HTTPRequester {
 
     private static final String URL_REQUEST = "http://z.ihu.im/?method=sync&timestamp=%s&sign=%s&start=%d&device=%s";
     private static final String DEVICE_UUID = android.os.Build.SERIAL;
@@ -39,7 +39,7 @@ public class Requester {
     protected static Context context;
     private final SharedPreferences sharedPreferences;
 
-    public Requester(Context context) {
+    public HTTPRequester(Context context) {
 
         this.context = context;
         this.sharedPreferences = context.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);

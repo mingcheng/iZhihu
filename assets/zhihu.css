@@ -5,12 +5,12 @@
  * @link   http://www.gracecode.com/
  */
 
-p {
-    color: inherit;
-    text-rendering: optimizeLegibility;
+* {
+    font-weight: normal;
 }
 
 body {
+    background: #F6F3EF;
     text-shadow: 0 1px 0 #fff;
     font-size: 16px;
     color: #333;
@@ -21,7 +21,6 @@ body {
 a {
     color: #333;
     text-decoration:none;
-    font-weight: 700;
     border-bottom: 1px dotted #333;
 }
 
@@ -29,6 +28,11 @@ ul, ol {
     margin: 0;
     padding: 5px 0;
     list-style-position: inside;
+}
+
+p {
+    color: inherit;
+    text-rendering: optimizeLegibility;
 }
 
 sup {
@@ -65,7 +69,6 @@ body a {
 
 
 body .question h1 {
-font-weight: normal;
     font-size: 1.1em;
     color: #111;
     margin: 0 0 1em 0;
@@ -135,7 +138,7 @@ body .question a:link {
 .about h1 ,
 .about h2 ,
 .about h3 {
-    font-weight: 700;
+    font-weight: normal;
 }
 
 .about h1 {

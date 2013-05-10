@@ -55,4 +55,15 @@
     <string name="auto_scroll">Auto scroll</string>
     <string name="key_auto_scroll">key_auto_scroll</string>
     <string name="read">Read</string>
+    <string name="key_clear_caches">key_clear_caches</string>
+    <string name="clear_caches">Clear Offline Image Caches</string>
+    <string name="clear_caches_summary">Total offline image caches size is %fMb.</string>
+    <string name="key_enable_cache">key_enable_cache</string>
+    <string name="enable_cache">Enable offline images</string>
+    <string name="enable_cache_summary">Enable offline images for none-network use.</string>
+    <string name="key_only_wifi_cache">key_only_wifi_cache</string>
+    <string name="only_wifi_cache">Use WIFI Only</string>
+    <string name="only_wifi_cache_summary">Cache offline images when just WIFI is on.</string>
+    <string name="downloading_offline_image">Downloading Offline Images</string>
+    <string name="downloading_offline_image_complete">Downloaded %d offline images</string>
 </resources>

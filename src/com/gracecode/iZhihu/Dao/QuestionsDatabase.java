@@ -33,9 +33,8 @@ public final class QuestionsDatabase {
     public static final int VALUE_STARED = 1;
     public static final int VALUE_UNSTARED = 0;
 
-    private final static int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 1;
     private static final String FILE_DATABASE_NAME = "zhihu.sqlite";
-
     private static final String DATABASE_QUESTIONS_TABLE_NAME = "izhihu";
 
     private final static String[] SQL_CREATE_TABLES = {
@@ -77,7 +76,7 @@ public final class QuestionsDatabase {
 
 
     public int getStartId() {
-        int returnId = Requester.DEFAULT_START_OFFSET;
+        int returnId = HTTPRequester.DEFAULT_START_OFFSET;
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT max(" + COLUM_ID + ") AS " +

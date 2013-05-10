@@ -40,4 +40,13 @@
     <string name="auto_scroll_summary">自动恢复到上次阅读的位置</string>
     <string name="auto_scroll">自动滚动</string>
     <string name="read">阅读</string>
+    <string name="clear_caches">清除离线图片</string>
+    <string name="clear_caches_summary">总计已缓存 %fMB 的离线图片</string>
+    <string name="enable_cache">离线图片</string>
+    <string name="enable_cache_summary">自动保存图片到本地，供离线阅读使用</string>
+    <string name="only_wifi_cache">只在 WIFI 下缓存</string>
+    <string name="only_wifi_cache_summary">只在 WIFI 连接的情况下缓存图片，节约流量</string>
+    <string name="downloading_offline_image">正在下载离线图片…</string>
+    <string name="downloading_offline_image_complete">已下载 %d 张离线图片</string>
+
 </resources>

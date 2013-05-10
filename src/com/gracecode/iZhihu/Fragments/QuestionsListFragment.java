@@ -3,8 +3,8 @@ package com.gracecode.iZhihu.Fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.AbsListView;
-import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Dao.Question;
+import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 
 import java.util.ArrayList;
 
@@ -15,21 +15,22 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
 
     private class GetMoreLocalQuestionsTask extends AsyncTask<Void, Void, Void> {
 
-        private static final long LOAD_DELAY_TIME = 1000;
+        private static final long LOAD_DELAY_TIME = 500;
 
         @Override
         protected Void doInBackground(Void... voids) {
-            if (currentPage > questionsDatabase.getTotalPages()) {
-                return null;
-            }
-
             try {
+                if (currentPage > questionsDatabase.getTotalPages()) {
+                    return null;
+                }
+
                 Thread.sleep(LOAD_DELAY_TIME);
                 ArrayList<Question> newDatas = questionsDatabase.getRecentQuestions(++currentPage);
                 questions.addAll(newDatas);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
             return null;
         }
 

@@ -60,6 +60,13 @@
         </activity>
 
         <service
+            android:name=".Service.FetchThumbnailsService"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/enable_cache_summary"
+            >
+        </service>
+
+        <service
             android:name="com.umeng.common.net.DownloadingService"
             android:exported="true"
             android:process=":DownloadingService">
