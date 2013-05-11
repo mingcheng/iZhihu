@@ -30,7 +30,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:singleLine="true"
-                android:textColor="#ff000000"
                 android:textSize="14sp" />
         </LinearLayout>
 
@@ -57,9 +56,7 @@
                     android:id="@+id/umeng_common_rich_notification_continue"
                     android:layout_width="50dp"
                     android:layout_height="25dp"
-                    android:background="@android:color/holo_blue_dark"
                     android:singleLine="true"
-                    android:textColor="#ffffff"
                     android:textSize="12sp"
                     android:text="@string/umeng_common_action_pause" />
 
@@ -69,10 +66,8 @@
                     android:layout_height="25dp"
                     android:layout_marginLeft="2dp"
                     android:layout_marginRight="2dp"
-                    android:background="@android:color/holo_red_dark"
                     android:singleLine="true"
                     android:text="@string/umeng_common_action_cancel"
-                    android:textColor="#ffffff"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -92,7 +87,6 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="2dp"
                     android:singleLine="true"
-                    android:textColor="#ff000000"
                     android:textSize="18sp" />
 
                 <TextView
@@ -101,7 +95,6 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="5dp"
                     android:singleLine="true"
-                    android:textColor="#ff000000"
                     android:textSize="12sp"
                     android:textStyle="italic" />
             </LinearLayout>

@@ -50,6 +50,6 @@
     <string name="downloading_offline_image_complete">已下载 %d 张离线图片</string>
     <string name="loaded_more_data">载入更多的条目中…</string>
     <string name="really_clear_cache">您确认清除所有的缓存吗？</string>
-    <string name="download_when_wifi_avaiable">当 WIFI 可用时，自动下载离线图片</string>
+    <string name="download_when_wifi_avaiable">当 WIFI 可用时，才自动下载离线图片</string>
 
 </resources>

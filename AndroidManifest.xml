@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.gracecode.iZhihu"
-          android:versionCode="201305110"
-          android:versionName="0.96beta">
+          android:versionCode="201305111"
+          android:versionName="0.97beta">
 
     <uses-sdk
         android:minSdkVersion="15"

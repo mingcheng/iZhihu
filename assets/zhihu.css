@@ -10,12 +10,17 @@
     src: url(XinGothic.otf);
 }
 
+@font-face {
+    font-family: microhei;
+    src: url(wqy-microhei.ttc);
+}
+
 * {
     font-weight: normal;
 }
 
 body {
-    font-family: XinGothic;
+    font-family: microhei;
     background: #F6F3EF;
     text-shadow: 0 1px 0 #fff;
     font-size: 16px;
