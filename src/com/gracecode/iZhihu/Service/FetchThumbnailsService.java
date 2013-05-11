@@ -1,10 +1,16 @@
 package com.gracecode.iZhihu.Service;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
+import android.widget.Toast;
 import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
+import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.FetchThumbnailTask;
+import com.gracecode.iZhihu.Util;
 
 import java.util.List;
 
@@ -16,6 +22,8 @@ import java.util.List;
  */
 public class FetchThumbnailsService extends Service {
     private static ThumbnailsDatabase database = null;
+    private Context context;
+    private SharedPreferences sharedPreferences;
 
     public FetchThumbnailsService() {
         super();
@@ -24,16 +32,32 @@ public class FetchThumbnailsService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        this.database = new ThumbnailsDatabase(getApplicationContext());
+        this.context = getApplicationContext();
+
+        this.database = new ThumbnailsDatabase(context);
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         List<String> notCachedUrls = database.getNotCachedThumbnails();
 
-        // @todo 使用 handle 控制线程
-        FetchThumbnailTask fetchThumbnailTask = new FetchThumbnailTask(getApplicationContext(), database, notCachedUrls);
-        fetchThumbnailTask.execute();
+        if (notCachedUrls.size() > 0) {
+            Boolean isNeedWifiToDownload = sharedPreferences.getBoolean(getString(R.string.key_only_wifi_cache), true);
+
+            // @todo 使用 handle 控制线程
+            FetchThumbnailTask fetchThumbnailTask = new FetchThumbnailTask(getApplicationContext(), database, notCachedUrls);
+
+            if (isNeedWifiToDownload) {
+                if (Util.isWifiConnected(context)) {
+                    fetchThumbnailTask.execute();
+                } else {
+                    Toast.makeText(context, getString(R.string.download_when_wifi_avaiable), Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                fetchThumbnailTask.execute();
+            }
+        }
 
         return super.onStartCommand(intent, flags, startId);
     }
