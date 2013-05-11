@@ -23,10 +23,14 @@ public class Detail extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         this.id = getIntent().getIntExtra(QuestionsDatabase.COLUM_ID, DetailFragment.ID_NOT_FOUND);
+        if (this.id == DetailFragment.ID_NOT_FOUND) {
+            finish();
+        }
+
         this.fragQuestionDetail = new DetailFragment(id, this);
+
+        actionBar.setDisplayHomeAsUpEnabled(true);
         getFragmentManager()
             .beginTransaction()
             .replace(android.R.id.content, fragQuestionDetail)
