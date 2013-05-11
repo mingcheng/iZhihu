@@ -123,19 +123,19 @@ body .question a:link {
 }
 
 .user_name {
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #999;
     padding: .5em 0 2em 0;
     font-size: small;
-    color: #777;
+    color: #999;
     margin-bottom: -58px;
 }
 
 .update-at {
-    border-top: 1px dotted #ccc;
+    border-top: 1px dotted #999;
     padding: .5em 0 3em 0;
     font-size: small;
     text-align: right;
-    color: #ccc;
+    color: #999;
     display: block;
 }
 

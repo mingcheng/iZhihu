@@ -30,6 +30,8 @@ public class FetchThumbnailsService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         List<String> notCachedUrls = database.getNotCachedThumbnails();
+
+        // @todo 使用 handle 控制线程
         FetchThumbnailTask fetchThumbnailTask = new FetchThumbnailTask(getApplicationContext(), database, notCachedUrls);
         fetchThumbnailTask.execute();
 

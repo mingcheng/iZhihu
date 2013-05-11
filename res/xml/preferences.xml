@@ -25,7 +25,7 @@
         <CheckBoxPreference
             android:key="@string/key_symbol"
             android:title="@string/tradition_symbol"
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:summary="@string/tradition_symbol_summary"
             />
 
@@ -55,7 +55,7 @@
         <CheckBoxPreference
             android:key="@string/key_only_wifi_cache"
             android:title="@string/only_wifi_cache"
-            android:defaultValue="false"
+            android:defaultValue="true"
             android:summary="@string/only_wifi_cache_summary"
             />
 

@@ -67,4 +67,5 @@
     <string name="only_wifi_cache_summary">Cache offline images when just WIFI is on.</string>
     <string name="downloading_offline_image">Downloading Offline Images</string>
     <string name="downloading_offline_image_complete">Downloaded %d offline images</string>
+    <string name="loaded_more_data">Loading more questions</string>
 </resources>

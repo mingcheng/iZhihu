@@ -1,57 +1,58 @@
 package com.gracecode.iZhihu.Fragments;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.widget.AbsListView;
+import android.widget.Toast;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
+import com.gracecode.iZhihu.R;
 
 import java.util.ArrayList;
 
 public class QuestionsListFragment extends BaseListFragment implements AbsListView.OnScrollListener {
     private static final String KEY_CURRENT_PAGE = "KEY_CURRENT_PAGE";
+    private static final int LOAD_DELAY_TIME = 2000;
     private int currentPage = QuestionsDatabase.FIRST_PAGE;
     private boolean isRunning = false;
 
-    private class GetMoreLocalQuestionsTask extends AsyncTask<Void, Void, Void> {
-
-        private static final long LOAD_DELAY_TIME = 500;
-
+    private Handler updateDataSetChangedHandler = new Handler() {
         @Override
-        protected Void doInBackground(Void... voids) {
-            try {
-                if (currentPage > questionsDatabase.getTotalPages()) {
-                    return null;
-                }
-
-                Thread.sleep(LOAD_DELAY_TIME);
-                ArrayList<Question> newDatas = questionsDatabase.getRecentQuestions(++currentPage);
-                questions.addAll(newDatas);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        public void handleMessage(Message msg) {
+            if (msg.what > 0) {
+                Toast.makeText(context, getString(R.string.loaded_more_data), Toast.LENGTH_SHORT).show();
             }
-
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            isRunning = true;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
             questionsAdapter.notifyDataSetChanged();
             isRunning = false;
         }
-
-    }
+    };
 
     private void getMoreLocalQuestions() {
         if (isRunning) {
             return;
         }
-        new GetMoreLocalQuestionsTask().execute();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                isRunning = true;
+
+                if (currentPage > questionsDatabase.getTotalPages()) {
+                    return;
+                }
+
+                try {
+                    ArrayList<Question> newDatas = questionsDatabase.getRecentQuestions(++currentPage);
+                    questions.addAll(newDatas);
+
+                    Thread.sleep(LOAD_DELAY_TIME);
+                    updateDataSetChangedHandler.sendEmptyMessage(newDatas.size());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     @Override

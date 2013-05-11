@@ -87,7 +87,7 @@ public class DetailFragment extends WebViewFragment {
         super.onStart();
 
         this.isNeedIndent = sharedPreferences.getBoolean(getString(R.string.key_indent), false);
-        this.isNeedReplaceSymbol = sharedPreferences.getBoolean(getString(R.string.key_symbol), false);
+        this.isNeedReplaceSymbol = sharedPreferences.getBoolean(getString(R.string.key_symbol), true);
         this.isNeedCacheThumbnails = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
 
         try {

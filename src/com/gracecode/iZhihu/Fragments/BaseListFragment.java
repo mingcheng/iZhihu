@@ -76,8 +76,8 @@ public abstract class BaseListFragment extends ListFragment {
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        setListAdapter(questionsAdapter);
         super.onActivityCreated(savedInstanceState);
+        setListAdapter(questionsAdapter);
     }
 
     @Override
