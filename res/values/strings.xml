@@ -68,4 +68,5 @@
     <string name="downloading_offline_image">Downloading Offline Images</string>
     <string name="downloading_offline_image_complete">Downloaded %d offline images</string>
     <string name="loaded_more_data">Loading more questions</string>
+    <string name="really_clear_cache">Sure clear all caches? All images willbe redownload.</string>
 </resources>

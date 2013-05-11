@@ -73,7 +73,11 @@ public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewP
 
     @Override
     public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
+        try {
+            super.notifyDataSetChanged();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

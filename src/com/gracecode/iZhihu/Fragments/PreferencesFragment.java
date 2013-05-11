@@ -1,6 +1,8 @@
 package com.gracecode.iZhihu.Fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -100,8 +102,18 @@ public class PreferencesFragment extends PreferenceFragment {
             return true;
         } else if (getString(R.string.key_clear_caches).equals(key)) {
             if (isEnableCache) {
-                thumbnailsDatabase.clearAll();
-                markCacheCountsAndSize();
+                new AlertDialog.Builder(activity)
+                    .setTitle(R.string.app_name)
+                    .setMessage(R.string.really_clear_cache)
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            thumbnailsDatabase.clearAll();
+                            markCacheCountsAndSize();
+                        }
+                    })
+                    .show();
             }
             return true;
         }
