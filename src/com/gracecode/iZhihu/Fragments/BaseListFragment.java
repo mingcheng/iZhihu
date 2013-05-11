@@ -41,6 +41,7 @@ public abstract class BaseListFragment extends ListFragment {
         this.context = activity.getApplicationContext();
         this.sharedPref = context.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
 
+        // @todo 初始化数据库
         this.questionsDatabase = new QuestionsDatabase(context);
         this.questions = getInitialData();
         this.questionsAdapter = new QuestionsAdapter(context, questions);
@@ -60,6 +61,8 @@ public abstract class BaseListFragment extends ListFragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        this.questionsDatabase = new QuestionsDatabase(context);
     }
 
     @Override
@@ -107,7 +110,6 @@ public abstract class BaseListFragment extends ListFragment {
         startActivity(intent);
     }
 
-
     public ArrayList<Question> getRecentQuestion() {
         return questionsDatabase.getRecentQuestions();
     }
@@ -119,9 +121,5 @@ public abstract class BaseListFragment extends ListFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (questionsDatabase != null) {
-            questionsDatabase.close();
-            questionsDatabase = null;
-        }
     }
 }

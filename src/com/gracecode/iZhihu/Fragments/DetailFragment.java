@@ -102,7 +102,7 @@ public class DetailFragment extends WebViewFragment {
             isNeedReplaceSymbol ? Util.replaceSymbol(question.title) : question.title,
             formatContent(question.description),
             question.userName,
-            formatContent(question.content) + "<p class='update-at'>" + question.updateAt + "</p>");
+            "<p class='update-at'>" + question.updateAt + "</p>" + formatContent(question.content));
 
 //        getWebView().setScrollbarFadingEnabled(false);
         getWebView().setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);

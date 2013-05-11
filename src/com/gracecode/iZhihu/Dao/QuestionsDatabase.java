@@ -60,7 +60,7 @@ public final class QuestionsDatabase {
     };
 
     protected File databaseFile;
-    protected static DatabaseOpenHelper databaseOpenHelper;
+    protected DatabaseOpenHelper databaseOpenHelper;
     protected Context context;
     private QuestionsDatabase questionsDatabase;
 

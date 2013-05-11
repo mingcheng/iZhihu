@@ -5,11 +5,17 @@
  * @link   http://www.gracecode.com/
  */
 
+@font-face {
+    font-family: XinGothic;
+    src: url(XinGothic.otf);
+}
+
 * {
     font-weight: normal;
 }
 
 body {
+    font-family: XinGothic;
     background: #F6F3EF;
     text-shadow: 0 1px 0 #fff;
     font-size: 16px;
@@ -19,9 +25,14 @@ body {
 }
 
 a {
-    color: #333;
+    color: #111;
     text-decoration:none;
     border-bottom: 1px dotted #333;
+}
+
+u, underline {
+         text-decoration:none;
+          border-bottom: 1px solid #777;
 }
 
 ul, ol {
@@ -63,8 +74,10 @@ hr {
 }
 
 
-body a {
-    color: #000;
+body a,
+body a:hover,
+body a:active {
+    text-decoration: none;
 }
 
 
@@ -90,6 +103,7 @@ body .question img {
     background: #fff;
     display: block;
     margin: .5em auto;
+    border-radius: 3px;
 }
 
 body .question img {
@@ -109,14 +123,21 @@ body .question a:link {
 }
 
 .user_name {
-    border-top: 1px solid #eaeaea;
-    padding: .5em 0;
-    margin: 1em 0 2em 0;
+    border-top: 1px solid #ccc;
+    padding: .5em 0 2em 0;
     font-size: small;
     color: #777;
-    font-weight: normal;
+    margin-bottom: -58px;
 }
 
+.update-at {
+    border-top: 1px dotted #ccc;
+    padding: .5em 0 3em 0;
+    font-size: small;
+    text-align: right;
+    color: #ccc;
+    display: block;
+}
 
 .end {
     width: 113px;
@@ -207,8 +228,3 @@ body .question a:link {
     font-size: 22px;
 }
 
-.update-at {
-    font-size: 12px!important;
-    text-align: right;
-    color: #ccc;
-}
