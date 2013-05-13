@@ -1,7 +1,9 @@
 package com.gracecode.iZhihu.Activity;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -10,14 +12,13 @@ import com.gracecode.iZhihu.Fragments.DetailFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-
 
 public class Detail extends BaseActivity {
     public int id;
     private DetailFragment fragQuestionDetail;
+    private MenuItem starMenuItem;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -26,9 +27,9 @@ public class Detail extends BaseActivity {
         this.id = getIntent().getIntExtra(QuestionsDatabase.COLUM_ID, DetailFragment.ID_NOT_FOUND);
         if (this.id == DetailFragment.ID_NOT_FOUND) {
             finish();
+        } else {
+            this.fragQuestionDetail = new DetailFragment(id, this);
         }
-
-        this.fragQuestionDetail = new DetailFragment(id, this);
 
         actionBar.setDisplayHomeAsUpEnabled(true);
         getFragmentManager()
@@ -37,19 +38,25 @@ public class Detail extends BaseActivity {
             .commit();
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
+
+        if (starMenuItem != null) {
+            starMenuItem.setIcon(fragQuestionDetail.isStared() ?
+                R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
+        }
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail, menu);
-        MenuItem item = menu.findItem(R.id.menu_favorite);
-        item.setIcon(fragQuestionDetail.isStared() ?
-            R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
+        starMenuItem = menu.findItem(R.id.menu_favorite);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
@@ -69,23 +76,33 @@ public class Detail extends BaseActivity {
                 return true;
 
             case R.id.menu_share:
-                Bitmap bitmap = fragQuestionDetail.getCapture();
-                try {
-                    FileOutputStream fileOutPutStream = new FileOutputStream("/storage/sdcard0/izhihu.png");
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutPutStream);
+                File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+                File imageFile = new File(path, fragQuestionDetail.getQuestion().answerId + ".png");
 
-                    fileOutPutStream.flush();
-                    fileOutPutStream.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
+
+                // @todo 优化此处的代码
+                try {
+                    if (!imageFile.exists()) {
+                        Bitmap bitmap = fragQuestionDetail.getCaptureBitmap();
+                        if (bitmap != null) {
+                            FileOutputStream fileOutPutStream = new FileOutputStream(imageFile);
+                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutPutStream);
+                            fileOutPutStream.flush();
+                            fileOutPutStream.close();
+                            bitmap.recycle();
+                        }
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                Util.openShareIntent(this, fragQuestionDetail.getShareString(), Uri.fromFile(imageFile));
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onDestroy() {

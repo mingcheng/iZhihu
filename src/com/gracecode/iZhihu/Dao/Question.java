@@ -8,6 +8,7 @@ public final class Question implements Parcelable {
     private final QuestionsDatabase questionsDatabase;
     public int id;
     public int questionId;
+    public int answerId;
 
     public String title;
     public String content;

@@ -37,6 +37,7 @@ public class DetailFragment extends WebViewFragment {
     public static final int ID_NOT_FOUND = 0;
     private static final int DONT_HAVE_SCROLLY = 0;
     private static final long AUTO_SCROLL_DELAY = 500;
+    private static final int MAX_CAPTURE_HEIGHT_SIZE = 10000;
 
     private final int id;
     private final Context context;
@@ -182,7 +183,6 @@ public class DetailFragment extends WebViewFragment {
         return content;
     }
 
-
     private String formatContent(String content) {
         content = formatParagraph(content);
 
@@ -255,25 +255,53 @@ public class DetailFragment extends WebViewFragment {
      * @return
      * @TODO 内存的问题
      */
-    public Bitmap getCapture() {
+    public Bitmap getCaptureBitmap() throws OutOfMemoryError {
         WebView webView = getWebView();
+
         Picture picture = webView.capturePicture();
-
-        int height = picture.getHeight() * (webView.getWidth() / picture.getWidth());
-        Bitmap bitmap = Bitmap.createBitmap(webView.getWidth(),
-            height, Bitmap.Config.ARGB_8888);
-
-        try {
-            Canvas canvas = new Canvas(bitmap);
-            webView.draw(canvas);
-        } catch (OutOfMemoryError error) {
-
+        int height = picture.getHeight(), width = picture.getWidth();
+        if (webView.getHeight() <= MAX_CAPTURE_HEIGHT_SIZE) {
+            height = picture.getHeight() * (webView.getWidth() / picture.getWidth());
+            width = webView.getWidth();
         }
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(bitmap);
+        if (webView.getHeight() <= MAX_CAPTURE_HEIGHT_SIZE) {
+            webView.draw(canvas);
+        } else {
+            picture.draw(canvas);
+        }
+
         return bitmap;
     }
 
+
     public boolean markStar(boolean status) {
         return questionsDatabase.markQuestionAsStared(id, status) > 0 ? true : false;
+    }
+
+
+    public String getShareString() {
+        return String.format("%s #%s# %s", question.title, context.getString(R.string.app_name), getOnlineShortUrl(question.answerId));
+    }
+
+    // @todo 短链接的算法还有问题
+    private static String getOnlineShortUrl(int number) {
+        String s = "", KEY = "6BCMx(0gEwTj3FbUGPe7rtKfqosmZOX2S)5IvH.zu9DdQRL41AnV8ckylhp!YNWJi";
+        int l = KEY.length();
+
+        while (number > 0) {
+            int x = number % l;
+            s = KEY.substring(x, x + 1) + s;
+            number = (int) Math.floor(number / l);
+        }
+
+        return "http://z.ihu.im/u/" + s;
+    }
+
+    public Question getQuestion() {
+        return question;
     }
 
     @Override

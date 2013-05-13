@@ -40,8 +40,8 @@ public final class QuestionsDatabase {
     private final static String[] SQL_CREATE_TABLES = {
         "CREATE TABLE " + DATABASE_QUESTIONS_TABLE_NAME + " (" +
             "_id INTEGER PRIMARY KEY AUTOINCREMENT , " +
-            COLUM_ID + " integer NOT NULL UNIQUE, " + COLUM_SERVER_ID + " integer, " +
-            COLUM_ANSWER_ID + " integer, " + COLUM_QUESTION_ID + " integer, " +
+            COLUM_ID + " long NOT NULL UNIQUE, " + COLUM_SERVER_ID + " long, " +
+            COLUM_ANSWER_ID + " long, " + COLUM_QUESTION_ID + " long, " +
             COLUM_USER_NAME + " text,  " + COLUM_USER_AVATAR + " text, " + COLUM_QUESTION_TITLE + " text, " +
             COLUM_QUESTION_DESCRIPTION + " text, " + COLUM_CONTENT + " text, " + COLUM_UPDATE_AT + " text, " +
             COLUM_UNREAD + " integer DEFAULT 0, " + COLUM_STARED + " integer DEFAULT 0 );",
@@ -73,6 +73,7 @@ public final class QuestionsDatabase {
     private int idxStared;
     private int idxUnread;
     private int idxUpdateAt;
+    private int idxAnswerId;
 
 
     public int getStartId() {
@@ -190,6 +191,7 @@ public final class QuestionsDatabase {
     private void getIndexFromCursor(Cursor cursor) {
         this.idxId = cursor.getColumnIndex(QuestionsDatabase.COLUM_ID);
         this.idxQuestionId = cursor.getColumnIndex(QuestionsDatabase.COLUM_QUESTION_ID);
+        this.idxAnswerId = cursor.getColumnIndex(QuestionsDatabase.COLUM_ANSWER_ID);
         this.idxTitle = cursor.getColumnIndex(QuestionsDatabase.COLUM_QUESTION_TITLE);
         this.idxContent = cursor.getColumnIndex(QuestionsDatabase.COLUM_CONTENT);
         this.idxUserName = cursor.getColumnIndex(QuestionsDatabase.COLUM_USER_NAME);
@@ -203,6 +205,7 @@ public final class QuestionsDatabase {
         Question question = new Question(this);
         question.id = cursor.getInt(idxId);
         question.questionId = cursor.getInt(idxQuestionId);
+        question.answerId = cursor.getInt(idxAnswerId);
 
         question.title = cursor.getString(idxTitle);
         question.content = cursor.getString(idxContent);
