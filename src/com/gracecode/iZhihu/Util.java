@@ -19,6 +19,7 @@ public class Util {
     public static final String DEFAULT_CHARSET = "utf-8";
     public static final String REGEX_MATCH_IMAGE = "<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>";
     public static final String MIME_IMAGE_PNG = "image/png";
+    private static String MIME_PLAIN_TEXT = "text/plain";
 
     public static void openWithBrowser(Activity activity, String url) {
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -109,14 +110,55 @@ public class Util {
     }
 
 
+    /**
+     * 外部存储是否存在
+     *
+     * @return
+     */
+    public static boolean isExternalStorageExists() {
+        return Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+    }
+
+    /**
+     * 获取外部存储的路径
+     *
+     * @return
+     */
     public static String getExternalStoragePath() {
         File externalStorageDirectory = null;
-        boolean isExternalStorageExists = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
-        if (isExternalStorageExists) {
-            externalStorageDirectory = Environment.getExternalStorageDirectory();
+        try {
+            if (isExternalStorageExists()) {
+                externalStorageDirectory = Environment.getExternalStorageDirectory();
+            }
+        } finally {
+            return (externalStorageDirectory != null) ? externalStorageDirectory.getAbsolutePath() : null;
         }
+    }
 
-        return externalStorageDirectory != null ? externalStorageDirectory.getAbsolutePath() : null;
+
+    /**
+     * 两个文件的相互拷贝
+     *
+     * @param source
+     * @param dest
+     * @throws IOException
+     */
+    public static void copyFile(File source, File dest) throws IOException {
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        try {
+            inputStream = new FileInputStream(source);
+            outputStream = new FileOutputStream(dest);
+
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+        } finally {
+            inputStream.close();
+            outputStream.close();
+        }
     }
 
 
@@ -126,7 +168,7 @@ public class Util {
      * @param message
      * @param imagePath
      */
-    public static void openShareIntent(Context context, String message, Uri imagePath) {
+    public static void openShareIntentWithImage(Context context, String message, Uri imagePath) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(Intent.EXTRA_TEXT, message);
@@ -148,5 +190,14 @@ public class Util {
 
     public static void showLongToast(Context context, String message) {
         showToast(context, message, Toast.LENGTH_LONG);
+    }
+
+    public static void openShareIntentWithPlainText(Context context, String message) {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        intent.setType(MIME_PLAIN_TEXT);
+
+        context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
     }
 }
