@@ -103,7 +103,7 @@ public class Detail extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        updateStartIcon();
+
     }
 
 
@@ -129,6 +129,7 @@ public class Detail extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail, menu);
         starMenuItem = menu.findItem(R.id.menu_favorite);
+        updateStartIcon();
         return true;
     }
 

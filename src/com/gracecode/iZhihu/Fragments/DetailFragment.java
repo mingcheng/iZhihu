@@ -13,9 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.webkit.WebViewFragment;
+import android.webkit.*;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
@@ -59,7 +57,8 @@ public class DetailFragment extends WebViewFragment {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            //decideAutoScroll();
+            // @todo 记忆滚动需要优化
+            decideAutoScroll();
             new Thread(genScreenShots).start();
         }
 
@@ -75,7 +74,7 @@ public class DetailFragment extends WebViewFragment {
         @Override
         public void run() {
             try {
-                Thread.sleep(3000);
+                Thread.sleep(2000);
                 if (!isTempScreenShotsFileCached()) {
                     File screenShotsFile = getTempScreenShotsFile();
                     FileOutputStream fileOutPutStream = new FileOutputStream(screenShotsFile);
@@ -185,6 +184,13 @@ public class DetailFragment extends WebViewFragment {
 
         getWebView().loadDataWithBaseURL(URL_ASSETS_PREFIX, data, MIME_HTML_TYPE, Util.DEFAULT_CHARSET, null);
         getWebView().setWebViewClient(webViewClient);
+
+        getWebView().setWebChromeClient(new WebChromeClient() {
+            public boolean onConsoleMessage(ConsoleMessage cm) {
+                Log.d(TAG, cm.message() + "\nFrom line " + cm.lineNumber() + " of " + cm.sourceId());
+                return true;
+            }
+        });
     }
 
 
@@ -319,6 +325,7 @@ public class DetailFragment extends WebViewFragment {
             return null;
         }
 
+        // @todo Future versions of WebView may not support use on other threads.
         Picture picture = webView.capturePicture();
         int height = picture.getHeight(), width = picture.getWidth();
         if (height == 0 || width == 0) {

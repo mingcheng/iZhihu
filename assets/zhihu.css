@@ -11,16 +11,19 @@
 }
 
 @font-face {
-    font-family: microhei;
-    src: url(wqy-microhei.ttc);
+    font-family: XinGothic;
+    src: url(XinGothic-Bold.otf);
+    font-weight: bold;
 }
 
+/*
 * {
     font-weight: normal;
 }
+*/
 
 body {
-    font-family: microhei;
+    font-family: XinGothic;
     background: #F6F3EF;
     text-shadow: 0 1px 0 #fff;
     font-size: 16px;

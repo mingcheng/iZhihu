@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.widget.Toast;
 import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.FetchThumbnailTask;
@@ -52,13 +51,14 @@ public class FetchThumbnailsService extends Service {
                 if (Util.isWifiConnected(context)) {
                     fetchThumbnailTask.execute();
                 } else {
-                    Toast.makeText(context, getString(R.string.download_when_wifi_avaiable), Toast.LENGTH_SHORT).show();
+                    Util.showShortToast(context, getString(R.string.download_when_wifi_avaiable));
                 }
             } else {
                 fetchThumbnailTask.execute();
             }
         }
 
+        // stopSelf();
         return super.onStartCommand(intent, flags, startId);
     }
 
