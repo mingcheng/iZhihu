@@ -16,13 +16,15 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebViewFragment;
-import android.widget.Toast;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -33,23 +35,88 @@ public class DetailFragment extends WebViewFragment {
     private static final String KEY_SCROLL_BY = "key_scroll_by_";
     private static final String TEMPLATE_DETAIL_FILE = "detail.html";
     private static final String URL_ASSETS_PREFIX = "file:///android_asset/";
-    private static final String MIME_TYPE = "text/html";
+    private static final String MIME_HTML_TYPE = "text/html";
     public static final int ID_NOT_FOUND = 0;
     private static final int DONT_HAVE_SCROLLY = 0;
     private static final long AUTO_SCROLL_DELAY = 500;
-    private static final int MAX_CAPTURE_HEIGHT_SIZE = 10000;
+    private static final int FIVE_MINUTES = 1000 * 60 * 5;
 
     private final int id;
     private final Context context;
     private Activity activity;
-    private static QuestionsDatabase questionsDatabase;
-    private static ThumbnailsDatabase thumbnailsDatabase;
+    private QuestionsDatabase questionsDatabase;
+    private ThumbnailsDatabase thumbnailsDatabase;
     private SharedPreferences sharedPreferences;
 
     private Question question;
     private boolean isNeedIndent = false;
     private boolean isNeedReplaceSymbol = false;
     private boolean isNeedCacheThumbnails = true;
+    private Bitmap bitmap;
+
+
+    WebViewClient webViewClient = new WebViewClient() {
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            //decideAutoScroll();
+            new Thread(genScreenShots).start();
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            Util.openWithBrowser(getActivity(), url);
+            return true;
+        }
+    };
+
+
+    Runnable genScreenShots = new Runnable() {
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(3000);
+                if (!isTempScreenShotsFileCached()) {
+                    File screenShotsFile = getTempScreenShotsFile();
+                    FileOutputStream fileOutPutStream = new FileOutputStream(screenShotsFile);
+                    genCaptureBitmap();
+                    if (bitmap != null) {
+                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutPutStream);
+                        fileOutPutStream.flush();
+                        fileOutPutStream.close();
+                        Log.d(TAG, "Generated screenshots at " + screenShotsFile.getAbsolutePath());
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (OutOfMemoryError e) {
+                // @todo mark do not generate again.
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                if (bitmap != null) {
+                    bitmap.recycle();
+                }
+            }
+        }
+    };
+
+    public boolean isTempScreenShotsFileCached() {
+        File tempScreenShotsFile = getTempScreenShotsFile();
+        if (tempScreenShotsFile.exists() && tempScreenShotsFile.length() > 0
+            && (System.currentTimeMillis() - tempScreenShotsFile.lastModified()) < FIVE_MINUTES) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public File getTempScreenShotsFile() {
+        return new File(context.getCacheDir(), question.answerId + ".png");
+    }
 
     private String getTemplateString() {
         String template = "";
@@ -74,18 +141,16 @@ public class DetailFragment extends WebViewFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
         this.activity = getActivity();
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
         this.questionsDatabase = new QuestionsDatabase(context);
         this.thumbnailsDatabase = new ThumbnailsDatabase(context);
-
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
 
         this.isNeedIndent = sharedPreferences.getBoolean(getString(R.string.key_indent), false);
         this.isNeedReplaceSymbol = sharedPreferences.getBoolean(getString(R.string.key_symbol), true);
@@ -93,10 +158,16 @@ public class DetailFragment extends WebViewFragment {
 
         try {
             question = questionsDatabase.getSingleQuestion(id);
+            question.markAsRead();
         } catch (QuestionsDatabase.QuestionNotFoundException e) {
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+            Util.showLongToast(context, e.getMessage());
             activity.finish();
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
 
         String data = String.format(getTemplateString(),
             getClassName(),
@@ -112,23 +183,10 @@ public class DetailFragment extends WebViewFragment {
         getWebView().getSettings().setUseWideViewPort(true);
         getWebView().getSettings().setJavaScriptEnabled(true);
 
-        getWebView().setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                decideAutoScroll();
-            }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                Util.openWithBrowser(getActivity(), url);
-                return true;
-            }
-        });
-
-        getWebView().loadDataWithBaseURL(URL_ASSETS_PREFIX, data, MIME_TYPE, Util.DEFAULT_CHARSET, null);
-        question.markAsRead();
+        getWebView().loadDataWithBaseURL(URL_ASSETS_PREFIX, data, MIME_HTML_TYPE, Util.DEFAULT_CHARSET, null);
+        getWebView().setWebViewClient(webViewClient);
     }
+
 
     private String getKeyScrollById() {
         return KEY_SCROLL_BY + this.id;
@@ -255,27 +313,23 @@ public class DetailFragment extends WebViewFragment {
      * @return
      * @TODO 内存的问题
      */
-    public Bitmap getCaptureBitmap() throws OutOfMemoryError {
+    public Bitmap genCaptureBitmap() throws OutOfMemoryError {
         WebView webView = getWebView();
+        if (webView == null) {
+            return null;
+        }
 
         Picture picture = webView.capturePicture();
         int height = picture.getHeight(), width = picture.getWidth();
-        if (webView.getHeight() <= MAX_CAPTURE_HEIGHT_SIZE) {
-            height = picture.getHeight() * (webView.getWidth() / picture.getWidth());
-            width = webView.getWidth();
+        if (height == 0 || width == 0) {
+            return null;
         }
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
+        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        if (webView.getHeight() <= MAX_CAPTURE_HEIGHT_SIZE) {
-            webView.draw(canvas);
-        } else {
-            picture.draw(canvas);
-        }
-
+        picture.draw(canvas);
         return bitmap;
     }
-
 
     public boolean markStar(boolean status) {
         return questionsDatabase.markQuestionAsStared(id, status) > 0 ? true : false;
@@ -306,6 +360,10 @@ public class DetailFragment extends WebViewFragment {
 
     @Override
     public void onDestroy() {
+        if (bitmap != null) {
+            bitmap.recycle();
+        }
+
         if (questionsDatabase != null) {
             questionsDatabase.close();
             questionsDatabase = null;
