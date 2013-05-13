@@ -70,4 +70,8 @@
     <string name="loaded_more_data">Loading more questions</string>
     <string name="really_clear_cache">Sure clear all caches? All images willbe redownload.</string>
     <string name="download_when_wifi_avaiable">Auto download offline images when Wifi is avaiable.</string>
+    <string name="key_wake_lock">key_wake_lock</string>
+    <string name="appearance">Appearance</string>
+    <string name="wakelock_screen">Wake Lock Screen</string>
+    <string name="wakelock_screen_summary">Don\'t take off screen while reading.</string>
 </resources>

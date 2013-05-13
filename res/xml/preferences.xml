@@ -3,6 +3,18 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
+        android:title="@string/appearance">
+
+        <CheckBoxPreference
+            android:key="@string/key_wake_lock"
+            android:title="@string/wakelock_screen"
+            android:defaultValue="true"
+            android:summary="@string/wakelock_screen_summary"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/read">
 
         <ListPreference

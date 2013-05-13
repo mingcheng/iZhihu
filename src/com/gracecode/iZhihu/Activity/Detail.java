@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.PowerManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ public class Detail extends BaseActivity {
     public int id;
     private DetailFragment fragQuestionDetail;
     private MenuItem starMenuItem;
+    private PowerManager.WakeLock wakeLock;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,9 @@ public class Detail extends BaseActivity {
         } else {
             this.fragQuestionDetail = new DetailFragment(id, this);
         }
+
+        PowerManager powerManager = ((PowerManager) getSystemService(POWER_SERVICE));
+        this.wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, Detail.class.getName());
 
         actionBar.setDisplayHomeAsUpEnabled(true);
         getFragmentManager()
@@ -46,6 +51,27 @@ public class Detail extends BaseActivity {
         if (starMenuItem != null) {
             starMenuItem.setIcon(fragQuestionDetail.isStared() ?
                 R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
+        }
+    }
+
+
+    private boolean isNeedScreenWakeLock() {
+        return sharedPreferences.getBoolean(getString(R.string.key_wake_lock), true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isNeedScreenWakeLock()) {
+            wakeLock.acquire();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (isNeedScreenWakeLock()) {
+            wakeLock.release();
         }
     }
 
