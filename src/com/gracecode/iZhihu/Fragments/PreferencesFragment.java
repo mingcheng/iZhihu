@@ -48,8 +48,8 @@ public class PreferencesFragment extends PreferenceFragment {
         markVersionNumber();
         markCacheCountsAndSize();
 
-        boolean isEnableCache = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
-        setCacheEabled(isEnableCache);
+        setCacheEnabled(sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true));
+        setSaveThumbnailsEnabled(sharedPreferences.getBoolean(getString(R.string.key_share_text_only), false));
     }
 
 
@@ -70,7 +70,7 @@ public class PreferencesFragment extends PreferenceFragment {
         cachePref.setSummary(String.format(template, cacheCount, cacheSize));
     }
 
-    private void setCacheEabled(boolean status) {
+    private void setCacheEnabled(boolean status) {
         for (String key : new String[]{
             getString(R.string.key_only_wifi_cache),
             getString(R.string.key_clear_caches)
@@ -79,11 +79,15 @@ public class PreferencesFragment extends PreferenceFragment {
         }
     }
 
+    private void setSaveThumbnailsEnabled(boolean status) {
+        findPreference(getString(R.string.key_share_and_save)).setEnabled(!status);
+    }
 
     @Override
     public boolean onPreferenceTreeClick(PreferenceScreen prefScreen, Preference pref) {
         String key = pref.getKey();
         boolean isEnableCache = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
+        boolean isShareTextOnly = sharedPreferences.getBoolean(getString(R.string.key_share_text_only), false);
 
         if (getString(R.string.key_donate).equals(key)) {
             Util.openWithBrowser(activity, getString(R.string.url_donate));
@@ -98,7 +102,10 @@ public class PreferencesFragment extends PreferenceFragment {
             startActivity(intent);
             return true;
         } else if (getString(R.string.key_enable_cache).equals(key)) {
-            setCacheEabled(isEnableCache);
+            setCacheEnabled(isEnableCache);
+            return true;
+        } else if (getString(R.string.key_share_text_only).equals(key)) {
+            setSaveThumbnailsEnabled(isShareTextOnly);
             return true;
         } else if (getString(R.string.key_clear_caches).equals(key)) {
             if (isEnableCache) {

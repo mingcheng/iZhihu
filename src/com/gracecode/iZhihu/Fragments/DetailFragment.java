@@ -50,6 +50,8 @@ public class DetailFragment extends WebViewFragment {
     private boolean isNeedIndent = false;
     private boolean isNeedReplaceSymbol = false;
     private boolean isNeedCacheThumbnails = true;
+    private boolean isShareByTextOnly = false;
+
     private Bitmap bitmap;
 
 
@@ -59,7 +61,9 @@ public class DetailFragment extends WebViewFragment {
             super.onPageFinished(view, url);
             // @todo 记忆滚动需要优化
             decideAutoScroll();
-            new Thread(genScreenShots).start();
+            if (!isShareByTextOnly) {
+                new Thread(genScreenShots).start();
+            }
         }
 
         @Override
@@ -154,6 +158,7 @@ public class DetailFragment extends WebViewFragment {
         this.isNeedIndent = sharedPreferences.getBoolean(getString(R.string.key_indent), false);
         this.isNeedReplaceSymbol = sharedPreferences.getBoolean(getString(R.string.key_symbol), true);
         this.isNeedCacheThumbnails = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
+        this.isShareByTextOnly = sharedPreferences.getBoolean(getString(R.string.key_share_text_only), false);
 
         try {
             question = questionsDatabase.getSingleQuestion(id);

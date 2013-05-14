@@ -53,6 +53,8 @@ public class Detail extends BaseActivity {
             }
         }
     };
+    private boolean isShareByTextOnly = false;
+    private boolean isShareAndSave = true;
 
 
     /**
@@ -103,7 +105,13 @@ public class Detail extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
+        isShareByTextOnly = sharedPreferences.getBoolean(getString(R.string.key_share_text_only), false);
+        isShareAndSave = sharedPreferences.getBoolean(getString(R.string.key_share_and_save), true);
+    }
 
+    private File getScreenShotFile() {
+        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        return new File(pictureDirectory, fragQuestionDetail.getQuestionId() + ".png");
     }
 
 
@@ -112,6 +120,16 @@ public class Detail extends BaseActivity {
         super.onResume();
         if (isNeedScreenWakeLock()) {
             wakeLock.acquire();
+        }
+
+        // 是否保留分享时用的图片
+        File screenshots = getScreenShotFile();
+        if (!isShareByTextOnly && !isShareAndSave && screenshots.exists()) {
+            try {
+                screenshots.delete();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -149,16 +167,23 @@ public class Detail extends BaseActivity {
 
             // Share question by intent
             case R.id.menu_share:
-                File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                File screenShotFile = new File(pictureDirectory, fragQuestionDetail.getQuestionId() + ".png");
-                File tempScreenShotsFile = fragQuestionDetail.getTempScreenShotsFile();
+                File screenShotFile = getScreenShotFile();
+                String shareString = fragQuestionDetail.getShareString();
 
                 try {
-                    if (fragQuestionDetail.isTempScreenShotsFileCached()) {
-                        Util.copyFile(tempScreenShotsFile, screenShotFile);
-                        Util.openShareIntentWithImage(this, fragQuestionDetail.getShareString(), Uri.fromFile(screenShotFile));
+                    // @todo 优化这段代码的逻辑
+                    if (!isShareByTextOnly) {
+                        if (!screenShotFile.exists() && fragQuestionDetail.isTempScreenShotsFileCached()) {
+                            Util.copyFile(fragQuestionDetail.getTempScreenShotsFile(), screenShotFile);
+                        }
+
+                        if (screenShotFile.exists()) {
+                            Util.openShareIntentWithImage(this, shareString, Uri.fromFile(screenShotFile));
+                        } else {
+                            Util.openShareIntentWithPlainText(this, shareString);
+                        }
                     } else {
-                        Util.openShareIntentWithPlainText(this, fragQuestionDetail.getShareString());
+                        Util.openShareIntentWithPlainText(this, shareString);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

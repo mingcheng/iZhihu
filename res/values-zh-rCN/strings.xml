@@ -54,5 +54,9 @@
     <string name="appearance">界面</string>
     <string name="wakelock_screen">屏幕常亮</string>
     <string name="wakelock_screen_summary">当阅读正文时，保持屏幕常亮</string>
+    <string name="share_and_save">保存缩略图</string>
+    <string name="share_and_save_summary">分享的同时并保存条目图片到您的「图片」目录</string>
+    <string name="share_plain_only">纯文本</string>
+    <string name="share_plain_only_summary">只使用纯文本格式分享，生成缩略图</string>
 
 </resources>

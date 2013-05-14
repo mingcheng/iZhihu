@@ -15,6 +15,23 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/share">
+        <CheckBoxPreference
+            android:key="@string/key_share_text_only"
+            android:title="@string/share_plain_only"
+            android:defaultValue="false"
+            android:summary="@string/share_plain_only_summary"
+            />
+
+        <CheckBoxPreference
+            android:key="@string/key_share_and_save"
+            android:title="@string/share_and_save"
+            android:defaultValue="true"
+            android:summary="@string/share_and_save_summary"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/read">
 
         <ListPreference
@@ -49,10 +66,6 @@
             />
     </PreferenceCategory>
 
-    <!--<PreferenceCategory-->
-    <!--android:title="@string/share">-->
-
-    <!--</PreferenceCategory>-->
 
     <PreferenceCategory
         android:title="@string/caches">

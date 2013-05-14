@@ -74,4 +74,10 @@
     <string name="appearance">Appearance</string>
     <string name="wakelock_screen">Wake Lock Screen</string>
     <string name="wakelock_screen_summary">Don\'t take off screen while reading.</string>
+    <string name="key_share_and_save">key_share_and_save</string>
+    <string name="share_and_save">Share And Save</string>
+    <string name="share_and_save_summary"><![CDATA[Share and save thumbnails to your <Picture> directory]]></string>
+    <string name="key_share_text_only">key_share_plain_only</string>
+    <string name="share_plain_only">Share Plain Text Only</string>
+    <string name="share_plain_only_summary">Share plain text only, dont generate thumbnails.</string>
 </resources>
