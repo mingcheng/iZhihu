@@ -76,39 +76,6 @@ public final class QuestionsDatabase {
     private int idxAnswerId;
 
 
-    public int getStartId() {
-        int returnId = HTTPRequester.DEFAULT_START_OFFSET;
-        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery("SELECT max(" + COLUM_ID + ") AS " +
-            COLUM_ID + " FROM " + DATABASE_QUESTIONS_TABLE_NAME + " LIMIT 1;", null);
-        cursor.moveToFirst();
-
-        int maxId = cursor.getInt(cursor.getColumnIndex(COLUM_ID));
-        if (cursor.getCount() == 1 && maxId != 0) {
-            returnId = maxId;
-        }
-        cursor.close();
-
-        return returnId;
-    }
-
-    public long getTotalQuestionsCount() {
-        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery("SELECT count(" + COLUM_ID + ") AS " +
-            COLUM_ID + " FROM " + DATABASE_QUESTIONS_TABLE_NAME + " LIMIT 1;", null);
-        cursor.moveToFirst();
-
-        long count = cursor.getLong(cursor.getColumnIndex(COLUM_ID));
-        cursor.close();
-        return count;
-    }
-
-    public int getTotalPages() {
-        return (int) Math.ceil(getTotalQuestionsCount() / PRE_LIMIT_PAGE_SIZE);
-    }
-
     private class DatabaseOpenHelper extends SQLiteOpenHelper {
         public DatabaseOpenHelper(Context context, String name) {
             super(context, name, null, DATABASE_VERSION);
@@ -133,12 +100,55 @@ public final class QuestionsDatabase {
     }
 
 
+    public int getStartId() {
+        int returnId = HTTPRequester.DEFAULT_START_OFFSET;
+        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT max(" + COLUM_ID + ") AS " +
+            COLUM_ID + " FROM " + DATABASE_QUESTIONS_TABLE_NAME + " LIMIT 1;", null);
+        cursor.moveToFirst();
+
+        try {
+            int maxId = cursor.getInt(cursor.getColumnIndex(COLUM_ID));
+            if (cursor.getCount() == 1 && maxId != 0) {
+                returnId = maxId;
+            }
+            return returnId;
+        } finally {
+            cursor.close();
+            db.close();
+        }
+    }
+
+
+    public long getTotalQuestionsCount() {
+        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT count(" + COLUM_ID + ") AS " +
+            COLUM_ID + " FROM " + DATABASE_QUESTIONS_TABLE_NAME + " LIMIT 1;", null);
+        cursor.moveToFirst();
+
+        try {
+            return cursor.getLong(cursor.getColumnIndex(COLUM_ID));
+        } finally {
+            cursor.close();
+            db.close();
+        }
+    }
+
+
+    public int getTotalPages() {
+        return (int) Math.ceil(getTotalQuestionsCount() / PRE_LIMIT_PAGE_SIZE);
+    }
+
+
     public QuestionsDatabase(Context context) {
         this.context = context;
         this.databaseFile = new File(context.getCacheDir(), FILE_DATABASE_NAME);
         this.databaseOpenHelper = new DatabaseOpenHelper(context, databaseFile.getAbsolutePath());
         this.questionsDatabase = this;
     }
+
 
     protected Cursor getRecentQuestionsCursor(int page) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
@@ -148,9 +158,11 @@ public final class QuestionsDatabase {
         return cursor;
     }
 
+
     protected Cursor getRecentQuestionsCursor() {
         return getRecentQuestionsCursor(FIRST_PAGE);
     }
+
 
     protected Cursor getStaredQuestionsCursor() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
@@ -158,9 +170,11 @@ public final class QuestionsDatabase {
             COLUM_UPDATE_AT + " DESC");
     }
 
+
     public ArrayList<Question> getRecentQuestions() {
         return getRecentQuestions(FIRST_PAGE);
     }
+
 
     public ArrayList<Question> getRecentQuestions(int page) {
         ArrayList<Question> questionArrayList = new ArrayList<Question>();
@@ -179,14 +193,18 @@ public final class QuestionsDatabase {
         ArrayList<Question> questionArrayList = new ArrayList<Question>();
         Cursor cursor = getStaredQuestionsCursor();
 
-        for (getIndexFromCursor(cursor); cursor.moveToNext(); ) {
-            Question question = convertCursorIntoQuestion(cursor);
-            questionArrayList.add(question);
-        }
+        try {
+            for (getIndexFromCursor(cursor); cursor.moveToNext(); ) {
+                Question question = convertCursorIntoQuestion(cursor);
+                questionArrayList.add(question);
+            }
 
-        cursor.close();
-        return questionArrayList;
+            return questionArrayList;
+        } finally {
+            cursor.close();
+        }
     }
+
 
     private void getIndexFromCursor(Cursor cursor) {
         this.idxId = cursor.getColumnIndex(QuestionsDatabase.COLUM_ID);
@@ -219,7 +237,7 @@ public final class QuestionsDatabase {
         return question;
     }
 
-    protected Cursor getSingleQuestionCursor(int id) throws QuestionNotFoundException {
+    private Cursor getSingleQuestionCursor(int id) throws QuestionNotFoundException {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
 
         Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, COLUM_ID + " = " + id, null, null, null, null);
@@ -254,14 +272,20 @@ public final class QuestionsDatabase {
         return question;
     }
 
+
     public int markSingleQuestionAsReaded(int id) {
         SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUM_UNREAD, VALUE_READED);
 
-        return db.update(DATABASE_QUESTIONS_TABLE_NAME, contentValues, COLUM_ID + " = ?", new String[]{String.valueOf(id)});
+        try {
+            return db.update(DATABASE_QUESTIONS_TABLE_NAME, contentValues, COLUM_ID + " = ?", new String[]{String.valueOf(id)});
+        } finally {
+            db.close();
+        }
     }
+
 
     protected boolean isStared(int id) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
@@ -273,11 +297,16 @@ public final class QuestionsDatabase {
             return false;
         }
 
-        cursor.moveToFirst();
-        int result = cursor.getInt(cursor.getColumnIndex(QuestionsDatabase.COLUM_STARED));
-        cursor.close();
-        return (result == VALUE_STARED) ? true : false;
+        try {
+            cursor.moveToFirst();
+            int result = cursor.getInt(cursor.getColumnIndex(QuestionsDatabase.COLUM_STARED));
+            return (result == VALUE_STARED) ? true : false;
+        } finally {
+            cursor.close();
+            db.close();
+        }
     }
+
 
     public int markQuestionAsStared(int id, boolean flag) {
         SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
@@ -285,7 +314,11 @@ public final class QuestionsDatabase {
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUM_STARED, flag ? VALUE_STARED : VALUE_UNSTARED);
 
-        return db.update(DATABASE_QUESTIONS_TABLE_NAME, contentValues, COLUM_ID + " = ?", new String[]{String.valueOf(id)});
+        try {
+            return db.update(DATABASE_QUESTIONS_TABLE_NAME, contentValues, COLUM_ID + " = ?", new String[]{String.valueOf(id)});
+        } finally {
+            db.close();
+        }
     }
 
 
@@ -314,9 +347,11 @@ public final class QuestionsDatabase {
         contentValues.put(COLUM_UPDATE_AT, question.getString(COLUM_UPDATE_AT));
         contentValues.put(COLUM_USER_AVATAR, question.getString(COLUM_USER_AVATAR));
 
-        long result = db.insert(DATABASE_QUESTIONS_TABLE_NAME, null, contentValues);
-        db.close();
-        return result;
+        try {
+            return db.insert(DATABASE_QUESTIONS_TABLE_NAME, null, contentValues);
+        } finally {
+            db.close();
+        }
     }
 
 
@@ -329,6 +364,7 @@ public final class QuestionsDatabase {
             databaseOpenHelper = null;
         }
     }
+
 
     public class QuestionNotFoundException extends SQLiteException {
         public QuestionNotFoundException(String message) {

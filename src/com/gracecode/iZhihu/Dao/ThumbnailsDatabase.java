@@ -92,12 +92,20 @@ public class ThumbnailsDatabase {
         return directory;
     }
 
+
+    /**
+     * 增加到缓存列表中
+     *
+     * @param url
+     * @return
+     */
     public boolean add(String url) {
         if (isCached(url)) {
             return false;
         }
+
+        SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
         try {
-            SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
             ContentValues contentValues = new ContentValues();
             contentValues.put(COLUM_URL, url);
 
@@ -106,33 +114,57 @@ public class ThumbnailsDatabase {
         } catch (SQLiteException e) {
             return false;
         } finally {
-            return false;
+            db.close();
         }
     }
 
+
+    /**
+     * 获取已缓存的列表
+     *
+     * @param url
+     * @return
+     */
     public String getCachedPath(String url) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME,
             new String[]{COLUM_LOCAL_PATH},
             COLUM_URL + "=?", new String[]{url}, null, null, null, "1");
 
-        cursor.moveToFirst();
-        int count = cursor.getCount();
-        int index = cursor.getColumnIndex(COLUM_LOCAL_PATH);
+        try {
+            cursor.moveToFirst();
+            int count = cursor.getCount();
+            int index = cursor.getColumnIndex(COLUM_LOCAL_PATH);
 
-        String result = (count > 0) ? cursor.getString(index) : null;
-        cursor.close();
-        if (result == null) {
-            result = "";
+            String result = (count > 0) ? cursor.getString(index) : null;
+            if (result == null) {
+                result = "";
+            }
+            return result.trim();
+        } finally {
+            cursor.close();
+            db.close();
         }
-        return result.trim();
     }
 
+
+    /**
+     * 判断是否被缓存
+     *
+     * @param url
+     * @return
+     */
     public boolean isCached(String url) {
         String path = getCachedPath(url);
         return path.length() > 0 ? true : false;
     }
 
+
+    /**
+     * 清除数据
+     *
+     * @return
+     */
     public int clearAll() {
         List<String> cachedThumbnails = getCachedThumbnails();
         for (int i = 0, size = cachedThumbnails.size(); i < size; i++) {
@@ -141,7 +173,11 @@ public class ThumbnailsDatabase {
         }
 
         SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
-        return db.delete(DATABASE_THUMBNAILS_TABLE_NAME, null, null);
+        try {
+            return db.delete(DATABASE_THUMBNAILS_TABLE_NAME, null, null);
+        } finally {
+            db.close();
+        }
     }
 
     public boolean markAsCached(String url, String localPath, String mimeType, int status, int width, int height) {
@@ -161,9 +197,14 @@ public class ThumbnailsDatabase {
         contentValues.put(COLUM_TIMESTAMP, System.currentTimeMillis());
         contentValues.put(COLUM_STATUS, status);
 
-        int result = db.update(DATABASE_THUMBNAILS_TABLE_NAME, contentValues, COLUM_URL + " = ?", new String[]{url});
-        return result >= 1 ? true : false;
+        try {
+            int result = db.update(DATABASE_THUMBNAILS_TABLE_NAME, contentValues, COLUM_URL + " = ?", new String[]{url});
+            return result >= 1 ? true : false;
+        } finally {
+            db.close();
+        }
     }
+
 
     public List<String> getNotCachedThumbnails() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
@@ -173,11 +214,16 @@ public class ThumbnailsDatabase {
         int idxUrl = cursor.getColumnIndex(COLUM_URL);
         List<String> result = new ArrayList<String>();
 
-        for (int i = 0, count = cursor.getCount(); i < count; i++) {
-            cursor.moveToPosition(i);
-            result.add(cursor.getString(idxUrl));
+        try {
+            for (int i = 0, count = cursor.getCount(); i < count; i++) {
+                cursor.moveToPosition(i);
+                result.add(cursor.getString(idxUrl));
+            }
+            return result;
+        } finally {
+            cursor.close();
+            db.close();
         }
-        return result;
     }
 
 
@@ -189,11 +235,16 @@ public class ThumbnailsDatabase {
         int idxUrl = cursor.getColumnIndex(COLUM_LOCAL_PATH);
         List<String> result = new ArrayList<String>();
 
-        for (int i = 0, count = cursor.getCount(); i < count; i++) {
-            cursor.moveToPosition(i);
-            result.add(cursor.getString(idxUrl));
+        try {
+            for (int i = 0, count = cursor.getCount(); i < count; i++) {
+                cursor.moveToPosition(i);
+                result.add(cursor.getString(idxUrl));
+            }
+            return result;
+        } finally {
+            cursor.close();
+            db.close();
         }
-        return result;
     }
 
 
@@ -202,20 +253,28 @@ public class ThumbnailsDatabase {
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{"COUNT(" + COLUM_ID + ") AS " + COLUM_ID},
             COLUM_LOCAL_PATH + " NOT NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, null, null);
 
-        cursor.moveToFirst();
-        int result = cursor.getInt(cursor.getColumnIndex(COLUM_ID));
-        cursor.close();
-        return result;
+        try {
+            cursor.moveToFirst();
+            int result = cursor.getInt(cursor.getColumnIndex(COLUM_ID));
+            return result;
+        } finally {
+            cursor.close();
+            db.close();
+        }
     }
+
 
     public long getTotalCachedSize() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{"SUM(" + COLUM_SIZE + ") AS " + COLUM_ID},
             COLUM_LOCAL_PATH + " NOT NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, null, null);
 
-        cursor.moveToFirst();
-        long result = cursor.getLong(cursor.getColumnIndex(COLUM_ID));
-        cursor.close();
-        return result;
+        try {
+            cursor.moveToFirst();
+            return cursor.getLong(cursor.getColumnIndex(COLUM_ID));
+        } finally {
+            cursor.close();
+            db.close();
+        }
     }
 }

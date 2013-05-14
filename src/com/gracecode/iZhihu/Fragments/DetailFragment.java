@@ -83,7 +83,7 @@ public class DetailFragment extends WebViewFragment {
                     File screenShotsFile = getTempScreenShotsFile();
                     FileOutputStream fileOutPutStream = new FileOutputStream(screenShotsFile);
                     genCaptureBitmap();
-                    if (bitmap != null) {
+                    if (bitmap != null && !bitmap.isRecycled()) {
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutPutStream);
                         fileOutPutStream.flush();
                         fileOutPutStream.close();
@@ -100,7 +100,7 @@ public class DetailFragment extends WebViewFragment {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } finally {
-                if (bitmap != null) {
+                if (bitmap != null && !bitmap.isRecycled()) {
                     bitmap.recycle();
                 }
             }
@@ -372,7 +372,7 @@ public class DetailFragment extends WebViewFragment {
 
     @Override
     public void onDestroy() {
-        if (bitmap != null) {
+        if (bitmap != null && !bitmap.isRecycled()) {
             bitmap.recycle();
         }
 

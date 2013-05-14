@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import com.gracecode.iZhihu.Activity.Detail;
 import com.gracecode.iZhihu.Adapter.QuestionsAdapter;
-import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Dao.Question;
+import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.R;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public abstract class BaseListFragment extends ListFragment {
     protected QuestionsAdapter questionsAdapter;
     protected Activity activity;
     protected Context context;
-    protected static QuestionsDatabase questionsDatabase;
+    protected QuestionsDatabase questionsDatabase;
     protected ArrayList<Question> questions;
     protected int selectedPosition;
     protected SharedPreferences sharedPref;
@@ -61,8 +61,6 @@ public abstract class BaseListFragment extends ListFragment {
     @Override
     public void onStart() {
         super.onStart();
-
-        this.questionsDatabase = new QuestionsDatabase(context);
     }
 
     @Override
@@ -121,5 +119,9 @@ public abstract class BaseListFragment extends ListFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (questionsDatabase != null) {
+            questionsDatabase.close();
+            questionsDatabase = null;
+        }
     }
 }
