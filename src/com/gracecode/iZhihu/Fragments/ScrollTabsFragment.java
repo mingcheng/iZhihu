@@ -55,7 +55,7 @@ public class ScrollTabsFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        notifyDatasetChanged();
+        //notifyDatasetChanged();
     }
 
     @Override

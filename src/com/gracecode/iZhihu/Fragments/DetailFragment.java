@@ -58,9 +58,9 @@ public class DetailFragment extends WebViewFragment {
             super.onPageFinished(view, url);
             // @todo 记忆滚动需要优化
             //decideAutoScroll();
-//            if (!isShareByTextOnly) {
-//                new Thread(genScreenShots).start();
-//            }
+            if (!isShareByTextOnly) {
+                new Thread(genScreenShots).start();
+            }
         }
 
         @Override
@@ -315,7 +315,11 @@ public class DetailFragment extends WebViewFragment {
     }
 
     public int getQuestionId() {
-        return question.questionId;
+        if (question != null) {
+            return question.questionId;
+        } else {
+            return ID_NOT_FOUND;
+        }
     }
 
     /**
@@ -325,22 +329,20 @@ public class DetailFragment extends WebViewFragment {
      * @TODO 内存的问题
      */
     public Bitmap genCaptureBitmap() throws OutOfMemoryError {
-        WebView webView = getWebView();
-        if (webView == null) {
-            return null;
-        }
-
         // @todo Future versions of WebView may not support use on other threads.
-        Picture picture = webView.capturePicture();
-        int height = picture.getHeight(), width = picture.getWidth();
-        if (height == 0 || width == 0) {
+        try {
+            Picture picture = getWebView().capturePicture();
+            int height = picture.getHeight(), width = picture.getWidth();
+            if (height == 0 || width == 0) {
+                return null;
+            }
+            Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            picture.draw(canvas);
+            return bitmap;
+        } catch (NullPointerException e) {
             return null;
         }
-
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        picture.draw(canvas);
-        return bitmap;
     }
 
     public boolean markStar(boolean status) {
@@ -352,7 +354,6 @@ public class DetailFragment extends WebViewFragment {
         return String.format("%s #%s# %s", question.title, context.getString(R.string.app_name), getOnlineShortUrl(question.answerId));
     }
 
-    // @todo 短链接的算法还有问题
     private static String getOnlineShortUrl(int number) {
         String s = "", KEY = "6BCMx(0gEwTj3FbUGPe7rtKfqosmZOX2S)5IvH.zu9DdQRL41AnV8ckylhp!YNWJi";
         int l = KEY.length();

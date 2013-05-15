@@ -3,6 +3,7 @@ package com.gracecode.iZhihu;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -199,5 +200,11 @@ public class Util {
         intent.setType(MIME_PLAIN_TEXT);
 
         context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
+    }
+
+    public static boolean savePref(SharedPreferences sharedPref, String key, int value) {
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt(key, value);
+        return editor.commit();
     }
 }

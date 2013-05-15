@@ -1,14 +1,17 @@
 package com.gracecode.iZhihu.Activity;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
+import com.gracecode.iZhihu.Fragments.BaseListFragment;
 import com.gracecode.iZhihu.Fragments.DetailFragment;
 import com.gracecode.iZhihu.Fragments.ScrollDetailFragment;
 import com.gracecode.iZhihu.R;
@@ -63,6 +66,8 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     private boolean isShareAndSave = true;
     private ScrollDetailFragment fragListQuestions = null;
     private ArrayList<Integer> questionsIds = new ArrayList<Integer>();
+    private int currnetPosition = BaseListFragment.SELECT_NONE;
+    private SharedPreferences sharedPref;
 
 
     /**
@@ -112,8 +117,14 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             this.fragQuestionDetail = new DetailFragment(id, this);
         }
 
+        this.currnetPosition = getIntent().getIntExtra(BaseListFragment.KEY_SELECTED_POSITION,
+            BaseListFragment.SELECT_NONE);
+
         // 屏幕常亮控制
         this.wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, Detail.class.getName());
+
+        // 配置
+        this.sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
 
         // ActionBar 的样式
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -132,8 +143,17 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     }
 
     private File getScreenShotFile() {
-        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        return new File(pictureDirectory, fragQuestionDetail.getQuestionId() + ".png");
+        if (fragQuestionDetail == null) {
+            return null;
+        }
+
+        int id = fragQuestionDetail.getQuestionId();
+        if (id != DetailFragment.ID_NOT_FOUND) {
+            File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            return new File(pictureDirectory, id + ".png");
+        } else {
+            return null;
+        }
     }
 
 
@@ -145,14 +165,14 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         }
 
         // 是否保留分享时用的图片
-//        File screenshots = getScreenShotFile();
-//        if (!isShareByTextOnly && !isShareAndSave && screenshots.exists()) {
-//            try {
-//                screenshots.delete();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
+        File screenshots = getScreenShotFile();
+        if (!isShareByTextOnly && !isShareAndSave && screenshots != null && screenshots.exists()) {
+            try {
+                screenshots.delete();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -162,6 +182,8 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         if (isNeedScreenWakeLock()) {
             wakeLock.release();
         }
+
+        Util.savePref(sharedPref, BaseListFragment.KEY_SELECTED_POSITION, currnetPosition);
     }
 
 
@@ -177,6 +199,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
+            // Toggle star
             case R.id.menu_favorite:
                 new Thread(MarkAsStared).start();
                 return true;
@@ -235,6 +258,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
     @Override
     public void onPageSelected(int i) {
+        currnetPosition = i;
         DetailFragment fragment = fragListQuestions.getCurrentDetailFragment();
         if (fragment != null) {
             updateCurrentQuestion(fragment);

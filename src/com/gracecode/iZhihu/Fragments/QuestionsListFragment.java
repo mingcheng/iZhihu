@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.R;
+import com.gracecode.iZhihu.Util;
 
 import java.util.ArrayList;
 
@@ -84,7 +85,7 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
 
     @Override
     public void onStop() {
-        savePref(KEY_CURRENT_PAGE, currentPage);
+        Util.savePref(sharedPref, KEY_CURRENT_PAGE, currentPage);
         super.onStop();
     }
 
