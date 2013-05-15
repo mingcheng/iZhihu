@@ -58,5 +58,7 @@
     <string name="share_and_save_summary">分享的同时并保存条目图片到您的「图片」目录</string>
     <string name="share_plain_only">纯文本</string>
     <string name="share_plain_only_summary">只使用纯文本格式分享，生成缩略图</string>
+    <string name="scroll_read">翻动阅读</string>
+    <string name="scroll_read_summary">在详情页中左右翻动阅读上下篇条目</string>
 
 </resources>

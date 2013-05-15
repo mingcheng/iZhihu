@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import com.gracecode.iZhihu.Fragments.BaseListFragment;
 import com.gracecode.iZhihu.Fragments.ScrollTabsFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Service.FetchThumbnailsService;
 import com.gracecode.iZhihu.Tasks.FetchQuestionTask;
+import com.gracecode.iZhihu.Util;
 
 public class Main extends BaseActivity {
     private ScrollTabsFragment scrollTabsFragment;
@@ -81,6 +83,8 @@ public class Main extends BaseActivity {
                     if (focus && i > 0) {
                         Toast.makeText(context,
                             String.format(getString(R.string.affectRows), i), Toast.LENGTH_LONG).show();
+                        Util.savePref(sharedPreferences,
+                            BaseListFragment.KEY_SELECTED_POSITION, BaseListFragment.SELECT_NONE);
                     }
                     scrollTabsFragment.notifyDatasetChanged();
                 } catch (RuntimeException e) {

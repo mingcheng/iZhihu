@@ -80,4 +80,7 @@
     <string name="key_share_text_only">key_share_plain_only</string>
     <string name="share_plain_only">Share Plain Text Only</string>
     <string name="share_plain_only_summary">Share plain text only, dont generate thumbnails.</string>
+    <string name="key_scroll_read">key_scroll_read</string>
+    <string name="scroll_read">Scroll read</string>
+    <string name="scroll_read_summary">Filp left/right to read previous/next item.</string>
 </resources>

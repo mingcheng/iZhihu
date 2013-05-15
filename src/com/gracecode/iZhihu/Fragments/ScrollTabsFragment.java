@@ -53,14 +53,14 @@ public class ScrollTabsFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         //notifyDatasetChanged();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         savePref(KEY_CURRENT_TAB, actionBar.getSelectedNavigationIndex());
     }
 
@@ -75,12 +75,16 @@ public class ScrollTabsFragment extends Fragment {
 
         listAdapter = new ListPagerAdapter(activity);
 
-        // @todo this's shit!
+        // @todo this is shit!
         new Handler().post(new Runnable() {
             @Override
             public void run() {
                 viewPager.setAdapter(listAdapter);
                 viewPager.setOnPageChangeListener(listAdapter);
+
+                int selectIndex = sharedPref.getInt(KEY_CURRENT_TAB, ListPagerAdapter.FIRST_TAB);
+                actionBar.setSelectedNavigationItem(selectIndex);
+                viewPager.setCurrentItem(selectIndex);
             }
         });
         rebuildTables();
@@ -102,10 +106,4 @@ public class ScrollTabsFragment extends Fragment {
         editor.putInt(key, value);
         return editor.commit();
     }
-
-//    private void setAdapterTask() {
-//        int selectIndex = sharedPref.getInt(KEY_CURRENT_TAB, ListPagerAdapter.FIRST_TAB);
-//        actionBar.setSelectedNavigationItem(selectIndex);
-//        viewPager.setCurrentItem(selectIndex);
-//    }
 }

@@ -1,12 +1,10 @@
 package com.gracecode.iZhihu.Activity;
 
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
 import android.os.PowerManager;
-import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -67,8 +65,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     private ScrollDetailFragment fragListQuestions = null;
     private ArrayList<Integer> questionsIds = new ArrayList<Integer>();
     private int currnetPosition = BaseListFragment.SELECT_NONE;
-    private SharedPreferences sharedPref;
-
+    private boolean isSetScrolltoRead = true;
 
     /**
      * 更新 ActionBar 的收藏图标，并返回状态
@@ -109,28 +106,31 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             finish();
         }
 
-        // 获取列表条目
-        this.questionsIds = getIntent().getIntegerArrayListExtra(INTENT_EXTRA_MUTI_IDS);
-        if (questionsIds.size() > 0) {
-            this.fragListQuestions = new ScrollDetailFragment(this, questionsIds, id);
-        } else {
-            this.fragQuestionDetail = new DetailFragment(id, this);
-        }
-
-        this.currnetPosition = getIntent().getIntExtra(BaseListFragment.KEY_SELECTED_POSITION,
-            BaseListFragment.SELECT_NONE);
-
         // 屏幕常亮控制
         this.wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, Detail.class.getName());
-
-        // 配置
-        this.sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
 
         // ActionBar 的样式
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        // 配置项
+        this.isShareByTextOnly = sharedPreferences.getBoolean(getString(R.string.key_share_text_only), false);
+        this.isShareAndSave = sharedPreferences.getBoolean(getString(R.string.key_share_and_save), true);
+        this.isSetScrolltoRead = sharedPreferences.getBoolean(getString(R.string.key_scroll_read), true);
+
+        if (isSetScrolltoRead) {
+            this.questionsIds = getIntent().getIntegerArrayListExtra(INTENT_EXTRA_MUTI_IDS);
+            if (questionsIds.size() > 0) {
+                this.fragListQuestions = new ScrollDetailFragment(this, questionsIds, id);
+            }
+
+            this.currnetPosition = getIntent().getIntExtra(BaseListFragment.KEY_SELECTED_POSITION,
+                BaseListFragment.SELECT_NONE);
+        } else {
+            this.fragQuestionDetail = new DetailFragment(id, this);
+        }
+
         getFragmentManager().beginTransaction()
-            .replace(android.R.id.content, (fragListQuestions == null) ? fragQuestionDetail : fragListQuestions)
+            .replace(android.R.id.content, (isSetScrolltoRead) ? fragListQuestions : fragQuestionDetail)
             .commit();
     }
 
@@ -138,9 +138,9 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     @Override
     public void onStart() {
         super.onStart();
-        isShareByTextOnly = sharedPreferences.getBoolean(getString(R.string.key_share_text_only), false);
-        isShareAndSave = sharedPreferences.getBoolean(getString(R.string.key_share_and_save), true);
+
     }
+
 
     private File getScreenShotFile() {
         if (fragQuestionDetail == null) {
@@ -183,7 +183,9 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             wakeLock.release();
         }
 
-        Util.savePref(sharedPref, BaseListFragment.KEY_SELECTED_POSITION, currnetPosition);
+        if (isSetScrolltoRead) {
+            Util.savePref(sharedPreferences, BaseListFragment.KEY_SELECTED_POSITION, currnetPosition);
+        }
     }
 
 

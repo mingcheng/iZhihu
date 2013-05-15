@@ -12,6 +12,13 @@
             android:summary="@string/wakelock_screen_summary"
             />
 
+        <CheckBoxPreference
+            android:key="@string/key_scroll_read"
+            android:title="@string/scroll_read"
+            android:defaultValue="true"
+            android:summary="@string/scroll_read_summary"
+            />
+
     </PreferenceCategory>
 
     <PreferenceCategory
