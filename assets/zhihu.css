@@ -130,13 +130,14 @@ body .question a:link {
 }
 
 .user_name {
-    border-top: 1px solid #ccc;
+    border-top: 3px double #ccc;
     padding: .5em 0 0 0;
     font-size: .8em;
     color: #999;
 }
 
 .update-at {
+    display: none;
     font-size: small;
     text-align: left;
     color: #999;
@@ -154,17 +155,20 @@ body .question a:link {
 
 
 .about {
+
 }
 
 .about .end {
     margin: 1em auto 2em;
 }
 
+/*
 .about h1 ,
 .about h2 ,
 .about h3 {
     font-weight: normal;
 }
+*/
 
 .about h1 {
     font-size: 1.3em;

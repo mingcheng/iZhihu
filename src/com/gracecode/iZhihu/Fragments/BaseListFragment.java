@@ -96,6 +96,16 @@ public abstract class BaseListFragment extends ListFragment {
         return editor.commit();
     }
 
+
+    private ArrayList<Integer> getQuestionsIdArrays() {
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+        for (int i = 0, size = questions.size(); i < size; i++) {
+            ids.add(questions.get(i).id);
+        }
+
+        return ids;
+    }
+
     public void onListItemClick(ListView parent, View v, int position, long id) {
         Question question = questions.get(position);
         selectedPosition = position;
@@ -104,7 +114,8 @@ public abstract class BaseListFragment extends ListFragment {
         }
 
         Intent intent = new Intent(activity, Detail.class);
-        intent.putExtra(QuestionsDatabase.COLUM_ID, question.id);
+        intent.putExtra(Detail.INTENT_EXTRA_COLUM_ID, question.id);
+        intent.putExtra(Detail.INTENT_EXTRA_MUTI_IDS, getQuestionsIdArrays());
         startActivity(intent);
     }
 

@@ -57,10 +57,10 @@ public class DetailFragment extends WebViewFragment {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             // @todo 记忆滚动需要优化
-            decideAutoScroll();
-            if (!isShareByTextOnly) {
-                new Thread(genScreenShots).start();
-            }
+            //decideAutoScroll();
+//            if (!isShareByTextOnly) {
+//                new Thread(genScreenShots).start();
+//            }
         }
 
         @Override
@@ -164,14 +164,15 @@ public class DetailFragment extends WebViewFragment {
             question.markAsRead();
         } catch (QuestionsDatabase.QuestionNotFoundException e) {
             Util.showLongToast(context, e.getMessage());
-            activity.finish();
         }
     }
 
     @Override
     public void onStart() {
         super.onStart();
-
+        if (question == null) {
+            return;
+        }
         String data = String.format(getTemplateString(),
             getClassName(),
             isNeedReplaceSymbol ? Util.replaceSymbol(question.title) : question.title,

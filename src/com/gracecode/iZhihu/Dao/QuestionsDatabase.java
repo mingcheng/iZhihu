@@ -261,14 +261,17 @@ public final class QuestionsDatabase {
      */
     public Question getSingleQuestion(int id) {
         Question question = new Question(this);
+        Cursor cursor = getSingleQuestionCursor(id);
+
         try {
-            Cursor cursor = getSingleQuestionCursor(id);
             getIndexFromCursor(cursor);
             question = convertCursorIntoQuestion(cursor);
-            cursor.close();
         } catch (QuestionNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            cursor.close();
         }
+
         return question;
     }
 

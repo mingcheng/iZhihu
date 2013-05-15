@@ -5,18 +5,24 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
 import android.os.PowerManager;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Fragments.DetailFragment;
+import com.gracecode.iZhihu.Fragments.ScrollDetailFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
 
 import java.io.File;
+import java.util.ArrayList;
 
-public class Detail extends BaseActivity {
+public class Detail extends BaseActivity implements ViewPager.OnPageChangeListener {
+    public static final String INTENT_EXTRA_COLUM_ID = QuestionsDatabase.COLUM_ID;
+    public static final String INTENT_EXTRA_MUTI_IDS = "mutiIds";
+
     public int id;
-    private DetailFragment fragQuestionDetail;
+    private DetailFragment fragQuestionDetail = null;
     private MenuItem starMenuItem;
     private PowerManager.WakeLock wakeLock;
     public static final int MESSAGE_UPDATE_START_SUCCESS = 0;
@@ -55,12 +61,18 @@ public class Detail extends BaseActivity {
     };
     private boolean isShareByTextOnly = false;
     private boolean isShareAndSave = true;
+    private ScrollDetailFragment fragListQuestions = null;
+    private ArrayList<Integer> questionsIds = new ArrayList<Integer>();
 
 
     /**
      * 更新 ActionBar 的收藏图标，并返回状态
      */
     private boolean updateStartIcon() {
+        if (fragQuestionDetail == null) {
+            return false;
+        }
+
         boolean isStared = fragQuestionDetail.isStared();
         if (starMenuItem != null) {
             starMenuItem.setIcon(isStared ? R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
@@ -84,20 +96,30 @@ public class Detail extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.id = getIntent().getIntExtra(QuestionsDatabase.COLUM_ID, DetailFragment.ID_NOT_FOUND);
+        PowerManager powerManager = ((PowerManager) getSystemService(POWER_SERVICE));
+
+        // 获取当权选定的条目
+        this.id = getIntent().getIntExtra(INTENT_EXTRA_COLUM_ID, DetailFragment.ID_NOT_FOUND);
         if (this.id == DetailFragment.ID_NOT_FOUND) {
             finish();
+        }
+
+        // 获取列表条目
+        this.questionsIds = getIntent().getIntegerArrayListExtra(INTENT_EXTRA_MUTI_IDS);
+        if (questionsIds.size() > 0) {
+            this.fragListQuestions = new ScrollDetailFragment(this, questionsIds, id);
         } else {
             this.fragQuestionDetail = new DetailFragment(id, this);
         }
 
-        PowerManager powerManager = ((PowerManager) getSystemService(POWER_SERVICE));
+        // 屏幕常亮控制
         this.wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, Detail.class.getName());
 
+        // ActionBar 的样式
         actionBar.setDisplayHomeAsUpEnabled(true);
-        getFragmentManager()
-            .beginTransaction()
-            .replace(android.R.id.content, fragQuestionDetail)
+
+        getFragmentManager().beginTransaction()
+            .replace(android.R.id.content, (fragListQuestions == null) ? fragQuestionDetail : fragListQuestions)
             .commit();
     }
 
@@ -123,14 +145,14 @@ public class Detail extends BaseActivity {
         }
 
         // 是否保留分享时用的图片
-        File screenshots = getScreenShotFile();
-        if (!isShareByTextOnly && !isShareAndSave && screenshots.exists()) {
-            try {
-                screenshots.delete();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+//        File screenshots = getScreenShotFile();
+//        if (!isShareByTextOnly && !isShareAndSave && screenshots.exists()) {
+//            try {
+//                screenshots.delete();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
 
@@ -196,8 +218,31 @@ public class Detail extends BaseActivity {
     }
 
 
+    public void updateCurrentQuestion(DetailFragment fragment) {
+        this.fragQuestionDetail = fragment;
+        updateStartIcon();
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i2) {
+
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        DetailFragment fragment = fragListQuestions.getCurrentDetailFragment();
+        if (fragment != null) {
+            updateCurrentQuestion(fragment);
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
     }
 }
