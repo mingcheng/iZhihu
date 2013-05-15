@@ -47,7 +47,7 @@
     <string name="only_wifi_cache">只在 WIFI 下缓存</string>
     <string name="only_wifi_cache_summary">只在 WIFI 连接的情况下缓存图片，节约流量</string>
     <string name="downloading_offline_image">正在下载离线图片…</string>
-    <string name="downloading_offline_image_complete">已下载 %d 张离线图片</string>
+    <string name="downloaded_offline_image_complete" formatted="false">已下载 %d 张离线图片</string>
     <string name="loaded_more_data">载入更多的条目中…</string>
     <string name="really_clear_cache">您确认清除所有的缓存吗？</string>
     <string name="download_when_wifi_avaiable">当 WIFI 可用时，才自动下载离线图片</string>

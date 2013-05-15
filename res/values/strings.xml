@@ -66,7 +66,7 @@
     <string name="only_wifi_cache">Use WIFI Only</string>
     <string name="only_wifi_cache_summary">Cache offline images when just WIFI is on.</string>
     <string name="downloading_offline_image">Downloading Offline Images</string>
-    <string name="downloading_offline_image_complete">Downloaded %d offline images</string>
+    <string name="downloaded_offline_image_complete" formatted="false">Downloaded %d offline images</string>
     <string name="loaded_more_data">Loading more questions</string>
     <string name="really_clear_cache">Sure clear all caches? All images willbe redownload.</string>
     <string name="download_when_wifi_avaiable">Auto download offline images when Wifi is avaiable.</string>

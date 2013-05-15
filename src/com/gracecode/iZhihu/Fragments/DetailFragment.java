@@ -52,9 +52,6 @@ public class DetailFragment extends WebViewFragment {
     private boolean isNeedCacheThumbnails = true;
     private boolean isShareByTextOnly = false;
 
-    private Bitmap bitmap;
-
-
     WebViewClient webViewClient = new WebViewClient() {
         @Override
         public void onPageFinished(WebView view, String url) {
@@ -77,12 +74,13 @@ public class DetailFragment extends WebViewFragment {
     Runnable genScreenShots = new Runnable() {
         @Override
         public void run() {
+            Bitmap bitmap = null;
             try {
                 Thread.sleep(2000);
                 if (!isTempScreenShotsFileCached()) {
                     File screenShotsFile = getTempScreenShotsFile();
                     FileOutputStream fileOutPutStream = new FileOutputStream(screenShotsFile);
-                    genCaptureBitmap();
+                    bitmap = genCaptureBitmap();
                     if (bitmap != null && !bitmap.isRecycled()) {
                         bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutPutStream);
                         fileOutPutStream.flush();
@@ -102,6 +100,7 @@ public class DetailFragment extends WebViewFragment {
             } finally {
                 if (bitmap != null && !bitmap.isRecycled()) {
                     bitmap.recycle();
+                    bitmap = null;
                 }
             }
         }
@@ -337,7 +336,7 @@ public class DetailFragment extends WebViewFragment {
             return null;
         }
 
-        bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         picture.draw(canvas);
         return bitmap;
@@ -372,10 +371,6 @@ public class DetailFragment extends WebViewFragment {
 
     @Override
     public void onDestroy() {
-        if (bitmap != null && !bitmap.isRecycled()) {
-            bitmap.recycle();
-        }
-
         if (questionsDatabase != null) {
             questionsDatabase.close();
             questionsDatabase = null;

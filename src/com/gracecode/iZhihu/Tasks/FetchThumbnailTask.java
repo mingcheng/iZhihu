@@ -63,18 +63,20 @@ public class FetchThumbnailTask extends AsyncTask<Void, Integer, Integer> {
         for (int i = 0, size = urls.size(); i < size; i++) {
             String url = urls.get(i);
             if (!database.isCached(url)) {
+                HttpGet getRequest;
+                HttpResponse httpResponse;
+                HttpEntity entity;
                 try {
-                    HttpGet getRequest = new HttpGet(url);
+                    getRequest = new HttpGet(url);
                     getRequest.setHeader("Accept-Language", "zh-cn");
                     getRequest.setHeader("Accept-Encoding", "gzip, deflate");
                     getRequest.setHeader("Connection", "Keep-Alive");
                     getRequest.setHeader("Referer", url);
 
-                    HttpResponse httpResponse = httpClient.execute(getRequest);
-
+                    httpResponse = httpClient.execute(getRequest);
                     int statusCode = httpResponse.getStatusLine().getStatusCode();
                     if (statusCode == HttpStatus.SC_OK) {
-                        HttpEntity entity = httpResponse.getEntity();
+                        entity = httpResponse.getEntity();
                         File localCacheFile = new File(getLocalPath(url));
 
                         if (Util.putFileContent(localCacheFile, entity.getContent())) {
@@ -91,6 +93,7 @@ public class FetchThumbnailTask extends AsyncTask<Void, Integer, Integer> {
                                 downloaded++;
                             }
                         }
+
                     } else {
                         database.markAsCached(url, null, null, statusCode, DEFAULT_WIDTH, DEFAULT_HEIGHT);
                         getRequest.abort();
@@ -99,6 +102,10 @@ public class FetchThumbnailTask extends AsyncTask<Void, Integer, Integer> {
                     e.printStackTrace();
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
+                } finally {
+                    getRequest = null;
+                    httpResponse = null;
+                    entity = null;
                 }
             }
         }
@@ -114,9 +121,11 @@ public class FetchThumbnailTask extends AsyncTask<Void, Integer, Integer> {
 
     @Override
     protected void onPreExecute() {
+        String text = context.getString(R.string.downloading_offline_image);
         notificationCompat = new NotificationCompat.Builder(context);
         notificationCompat.setContentTitle(context.getString(R.string.app_name))
-            .setContentText(context.getString(R.string.downloading_offline_image))
+            .setContentText(text)
+            .setTicker(text)
             .setSmallIcon(R.drawable.ic_launcher);
 
         if (urls.size() > 0) {
@@ -128,15 +137,19 @@ public class FetchThumbnailTask extends AsyncTask<Void, Integer, Integer> {
     @Override
     protected void onProgressUpdate(Integer... values) {
         for (Integer value : values) {
-            notificationCompat.setProgress(urls.size(), value, false);
+            notificationCompat
+                //.setTicker(value + "/" + urls.size())
+                .setProgress(urls.size(), value, false);
             notificationManager.notify(DOWNLOAD_NOTIFY_ID, notificationCompat.build());
         }
     }
 
     @Override
     protected void onPostExecute(Integer result) {
+        String text = String.format(context.getString(R.string.downloaded_offline_image_complete), result);
         notificationCompat.setContentTitle(context.getString(R.string.app_name))
-            .setContentText(String.format(context.getString(R.string.downloading_offline_image_complete), result))
+            .setContentText(text)
+            .setTicker(text)
             .setSmallIcon(R.drawable.ic_launcher);
 
         if (result != 0) {
@@ -145,6 +158,10 @@ public class FetchThumbnailTask extends AsyncTask<Void, Integer, Integer> {
         } else {
             notificationManager.cancel(DOWNLOAD_NOTIFY_ID);
         }
+
+        database.close();
+        httpClient.clearRequestInterceptors();
+        httpClient.clearResponseInterceptors();
     }
 
     @Override

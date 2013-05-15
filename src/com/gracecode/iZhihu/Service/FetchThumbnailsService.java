@@ -45,7 +45,7 @@ public class FetchThumbnailsService extends Service {
             Boolean isNeedWifiToDownload = sharedPreferences.getBoolean(getString(R.string.key_only_wifi_cache), true);
 
             // @todo 使用 handle 控制线程
-            FetchThumbnailTask fetchThumbnailTask = new FetchThumbnailTask(getApplicationContext(), database, notCachedUrls);
+            FetchThumbnailTask fetchThumbnailTask = new FetchThumbnailTask(this, database, notCachedUrls);
 
             if (isNeedWifiToDownload) {
                 if (Util.isWifiConnected(context)) {

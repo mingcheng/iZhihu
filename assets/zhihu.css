@@ -16,11 +16,10 @@
     font-weight: bold;
 }
 
-/*
-* {
-    font-weight: normal;
+@font-face {
+    font-family: test;
+    src: url(deng.ttf);
 }
-*/
 
 body {
     font-family: XinGothic;
