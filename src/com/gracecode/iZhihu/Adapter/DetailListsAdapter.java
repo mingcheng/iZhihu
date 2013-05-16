@@ -24,7 +24,7 @@ public class DetailListsAdapter extends FragmentStatePagerAdapter {
 
         this.activity = activity;
         this.questionsIds = questionsIds;
-        this.questionFragments = new HashMap<Integer, Fragment>();
+        this.questionFragments = new HashMap<>();
     }
 
     @Override

@@ -51,7 +51,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             switch (msg.what) {
                 case MESSAGE_UPDATE_START_SUCCESS:
                     Util.showShortToast(context,
-                            getString(isStared() ? R.string.mark_as_stared : R.string.cancel_mark_as_stared));
+                            getString(isStared() ? R.string.mark_as_starred : R.string.cancel_mark_as_stared));
 
                     updateMenu();
                     break;

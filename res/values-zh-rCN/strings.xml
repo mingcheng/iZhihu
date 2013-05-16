@@ -21,7 +21,7 @@
     <string name="notfound">抱歉，没有找到对应的数据</string>
     <string name="favorite">收藏</string>
     <string name="feedback">反馈</string>
-    <string name="mark_as_stared">已标记为收藏</string>
+    <string name="mark_as_starred">已标记为收藏</string>
     <string name="cancel_mark_as_stared">取消收藏</string>
     <string name="feedback_title" formatted="false">针对 %s %s 的反馈</string>
     <string name="choose_email_client">请选择电子邮件客户端：</string>

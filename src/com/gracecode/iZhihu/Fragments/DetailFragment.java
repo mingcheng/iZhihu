@@ -34,7 +34,7 @@ public class DetailFragment extends WebViewFragment {
     private static final String URL_ASSETS_PREFIX = "file:///android_asset/";
     private static final String MIME_HTML_TYPE = "text/html";
     public static final int ID_NOT_FOUND = 0;
-    private static final int DONT_HAVE_SCROLLY = 0;
+    private static final int NONE_SCROLL_Y = 0;
     private static final long AUTO_SCROLL_DELAY = 500;
     private static final int FIVE_MINUTES = 1000 * 60 * 5;
 
@@ -199,10 +199,10 @@ public class DetailFragment extends WebViewFragment {
      * 判断是否需要自动滚动
      */
     private void decideAutoScroll() {
-        final int savedScrollY = sharedPreferences.getInt(getKeyScrollById(), DONT_HAVE_SCROLLY);
+        final int savedScrollY = sharedPreferences.getInt(getKeyScrollById(), NONE_SCROLL_Y);
         boolean needAutoScroll = sharedPreferences.getBoolean(getString(R.string.key_auto_scroll), true);
 
-        if (needAutoScroll && savedScrollY != DONT_HAVE_SCROLLY) {
+        if (needAutoScroll && savedScrollY != NONE_SCROLL_Y) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {

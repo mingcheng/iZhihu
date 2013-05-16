@@ -1,86 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">iZhihu</string>
-    <string name="preference">Preference</string>
     <string name="about">About</string>
-    <string name="tab_index">Main</string>
-    <string name="tab_stared">Favorite</string>
+    <string name="about_summary" formatted="false"><![CDATA[Thank you for using \'Read Zhihu\']]></string>
+    <string name="affectRows">New %d questions.</string>
+    <string name="analytics">Enable Analytics</string>
+    <string name="analytics_summary" formatted="false">
+        <![CDATA[Help make \'Read Zhihu\' better by opting into anonymous statistics.]]>
+    </string>
+    <string name="app_name">Read Zhihu</string>
+    <string name="appearance">Appearance</string>
+    <string name="author_email">lucky@gracecode.com</string>
+    <string name="auto_scroll">Auto Scroll</string>
+    <string name="auto_scroll_summary">Scroll to location which has last readed.</string>
     <string name="browser">Browser</string>
-    <string name="share">Share</string>
     <string name="caches">Caches</string>
-    <string name="font_size">Font Size</string>
-    <string name="tiny">Tiny</string>
-    <string name="small">Small</string>
-    <string name="medium">Medium</string>
-    <string name="large">Large</string>
-    <string name="huge">Huge</string>
-    <string name="font_size_summary">Select your favourite font size to read.</string>
-    <string name="refersh">Refersh</string>
-    <string name="key_font_size">font_size</string>
-    <string name="loading">Loading, Please Wait...</string>
-    <string name="notfound">Sorry, Not found that question.</string>
+    <string name="cancel_mark_as_stared">Unstar</string>
+    <string name="choose_email_client">Choose An Email Client</string>
+    <string name="clear_caches">Clear Image Caches</string>
+    <string name="clear_caches_summary" formatted="false">Total cached %d images which contains %.2fMB.</string>
+    <string name="colon">:</string>
+    <string name="database_faild">Oh~! Failed to write data x_x.</string>
+    <string name="donate">Donate</string>
+    <string name="donate_summary">Please me a cup of coffee :^)</string>
+    <string name="download_when_wifi_avaiable">Download and cache images when Wi-fi is connected.</string>
+    <string name="downloaded_offline_image_complete" formatted="false">Downloaded and cached %d images</string>
+    <string name="downloading_offline_image">Downloading images...</string>
+    <string name="enable_cache">Enable Offline Images</string>
+    <string name="enable_cache_summary">Cache images for offline use.</string>
     <string name="favorite">Favorite</string>
     <string name="feedback">Feedback</string>
-    <string name="mark_as_stared">Marked as favorites</string>
-    <string name="cancel_mark_as_stared">Cancel marked as favorites</string>
-    <string name="author_email">lucky@gracecode.com</string>
-    <string name="feedback_title" formatted="false">Feedback for %s %s</string>
-    <string name="choose_email_client">Choose an Email client:</string>
-    <string name="view_at_zhihu">View at Zhihu</string>
-    <string name="donate_summary">Give me a cup of coffee :^)</string>
-    <string name="donate">Donate</string>
-    <string name="version">Version</string>
-    <string name="key_about">about</string>
-    <string name="about_summary">Thanks for use iZhihu</string>
-    <string name="version_tail">Version:</string>
-    <string name="key_donate">donate</string>
-    <string name="url_donate">https://me.alipay.com/feelinglucky</string>
-    <string name="feedback_summary">Have some opinions and suggestions?</string>
-    <string name="url_zhihu_questioin_pre">http://www.zhihu.com/question/</string>
-    <string name="key_analytics">analytics</string>
-    <string name="analytics">Enable analytics</string>
-    <string name="analytics_summary">Help make iZhihu better by opting into anonymous statistics reporting</string>
-    <string name="key_indent">key_indent</string>
-    <string name="paragraph_indents">Paragraph indents</string>
-    <string name="paragraph_summary">Indents one characters on each paragraph</string>
-    <string name="colon">:</string>
-    <string name="database_faild">Oh~! Write database faild.</string>
-    <string name="key_symbol">symbol</string>
-    <string name="tradition_symbol">Tradition Symbol</string>
-    <string name="tradition_symbol_summary">Use tradition Chinese symbol to read.</string>
-    <string name="network_error">Network Error, Please check your internet connection.</string>
-    <string name="rebuild_ui_faild">Sorry, Some shits happened.</string>
-    <string name="affectRows">New %d questions.</string>
-    <string name="auto_scroll_summary">Auto scroll to last time read location.</string>
-    <string name="auto_scroll">Auto scroll</string>
-    <string name="key_auto_scroll">key_auto_scroll</string>
-    <string name="read">Read</string>
-    <string name="key_clear_caches">key_clear_caches</string>
-    <string name="clear_caches">Clear Offline Image Caches</string>
-    <string name="clear_caches_summary" formatted="false">Total cached %d offline images with %.2fMB of its size.
-    </string>
-    <string name="key_enable_cache">key_enable_cache</string>
-    <string name="enable_cache">Enable offline images</string>
-    <string name="enable_cache_summary">Enable offline images for none-network use.</string>
-    <string name="key_only_wifi_cache">key_only_wifi_cache</string>
-    <string name="only_wifi_cache">Use WIFI Only</string>
-    <string name="only_wifi_cache_summary">Cache offline images when just WIFI is on.</string>
-    <string name="downloading_offline_image">Downloading Offline Images</string>
-    <string name="downloaded_offline_image_complete" formatted="false">Downloaded %d offline images</string>
+    <string name="feedback_summary">Have comments or suggestions?</string>
+    <string name="feedback_title" formatted="false">Feedback for \'%s\' %s</string>
+    <string name="font_size">Font Size</string>
+    <string name="font_size_summary">Select your favourite font size for read.</string>
+    <string name="huge">Huge</string>
+    <string name="large">Large</string>
     <string name="loaded_more_data">Loading more questions</string>
-    <string name="really_clear_cache">Sure clear all caches? All images willbe redownload.</string>
-    <string name="download_when_wifi_avaiable">Auto download offline images when Wifi is avaiable.</string>
-    <string name="key_wake_lock">key_wake_lock</string>
-    <string name="appearance">Appearance</string>
-    <string name="wakelock_screen">Wake Lock Screen</string>
-    <string name="wakelock_screen_summary">Don\'t take off screen while reading.</string>
-    <string name="key_share_and_save">key_share_and_save</string>
-    <string name="share_and_save">Share And Save</string>
-    <string name="share_and_save_summary"><![CDATA[Share and save thumbnails to your <Picture> directory]]></string>
-    <string name="key_share_text_only">key_share_plain_only</string>
-    <string name="share_plain_only">Share Plain Text Only</string>
-    <string name="share_plain_only_summary">Share plain text only, dont generate thumbnails.</string>
-    <string name="key_scroll_read">key_scroll_read</string>
-    <string name="scroll_read">Scroll read</string>
-    <string name="scroll_read_summary">Filp left/right to read previous/next item.</string>
+    <string name="loading">Loading, Please Wait...</string>
+    <string name="mark_as_starred">Starred</string>
+    <string name="medium">Medium</string>
+    <string name="network_error">Network ERROR, Check your internet connection.</string>
+    <string name="notfound">Sorry, That items is not found.</string>
+    <string name="only_wifi_cache">Wi-fi Only</string>
+    <string name="only_wifi_cache_summary">Cache images when Wi-fi is connected.</string>
+    <string name="paragraph_indents">Paragraph Indentation</string>
+    <string name="paragraph_summary">Indents one characters on each paragraph.</string>
+    <string name="preference">Preference</string>
+    <string name="read">Read</string>
+    <string name="really_clear_cache">Are you sure? All images will re-download when its needed again.</string>
+    <string name="rebuild_ui_faild">Sorry, Some shits happened.</string>
+    <string name="refersh">Refersh</string>
+    <string name="scroll_read">Filp Read</string>
+    <string name="scroll_read_summary">Filp left/right to read previous or next one.</string>
+    <string name="share">Share</string>
+    <string name="share_and_save"><![CDATA[Save Thumbnails]]></string>
+    <string name="share_and_save_summary">
+        <![CDATA[Save thumbnails to your SD card\'s <Picture> directory when you shared.]]></string>
+    <string name="share_plain_only">Plain Text Only</string>
+    <string name="share_plain_only_summary">Share with plain text only(Do not generate thumbnails).</string>
+    <string name="small">Small</string>
+    <string name="tab_index">Main</string>
+    <string name="tab_stared">Favorite</string>
+    <string name="tiny">Tiny</string>
+    <string name="tradition_symbol">Tradition Symbol</string>
+    <string name="tradition_symbol_summary">Use tradition Chinese symbol for read.</string>
+    <string name="version">Version</string>
+    <string name="version_tail">Version:</string>
+    <string name="view_at_zhihu">View At Online</string>
+    <string name="wakelock_screen">Lock Screen</string>
+    <string name="wakelock_screen_summary">Screen always on while reading.</string>
 </resources>
