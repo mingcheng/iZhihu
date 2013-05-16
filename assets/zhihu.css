@@ -131,7 +131,7 @@ body .question a:link {
 
 .user_name {
     border-top: 3px double #ccc;
-    padding: .5em 0 0 0;
+    padding: .5em 0 2.5em 0;
     font-size: .8em;
     color: #999;
 }
