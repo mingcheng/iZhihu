@@ -57,7 +57,7 @@ public class DetailFragment extends WebViewFragment {
             super.onPageFinished(view, url);
             // @todo 记忆滚动需要优化
             //decideAutoScroll();
-            if (!isShareByTextOnly && Util.isExternalStorageExists()) {
+            if (Util.isExternalStorageExists() && !isShareByTextOnly) {
                 new Thread(genScreenShots).start();
             }
         }

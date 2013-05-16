@@ -82,7 +82,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             menuItem.findItem(R.id.menu_favorite).setIcon(isStared() ?
                     R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
 
-            if (!Util.isExternalStorageExists()) {
+            if (!Util.isExternalStorageExists() && !isShareByTextOnly) {
                 menuItem.findItem(R.id.menu_share).setEnabled(false);
             }
         }
