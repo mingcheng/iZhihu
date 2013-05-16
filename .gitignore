@@ -3,6 +3,9 @@
 /.idea
 /proguard_logs/
 /nbandroid/
+/assets/*.ttf
+/assets/*.ttc
+/assets/*.otf
 /proguard.cfg
 /build.xml
 /*.properties
