@@ -21,7 +21,6 @@ import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -42,8 +41,8 @@ public class DetailFragment extends WebViewFragment {
     private final int id;
     private final Context context;
     private Activity activity;
-    private QuestionsDatabase questionsDatabase;
-    private ThumbnailsDatabase thumbnailsDatabase;
+    private static QuestionsDatabase questionsDatabase;
+    private static ThumbnailsDatabase thumbnailsDatabase;
     private SharedPreferences sharedPreferences;
 
     private Question question;
@@ -52,13 +51,13 @@ public class DetailFragment extends WebViewFragment {
     private boolean isNeedCacheThumbnails = true;
     private boolean isShareByTextOnly = false;
 
-    WebViewClient webViewClient = new WebViewClient() {
+    private WebViewClient webViewClient = new WebViewClient() {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             // @todo 记忆滚动需要优化
             //decideAutoScroll();
-            if (!isShareByTextOnly) {
+            if (!isShareByTextOnly && Util.isExternalStorageExists()) {
                 new Thread(genScreenShots).start();
             }
         }
@@ -71,7 +70,7 @@ public class DetailFragment extends WebViewFragment {
     };
 
 
-    Runnable genScreenShots = new Runnable() {
+    private Runnable genScreenShots = new Runnable() {
         @Override
         public void run() {
             Bitmap bitmap = null;
@@ -88,8 +87,6 @@ public class DetailFragment extends WebViewFragment {
                         Log.d(TAG, "Generated screenshots at " + screenShotsFile.getAbsolutePath());
                     }
                 }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (OutOfMemoryError e) {
@@ -100,7 +97,6 @@ public class DetailFragment extends WebViewFragment {
             } finally {
                 if (bitmap != null && !bitmap.isRecycled()) {
                     bitmap.recycle();
-                    bitmap = null;
                 }
             }
         }
@@ -108,12 +104,9 @@ public class DetailFragment extends WebViewFragment {
 
     public boolean isTempScreenShotsFileCached() {
         File tempScreenShotsFile = getTempScreenShotsFile();
-        if (tempScreenShotsFile.exists() && tempScreenShotsFile.length() > 0
-            && (System.currentTimeMillis() - tempScreenShotsFile.lastModified()) < FIVE_MINUTES) {
-            return true;
-        }
+        Boolean is5MinutesAgo = (System.currentTimeMillis() - tempScreenShotsFile.lastModified()) < FIVE_MINUTES;
+        return tempScreenShotsFile.exists() && tempScreenShotsFile.length() > 0 && is5MinutesAgo;
 
-        return false;
     }
 
     public File getTempScreenShotsFile() {
@@ -121,7 +114,7 @@ public class DetailFragment extends WebViewFragment {
     }
 
     private String getTemplateString() {
-        String template = "";
+        String template;
         try {
             template = Util.getFileContent(activity.getAssets().open(TEMPLATE_DETAIL_FILE));
         } catch (IOException e) {
@@ -151,8 +144,8 @@ public class DetailFragment extends WebViewFragment {
 
         this.activity = getActivity();
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        this.questionsDatabase = new QuestionsDatabase(context);
-        this.thumbnailsDatabase = new ThumbnailsDatabase(context);
+        questionsDatabase = new QuestionsDatabase(context);
+        thumbnailsDatabase = new ThumbnailsDatabase(context);
 
         this.isNeedIndent = sharedPreferences.getBoolean(getString(R.string.key_indent), false);
         this.isNeedReplaceSymbol = sharedPreferences.getBoolean(getString(R.string.key_symbol), true);
@@ -161,7 +154,6 @@ public class DetailFragment extends WebViewFragment {
 
         try {
             question = questionsDatabase.getSingleQuestion(id);
-            question.markAsRead();
         } catch (QuestionsDatabase.QuestionNotFoundException e) {
             Util.showLongToast(context, e.getMessage());
         }
@@ -174,11 +166,11 @@ public class DetailFragment extends WebViewFragment {
             return;
         }
         String data = String.format(getTemplateString(),
-            getClassName(),
-            isNeedReplaceSymbol ? Util.replaceSymbol(question.title) : question.title,
-            formatContent(question.description),
-            question.userName,
-            "<p class='update-at'>" + question.updateAt + "</p>" + formatContent(question.content));
+                getClassName(),
+                isNeedReplaceSymbol ? Util.replaceSymbol(question.title) : question.title,
+                formatContent(question.description),
+                question.userName,
+                "<p class='update-at'>" + question.updateAt + "</p>" + formatContent(question.content));
 
 //        getWebView().setScrollbarFadingEnabled(false);
         getWebView().setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
@@ -278,7 +270,7 @@ public class DetailFragment extends WebViewFragment {
     private String getClassName() {
         String className = "";
         int fontSize = Integer.parseInt(
-            sharedPreferences.getString(getString(R.string.key_font_size), getString(R.string.default_font_size)));
+                sharedPreferences.getString(getString(R.string.key_font_size), getString(R.string.default_font_size)));
 
         switch (fontSize) {
             case 12:
@@ -308,10 +300,7 @@ public class DetailFragment extends WebViewFragment {
     }
 
     public boolean isStared() {
-        if (question == null) {
-            return false;
-        }
-        return question.isStared();
+        return (question != null) && question.isStared();
     }
 
     public int getQuestionId() {
@@ -325,10 +314,9 @@ public class DetailFragment extends WebViewFragment {
     /**
      * 截取所有网页内容到 Bitmap
      *
-     * @return
-     * @TODO 内存的问题
+     * @return Bitmap
      */
-    public Bitmap genCaptureBitmap() throws OutOfMemoryError {
+    Bitmap genCaptureBitmap() throws OutOfMemoryError {
         // @todo Future versions of WebView may not support use on other threads.
         try {
             Picture picture = getWebView().capturePicture();
@@ -346,9 +334,18 @@ public class DetailFragment extends WebViewFragment {
     }
 
     public boolean markStar(boolean status) {
-        return questionsDatabase.markQuestionAsStared(id, status) > 0 ? true : false;
+//        if (questionsDatabase != null) {
+//            return questionsDatabase.markQuestionAsStared(id, status) > 0 ? true : false;
+//        }
+//
+//        return false;
+
+        return (questionsDatabase != null) && (questionsDatabase.markQuestionAsStared(id, status) > 0);
     }
 
+    public boolean markAsRead() {
+        return (questionsDatabase != null) && (questionsDatabase.markSingleQuestionAsReaded(id) > 0);
+    }
 
     public String getShareString() {
         return String.format("%s #%s# %s", question.title, context.getString(R.string.app_name), getOnlineShortUrl(question.answerId));
@@ -367,22 +364,18 @@ public class DetailFragment extends WebViewFragment {
         return "http://z.ihu.im/u/" + s;
     }
 
-    public Question getQuestion() {
-        return question;
-    }
 
     @Override
     public void onDestroy() {
-        if (questionsDatabase != null) {
-            questionsDatabase.close();
-            questionsDatabase = null;
-        }
-
-        if (thumbnailsDatabase != null) {
-            thumbnailsDatabase.close();
-            thumbnailsDatabase = null;
-        }
+//        if (questionsDatabase != null) {
+//            questionsDatabase.close();
+//            questionsDatabase = null;
+//        }
+//
+//        if (thumbnailsDatabase != null) {
+//            thumbnailsDatabase.close();
+//            thumbnailsDatabase = null;
+//        }
         super.onDestroy();
     }
-
 }

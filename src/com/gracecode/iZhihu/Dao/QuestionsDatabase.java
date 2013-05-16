@@ -38,25 +38,25 @@ public final class QuestionsDatabase {
     private static final String DATABASE_QUESTIONS_TABLE_NAME = "izhihu";
 
     private final static String[] SQL_CREATE_TABLES = {
-        "CREATE TABLE " + DATABASE_QUESTIONS_TABLE_NAME + " (" +
-            "_id INTEGER PRIMARY KEY AUTOINCREMENT , " +
-            COLUM_ID + " long NOT NULL UNIQUE, " + COLUM_SERVER_ID + " long, " +
-            COLUM_ANSWER_ID + " long, " + COLUM_QUESTION_ID + " long, " +
-            COLUM_USER_NAME + " text,  " + COLUM_USER_AVATAR + " text, " + COLUM_QUESTION_TITLE + " text, " +
-            COLUM_QUESTION_DESCRIPTION + " text, " + COLUM_CONTENT + " text, " + COLUM_UPDATE_AT + " text, " +
-            COLUM_UNREAD + " integer DEFAULT 0, " + COLUM_STARED + " integer DEFAULT 0 );",
-        "CREATE INDEX " + COLUM_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ID + ");",
-        "CREATE INDEX " + COLUM_ANSWER_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ANSWER_ID + ");"
+            "CREATE TABLE " + DATABASE_QUESTIONS_TABLE_NAME + " (" +
+                    "_id INTEGER PRIMARY KEY AUTOINCREMENT , " +
+                    COLUM_ID + " long NOT NULL UNIQUE, " + COLUM_SERVER_ID + " long, " +
+                    COLUM_ANSWER_ID + " long, " + COLUM_QUESTION_ID + " long, " +
+                    COLUM_USER_NAME + " text,  " + COLUM_USER_AVATAR + " text, " + COLUM_QUESTION_TITLE + " text, " +
+                    COLUM_QUESTION_DESCRIPTION + " text, " + COLUM_CONTENT + " text, " + COLUM_UPDATE_AT + " text, " +
+                    COLUM_UNREAD + " integer DEFAULT 0, " + COLUM_STARED + " integer DEFAULT 0 );",
+            "CREATE INDEX " + COLUM_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ID + ");",
+            "CREATE INDEX " + COLUM_ANSWER_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ANSWER_ID + ");"
     };
     public static final int PRE_LIMIT_PAGE_SIZE = 25;
     public static final int FIRST_PAGE = 1;
     private static final String[] SELECT_ALL = new String[]{
-        "_id", COLUM_ID, COLUM_QUESTION_ID, COLUM_ANSWER_ID,
-        COLUM_STARED, COLUM_UNREAD,
-        COLUM_USER_NAME, COLUM_USER_AVATAR,
-        COLUM_UPDATE_AT,
-        COLUM_QUESTION_TITLE, COLUM_QUESTION_DESCRIPTION,
-        COLUM_CONTENT
+            "_id", COLUM_ID, COLUM_QUESTION_ID, COLUM_ANSWER_ID,
+            COLUM_STARED, COLUM_UNREAD,
+            COLUM_USER_NAME, COLUM_USER_AVATAR,
+            COLUM_UPDATE_AT,
+            COLUM_QUESTION_TITLE, COLUM_QUESTION_DESCRIPTION,
+            COLUM_CONTENT
     };
 
     protected File databaseFile;
@@ -105,7 +105,7 @@ public final class QuestionsDatabase {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT max(" + COLUM_ID + ") AS " +
-            COLUM_ID + " FROM " + DATABASE_QUESTIONS_TABLE_NAME + " LIMIT 1;", null);
+                COLUM_ID + " FROM " + DATABASE_QUESTIONS_TABLE_NAME + " LIMIT 1;", null);
         cursor.moveToFirst();
 
         try {
@@ -125,7 +125,7 @@ public final class QuestionsDatabase {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT count(" + COLUM_ID + ") AS " +
-            COLUM_ID + " FROM " + DATABASE_QUESTIONS_TABLE_NAME + " LIMIT 1;", null);
+                COLUM_ID + " FROM " + DATABASE_QUESTIONS_TABLE_NAME + " LIMIT 1;", null);
         cursor.moveToFirst();
 
         try {
@@ -153,7 +153,7 @@ public final class QuestionsDatabase {
     protected Cursor getRecentQuestionsCursor(int page) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, null, null, null, null,
-            COLUM_UPDATE_AT + " DESC " + "LIMIT " + (page - 1) * PRE_LIMIT_PAGE_SIZE + "," + PRE_LIMIT_PAGE_SIZE);
+                COLUM_UPDATE_AT + " DESC " + "LIMIT " + (page - 1) * PRE_LIMIT_PAGE_SIZE + "," + PRE_LIMIT_PAGE_SIZE);
         cursor.moveToFirst();
         return cursor;
     }
@@ -167,7 +167,7 @@ public final class QuestionsDatabase {
     protected Cursor getStaredQuestionsCursor() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         return db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, " stared = 1 ", null, null, null,
-            COLUM_UPDATE_AT + " DESC");
+                COLUM_UPDATE_AT + " DESC");
     }
 
 
@@ -231,8 +231,8 @@ public final class QuestionsDatabase {
         question.userName = cursor.getString(idxUserName);
         question.updateAt = cursor.getString(idxUpdateAt);
 
-        question.stared = (cursor.getInt(idxStared) == VALUE_STARED) ? true : false;
-        question.unread = (cursor.getInt(idxUnread) == VALUE_UNREADED) ? true : false;
+        question.stared = (cursor.getInt(idxStared) == VALUE_STARED);
+        question.unread = (cursor.getInt(idxUnread) == VALUE_UNREADED);
 
         return question;
     }
@@ -243,9 +243,12 @@ public final class QuestionsDatabase {
         Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, COLUM_ID + " = " + id, null, null, null, null);
         cursor.moveToFirst();
 
-        if (cursor.getCount() < 1) {
-            cursor.close();
-            throw new QuestionNotFoundException(context.getString(R.string.notfound));
+        try {
+            if (cursor.getCount() < 1) {
+                throw new QuestionNotFoundException(context.getString(R.string.notfound));
+            }
+        } finally {
+            db.close();
         }
 
         return cursor;
@@ -293,7 +296,7 @@ public final class QuestionsDatabase {
     protected boolean isStared(int id) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         String sql = "SELECT " + COLUM_STARED + " FROM " + DATABASE_QUESTIONS_TABLE_NAME +
-            " WHERE " + COLUM_ID + " = " + id + " LIMIT 1";
+                " WHERE " + COLUM_ID + " = " + id + " LIMIT 1";
 
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.getCount() != 1) {
@@ -303,7 +306,7 @@ public final class QuestionsDatabase {
         try {
             cursor.moveToFirst();
             int result = cursor.getInt(cursor.getColumnIndex(QuestionsDatabase.COLUM_STARED));
-            return (result == VALUE_STARED) ? true : false;
+            return (result == VALUE_STARED);
         } finally {
             cursor.close();
             db.close();

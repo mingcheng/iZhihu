@@ -34,7 +34,7 @@ public class ScrollTabsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_pages, container, false);
-        this.viewPager = (ViewPager) view.findViewById(R.id.pager);
+        viewPager = (ViewPager) view.findViewById(R.id.pager);
         return view;
     }
 
@@ -45,8 +45,8 @@ public class ScrollTabsFragment extends Fragment {
 
         for (String tabTitle : new String[]{getString(R.string.tab_index), getString(R.string.tab_stared)}) {
             ActionBar.Tab tab = actionBar.newTab()
-                .setText(tabTitle)
-                .setTabListener(new MainTabListener(context, viewPager));
+                    .setText(tabTitle)
+                    .setTabListener(new MainTabListener(context, viewPager));
 
             actionBar.addTab(tab);
         }
@@ -55,7 +55,7 @@ public class ScrollTabsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        //notifyDatasetChanged();
+        notifyDatasetChanged();
     }
 
     @Override

@@ -58,6 +58,15 @@ public class ScrollDetailFragment extends Fragment {
         detailActivity.updateCurrentQuestion(getCurrentDetailFragment());
     }
 
+    public DetailFragment getDetailFragment(int pos) {
+        Fragment fragment = adapter.getItem(pos);
+        if (fragment instanceof DetailFragment) {
+            return (DetailFragment) fragment;
+        } else {
+            return null;
+        }
+    }
+
     public DetailFragment getCurrentDetailFragment() {
         int currentItem = viewPager.getCurrentItem();
         Fragment fragment = adapter.getItem(currentItem);

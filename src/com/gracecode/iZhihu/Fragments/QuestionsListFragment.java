@@ -64,16 +64,15 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
     @Override
     public void onStart() {
         super.onStart();
-        if (selectedPosition != SELECT_NONE) {
-            try {
-                Question question = questions.get(selectedPosition);
-                questions.remove(selectedPosition);
-                questions.add(selectedPosition, questionsDatabase.getSingleQuestion(question.id));
-            } catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
-            } finally {
-                questionsAdapter.notifyDataSetChanged();
-            }
+
+        try {
+            Question question = questions.get(selectedPosition);
+            questions.remove(selectedPosition);
+            questions.add(selectedPosition, questionsDatabase.getSingleQuestion(question.id));
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        } finally {
+            questionsAdapter.notifyDataSetChanged();
         }
     }
 
@@ -103,7 +102,7 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
 
     @Override
     public ArrayList<Question> getInitialData() {
-        ArrayList<Question> q = new ArrayList<Question>();
+        ArrayList<Question> q = new ArrayList<>();
 
         this.currentPage = sharedPref.getInt(KEY_CURRENT_PAGE, QuestionsDatabase.FIRST_PAGE);
         for (int i = QuestionsDatabase.FIRST_PAGE; i <= currentPage; i++) {

@@ -24,12 +24,12 @@ public final class Question implements Parcelable {
 
     public boolean markAsRead() {
         int result = questionsDatabase.markSingleQuestionAsReaded(id);
-        return (result > 1) ? true : false;
+        return (result > 1);
     }
 
-    public boolean toggleStar(boolean flag) {
+    boolean toggleStar(boolean flag) {
         int result = questionsDatabase.markQuestionAsStared(id, flag);
-        return (result > 1) ? true : false;
+        return (result > 1);
     }
 
     public boolean isStared() {

@@ -40,9 +40,9 @@ public class Main extends BaseActivity {
 
         scrollTabsFragment = new ScrollTabsFragment();
         getFragmentManager()
-            .beginTransaction()
-            .replace(android.R.id.content, scrollTabsFragment)
-            .commit();
+                .beginTransaction()
+                .replace(android.R.id.content, scrollTabsFragment)
+                .commit();
 
         fetchThumbnailsServiceIntent = new Intent(this, FetchThumbnailsService.class);
     }
@@ -50,12 +50,13 @@ public class Main extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
+
+        isNeedCacheThumbnails = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
         if (isNeedCacheThumbnails) {
             startService(fetchThumbnailsServiceIntent);
         }
 
-        isNeedCacheThumbnails = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
-        fetchQuestionsFromServer(isFirstRun() ? true : false);
+        fetchQuestionsFromServer(isFirstRun());
     }
 
     @Override
@@ -64,7 +65,7 @@ public class Main extends BaseActivity {
         return true;
     }
 
-    public void fetchQuestionsFromServer(final Boolean focus) {
+    void fetchQuestionsFromServer(final Boolean focus) {
         FetchQuestionTask task = new FetchQuestionTask(context, new FetchQuestionTask.Callback() {
             private ProgressDialog progressDialog;
 
@@ -72,33 +73,33 @@ public class Main extends BaseActivity {
             public void onPreExecute() {
                 if (focus) {
                     progressDialog = ProgressDialog.show(Main.this,
-                        getString(R.string.app_name), getString(R.string.loading), false, false);
+                            getString(R.string.app_name), getString(R.string.loading), false, false);
                 }
             }
 
             @Override
             public void onPostExecute(Object affectedRows) {
-                int i = (Integer) affectedRows;
+                int i = 0;
                 try {
+                    i = (Integer) affectedRows;
                     if (focus && i > 0) {
                         Toast.makeText(context,
-                            String.format(getString(R.string.affectRows), i), Toast.LENGTH_LONG).show();
+                                String.format(getString(R.string.affectRows), i), Toast.LENGTH_LONG).show();
                         Util.savePref(sharedPreferences,
-                            BaseListFragment.KEY_SELECTED_POSITION, BaseListFragment.SELECT_NONE);
+                                BaseListFragment.KEY_SELECTED_POSITION, BaseListFragment.SELECT_NONE);
                     }
                     scrollTabsFragment.notifyDatasetChanged();
                 } catch (RuntimeException e) {
-                    Toast.makeText(context, getString(R.string.rebuild_ui_faild), Toast.LENGTH_LONG).show();
+                    Util.showShortToast(context, getString(R.string.rebuild_ui_faild));
                 } finally {
                     if (progressDialog != null) {
                         progressDialog.dismiss();
                     }
-                    if (isNeedCacheThumbnails && i > 0) {
+                    if (isNeedCacheThumbnails && i > 0 && Util.isExternalStorageExists()) {
                         startService(fetchThumbnailsServiceIntent);
                     }
                 }
             }
-
         });
 
         task.execute(focus);

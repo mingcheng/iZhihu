@@ -22,17 +22,17 @@ import java.util.ArrayList;
 
 public abstract class BaseListFragment extends ListFragment {
     public static final String KEY_SELECTED_POSITION = "KEY_SELECTED_POSITION";
-    public static final int SELECT_NONE = -1;
-    public static final int REQUEST_FOR_POSITION = 0;
-    protected QuestionsAdapter questionsAdapter;
-    protected Activity activity;
-    protected Context context;
-    protected QuestionsDatabase questionsDatabase;
-    protected ArrayList<Question> questions;
-    protected int selectedPosition;
-    protected SharedPreferences sharedPref;
+    public static final int SELECT_NONE = 0;
+    private static final int REQUEST_FOR_POSITION = 0;
+    QuestionsAdapter questionsAdapter;
+    private Activity activity;
+    Context context;
+    QuestionsDatabase questionsDatabase;
+    ArrayList<Question> questions;
+    int selectedPosition;
+    SharedPreferences sharedPref;
 
-    public BaseListFragment() {
+    BaseListFragment() {
         super();
     }
 
@@ -62,20 +62,13 @@ public abstract class BaseListFragment extends ListFragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
+
         if (selectedPosition == SELECT_NONE) {
             selectedPosition = sharedPref.getInt(KEY_SELECTED_POSITION, SELECT_NONE);
         }
-
-        if (selectedPosition != SELECT_NONE) {
-            getListView().setSelection(selectedPosition);
-        }
+        getListView().setSelection(selectedPosition);
     }
 
 
@@ -88,34 +81,31 @@ public abstract class BaseListFragment extends ListFragment {
 
     @Override
     public void onStop() {
-        if (selectedPosition == SELECT_NONE) {
-            Util.savePref(sharedPref, KEY_SELECTED_POSITION, getListView().getFirstVisiblePosition());
-        }
+        Util.savePref(sharedPref, KEY_SELECTED_POSITION, getListView().getFirstVisiblePosition());
         super.onStop();
     }
 
 
-    public ArrayList<Question> getInitialData() {
-        return new ArrayList<Question>();
+    ArrayList<Question> getInitialData() {
+        return new ArrayList<>();
     }
 
 
     private ArrayList<Integer> getQuestionsIdArrays() {
-        ArrayList<Integer> ids = new ArrayList<Integer>();
-        for (int i = 0, size = questions.size(); i < size; i++) {
-            ids.add(questions.get(i).id);
-        }
+        ArrayList<Integer> ids = new ArrayList<>();
 
+        for (Question question : questions) {
+            ids.add(question.id);
+        }
         return ids;
     }
+
 
     public void onListItemClick(ListView parent, View v, int position, long id) {
         Question question = questions.get(position);
         selectedPosition = position;
-        if (selectedPosition != SELECT_NONE) {
-            Util.savePref(sharedPref, KEY_SELECTED_POSITION, position);
-        }
 
+        Util.savePref(sharedPref, KEY_SELECTED_POSITION, position);
         Intent intent = new Intent(activity, Detail.class);
         intent.putExtra(Detail.INTENT_EXTRA_COLUM_ID, question.id);
         intent.putExtra(Detail.INTENT_EXTRA_MUTI_IDS, getQuestionsIdArrays());
@@ -133,7 +123,7 @@ public abstract class BaseListFragment extends ListFragment {
         return questionsDatabase.getRecentQuestions();
     }
 
-    public ArrayList<Question> getStaredQuestions() {
+    ArrayList<Question> getStaredQuestions() {
         return questionsDatabase.getStaredQuestions();
     }
 

@@ -13,11 +13,11 @@ import com.gracecode.iZhihu.Fragments.StaredListFragment;
 import java.util.ArrayList;
 
 public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewPager.OnPageChangeListener {
-    public static final String[] TAB_CLASSES =
+    private static final String[] TAB_CLASSES =
         {QuestionsListFragment.class.getName(), StaredListFragment.class.getName()};
 
     public static final int FIRST_TAB = 0;
-    public static final int SECOND_TAB = 1;
+    private static final int SECOND_TAB = 1;
     private final Activity activity;
     private final ActionBar actionBar;
     private final FragmentManager fragmentManager;

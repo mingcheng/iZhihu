@@ -21,19 +21,19 @@ import java.util.ArrayList;
 public class Detail extends BaseActivity implements ViewPager.OnPageChangeListener {
     public static final String INTENT_EXTRA_COLUM_ID = QuestionsDatabase.COLUM_ID;
     public static final String INTENT_EXTRA_MUTI_IDS = "mutiIds";
+    private static final String TAG = Detail.class.getName();
 
-    public int id;
+    private int id;
     private DetailFragment fragQuestionDetail = null;
-    private MenuItem starMenuItem;
+    private Menu menuItem;
     private PowerManager.WakeLock wakeLock;
-    public static final int MESSAGE_UPDATE_START_SUCCESS = 0;
-    public static final int MESSAGE_UPDATE_START_FAILD = -1;
-
+    private static final int MESSAGE_UPDATE_START_SUCCESS = 0;
+    private static final int MESSAGE_UPDATE_START_FAILD = -1;
 
     /**
      * 标记当前条目（未）收藏
      */
-    Runnable MarkAsStared = new Runnable() {
+    private Runnable MarkAsStared = new Runnable() {
         @Override
         public void run() {
             if (fragQuestionDetail.markStar(!fragQuestionDetail.isStared())) {
@@ -50,9 +50,10 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case MESSAGE_UPDATE_START_SUCCESS:
-                    boolean isStared = updateStartIcon();
                     Util.showShortToast(context,
-                        getString(isStared ? R.string.mark_as_stared : R.string.cancel_mark_as_stared));
+                            getString(isStared() ? R.string.mark_as_stared : R.string.cancel_mark_as_stared));
+
+                    updateMenu();
                     break;
                 case MESSAGE_UPDATE_START_FAILD:
                     Util.showLongToast(context, getString(R.string.database_faild));
@@ -63,31 +64,35 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     private boolean isShareByTextOnly = false;
     private boolean isShareAndSave = true;
     private ScrollDetailFragment fragListQuestions = null;
-    private ArrayList<Integer> questionsIds = new ArrayList<Integer>();
+    private ArrayList<Integer> questionsIds = new ArrayList<>();
     private int currnetPosition = BaseListFragment.SELECT_NONE;
     private boolean isSetScrolltoRead = true;
+    private ArrayList<Integer> readedQuestionsPositions = new ArrayList<>();
+
+
+    private boolean isStared() {
+        return (fragQuestionDetail != null) && fragQuestionDetail.isStared();
+    }
 
     /**
      * 更新 ActionBar 的收藏图标，并返回状态
      */
-    private boolean updateStartIcon() {
-        if (fragQuestionDetail == null) {
-            return false;
-        }
+    private void updateMenu() {
+        if (menuItem != null) {
+            menuItem.findItem(R.id.menu_favorite).setIcon(isStared() ?
+                    R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
 
-        boolean isStared = fragQuestionDetail.isStared();
-        if (starMenuItem != null) {
-            starMenuItem.setIcon(isStared ? R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
+            if (!Util.isExternalStorageExists()) {
+                menuItem.findItem(R.id.menu_share).setEnabled(false);
+            }
         }
-
-        return isStared;
     }
 
 
     /**
      * 判断是否需要常亮屏幕
      *
-     * @return
+     * @return boolean
      */
     private boolean isNeedScreenWakeLock() {
         return sharedPreferences.getBoolean(getString(R.string.key_wake_lock), true);
@@ -117,30 +122,24 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         this.isShareAndSave = sharedPreferences.getBoolean(getString(R.string.key_share_and_save), true);
         this.isSetScrolltoRead = sharedPreferences.getBoolean(getString(R.string.key_scroll_read), true);
 
+
+        this.currnetPosition = getIntent().getIntExtra(BaseListFragment.KEY_SELECTED_POSITION,
+                BaseListFragment.SELECT_NONE);
+        this.questionsIds = getIntent().getIntegerArrayListExtra(INTENT_EXTRA_MUTI_IDS);
+
         if (isSetScrolltoRead) {
-            this.questionsIds = getIntent().getIntegerArrayListExtra(INTENT_EXTRA_MUTI_IDS);
             if (questionsIds.size() > 0) {
                 this.fragListQuestions = new ScrollDetailFragment(this, questionsIds, id);
             }
-
-            this.currnetPosition = getIntent().getIntExtra(BaseListFragment.KEY_SELECTED_POSITION,
-                BaseListFragment.SELECT_NONE);
+            readedQuestionsPositions.add(currnetPosition);
         } else {
             this.fragQuestionDetail = new DetailFragment(id, this);
         }
 
         getFragmentManager().beginTransaction()
-            .replace(android.R.id.content, (isSetScrolltoRead) ? fragListQuestions : fragQuestionDetail)
-            .commit();
+                .replace(android.R.id.content, (isSetScrolltoRead) ? fragListQuestions : fragQuestionDetail)
+                .commit();
     }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
 
     private File getScreenShotFile() {
         if (fragQuestionDetail == null) {
@@ -168,7 +167,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         File screenshots = getScreenShotFile();
         if (!isShareByTextOnly && !isShareAndSave && screenshots != null && screenshots.exists()) {
             try {
-                screenshots.delete();
+                boolean isdeleted = screenshots.delete();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -185,6 +184,13 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
         if (isSetScrolltoRead) {
             Util.savePref(sharedPreferences, BaseListFragment.KEY_SELECTED_POSITION, currnetPosition);
+            for (Integer i : readedQuestionsPositions) {
+                fragListQuestions.getDetailFragment(i).markAsRead();
+            }
+        }
+
+        if (fragQuestionDetail != null) {
+            fragQuestionDetail.markAsRead();
         }
     }
 
@@ -192,8 +198,8 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail, menu);
-        starMenuItem = menu.findItem(R.id.menu_favorite);
-        updateStartIcon();
+        menuItem = menu;
+        updateMenu();
         return true;
     }
 
@@ -232,20 +238,19 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
                     } else {
                         Util.openShareIntentWithPlainText(this, shareString);
                     }
+
+                    return true;
                 } catch (Exception e) {
                     e.printStackTrace();
-                } finally {
-                    return true;
                 }
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-
     public void updateCurrentQuestion(DetailFragment fragment) {
         this.fragQuestionDetail = fragment;
-        updateStartIcon();
+        updateMenu();
     }
 
     @Override
@@ -263,6 +268,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         currnetPosition = i;
         DetailFragment fragment = fragListQuestions.getCurrentDetailFragment();
         if (fragment != null) {
+            readedQuestionsPositions.add(i);
             updateCurrentQuestion(fragment);
         }
     }

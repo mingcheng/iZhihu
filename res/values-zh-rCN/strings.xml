@@ -14,6 +14,7 @@
     <string name="medium">正常</string>
     <string name="large">较大</string>
     <string name="huge">极大</string>
+    <string name="rebuild_ui_faild">抱歉，似乎有错误发生</string>
     <string name="font_size_summary">选择您喜欢的阅读文字大小</string>
     <string name="refersh">刷新</string>
     <string name="loading">正在载入中，请您稍候…</string>

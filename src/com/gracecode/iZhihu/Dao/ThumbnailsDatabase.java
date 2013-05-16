@@ -30,20 +30,20 @@ public class ThumbnailsDatabase {
     protected static final String COLUM_STATUS = "status";
 
     private final static String[] SQL_CREATE_TABLES = {
-        "CREATE TABLE " + DATABASE_THUMBNAILS_TABLE_NAME + " (" +
-            COLUM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
-            COLUM_URL + " text NOT NULL UNIQUE," +
-            COLUM_LOCAL_PATH + " text DEFAULT NULL UNIQUE," +
-            COLUM_HASH + " text," +
-            COLUM_STATUS + " int," +
-            COLUM_MIME_TYPE + " text," +
-            COLUM_TIMESTAMP + " long," +
-            COLUM_SIZE + " long," +
-            COLUM_WIDTH + " int," +
-            COLUM_HEIGHT + " int" + ");",
-        "CREATE INDEX " + COLUM_URL + "_idx ON " + DATABASE_THUMBNAILS_TABLE_NAME + "(" + COLUM_URL + ");",
-        "CREATE INDEX " + COLUM_STATUS + "_idx ON " + DATABASE_THUMBNAILS_TABLE_NAME + "(" + COLUM_STATUS + ");",
-        "CREATE INDEX " + COLUM_LOCAL_PATH + "_idx ON " + DATABASE_THUMBNAILS_TABLE_NAME + "(" + COLUM_LOCAL_PATH + ");"
+            "CREATE TABLE " + DATABASE_THUMBNAILS_TABLE_NAME + " (" +
+                    COLUM_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " +
+                    COLUM_URL + " text NOT NULL UNIQUE," +
+                    COLUM_LOCAL_PATH + " text DEFAULT NULL UNIQUE," +
+                    COLUM_HASH + " text," +
+                    COLUM_STATUS + " int," +
+                    COLUM_MIME_TYPE + " text," +
+                    COLUM_TIMESTAMP + " long," +
+                    COLUM_SIZE + " long," +
+                    COLUM_WIDTH + " int," +
+                    COLUM_HEIGHT + " int" + ");",
+            "CREATE INDEX " + COLUM_URL + "_idx ON " + DATABASE_THUMBNAILS_TABLE_NAME + "(" + COLUM_URL + ");",
+            "CREATE INDEX " + COLUM_STATUS + "_idx ON " + DATABASE_THUMBNAILS_TABLE_NAME + "(" + COLUM_STATUS + ");",
+            "CREATE INDEX " + COLUM_LOCAL_PATH + "_idx ON " + DATABASE_THUMBNAILS_TABLE_NAME + "(" + COLUM_LOCAL_PATH + ");"
     };
 
     private final Context context;
@@ -110,7 +110,7 @@ public class ThumbnailsDatabase {
             contentValues.put(COLUM_URL, url);
 
             long values = db.insertOrThrow(DATABASE_THUMBNAILS_TABLE_NAME, null, contentValues);
-            return values > 1 ? true : false;
+            return values > 1;
         } catch (SQLiteException e) {
             return false;
         } finally {
@@ -128,8 +128,8 @@ public class ThumbnailsDatabase {
     public String getCachedPath(String url) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME,
-            new String[]{COLUM_LOCAL_PATH},
-            COLUM_URL + "=?", new String[]{url}, null, null, null, "1");
+                new String[]{COLUM_LOCAL_PATH},
+                COLUM_URL + "=?", new String[]{url}, null, null, null, "1");
 
         try {
             cursor.moveToFirst();
@@ -156,7 +156,7 @@ public class ThumbnailsDatabase {
      */
     public boolean isCached(String url) {
         String path = getCachedPath(url);
-        return path.length() > 0 ? true : false;
+        return path.length() > 0;
     }
 
 
@@ -199,7 +199,7 @@ public class ThumbnailsDatabase {
 
         try {
             int result = db.update(DATABASE_THUMBNAILS_TABLE_NAME, contentValues, COLUM_URL + " = ?", new String[]{url});
-            return result >= 1 ? true : false;
+            return result >= 1;
         } finally {
             db.close();
         }
@@ -209,7 +209,7 @@ public class ThumbnailsDatabase {
     public List<String> getNotCachedThumbnails() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{COLUM_URL},
-            COLUM_LOCAL_PATH + " IS NULL AND " + COLUM_STATUS + " IS NULL", null, null, null, COLUM_ID + " DESC", null);
+                COLUM_LOCAL_PATH + " IS NULL AND " + COLUM_STATUS + " IS NULL", null, null, null, COLUM_ID + " DESC", null);
 
         int idxUrl = cursor.getColumnIndex(COLUM_URL);
         List<String> result = new ArrayList<String>();
@@ -230,7 +230,7 @@ public class ThumbnailsDatabase {
     public List<String> getCachedThumbnails() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{COLUM_LOCAL_PATH},
-            COLUM_LOCAL_PATH + " IS NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, COLUM_ID + " DESC", null);
+                COLUM_LOCAL_PATH + " IS NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, COLUM_ID + " DESC", null);
 
         int idxUrl = cursor.getColumnIndex(COLUM_LOCAL_PATH);
         List<String> result = new ArrayList<String>();
@@ -251,12 +251,11 @@ public class ThumbnailsDatabase {
     public int getTotalCachedCount() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{"COUNT(" + COLUM_ID + ") AS " + COLUM_ID},
-            COLUM_LOCAL_PATH + " NOT NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, null, null);
+                COLUM_LOCAL_PATH + " NOT NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, null, null);
 
         try {
             cursor.moveToFirst();
-            int result = cursor.getInt(cursor.getColumnIndex(COLUM_ID));
-            return result;
+            return cursor.getInt(cursor.getColumnIndex(COLUM_ID));
         } finally {
             cursor.close();
             db.close();
@@ -267,7 +266,7 @@ public class ThumbnailsDatabase {
     public long getTotalCachedSize() {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{"SUM(" + COLUM_SIZE + ") AS " + COLUM_ID},
-            COLUM_LOCAL_PATH + " NOT NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, null, null);
+                COLUM_LOCAL_PATH + " NOT NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, null, null);
 
         try {
             cursor.moveToFirst();

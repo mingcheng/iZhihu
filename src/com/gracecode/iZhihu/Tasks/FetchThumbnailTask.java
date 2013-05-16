@@ -2,7 +2,6 @@ package com.gracecode.iZhihu.Tasks;
 
 import android.app.NotificationManager;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.support.v4.app.NotificationCompat;
 import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
 import com.gracecode.iZhihu.R;
@@ -27,9 +26,9 @@ import java.util.List;
  * User: mingcheng
  * Date: 13-5-9
  */
-public class FetchThumbnailTask extends AsyncTask<Void, Integer, Integer> {
-    private static final String USER_AGENT_STRING = "Mozilla/5.0 (iPhone; U; CPU iPhone OS 5_1_1 like Mac OS X; en) " +
-        "AppleWebKit/534.46.0 (KHTML, like Gecko) CriOS/19.0.1084.60 Mobile/9B206 Safari/7534.48.3";
+public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
+    private static final String USER_AGENT_STRING = "Mozilla/5.0 (Linux; U; Android 4.2.1; en-us; device Build/FRG83)" +
+            " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Safari/533.1";
 
     private static final int DEFAULT_HEIGHT = 0;
     private static final int DEFAULT_WIDTH = 0;
@@ -43,7 +42,9 @@ public class FetchThumbnailTask extends AsyncTask<Void, Integer, Integer> {
     private NotificationCompat.Builder notificationCompat;
 
 
-    public FetchThumbnailTask(Context context, ThumbnailsDatabase database, List<String> urls) {
+    public FetchThumbnailTask(Context context, ThumbnailsDatabase database, List<String> urls, BaseTasks.Callback callback) {
+        super(context, callback);
+
         this.database = database;
         this.httpClient = new DefaultHttpClient();
         this.urls = urls;
@@ -82,11 +83,11 @@ public class FetchThumbnailTask extends AsyncTask<Void, Integer, Integer> {
                         if (Util.putFileContent(localCacheFile, entity.getContent())) {
                             Header contentType = httpResponse.getFirstHeader("Content-Type");
                             boolean isCached = database.markAsCached(url,
-                                localCacheFile.getAbsolutePath(),
-                                contentType.getValue(),
-                                statusCode,
-                                DEFAULT_WIDTH,
-                                DEFAULT_HEIGHT);
+                                    localCacheFile.getAbsolutePath(),
+                                    contentType.getValue(),
+                                    statusCode,
+                                    DEFAULT_WIDTH,
+                                    DEFAULT_HEIGHT);
 
                             if (isCached) {
                                 publishProgress(i);
@@ -124,33 +125,37 @@ public class FetchThumbnailTask extends AsyncTask<Void, Integer, Integer> {
         String text = context.getString(R.string.downloading_offline_image);
         notificationCompat = new NotificationCompat.Builder(context);
         notificationCompat.setContentTitle(context.getString(R.string.app_name))
-            .setContentText(text)
-            .setTicker(text)
-            .setSmallIcon(R.drawable.ic_launcher);
+                .setContentText(text)
+                .setTicker(text)
+                .setSmallIcon(R.drawable.ic_launcher);
 
         if (urls.size() > 0) {
             notificationCompat.setProgress(urls.size(), 0, false);
             notificationManager.notify(DOWNLOAD_NOTIFY_ID, notificationCompat.build());
         }
+
+        super.onPreExecute();
     }
 
     @Override
     protected void onProgressUpdate(Integer... values) {
         for (Integer value : values) {
             notificationCompat
-                //.setTicker(value + "/" + urls.size())
-                .setProgress(urls.size(), value, false);
+                    //.setTicker(value + "/" + urls.size())
+                    .setProgress(urls.size(), value, false);
             notificationManager.notify(DOWNLOAD_NOTIFY_ID, notificationCompat.build());
         }
+
+        super.onProgressUpdate(values);
     }
 
     @Override
     protected void onPostExecute(Integer result) {
         String text = String.format(context.getString(R.string.downloaded_offline_image_complete), result);
         notificationCompat.setContentTitle(context.getString(R.string.app_name))
-            .setContentText(text)
-            .setTicker(text)
-            .setSmallIcon(R.drawable.ic_launcher);
+                .setContentText(text)
+                .setTicker(text)
+                .setSmallIcon(R.drawable.ic_launcher);
 
         if (result != 0) {
             notificationCompat.setProgress(0, 0, false);
@@ -160,8 +165,7 @@ public class FetchThumbnailTask extends AsyncTask<Void, Integer, Integer> {
         }
 
         database.close();
-        httpClient.clearRequestInterceptors();
-        httpClient.clearResponseInterceptors();
+        super.onPostExecute(result);
     }
 
     @Override

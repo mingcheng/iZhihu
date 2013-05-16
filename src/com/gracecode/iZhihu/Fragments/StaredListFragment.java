@@ -17,17 +17,16 @@ public class StaredListFragment extends BaseListFragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (selectedPosition != SELECT_NONE) {
-            try {
-                Question question = questions.get(selectedPosition);
-                if (!question.isStared()) {
-                    questions.remove(selectedPosition);
-                }
-            } catch (IndexOutOfBoundsException e) {
-                e.printStackTrace();
-            } finally {
-                questionsAdapter.notifyDataSetChanged();
+
+        try {
+            Question question = questions.get(selectedPosition);
+            if (!question.isStared()) {
+                questions.remove(selectedPosition);
             }
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        } finally {
+            questionsAdapter.notifyDataSetChanged();
         }
     }
 }

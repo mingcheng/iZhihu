@@ -45,29 +45,38 @@ public class FetchThumbnailsService extends Service {
             Boolean isNeedWifiToDownload = sharedPreferences.getBoolean(getString(R.string.key_only_wifi_cache), true);
 
             // @todo 使用 handle 控制线程
-            FetchThumbnailTask fetchThumbnailTask = new FetchThumbnailTask(this, database, notCachedUrls);
+            FetchThumbnailTask fetchThumbnailTask =
+                    new FetchThumbnailTask(this, database, notCachedUrls, new FetchThumbnailTask.Callback() {
+                        @Override
+                        public void onPostExecute(Object result) {
+                            stopSelf();
+                        }
 
-            if (isNeedWifiToDownload) {
-                if (Util.isWifiConnected(context)) {
-                    fetchThumbnailTask.execute();
+                        @Override
+                        public void onPreExecute() {
+
+                        }
+                    });
+
+            boolean isExternalStorageExists = Util.isExternalStorageExists();
+            if (isExternalStorageExists) {
+                if (isNeedWifiToDownload) {
+                    if (Util.isWifiConnected(context)) {
+                        fetchThumbnailTask.execute();
+                    } else {
+                        Util.showShortToast(context, getString(R.string.download_when_wifi_avaiable));
+                    }
                 } else {
-                    Util.showShortToast(context, getString(R.string.download_when_wifi_avaiable));
+                    fetchThumbnailTask.execute();
                 }
-            } else {
-                fetchThumbnailTask.execute();
             }
         }
 
-        // stopSelf();
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
-        if (database != null) {
-            database.close();
-            database = null;
-        }
         super.onDestroy();
     }
 

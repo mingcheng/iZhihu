@@ -11,8 +11,7 @@ import android.os.Environment;
 import android.widget.Toast;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,7 +52,7 @@ public class Util {
         byte[] buffer = new byte[1024];
         FileOutputStream fileOutputStream = new FileOutputStream(file);
 
-        for (int len = -1; (len = inputStream.read(buffer)) != -1; ) {
+        for (int len; (len = inputStream.read(buffer)) != -1; ) {
             fileOutputStream.write(buffer, 0, len);
         }
 
@@ -66,10 +65,10 @@ public class Util {
         InputStreamReader isr = new InputStreamReader(fis, DEFAULT_CHARSET);
         BufferedReader br = new BufferedReader(isr);
         StringBuffer sbContent = new StringBuffer();
-        String sLine = "";
 
+        String sLine;
         while ((sLine = br.readLine()) != null) {
-            String s = sLine.toString() + "\n";
+            String s = sLine + "\n";
             sbContent = sbContent.append(s);
         }
 
@@ -86,7 +85,7 @@ public class Util {
     }
 
     public static List<String> getImageUrls(String content) {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         Pattern pattern = Pattern.compile(REGEX_MATCH_IMAGE, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(content);
 
@@ -101,20 +100,16 @@ public class Util {
 
     public static boolean isWifiConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context
-            .getSystemService(Context.CONNECTIVITY_SERVICE);
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
-        if (activeNetInfo != null
-            && activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI) {
-            return true;
-        }
-        return false;
+        return activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI;
     }
 
 
     /**
      * 外部存储是否存在
      *
-     * @return
+     * @return boolean
      */
     public static boolean isExternalStorageExists() {
         return Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
@@ -123,25 +118,23 @@ public class Util {
     /**
      * 获取外部存储的路径
      *
-     * @return
+     * @return String 路径
      */
     public static String getExternalStoragePath() {
         File externalStorageDirectory = null;
-        try {
-            if (isExternalStorageExists()) {
-                externalStorageDirectory = Environment.getExternalStorageDirectory();
-            }
-        } finally {
-            return (externalStorageDirectory != null) ? externalStorageDirectory.getAbsolutePath() : null;
+
+        if (isExternalStorageExists()) {
+            externalStorageDirectory = Environment.getExternalStorageDirectory();
         }
+        return (externalStorageDirectory != null) ? externalStorageDirectory.getAbsolutePath() : null;
     }
 
 
     /**
      * 两个文件的相互拷贝
      *
-     * @param source
-     * @param dest
+     * @param source File
+     * @param dest   File
      * @throws IOException
      */
     public static void copyFile(File source, File dest) throws IOException {
@@ -157,8 +150,13 @@ public class Util {
                 outputStream.write(buffer, 0, length);
             }
         } finally {
-            inputStream.close();
-            outputStream.close();
+            if (inputStream != null) {
+                inputStream.close();
+            }
+
+            if (outputStream != null) {
+                outputStream.close();
+            }
         }
     }
 
@@ -166,8 +164,8 @@ public class Util {
     /**
      * 通过系统 Intent 分享到其他程序
      *
-     * @param message
-     * @param imagePath
+     * @param message   String
+     * @param imagePath Uri
      */
     public static void openShareIntentWithImage(Context context, String message, Uri imagePath) {
         Intent intent = new Intent(Intent.ACTION_SEND);

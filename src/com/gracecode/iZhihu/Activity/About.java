@@ -36,4 +36,11 @@ public class About extends BaseActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
     }
+
+    @Override
+    public String toString() {
+        return "About{" +
+                "fragWebView=" + fragWebView +
+                '}';
+    }
 }
