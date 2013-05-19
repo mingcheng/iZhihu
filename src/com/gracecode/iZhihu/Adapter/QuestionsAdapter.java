@@ -80,9 +80,9 @@ public final class QuestionsAdapter extends BaseAdapter {
 
         ImageView flag = holder.flag;
         if (question.stared) {
-            flag.setBackgroundResource(FLAG_DRAWABLE_STARED);
+            flag.setBackgroundResource(R.drawable.ic_action_star_selected);
         } else {
-            flag.setBackgroundResource(FLAG_DRAWABLE_NORMAL);
+            flag.setBackgroundResource(R.drawable.ic_action_unread);
         }
 
         if (question.unread || question.stared) {
@@ -103,7 +103,7 @@ public final class QuestionsAdapter extends BaseAdapter {
 
         content = content.substring(0, maxLength).trim();
         content = ((question.userName.length() > 1) ?
-            question.userName.trim() + context.getString(R.string.colon) + " " : "") + content;
+                question.userName.trim() + context.getString(R.string.colon) + " " : "") + content;
 
         convertedDescriptions.put(question.id, content);
         return content;

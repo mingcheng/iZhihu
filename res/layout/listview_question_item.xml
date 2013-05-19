@@ -5,45 +5,45 @@
                 android:layout_height="match_parent"
                 android:padding="10dp"
                 android:background="@color/normal_gray"
-    >
+        >
 
     <ImageView
-        android:layout_marginRight="10dp"
-        android:id="@+id/unread_flag"
-        android:visibility="visible"
-        android:layout_height="10sp"
-        android:layout_width="10sp"
-        android:background="@android:color/holo_blue_light"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        />
+            android:scaleType="fitCenter"
+            android:layout_marginRight="10dp"
+            android:id="@+id/unread_flag"
+            android:visibility="visible"
+            android:layout_height="15sp"
+            android:layout_width="15sp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            />
 
     <TextView
-        android:id="@+id/title"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="match_parent"
-        android:textColor="@android:color/primary_text_light"
-        android:maxLines="2"
-        android:layout_toRightOf="@id/unread_flag"
-        android:ellipsize="end"
-        android:scrollHorizontally="true"
-        />
+            android:id="@+id/title"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:textColor="@android:color/primary_text_light"
+            android:maxLines="2"
+            android:layout_toRightOf="@id/unread_flag"
+            android:ellipsize="end"
+            android:scrollHorizontally="true"
+            />
 
     <TextView
-        android:id="@+id/description"
-        android:maxLines="2"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:textColor="@android:color/secondary_text_light_nodisable"
-        android:layout_toRightOf="@id/unread_flag"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/title"
-        android:paddingTop="3sp"
-        android:ellipsize="end"
-        android:scrollHorizontally="true"
-        />
+            android:id="@+id/description"
+            android:maxLines="2"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textColor="@android:color/secondary_text_light_nodisable"
+            android:layout_toRightOf="@id/unread_flag"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/title"
+            android:paddingTop="3sp"
+            android:ellipsize="end"
+            android:scrollHorizontally="true"
+            />
 
 
 </RelativeLayout>

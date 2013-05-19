@@ -1,11 +1,8 @@
 .DS_Store
-/*.iml
-/.idea
+#*.iml
+#/.idea
 /proguard_logs/
 /nbandroid/
-/assets/*.ttf
-/assets/*.ttc
-/assets/*.otf
 /proguard.cfg
 /build.xml
 /*.properties
@@ -32,8 +29,9 @@ out/
 proguard-project.txt
 
 # Eclipse project files
-.classpath
-.project
-
 /.classpath
 /.project
+
+/assets/*.ttf
+/assets/*.ttc
+/assets/*.otf
