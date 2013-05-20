@@ -160,11 +160,17 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
         if (result != 0) {
             notificationCompat.setProgress(0, 0, false);
             notificationManager.notify(DOWNLOAD_NOTIFY_ID, notificationCompat.build());
-        } else {
-            notificationManager.cancel(DOWNLOAD_NOTIFY_ID);
         }
 
-        database.close();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            notificationManager.cancel(DOWNLOAD_NOTIFY_ID);
+            database.close();
+        }
+
         super.onPostExecute(result);
     }
 
