@@ -17,7 +17,7 @@
     <string name="cancel_mark_as_stared">Unstar</string>
     <string name="choose_email_client">Choose An Email Client</string>
     <string name="clear_caches">Clear Image Caches</string>
-    <string name="clear_caches_summary" formatted="false">Total cached %d images which contains %.2fMB.</string>
+    <string name="clear_caches_summary" formatted="false">Total cached %d images which contains %.1fMB.</string>
     <string name="colon">:</string>
     <string name="database_faild">Oh~! Failed to write data x_x.</string>
     <string name="donate">Donate</string>

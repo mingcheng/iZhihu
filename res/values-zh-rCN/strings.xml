@@ -21,12 +21,12 @@
     <string name="notfound">抱歉，没有找到对应的数据</string>
     <string name="favorite">收藏</string>
     <string name="feedback">反馈</string>
-    <string name="mark_as_starred">已标记为收藏</string>
+    <string name="mark_as_starred">已收藏</string>
     <string name="cancel_mark_as_stared">取消收藏</string>
     <string name="feedback_title" formatted="false">针对 %s %s 的反馈</string>
-    <string name="choose_email_client">请选择电子邮件客户端：</string>
+    <string name="choose_email_client">请选择电子邮件客户端</string>
     <string name="view_at_zhihu">网页版</string>
-    <string name="donate_summary">如您觉得这应用对您有帮助，万分感谢您点杯咖啡犒劳下作者 :^)</string>
+    <string name="donate_summary">如您觉得这应用对您有帮助，万分感谢您点杯咖啡犒劳下作者</string>
     <string name="donate">点杯咖啡</string>
     <string name="about_summary">欢迎使用「读知乎」客户端</string>
     <string name="version_tail">版本：</string>
@@ -42,16 +42,16 @@
     <string name="auto_scroll">自动滚动</string>
     <string name="read">阅读</string>
     <string name="clear_caches">清除离线图片</string>
-    <string name="clear_caches_summary" formatted="false">总计已缓存 %d 张离线图片，总计 %.2fMB.</string>
+    <string name="clear_caches_summary" formatted="false">总计已缓存 %d 张离线图片，总计 %.1fMB.</string>
     <string name="enable_cache">离线图片</string>
     <string name="enable_cache_summary">自动保存图片到本地，供离线阅读使用</string>
-    <string name="only_wifi_cache">只在 WIFI 下缓存</string>
-    <string name="only_wifi_cache_summary">只在 WIFI 连接的情况下缓存图片，节约流量</string>
+    <string name="only_wifi_cache">只在 Wi-Fi 下缓存</string>
+    <string name="only_wifi_cache_summary">只在 Wi-Fi 连接的情况下缓存图片，节约流量</string>
     <string name="downloading_offline_image">正在下载离线图片…</string>
     <string name="downloaded_offline_image_complete" formatted="false">已下载 %d 张离线图片</string>
     <string name="loaded_more_data">载入更多的条目中…</string>
     <string name="really_clear_cache">您确认清除所有的缓存吗？</string>
-    <string name="download_when_wifi_avaiable">当 WIFI 可用时，才自动下载离线图片</string>
+    <string name="download_when_wifi_avaiable">当 Wi-Fi 可用时，才自动下载离线图片</string>
     <string name="appearance">界面</string>
     <string name="wakelock_screen">屏幕常亮</string>
     <string name="wakelock_screen_summary">当阅读正文时，保持屏幕常亮</string>
@@ -60,6 +60,5 @@
     <string name="share_plain_only">纯文本</string>
     <string name="share_plain_only_summary">只使用纯文本格式分享，生成缩略图</string>
     <string name="scroll_read">翻动阅读</string>
-    <string name="scroll_read_summary">在详情页中左右翻动阅读上下篇条目</string>
-
+    <string name="scroll_read_summary">在详情页中左右手势滑动阅读上下篇条目</string>
 </resources>
