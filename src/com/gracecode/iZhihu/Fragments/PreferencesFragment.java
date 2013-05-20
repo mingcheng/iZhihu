@@ -65,7 +65,7 @@ public class PreferencesFragment extends PreferenceFragment {
 
         String template = getString(R.string.clear_caches_summary);
         int cacheCount = thumbnailsDatabase.getTotalCachedCount();
-        float cacheSize = thumbnailsDatabase.getTotalCachedSize() / (1024 * 1024);
+        float cacheSize = thumbnailsDatabase.getTotalCachedSize() / 1024 / 1024;
 
         cachePref.setSummary(String.format(template, cacheCount, cacheSize));
     }
