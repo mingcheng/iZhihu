@@ -11,7 +11,8 @@ import android.os.Environment;
 import android.widget.Toast;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -98,9 +99,18 @@ public class Util {
         return result;
     }
 
+
+    /**
+     * 判断 WIFI 是否已经打开
+     *
+     * @param context
+     * @return
+     */
     public static boolean isWifiConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (context == null) {
+            return false;
+        }
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI;
     }
