@@ -9,6 +9,8 @@ import android.graphics.Picture;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.text.Html;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -157,37 +160,65 @@ public class DetailFragment extends WebViewFragment {
         } catch (QuestionsDatabase.QuestionNotFoundException e) {
             Util.showLongToast(context, e.getMessage());
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (question == null) {
-            return;
-        }
-        String data = String.format(getTemplateString(),
-                getClassName(),
-                isNeedReplaceSymbol ? Util.replaceSymbol(question.title) : question.title,
-                formatContent(question.description),
-                question.userName,
-                "<p class='update-at'>" + question.updateAt + "</p>" + formatContent(question.content));
-
-//        getWebView().setScrollbarFadingEnabled(false);
-        getWebView().setScrollBarStyle(WebView.SCROLLBARS_INSIDE_OVERLAY);
 
         getWebView().getSettings().setLoadWithOverviewMode(true);
         getWebView().getSettings().setUseWideViewPort(true);
         getWebView().getSettings().setJavaScriptEnabled(true);
 
-        getWebView().loadDataWithBaseURL(URL_ASSETS_PREFIX, data, MIME_HTML_TYPE, Util.DEFAULT_CHARSET, null);
+        getWebView().loadDataWithBaseURL(URL_ASSETS_PREFIX, getFormatedContent(), MIME_HTML_TYPE, Util.DEFAULT_CHARSET, null);
         getWebView().setWebViewClient(webViewClient);
-
         getWebView().setWebChromeClient(new WebChromeClient() {
             public boolean onConsoleMessage(ConsoleMessage cm) {
                 Log.d(TAG, cm.message() + "\nFrom line " + cm.lineNumber() + " of " + cm.sourceId());
                 return true;
             }
         });
+    }
+
+    private File getCachedFile() {
+        String hashed = Base64.encodeToString((question.id + getClassName()).getBytes(), Base64.DEFAULT);
+        return new File(activity.getCacheDir(), hashed.trim());
+    }
+
+
+    private String getFormatedContent() {
+        String className = getClassName(), templateString = getTemplateString(), data = "";
+        try {
+            File cacheFile = getCachedFile();
+            if (cacheFile.exists()) {
+                data = Util.getFileContent(cacheFile.getAbsolutePath());
+            } else {
+                data = String.format(templateString,
+                        className,
+                        isNeedReplaceSymbol ? Util.replaceSymbol(question.title) : question.title,
+                        formatContent(question.description),
+                        question.userName,
+                        "<p class='update-at'>" + question.updateAt + "</p>" + formatContent(question.content)
+                );
+                Util.putFileContent(cacheFile, new ByteArrayInputStream(data.getBytes()));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            return data;
+        }
+    }
+
+
+    public String getTitle() {
+        return question.title;
+    }
+
+
+    public String getPlainContent() {
+        return Html.fromHtml(getFormatedContent()).toString();
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 
 
@@ -243,6 +274,7 @@ public class DetailFragment extends WebViewFragment {
 
         return content;
     }
+
 
     private String formatContent(String content) {
         content = formatParagraph(content);
@@ -333,24 +365,42 @@ public class DetailFragment extends WebViewFragment {
         }
     }
 
-    public boolean markStar(boolean status) {
-//        if (questionsDatabase != null) {
-//            return questionsDatabase.markQuestionAsStared(id, status) > 0 ? true : false;
-//        }
-//
-//        return false;
-
+    /**
+     * 标记为收藏
+     *
+     * @param status
+     * @return
+     */
+    public boolean markStared(boolean status) {
         return (questionsDatabase != null) && (questionsDatabase.markQuestionAsStared(id, status) > 0);
     }
 
-    public boolean markAsRead() {
+
+    /**
+     * 标记为已阅读
+     *
+     * @return
+     */
+    public boolean markReaded() {
         return (questionsDatabase != null) && (questionsDatabase.markSingleQuestionAsReaded(id) > 0);
     }
 
+
+    /**
+     * 获取分享的文案
+     *
+     * @return
+     */
     public String getShareString() {
         return String.format("%s #%s# %s", question.title, context.getString(R.string.app_name), getOnlineShortUrl(question.answerId));
     }
 
+    /**
+     * 读知乎在线连接
+     *
+     * @param number
+     * @return
+     */
     private static String getOnlineShortUrl(int number) {
         String s = "", KEY = "6BCMx(0gEwTj3FbUGPe7rtKfqosmZOX2S)5IvH.zu9DdQRL41AnV8ckylhp!YNWJi";
         int l = KEY.length();
@@ -362,20 +412,5 @@ public class DetailFragment extends WebViewFragment {
         }
 
         return "http://z.ihu.im/u/" + s;
-    }
-
-
-    @Override
-    public void onDestroy() {
-//        if (questionsDatabase != null) {
-//            questionsDatabase.close();
-//            questionsDatabase = null;
-//        }
-//
-//        if (thumbnailsDatabase != null) {
-//            thumbnailsDatabase.close();
-//            thumbnailsDatabase = null;
-//        }
-        super.onDestroy();
     }
 }

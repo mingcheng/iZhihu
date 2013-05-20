@@ -36,7 +36,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     private Runnable MarkAsStared = new Runnable() {
         @Override
         public void run() {
-            if (fragQuestionDetail.markStar(!fragQuestionDetail.isStared())) {
+            if (fragQuestionDetail.markStared(!fragQuestionDetail.isStared())) {
                 UIChangedChangedHandler.sendEmptyMessage(MESSAGE_UPDATE_START_SUCCESS);
             } else {
                 UIChangedChangedHandler.sendEmptyMessage(MESSAGE_UPDATE_START_FAILD);
@@ -185,12 +185,12 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         if (isSetScrolltoRead) {
             Util.savePref(sharedPreferences, BaseListFragment.KEY_SELECTED_POSITION, currnetPosition);
             for (Integer i : readedQuestionsPositions) {
-                fragListQuestions.getDetailFragment(i).markAsRead();
+                fragListQuestions.getDetailFragment(i).markReaded();
             }
         }
 
         if (fragQuestionDetail != null) {
-            fragQuestionDetail.markAsRead();
+            fragQuestionDetail.markReaded();
         }
     }
 
