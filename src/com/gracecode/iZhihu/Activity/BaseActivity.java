@@ -32,6 +32,7 @@ public abstract class BaseActivity extends Activity {
 
         actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setIcon(android.R.color.transparent);
 
         context = getApplicationContext();
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -53,7 +54,6 @@ public abstract class BaseActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-
         if (openAnalytics) {
             MobclickAgent.setDebugMode(true);
             MobclickAgent.onResume(context);

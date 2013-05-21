@@ -215,7 +215,6 @@ public class DetailFragment extends WebViewFragment {
         return Html.fromHtml(getFormatedContent()).toString();
     }
 
-
     @Override
     public void onStart() {
         super.onStart();

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="light" parent="android:Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/LightActionBarStyle</item>
+        <item name="android:actionBarTabStyle">@style/LightActionBarTabStyle</item>
+        <item name="android:actionBarTabBarStyle">@style/customTabBar</item>
+    </style>
+
+    <style name="LightActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/normal_gray</item>
+        <item name="android:backgroundStacked">@drawable/tab_unselected</item>
+    </style>
+
+    <style name="LightActionBarTabStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/light_tab_indicator</item>
+    </style>
+
+    <style name="customTabBar" parent="@android:style/Widget.Holo.ActionBar.TabBar">
+        <item name="android:showDividers">middle</item>
+    </style>
+</resources>
