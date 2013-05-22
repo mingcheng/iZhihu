@@ -335,11 +335,11 @@ public class DetailFragment extends WebViewFragment {
     }
 
     public int getQuestionId() {
-        if (question != null) {
-            return question.questionId;
-        } else {
-            return ID_NOT_FOUND;
-        }
+        return (question != null) ? question.questionId : ID_NOT_FOUND;
+    }
+
+    public int getAnswerId() {
+        return (question != null) ? question.answerId : ID_NOT_FOUND;
     }
 
     /**
@@ -412,4 +412,5 @@ public class DetailFragment extends WebViewFragment {
 
         return "http://z.ihu.im/u/" + s;
     }
+
 }

@@ -82,8 +82,8 @@ public abstract class BaseActivity extends Activity {
 
             case R.id.menu_feedback:
                 String subject =
-                        String.format(getString(R.string.feedback_title), getString(R.string.app_name), packageInfo.versionName);
-
+                        String.format(getString(R.string.feedback_title),
+                                getString(R.string.app_name), packageInfo.versionName);
                 Util.sendMail(this, new String[]{getString(R.string.author_email)}, subject, null);
                 return true;
 
@@ -92,6 +92,7 @@ public abstract class BaseActivity extends Activity {
                 startActivity(intent);
                 return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

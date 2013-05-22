@@ -8,6 +8,7 @@ import android.os.PowerManager;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Fragments.BaseListFragment;
 import com.gracecode.iZhihu.Fragments.DetailFragment;
@@ -103,6 +104,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // 电源管理
         PowerManager powerManager = ((PowerManager) getSystemService(POWER_SERVICE));
 
         // 获取当权选定的条目
@@ -159,6 +161,11 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     @Override
     public void onResume() {
         super.onResume();
+
+        // 弱化 Navigation Bar
+        getWindow().getDecorView()
+                .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+
         if (isNeedScreenWakeLock()) {
             wakeLock.acquire();
         }
@@ -214,7 +221,11 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
             // View question via zhihu.com
             case R.id.menu_view_at_zhihu:
-                String url = getString(R.string.url_zhihu_questioin_pre) + fragQuestionDetail.getQuestionId();
+                String url =
+                        String.format(
+                                getString(R.string.url_zhihu_questioin_pre),
+                                fragQuestionDetail.getQuestionId(), fragQuestionDetail.getAnswerId());
+
                 Util.openWithBrowser(this, url);
                 return true;
 
