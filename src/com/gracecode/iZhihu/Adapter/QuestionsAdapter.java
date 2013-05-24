@@ -1,6 +1,8 @@
 package com.gracecode.iZhihu.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +13,9 @@ import android.widget.TextView;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
+import taobe.tec.jcc.JChineseConvertor;
 
-import java.util.Hashtable;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -23,19 +26,27 @@ import java.util.List;
  */
 public final class QuestionsAdapter extends BaseAdapter {
     private static final int MAX_DESPCRIPTION_LENGTH = 100;
-    private static final int FLAG_DRAWABLE_STARED = android.R.color.holo_red_light;
-    private static final int FLAG_DRAWABLE_NORMAL = android.R.color.holo_blue_light;
-
     private final List<Question> questions;
     private final Context context;
     private final LayoutInflater layoutInflater;
-    private static Hashtable<Integer, String> convertedDescriptions;
+    private static JChineseConvertor chineseConvertor = null;
+    private final SharedPreferences sharedPreferences;
+    private boolean isNeedConvertTraditionalChinese = false;
 
     public QuestionsAdapter(Context context, List<Question> questions) {
         this.context = context;
         this.questions = questions;
         this.layoutInflater = LayoutInflater.from(context);
-        this.convertedDescriptions = new Hashtable<Integer, String>();
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+        this.isNeedConvertTraditionalChinese =
+                sharedPreferences.getBoolean(context.getString(R.string.key_traditional_chinese), false);
+
+        try {
+            chineseConvertor = JChineseConvertor.getInstance();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -75,8 +86,10 @@ public final class QuestionsAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+        String title = isNeedConvertTraditionalChinese ?
+                chineseConvertor.s2t(question.title) : chineseConvertor.t2s(question.title);
+        holder.title.setText(Util.replaceSymbol(title));
         holder.description.setText(getConvertDescription(question));
-        holder.title.setText(Util.replaceSymbol(question.title));
 
         ImageView flag = holder.flag;
         if (question.stared) {
@@ -93,11 +106,8 @@ public final class QuestionsAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private String getConvertDescription(Question question) {
-        if (convertedDescriptions.containsKey(question.id)) {
-            return convertedDescriptions.get(question.id);
-        }
 
+    private String getConvertDescription(Question question) {
         String content = Html.fromHtml(question.content).toString();
         int maxLength = (content.length() > MAX_DESPCRIPTION_LENGTH) ? MAX_DESPCRIPTION_LENGTH : content.length();
 
@@ -105,10 +115,9 @@ public final class QuestionsAdapter extends BaseAdapter {
         content = ((question.userName.length() > 1) ?
                 question.userName.trim() + context.getString(R.string.colon) + " " : "") + content;
 
-        convertedDescriptions.put(question.id, content);
-        return content;
+        // 转换简繁体
+        return isNeedConvertTraditionalChinese ? chineseConvertor.s2t(content) : chineseConvertor.t2s(content);
     }
-
 
     private static class ViewHolder {
         public TextView title;

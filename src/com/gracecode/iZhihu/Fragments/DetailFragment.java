@@ -21,6 +21,7 @@ import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
+import taobe.tec.jcc.JChineseConvertor;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -40,6 +41,8 @@ public class DetailFragment extends WebViewFragment {
     private static final int NONE_SCROLL_Y = 0;
     private static final long AUTO_SCROLL_DELAY = 500;
     private static final int FIVE_MINUTES = 1000 * 60 * 5;
+    private static final String NEED_CONVERT = "0x000";
+    private static final String NONEED_CONVERT = "0x111";
 
     private final int id;
     private final Context context;
@@ -47,12 +50,14 @@ public class DetailFragment extends WebViewFragment {
     private static QuestionsDatabase questionsDatabase;
     private static ThumbnailsDatabase thumbnailsDatabase;
     private SharedPreferences sharedPreferences;
+    private static JChineseConvertor chineseConvertor = null;
 
     private Question question;
     private boolean isNeedIndent = false;
     private boolean isNeedReplaceSymbol = false;
     private boolean isNeedCacheThumbnails = true;
     private boolean isShareByTextOnly = false;
+    private boolean isNeedConvertTraditionalChinese = false;
 
     private WebViewClient webViewClient = new WebViewClient() {
         @Override
@@ -105,6 +110,7 @@ public class DetailFragment extends WebViewFragment {
         }
     };
 
+
     public boolean isTempScreenShotsFileCached() {
         File tempScreenShotsFile = getTempScreenShotsFile();
         Boolean is5MinutesAgo = (System.currentTimeMillis() - tempScreenShotsFile.lastModified()) < FIVE_MINUTES;
@@ -130,6 +136,12 @@ public class DetailFragment extends WebViewFragment {
     public DetailFragment(int id, Context context) {
         this.id = id;
         this.context = context;
+
+        try {
+            chineseConvertor = JChineseConvertor.getInstance();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -154,6 +166,8 @@ public class DetailFragment extends WebViewFragment {
         this.isNeedReplaceSymbol = sharedPreferences.getBoolean(getString(R.string.key_symbol), true);
         this.isNeedCacheThumbnails = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
         this.isShareByTextOnly = sharedPreferences.getBoolean(getString(R.string.key_share_text_only), false);
+        this.isNeedConvertTraditionalChinese =
+                sharedPreferences.getBoolean(getString(R.string.key_traditional_chinese), false);
 
         try {
             question = questionsDatabase.getSingleQuestion(id);
@@ -176,15 +190,19 @@ public class DetailFragment extends WebViewFragment {
     }
 
     private File getCachedFile() {
-        String hashed = Base64.encodeToString((question.id + getClassName()).getBytes(), Base64.DEFAULT);
+        String CONVERT_FLAG = isNeedConvertTraditionalChinese ? NEED_CONVERT : NONEED_CONVERT;
+        String hashed = Base64.encodeToString((question.id + CONVERT_FLAG + getClassName()).getBytes(), Base64.DEFAULT);
         return new File(activity.getCacheDir(), hashed.trim());
     }
 
 
     private String getFormatedContent() {
         String className = getClassName(), templateString = getTemplateString(), data = "";
+
+
         try {
             File cacheFile = getCachedFile();
+
             if (cacheFile.exists()) {
                 data = Util.getFileContent(cacheFile.getAbsolutePath());
             } else {
@@ -195,6 +213,13 @@ public class DetailFragment extends WebViewFragment {
                         question.userName,
                         "<p class='update-at'>" + question.updateAt + "</p>" + formatContent(question.content)
                 );
+
+                // @see https://code.google.com/p/jcc/
+                if (isNeedConvertTraditionalChinese) {
+                    data = chineseConvertor.s2t(data);
+                } else {
+                    data = chineseConvertor.t2s(data);
+                }
                 Util.putFileContent(cacheFile, new ByteArrayInputStream(data.getBytes()));
             }
 

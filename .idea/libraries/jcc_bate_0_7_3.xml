@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jcc-bate-0.7.3">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/jcc-bate-0.7.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

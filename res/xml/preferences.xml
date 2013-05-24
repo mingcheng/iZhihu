@@ -3,127 +3,134 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="@string/appearance">
+            android:title="@string/appearance">
 
         <CheckBoxPreference
-            android:key="@string/key_wake_lock"
-            android:title="@string/wakelock_screen"
-            android:defaultValue="true"
-            android:summary="@string/wakelock_screen_summary"
-            />
+                android:key="@string/key_traditional_chinese"
+                android:title="@string/traditional_chinese"
+                android:defaultValue="false"
+                android:summary="@string/traditional_chinese_summary"
+                />
 
         <CheckBoxPreference
-            android:key="@string/key_scroll_read"
-            android:title="@string/scroll_read"
-            android:defaultValue="true"
-            android:summary="@string/scroll_read_summary"
-            />
+                android:key="@string/key_wake_lock"
+                android:title="@string/wakelock_screen"
+                android:defaultValue="true"
+                android:summary="@string/wakelock_screen_summary"
+                />
+
+        <CheckBoxPreference
+                android:key="@string/key_scroll_read"
+                android:title="@string/scroll_read"
+                android:defaultValue="true"
+                android:summary="@string/scroll_read_summary"
+                />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/share">
+            android:title="@string/share">
         <CheckBoxPreference
-            android:key="@string/key_share_text_only"
-            android:title="@string/share_plain_only"
-            android:defaultValue="false"
-            android:summary="@string/share_plain_only_summary"
-            />
+                android:key="@string/key_share_text_only"
+                android:title="@string/share_plain_only"
+                android:defaultValue="false"
+                android:summary="@string/share_plain_only_summary"
+                />
 
         <CheckBoxPreference
-            android:key="@string/key_share_and_save"
-            android:title="@string/share_and_save"
-            android:defaultValue="true"
-            android:summary="@string/share_and_save_summary"
-            />
+                android:key="@string/key_share_and_save"
+                android:title="@string/share_and_save"
+                android:defaultValue="true"
+                android:summary="@string/share_and_save_summary"
+                />
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/read">
+            android:title="@string/read">
 
         <ListPreference
-            android:key="@string/key_font_size"
-            android:title="@string/font_size"
-            android:summary="@string/font_size_summary"
-            android:entries="@array/font_size_entries"
-            android:entryValues="@array/font_size_entries_values"
-            android:dialogTitle="@string/font_size"
-            android:defaultValue="@string/default_font_size"
-            />
+                android:key="@string/key_font_size"
+                android:title="@string/font_size"
+                android:summary="@string/font_size_summary"
+                android:entries="@array/font_size_entries"
+                android:entryValues="@array/font_size_entries_values"
+                android:dialogTitle="@string/font_size"
+                android:defaultValue="@string/default_font_size"
+                />
 
         <CheckBoxPreference
-            android:key="@string/key_indent"
-            android:title="@string/paragraph_indents"
-            android:defaultValue="false"
-            android:summary="@string/paragraph_summary"
-            />
+                android:key="@string/key_indent"
+                android:title="@string/paragraph_indents"
+                android:defaultValue="false"
+                android:summary="@string/paragraph_summary"
+                />
 
         <CheckBoxPreference
-            android:key="@string/key_symbol"
-            android:title="@string/tradition_symbol"
-            android:defaultValue="true"
-            android:summary="@string/tradition_symbol_summary"
-            />
+                android:key="@string/key_symbol"
+                android:title="@string/tradition_symbol"
+                android:defaultValue="true"
+                android:summary="@string/tradition_symbol_summary"
+                />
 
         <CheckBoxPreference
-            android:key="@string/key_auto_scroll"
-            android:title="@string/auto_scroll"
-            android:defaultValue="true"
-            android:summary="@string/auto_scroll_summary"
-            />
+                android:key="@string/key_auto_scroll"
+                android:title="@string/auto_scroll"
+                android:defaultValue="true"
+                android:summary="@string/auto_scroll_summary"
+                />
     </PreferenceCategory>
 
 
     <PreferenceCategory
-        android:title="@string/caches">
+            android:title="@string/caches">
 
         <CheckBoxPreference
-            android:key="@string/key_enable_cache"
-            android:title="@string/enable_cache"
-            android:defaultValue="true"
-            android:summary="@string/enable_cache_summary"
-            />
+                android:key="@string/key_enable_cache"
+                android:title="@string/enable_cache"
+                android:defaultValue="true"
+                android:summary="@string/enable_cache_summary"
+                />
 
         <CheckBoxPreference
-            android:key="@string/key_only_wifi_cache"
-            android:title="@string/only_wifi_cache"
-            android:defaultValue="true"
-            android:summary="@string/only_wifi_cache_summary"
-            />
+                android:key="@string/key_only_wifi_cache"
+                android:title="@string/only_wifi_cache"
+                android:defaultValue="true"
+                android:summary="@string/only_wifi_cache_summary"
+                />
 
         <Preference
-            android:key="@string/key_clear_caches"
-            android:title="@string/clear_caches"
-            android:summary="@string/clear_caches_summary"
-            />
+                android:key="@string/key_clear_caches"
+                android:title="@string/clear_caches"
+                android:summary="@string/clear_caches_summary"
+                />
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/about">
+            android:title="@string/about">
 
         <Preference
-            android:key="@string/feedback"
-            android:title="@string/feedback"
-            android:summary="@string/feedback_summary"
-            />
+                android:key="@string/feedback"
+                android:title="@string/feedback"
+                android:summary="@string/feedback_summary"
+                />
 
         <Preference
-            android:key="@string/key_donate"
-            android:title="@string/donate"
-            android:summary="@string/donate_summary"
-            />
+                android:key="@string/key_donate"
+                android:title="@string/donate"
+                android:summary="@string/donate_summary"
+                />
 
         <CheckBoxPreference
-            android:key="@string/key_analytics"
-            android:title="@string/analytics"
-            android:defaultValue="true"
-            android:summary="@string/analytics_summary"
-            />
+                android:key="@string/key_analytics"
+                android:title="@string/analytics"
+                android:defaultValue="true"
+                android:summary="@string/analytics_summary"
+                />
 
         <Preference
-            android:key="@string/key_about"
-            android:title="@string/about"
-            android:summary="@string/about_summary"
-            />
+                android:key="@string/key_about"
+                android:title="@string/about"
+                android:summary="@string/about_summary"
+                />
     </PreferenceCategory>
 </PreferenceScreen>

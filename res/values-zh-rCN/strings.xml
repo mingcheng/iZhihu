@@ -61,4 +61,6 @@
     <string name="share_plain_only_summary">只使用纯文本格式分享，不生成缩略图</string>
     <string name="scroll_read">翻动阅读</string>
     <string name="scroll_read_summary">在详情页中左右手势滑动阅读上下篇条目</string>
+    <string name="traditional_chinese">繁体中文</string>
+    <string name="traditional_chinese_summary">将所有内容转换为繁体中文输出，反之使用简体中文</string>
 </resources>

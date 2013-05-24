@@ -69,4 +69,7 @@
     <string name="view_at_zhihu">View At Online</string>
     <string name="wakelock_screen">Lock Screen</string>
     <string name="wakelock_screen_summary">Screen always on while reading.</string>
+    <string name="key_traditional_chinese">key_traditional_chinese</string>
+    <string name="traditional_chinese">Traditional Chinese</string>
+    <string name="traditional_chinese_summary">Convert all characters to Traditional Chinese</string>
 </resources>
