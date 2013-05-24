@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.Light" parent="android:Theme.Holo.Light">
+        <item name="android:windowBackground">@color/snow</item>
 
-    <style name="light" parent="android:Theme.Holo.Light">
-        <item name="android:actionBarStyle">@style/LightActionBarStyle</item>
-        <item name="android:actionBarTabStyle">@style/LightActionBarTabStyle</item>
-        <item name="android:actionBarTabBarStyle">@style/customTabBar</item>
+        <!-- Action Bar -->
+        <item name="android:actionBarStyle">@style/Theme.Light.ActionBarStyle</item>
+        <item name="android:actionBarTabStyle">@style/Theme.Light.ActionBarTabStyle</item>
+
+        <item name="android:actionBarTabBarStyle">@style/Theme.Light.ActionBarTabBarStyle</item>
+        <item name="android:actionBarTabTextStyle">@style/Theme.Light.ActionBarStyle.TabTextStyle</item>
     </style>
 
-    <style name="LightActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
-        <item name="android:background">@color/normal_gray</item>
-        <item name="android:backgroundStacked">@drawable/tab_unselected</item>
+    <!-- ActionBar 主样式 -->
+    <style name="Theme.Light.ActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">@color/gainsboro</item>
+        <item name="android:titleTextStyle">@style/Light.ActionBarStyle.TitleTextStyle</item>
+        <item name="android:icon">@null</item>
     </style>
 
-    <style name="LightActionBarTabStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+    <!-- ActionBar 标题文案样式 -->
+    <style name="Light.ActionBarStyle.TitleTextStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- TabBar 文案样式 -->
+    <style name="Theme.Light.ActionBarStyle.TabTextStyle" parent="@android:style/TextAppearance.Holo.Small">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Theme.Light.ActionBarTabStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
         <item name="android:background">@drawable/light_tab_indicator</item>
     </style>
 
-    <style name="customTabBar" parent="@android:style/Widget.Holo.ActionBar.TabBar">
-        <item name="android:showDividers">middle</item>
+    <style name="Theme.Light.ActionBarTabBarStyle">
+        <item name="android:background">@drawable/tab_unselected</item>
     </style>
 </resources>

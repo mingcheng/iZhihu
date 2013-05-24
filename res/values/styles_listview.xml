@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Question" parent="@android:style/Widget.Holo.ListView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="Question.Flag" parent="@android:style/Widget.Holo">
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_height">15sp</item>
+        <item name="android:layout_width">15sp</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="Question.TextView" parent="@android:style/Widget.Holo.TextView">
+        <item name="android:maxLines">2</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
+
+    <style name="Question.Title" parent="Question.TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Question.Description" parent="Question.TextView">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:textColor">@color/gray64</item>
+        <item name="android:paddingTop">5dp</item>
+    </style>
+</resources>

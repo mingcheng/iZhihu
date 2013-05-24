@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="normal_gray">#F6F3EF</color>
-    <color name="highlight_gray">#CDCDCD</color>
-    <color name="highlight_red">#cc3333</color>
-    <color name="yellow">#FFF3DE</color>
     <color name="red">#cc0000</color>
+    <color name="black">#333333</color>
+    <color name="gray">#cccccc</color>
+    <color name="gray64">#a3a3a3</color>
+    <color name="slate_gray">#6c7b8b</color>
+    <color name="sea_shell">#fff5ee</color>
+    <color name="snow">#eee9e9</color>
+    <color name="gainsboro">#dcdcdc</color>
 </resources>

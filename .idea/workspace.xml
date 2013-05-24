@@ -42,8 +42,8 @@
         <option name="localeLanguage" value="zh" />
         <option name="localeRegion" value="CN" />
         <option name="nightMode" value="notnight" />
-        <option name="targetHashString" value="android-15" />
-        <option name="theme" value="light" />
+        <option name="targetHashString" value="android-16" />
+        <option name="theme" value="Theme.Light" />
         <option name="visible" value="false" />
       </GlobalState>
     </option>
@@ -69,39 +69,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62c0643c-7be3-40f5-9448-f28526b27123" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/light_tab_indicator.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/themes_light.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-mdpi/ic_action_pref.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-mdpi/ic_action_refersh.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-mdpi/ic_action_share.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-mdpi/ic_action_star.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-mdpi/ic_action_star_selected.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-mdpi/ic_action_unread.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-xhdpi/ic_action_pref.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-xhdpi/ic_action_refersh.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-xhdpi/ic_action_share.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-xhdpi/ic_action_star.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-xhdpi/ic_action_star_selected.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-xhdpi/ic_action_unread.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/values/themes.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable-hdpi/ic_action_star_selected.png" afterPath="$PROJECT_DIR$/res/drawable-hdpi/ic_action_star_selected.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/BaseActivity.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/BaseActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/DetailFragment.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/DetailFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/values/styles_listview.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-hdpi/tab_selected.9.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-hdpi/tab_unselected.9.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/colors.xml" afterPath="$PROJECT_DIR$/res/values/colors.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/listview_question_item.xml" afterPath="$PROJECT_DIR$/res/layout/listview_question_item.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/themes_light.xml" afterPath="$PROJECT_DIR$/res/values/themes_light.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/view_pages.xml" afterPath="$PROJECT_DIR$/res/layout/view_pages.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/zhihu.css" afterPath="$PROJECT_DIR$/assets/zhihu.css" />
     </list>
     <ignored path="iZhihu.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368274705921" ignored="false" />
+    <file path="/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369145250469" ignored="false" />
     <file path="/strings.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369038453249" ignored="false" />
-    <file path="/BaseActivity.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369129218178" ignored="false" />
+    <file path="/BaseActivity.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369142593778" ignored="false" />
     <file path="/QuestionsList.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367741705206" ignored="false" />
     <file path="/QuestionDetail.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367646683099" ignored="false" />
     <file path="/Config.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367030266888" ignored="false" />
     <file path="/FavoritesList.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367637967751" ignored="false" />
-    <file path="/Detail.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368689461017" ignored="false" />
-    <file path="/Dummy.txt" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369121970524" ignored="false" />
+    <file path="/Detail.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369368325747" ignored="false" />
+    <file path="/Dummy.txt" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369372859241" ignored="false" />
     <file path="/frag_questions.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367763106011" ignored="false" />
     <file path="/themes.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369131627860" ignored="false" />
     <file path="/Main.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368975359116" ignored="false" />
@@ -111,7 +101,7 @@
     <file path="/arrays.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367048720572" ignored="false" />
     <file path="/Preference.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367048989246" ignored="false" />
     <file path="/BaseQuestionsList.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367589405252" ignored="false" />
-    <file path="/listview_question_item.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368757451202" ignored="false" />
+    <file path="/listview_question_item.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369367561752" ignored="false" />
     <file path="/QuestionsAdapter.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368797745184" ignored="false" />
     <file path="/Question.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368327570250" ignored="false" />
     <file path="/Database.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367824917117" ignored="false" />
@@ -121,7 +111,7 @@
     <file path="/FetchQuestionTask.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368688820934" ignored="false" />
     <file path="/LoadingDialog.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367131224026" ignored="false" />
     <file path="/detail.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367935884878" ignored="false" />
-    <file path="/colors.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369123739691" ignored="false" />
+    <file path="/colors.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369372874902" ignored="false" />
     <file path="/fragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368796975221" ignored="false" />
     <file path="/zhihu.css" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368612565561" ignored="false" />
     <file path="/detail.html" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368438872690" ignored="false" />
@@ -138,7 +128,7 @@
     <file path="/QuestionsListAdapter.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367745298030" ignored="false" />
     <file path="/BaseListFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368676298536" ignored="false" />
     <file path="/QuestionsListFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368675581437" ignored="false" />
-    <file path="/DetailFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369106846616" ignored="false" />
+    <file path="/DetailFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369368129320" ignored="false" />
     <file path="/StaredListFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367912070598" ignored="false" />
     <file path="/GetMoreLocalQuestionsTask.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367766822684" ignored="false" />
     <file path="/FetchQuestion.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368187167529" ignored="false" />
@@ -146,7 +136,7 @@
     <file path="/README.md" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368207972021" ignored="false" />
     <file path="/ListPagerAdapter.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368242481825" ignored="false" />
     <file path="/ScrollTabsFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368624644372" ignored="false" />
-    <file path="/view_pages.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367899477211" ignored="false" />
+    <file path="/view_pages.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369143262253" ignored="false" />
     <file path="$PROJECT_DIR$/../TechRepublic-Samples/ViewPagerTest/src/com/kmiller/android/viewpagertest/TabListener.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367899653106" ignored="false" />
     <file path="/TabListener.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367899575443" ignored="false" />
     <file path="$PROJECT_DIR$/../TechRepublic-Samples/ViewPagerTest/src/com/kmiller/android/viewpagertest/ViewPagerTestActivity.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367899666492" ignored="false" />
@@ -165,8 +155,11 @@
     <file path="/a.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368671003205" ignored="false" />
     <file path="/sample.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368671047417" ignored="false" />
     <file path="$APPLICATION_HOME_DIR$/plugins/android/lib/android.jar!/org/jetbrains/android/android.xsd" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368694187716" ignored="false" />
-    <file path="/constants.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368700046506" ignored="false" />
-    <file path="/light_tab_indicator.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369132311808" ignored="false" />
+    <file path="/constants.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369218224114" ignored="false" />
+    <file path="/light_tab_indicator.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369218923658" ignored="false" />
+    <file path="/themes_light.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369372856163" ignored="false" />
+    <file path="/selectable_background.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369366320528" ignored="false" />
+    <file path="/styles_listview.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369372056719" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +177,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchQuestionTask.java" line="63" class="com.gracecode.iZhihu.Tasks.FetchQuestionTask" package="com.gracecode.iZhihu.Tasks">
         <option name="ENABLED" value="true" />
@@ -343,6 +335,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -377,30 +370,30 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/res/values/constants.xml" />
-        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/QuestionsAdapter.java" />
-        <option value="$PROJECT_DIR$/res/layout/listview_question_item.xml" />
-        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java" />
-        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Util.java" />
-        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchThumbnailTask.java" />
-        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/PreferencesFragment.java" />
-        <option value="$PROJECT_DIR$/res/values-zh-rCN/strings.xml" />
-        <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Dao/QuestionsDatabase.java" />
-        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/DetailFragment.java" />
-        <option value="$PROJECT_DIR$/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/BaseActivity.java" />
-        <option value="$PROJECT_DIR$/res/drawable/light_tab_indicator.xml" />
         <option value="$PROJECT_DIR$/res/values/themes.xml" />
+        <option value="$PROJECT_DIR$/res/layout/view_pages.xml" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/res/values/constants.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/light_tab_indicator.xml" />
+        <option value="$PROJECT_DIR$/res/drawable/selectable_background.xml" />
+        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/BaseActivity.java" />
+        <option value="$PROJECT_DIR$/res/values/listview_styles.xml" />
+        <option value="$PROJECT_DIR$/res/layout/listview_question_item.xml" />
+        <option value="$PROJECT_DIR$/assets/zhihu.css" />
+        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/DetailFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Detail.java" />
+        <option value="$PROJECT_DIR$/res/values/styles_listview.xml" />
         <option value="$PROJECT_DIR$/res/values/themes_light.xml" />
+        <option value="$PROJECT_DIR$/res/values/colors.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="264" />
-    <option name="y" value="22" />
-    <option name="width" value="1920" />
-    <option name="height" value="1005" />
+    <option name="x" value="201" />
+    <option name="y" value="93" />
+    <option name="width" value="1440" />
+    <option name="height" value="825" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -411,6 +404,9 @@
           </State>
           <State>
             <id>Android Lint</id>
+          </State>
+          <State>
+            <id>UI Form Problems</id>
           </State>
         </expanded-state>
       </profile-state>
@@ -442,8 +438,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -654,7 +648,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="drawable-hdpi" />
+              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -676,22 +670,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="assets" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -720,7 +702,7 @@
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="options.lastSelected" value="Errors" />
+    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.Font" />
     <property name="AndroidLayoutSelectedEditor" value="text-editor" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="project.structure.side.proportion" value="0.18655851" />
@@ -737,11 +719,11 @@
       <recent name="$PROJECT_DIR$/res/values-zh-rCN" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res/drawable" />
       <recent name="$PROJECT_DIR$/res/drawable-hdpi" />
       <recent name="$PROJECT_DIR$/res/drawable-mdpi" />
       <recent name="$PROJECT_DIR$/res/drawable-xhdpi" />
       <recent name="$PROJECT_DIR$/assets" />
-      <recent name="$PROJECT_DIR$/libs" />
     </key>
   </component>
   <component name="RunManager" selected="Android Application.iZhihu">
@@ -991,23 +973,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="264" y="22" width="1920" height="1005" extended-state="6" />
+    <frame x="201" y="93" width="1440" height="825" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890856" sideWeight="0.6722488" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.55523676" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32421342" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.397343" sideWeight="0.9971306" order="3" side_tool="false" content_ui="tabs" x="430" y="177" width="1334" height="779" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34260288" sideWeight="0.1061693" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.44476327" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23479189" sideWeight="0.62239295" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32729468" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2974753" sideWeight="0.6119082" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.442371" sideWeight="0.68230563" order="11" side_tool="false" content_ui="tabs" x="40" y="409" width="1156" height="828" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29548565" sideWeight="0.6119082" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.442371" sideWeight="0.68230563" order="11" side_tool="false" content_ui="tabs" x="40" y="199" width="1156" height="828" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930845" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2171825" sideWeight="0.62239295" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19903949" sideWeight="0.7420417" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2579583" sideWeight="0.999306" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.6785226" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32147744" sideWeight="0.999306" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29225805" sideWeight="0.73702425" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29318038" sideWeight="0.40465117" order="4" side_tool="true" content_ui="tabs" />
@@ -1015,8 +999,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29225805" sideWeight="0.73702425" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890856" sideWeight="0.6722488" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32491767" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45238096" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1088,92 +1070,111 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/values/colors.xml">
+    <entry file="jar:///usr/local/Cellar/android-sdk/r21.1/platforms/android-16/android.jar!/android/content/Context.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="24" selection-start="286" selection-end="286" vertical-scroll-proportion="0.20987654">
+        <state line="77" column="34" selection-start="4210" selection-end="4210" vertical-scroll-proportion="0.3328592" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/constants.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="116" selection-start="1054" selection-end="1054" vertical-scroll-proportion="0.61752135">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/Cellar/android-sdk/r16/platforms/android-15/data/res/values/styles.xml">
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/BaseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2317" column="17" selection-start="104872" selection-end="104872" vertical-scroll-proportion="0.33333334">
+        <state line="17" column="22" selection-start="558" selection-end="558" vertical-scroll-proportion="0.14529915">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/android-sdk/r21.1/platforms/android-16/data/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1584" column="17" selection-start="71355" selection-end="71355" vertical-scroll-proportion="0.3328592">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/android-sdk/r21.1/platforms/android-16/data/res/values/attrs.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="131" column="20" selection-start="7161" selection-end="7161" vertical-scroll-proportion="0.3328592">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/listview_question_item.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="164" selection-end="164" vertical-scroll-proportion="0.120910384">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/zhihu.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="94" column="27" selection-start="1428" selection-end="1428" vertical-scroll-proportion="0.48642534">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Detail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="284" column="5" selection-start="9473" selection-end="9473" vertical-scroll-proportion="1.0299145">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/DetailFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="17" selection-start="3921" selection-end="3921" vertical-scroll-proportion="2.0">
+        <state line="175" column="5" selection-start="6788" selection-end="6788" vertical-scroll-proportion="1.1260684">
           <folding>
-            <element signature="docComment;method#decideAutoScroll#0;class#DetailFragment#0" expanded="true" />
+            <element signature="docComment;method#genCaptureBitmap#0;class#DetailFragment#0" expanded="true" />
             <element signature="docComment;method#markStared#0;class#DetailFragment#0" expanded="true" />
-            <element signature="docComment;method#markReaded#0;class#DetailFragment#0" expanded="true" />
-            <element signature="docComment;method#getShareString#0;class#DetailFragment#0" expanded="true" />
-            <element signature="docComment;method#getOnlineShortUrl#0;class#DetailFragment#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/BaseActivity.java">
+    <entry file="file://$PROJECT_DIR$/res/values/styles_listview.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="21" selection-start="1842" selection-end="1842" vertical-scroll-proportion="0.94290125">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="34" column="52" selection-start="1608" selection-end="1608" vertical-scroll-proportion="0.9273504">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-xhdpi/ic_action_star.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="17" selection-start="354" selection-end="354" vertical-scroll-proportion="0.32692307">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_action_star.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
+    <entry file="file://$PROJECT_DIR$/assets/zepto.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_action_pref.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_action_refersh.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_action_share.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_action_unread.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-mdpi/ic_action_unread.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-mdpi/ic_action_star_selected.png">
+    <entry file="file://$PROJECT_DIR$/res/drawable/tab_selected.9.png">
       <provider selected="true" editor-type-id="images">
         <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/drawable/light_tab_indicator.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="53" selection-start="454" selection-end="454" vertical-scroll-proportion="0.18364197">
+        <state line="28" column="13" selection-start="1528" selection-end="1528" vertical-scroll-proportion="0.9273504">
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/tab_unselected.9.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/res/values/themes_light.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="56" selection-start="772" selection-end="772" vertical-scroll-proportion="0.3935185">
+        <state line="31" column="28" selection-start="1516" selection-end="1516" vertical-scroll-proportion="0.9273504">
           <folding />
         </state>
       </provider>
