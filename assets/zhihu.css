@@ -24,7 +24,7 @@
 body {
     font-family: XinGothic;
     background: #eee9e9;
-    text-shadow: 0 1px 0 #fff;
+    text-shadow: 0 1px 0 #fff5ee;
     font-size: 16px;
     color: #333;
     padding: 1em;
@@ -48,10 +48,12 @@ ul, ol {
     list-style-position: inside;
 }
 
+/*
 p {
     color: inherit;
     text-rendering: optimizeLegibility;
 }
+*/
 
 sup {
     border-left: 2px solid #999;

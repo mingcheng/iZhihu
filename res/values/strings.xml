@@ -14,7 +14,7 @@
     <string name="auto_scroll_summary">Scroll to location which has last readed.</string>
     <string name="browser">Browser</string>
     <string name="caches">Caches</string>
-    <string name="cancel_mark_as_stared">Unstar</string>
+    <string name="cancel_mark_as_stared">Unstarred</string>
     <string name="choose_email_client">Choose An Email Client</string>
     <string name="clear_caches">Clear Image Caches</string>
     <string name="clear_caches_summary" formatted="false">Total cached %d images which contains %.1fMB.</string>

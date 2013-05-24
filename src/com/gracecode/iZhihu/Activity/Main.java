@@ -22,7 +22,7 @@ public class Main extends BaseActivity {
     /**
      * 判断是否第一次启动
      *
-     * @return
+     * @return Boolean
      */
     private boolean isFirstRun() {
         Boolean isFirstrun = sharedPreferences.getBoolean(getString(R.string.app_name), true);
@@ -51,10 +51,12 @@ public class Main extends BaseActivity {
     public void onStart() {
         super.onStart();
 
-        isNeedCacheThumbnails = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
-        if (isNeedCacheThumbnails) {
-            startService(fetchThumbnailsServiceIntent);
-        }
+//        isNeedCacheThumbnails = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
+//        if (isNeedCacheThumbnails) {
+//            startService(fetchThumbnailsServiceIntent);
+//        } else {
+//            stopService(fetchThumbnailsServiceIntent);
+//        }
 
         fetchQuestionsFromServer(isFirstRun());
     }
@@ -97,6 +99,8 @@ public class Main extends BaseActivity {
                     }
                     if (isNeedCacheThumbnails && i > 0 && Util.isExternalStorageExists()) {
                         startService(fetchThumbnailsServiceIntent);
+                    } else {
+                        stopService(fetchThumbnailsServiceIntent);
                     }
                 }
             }

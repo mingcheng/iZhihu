@@ -32,7 +32,6 @@ public class FetchThumbnailsService extends Service {
     public void onCreate() {
         super.onCreate();
         this.context = getApplicationContext();
-
         this.database = new ThumbnailsDatabase(context);
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
@@ -76,11 +75,6 @@ public class FetchThumbnailsService extends Service {
         }
 
         return super.onStartCommand(intent, flags, startId);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 
     @Override
