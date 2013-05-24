@@ -69,33 +69,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62c0643c-7be3-40f5-9448-f28526b27123" name="Default" comment="修改界面，以及统一细节">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-hdpi/ic_tab_list_none_selected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/ic_tab_list_none_selected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-hdpi/ic_tab_list_selected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/ic_tab_list_selected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-hdpi/ic_tab_star_none_selected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/ic_tab_star_none_selected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-hdpi/ic_tab_star_selected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable-xhdpi/ic_tab_star_selected.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/ic_tab_list.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/ic_tab_star.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-hdpi/ic_tab_list.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-hdpi/ic_tab_star.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-xhdpi/ic_tab_list.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/drawable-xhdpi/ic_tab_star.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Service/FetchThumbnailsService.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Service/FetchThumbnailsService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="iZhihu.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369145250469" ignored="false" />
-    <file path="/strings.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369038453249" ignored="false" />
+    <file path="/strings.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369387327726" ignored="false" />
     <file path="/BaseActivity.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369380301375" ignored="false" />
     <file path="/QuestionsList.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367741705206" ignored="false" />
     <file path="/QuestionDetail.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367646683099" ignored="false" />
     <file path="/Config.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367030266888" ignored="false" />
     <file path="/FavoritesList.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367637967751" ignored="false" />
     <file path="/Detail.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369368325747" ignored="false" />
-    <file path="/Dummy.txt" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369385290598" ignored="false" />
+    <file path="/Dummy.txt" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369389562617" ignored="false" />
     <file path="/frag_questions.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367763106011" ignored="false" />
     <file path="/themes.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369131627860" ignored="false" />
     <file path="/Main.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368975359116" ignored="false" />
@@ -148,9 +135,9 @@
     <file path="/Thumbnail.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368025891794" ignored="false" />
     <file path="/ThumbnailsDatabase.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368677174627" ignored="false" />
     <file path="/QuestionsDatabase.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368683742314" ignored="false" />
-    <file path="/FetchThumbnailTask.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369037754060" ignored="false" />
+    <file path="/FetchThumbnailTask.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369388462791" ignored="false" />
     <file path="/FetchThumbnails.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368158109299" ignored="false" />
-    <file path="/FetchThumbnailsService.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368687194596" ignored="false" />
+    <file path="/FetchThumbnailsService.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369388809472" ignored="false" />
     <file path="/DetailListsAdapter.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368605387492" ignored="false" />
     <file path="/ScrollDetailFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368629907944" ignored="false" />
     <file path="/a.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369106828621" ignored="false" />
@@ -304,6 +291,51 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Service/FetchThumbnailsService.java" line="73" class="com.gracecode.iZhihu.Service.FetchThumbnailsService" package="com.gracecode.iZhihu.Service">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Service/FetchThumbnailsService.java" line="70" class="com.gracecode.iZhihu.Service.FetchThumbnailsService" package="com.gracecode.iZhihu.Service">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Service/FetchThumbnailsService.java" line="67" class="com.gracecode.iZhihu.Service.FetchThumbnailsService" package="com.gracecode.iZhihu.Service">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
     </line_breakpoints>
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
@@ -350,31 +382,7 @@
     <favorites_list name="iZhihu" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="ic_tab_list_none_selected.png" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_tab_list_none_selected.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ic_tab_list_none_selected.png" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/drawable-xhdpi/ic_tab_list_none_selected.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ic_tab_list.xml" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/res/drawable/ic_tab_list.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="12" selection-start="312" selection-end="312" vertical-scroll-proportion="0.21794872">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -400,9 +408,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/res/values/constants.xml" />
-        <option value="$PROJECT_DIR$/res/drawable/selectable_background.xml" />
-        <option value="$PROJECT_DIR$/res/values/listview_styles.xml" />
         <option value="$PROJECT_DIR$/res/layout/listview_question_item.xml" />
         <option value="$PROJECT_DIR$/assets/zhihu.css" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/DetailFragment.java" />
@@ -416,12 +421,15 @@
         <option value="$PROJECT_DIR$/res/drawable/light_tab_indicator.xml" />
         <option value="$PROJECT_DIR$/res/drawable/ic_tab_list.xml" />
         <option value="$PROJECT_DIR$/res/drawable/ic_tab_star.xml" />
+        <option value="$PROJECT_DIR$/res/values-zh-rCN/strings.xml" />
+        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchThumbnailTask.java" />
+        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Service/FetchThumbnailsService.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="201" />
-    <option name="y" value="93" />
+    <option name="x" value="181" />
+    <option name="y" value="89" />
     <option name="width" value="1440" />
     <option name="height" value="825" />
   </component>
@@ -664,6 +672,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="values-zh-rCN" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="drawable-xhdpi" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -701,6 +727,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="drawable" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -745,7 +785,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="ExportedApkPath" value="$USER_HOME$/Desktop/iZhihu_1.0.apk" />
+    <property name="ExportedApkPath" value="$USER_HOME$/Desktop/iZhihu_1.1.apk" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="139" />
     <property name="ExportedModule" value="iZhihu" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="149" />
@@ -792,16 +832,17 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res/drawable-xhdpi" />
       <recent name="$PROJECT_DIR$/res/drawable" />
       <recent name="$PROJECT_DIR$/assets" />
       <recent name="$PROJECT_DIR$/res/values-zh-rCN" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/res/drawable" />
       <recent name="$PROJECT_DIR$/res/drawable-hdpi" />
-      <recent name="$PROJECT_DIR$/res/drawable-mdpi" />
       <recent name="$PROJECT_DIR$/res/drawable-xhdpi" />
+      <recent name="$PROJECT_DIR$/res/drawable" />
       <recent name="$PROJECT_DIR$/assets" />
+      <recent name="$PROJECT_DIR$/res/drawable-mdpi" />
     </key>
   </component>
   <component name="RunManager" selected="Android Application.iZhihu">
@@ -1051,15 +1092,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="201" y="93" width="1440" height="825" extended-state="0" />
-    <editor active="true" />
+    <frame x="181" y="89" width="1440" height="825" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890856" sideWeight="0.6722488" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.55523676" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32421342" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.397343" sideWeight="0.9971306" order="3" side_tool="false" content_ui="tabs" x="430" y="177" width="1334" height="779" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39671683" sideWeight="0.9971306" order="3" side_tool="false" content_ui="tabs" x="430" y="177" width="1334" height="779" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.44476327" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23479189" sideWeight="0.62239295" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3269494" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -1068,7 +1109,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930845" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2171825" sideWeight="0.62239295" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.6785226" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24964131" sideWeight="0.6785226" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32147744" sideWeight="0.999306" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29225805" sideWeight="0.73702425" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1123,7 +1164,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改界面，以及统一细节" />
+    <option name="LAST_COMMIT_MESSAGE" value="界面以及部分文案调整，增加 LICENSE 文件" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -1140,6 +1181,7 @@
     <MESSAGE value="更新说明文件" />
     <MESSAGE value="修复标记为已读的 Bug，同时修复回退到列表页的定位问题" />
     <MESSAGE value="修改界面，以及统一细节" />
+    <MESSAGE value="界面以及部分文案调整，增加 LICENSE 文件" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1149,61 +1191,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="55" selection-start="1082" selection-end="1082" vertical-scroll-proportion="0.508547">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/DetailListsAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="13" selection-start="356" selection-end="356" vertical-scroll-proportion="0.18162394">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/ListPagerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="18" selection-start="1264" selection-end="1264" vertical-scroll-proportion="0.8717949">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="26" selection-start="354" selection-end="363" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/ScrollTabsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="0" selection-start="1693" selection-end="1693" vertical-scroll-proportion="0.4722222">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable/tab_selected.9.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_action_pref.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_action_star_selected.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_launcher.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/drawable-xhdpi/ic_tab_star_none_selected.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -1216,16 +1203,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable/light_tab_indicator.xml">
+    <entry file="file://$PROJECT_DIR$/res/drawable/ic_tab_list.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="101" selection-start="1171" selection-end="1171" vertical-scroll-proportion="0.5448718">
+        <state line="6" column="12" selection-start="312" selection-end="312" vertical-scroll-proportion="0.21794872">
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_tab_list_none_selected.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/drawable-xhdpi/ic_tab_list_none_selected.png">
@@ -1233,9 +1215,76 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/drawable/ic_tab_list.xml">
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_tab_list_none_selected.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/light_tab_indicator.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="12" selection-start="312" selection-end="312" vertical-scroll-proportion="0.21794872">
+        <state line="21" column="0" selection-start="1171" selection-end="1171" vertical-scroll-proportion="0.5277778">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/tab_selected.9.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values-zh-rCN/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="60" column="52" selection-start="3143" selection-end="3143" vertical-scroll-proportion="0.8354701">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="58" column="44" selection-start="2242" selection-end="2242" vertical-scroll-proportion="0.51495725">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/zepto.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchThumbnailTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="129" column="30" selection-start="5258" selection-end="5258" vertical-scroll-proportion="0.54751134">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Service/FetchThumbnailsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="17" selection-start="2426" selection-end="2426" vertical-scroll-proportion="0.33171913">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-xhdpi/ic_downloading.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-xhdpi/ic_action_pref.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-hdpi/ic_downloading.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>

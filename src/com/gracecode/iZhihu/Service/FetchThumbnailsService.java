@@ -65,10 +65,13 @@ public class FetchThumbnailsService extends Service {
                         fetchThumbnailTask.execute();
                     } else {
                         Util.showShortToast(context, getString(R.string.download_when_wifi_avaiable));
+                        stopSelf();
                     }
                 } else {
                     fetchThumbnailTask.execute();
                 }
+            } else {
+                stopSelf();
             }
         }
 
