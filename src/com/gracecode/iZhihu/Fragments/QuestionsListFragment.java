@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.AbsListView;
-import android.widget.Toast;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.R;
@@ -21,11 +20,16 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
     private Handler updateDataSetChangedHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what > 0) {
-                Toast.makeText(context, getString(R.string.loaded_more_data), Toast.LENGTH_SHORT).show();
+            try {
+                if (msg.what > 0) {
+                    Util.showLongToast(context, getString(R.string.loaded_more_data));
+                }
+                questionsAdapter.notifyDataSetChanged();
+            } catch (IllegalStateException e) {
+                e.printStackTrace();
+            } finally {
+                isRunning = false;
             }
-            questionsAdapter.notifyDataSetChanged();
-            isRunning = false;
         }
     };
 

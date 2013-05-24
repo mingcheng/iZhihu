@@ -43,9 +43,10 @@ public class ScrollTabsFragment extends Fragment {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.removeAllTabs();
 
-        for (String tabTitle : new String[]{getString(R.string.tab_index), getString(R.string.tab_stared)}) {
+        for (int icon : new int[]{R.drawable.ic_tab_list, R.drawable.ic_tab_star}) {
             ActionBar.Tab tab = actionBar.newTab()
-                    .setText(tabTitle)
+                    //.setText(tabTitle)
+                    .setIcon(icon)
                     .setTabListener(new MainTabListener(context, viewPager));
 
             actionBar.addTab(tab);
