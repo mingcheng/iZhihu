@@ -127,7 +127,7 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
         notificationCompat.setContentTitle(context.getString(R.string.app_name))
                 .setContentText(text)
                 .setTicker(text)
-                .setSmallIcon(R.drawable.ic_launcher);
+                .setSmallIcon(R.drawable.ic_downloading);
 
         if (urls.size() > 0) {
             notificationCompat.setProgress(urls.size(), 0, false);
