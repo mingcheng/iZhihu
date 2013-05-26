@@ -201,13 +201,21 @@ public class Util {
         showToast(context, message, Toast.LENGTH_LONG);
     }
 
-    public static void openShareIntentWithPlainText(Context context, String message) {
+
+    public static void openShareIntentWithPlainText(Context context, String title, String message) {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(Intent.EXTRA_TEXT, message);
+        intent.putExtra(Intent.EXTRA_SUBJECT, title);
+        intent.putExtra(Intent.EXTRA_TITLE, title);
         intent.setType(MIME_PLAIN_TEXT);
 
         context.startActivity(Intent.createChooser(intent, context.getString(R.string.share)));
+    }
+
+
+    public static void openShareIntentWithPlainText(Context context, String message) {
+        openShareIntentWithPlainText(context, message, "");
     }
 
     public static boolean savePref(SharedPreferences sharedPref, String key, int value) {

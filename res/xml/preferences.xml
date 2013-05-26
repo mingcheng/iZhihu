@@ -12,20 +12,6 @@
                 android:summary="@string/traditional_chinese_summary"
                 />
 
-        <CheckBoxPreference
-                android:key="@string/key_wake_lock"
-                android:title="@string/wakelock_screen"
-                android:defaultValue="true"
-                android:summary="@string/wakelock_screen_summary"
-                />
-
-        <CheckBoxPreference
-                android:key="@string/key_scroll_read"
-                android:title="@string/scroll_read"
-                android:defaultValue="true"
-                android:summary="@string/scroll_read_summary"
-                />
-
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -47,6 +33,20 @@
 
     <PreferenceCategory
             android:title="@string/read">
+
+        <CheckBoxPreference
+                android:key="@string/key_wake_lock"
+                android:title="@string/wakelock_screen"
+                android:defaultValue="true"
+                android:summary="@string/wakelock_screen_summary"
+                />
+
+        <CheckBoxPreference
+                android:key="@string/key_scroll_read"
+                android:title="@string/scroll_read"
+                android:defaultValue="true"
+                android:summary="@string/scroll_read_summary"
+                />
 
         <ListPreference
                 android:key="@string/key_font_size"
@@ -75,7 +75,8 @@
         <CheckBoxPreference
                 android:key="@string/key_auto_scroll"
                 android:title="@string/auto_scroll"
-                android:defaultValue="true"
+                android:defaultValue="false"
+                android:enabled="false"
                 android:summary="@string/auto_scroll_summary"
                 />
     </PreferenceCategory>

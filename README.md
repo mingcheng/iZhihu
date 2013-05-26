@@ -123,7 +123,7 @@
 
 * 感谢 小虎 同学提供的数据接口以及原始文档
 * 感谢设计师 Fen 对于应用界面提出的些改造和建议
-* JCC 简繁体转换工具 https://code.google.com/p/jcc/
+* 使用 JCC 正簡體字转换工具 https://code.google.com/p/jcc/
 * 使用 友盟(umeng.com) 匿名统计工具
 
 ## 联系
