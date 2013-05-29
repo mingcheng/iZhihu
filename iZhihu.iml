@@ -14,8 +14,10 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="umeng_sdk" level="project" />
-    <orderEntry type="library" name="android-support-v13" level="application" />
     <orderEntry type="library" name="jcc-bate-0.7.3" level="project" />
+    <orderEntry type="module" module-name="PullToRefreshListFragment" />
+    <orderEntry type="library" name="android-support-v13" level="application" />
+    <orderEntry type="module" module-name="library" />
   </component>
 </module>
 

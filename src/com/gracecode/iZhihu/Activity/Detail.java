@@ -112,9 +112,6 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         // 屏幕常亮控制
         this.wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, Detail.class.getName());
 
-        // ActionBar 的样式
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         // 配置项
         this.isShareByTextOnly = sharedPreferences.getBoolean(getString(R.string.key_share_text_only), false);
         this.isShareAndSave = sharedPreferences.getBoolean(getString(R.string.key_share_and_save), true);
@@ -134,6 +131,9 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, (isSetScrolltoRead) ? fragListQuestions : fragQuestionDetail)
                 .commit();
+
+        // ActionBar 的样式
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     private File getScreenShotFile() {

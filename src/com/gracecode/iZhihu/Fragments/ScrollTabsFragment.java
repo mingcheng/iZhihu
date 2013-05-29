@@ -96,7 +96,9 @@ public class ScrollTabsFragment extends Fragment {
         new Handler().post(new Runnable() {
             @Override
             public void run() {
-                listAdapter.notifyDataSetChanged();
+                if (listAdapter != null) {
+                    listAdapter.notifyDataSetChanged();
+                }
             }
         });
     }

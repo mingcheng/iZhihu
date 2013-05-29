@@ -3,17 +3,17 @@ package com.gracecode.iZhihu.Fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.AbsListView;
+import android.widget.ListView;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
 
 import java.util.ArrayList;
 
-public class QuestionsListFragment extends BaseListFragment implements AbsListView.OnScrollListener {
+public class QuestionsListFragment extends BaseListFragment implements PullToRefreshBase.OnRefreshListener2<ListView> {
     private static final String KEY_CURRENT_PAGE = "KEY_CURRENT_PAGE";
-    private static final int LOAD_DELAY_TIME = 2000;
     private int currentPage = QuestionsDatabase.FIRST_PAGE;
     private boolean isRunning = false;
 
@@ -22,13 +22,14 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
         public void handleMessage(Message msg) {
             try {
                 if (msg.what > 0) {
-                    Util.showLongToast(context, getString(R.string.loaded_more_data));
+                    questionsAdapter.notifyDataSetChanged();
+                } else {
+                    Util.showShortToast(context, getString(R.string.not_more_questions));
                 }
-                questionsAdapter.notifyDataSetChanged();
             } catch (IllegalStateException e) {
                 e.printStackTrace();
             } finally {
-                isRunning = false;
+                pull2RefreshView.onRefreshComplete();
             }
         }
     };
@@ -41,20 +42,18 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
         new Thread(new Runnable() {
             @Override
             public void run() {
+                int size = 0;
+
                 isRunning = true;
-
-                if (currentPage > questionsDatabase.getTotalPages()) {
-                    return;
-                }
-
                 try {
-                    ArrayList<Question> newDatas = questionsDatabase.getRecentQuestions(++currentPage);
-                    questions.addAll(newDatas);
-
-                    Thread.sleep(LOAD_DELAY_TIME);
-                    updateDataSetChangedHandler.sendEmptyMessage(newDatas.size());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    if (currentPage <= questionsDatabase.getTotalPages()) {
+                        ArrayList<Question> newDatas = questionsDatabase.getRecentQuestions(++currentPage);
+                        questions.addAll(newDatas);
+                        size = newDatas.size();
+                    }
+                } finally {
+                    updateDataSetChangedHandler.sendEmptyMessage(size);
+                    isRunning = false;
                 }
             }
         }).start();
@@ -73,12 +72,15 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
         } finally {
             questionsAdapter.notifyDataSetChanged();
         }
+
+        pull2RefreshView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+        pull2RefreshView.setOnRefreshListener(this);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getListView().setOnScrollListener(this);
+
     }
 
     @Override
@@ -87,17 +89,6 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
         super.onStop();
     }
 
-    @Override
-    public void onScrollStateChanged(AbsListView absListView, int i) {
-
-    }
-
-    @Override
-    public void onScroll(AbsListView absListView, int i, int i2, int i3) {
-        if (i + i2 == i3) {
-            getMoreLocalQuestions();
-        }
-    }
 
     @Override
     public ArrayList<Question> getInitialData() {
@@ -109,5 +100,25 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
         }
 
         return q;
+    }
+
+    /**
+     * 远程刷新获取条目
+     *
+     * @param refreshView
+     */
+    @Override
+    public void onPullDownToRefresh(PullToRefreshBase refreshView) {
+//        Util.showLongToast(context, "down");
+    }
+
+    /**
+     * 载入本地更多的条目
+     *
+     * @param refreshView
+     */
+    @Override
+    public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+        getMoreLocalQuestions();
     }
 }

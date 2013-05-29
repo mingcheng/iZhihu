@@ -1,25 +1,24 @@
 package com.gracecode.iZhihu.Fragments;
 
 import android.app.Activity;
-import android.app.ListFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.AdapterView;
 import com.gracecode.iZhihu.Activity.Detail;
 import com.gracecode.iZhihu.Adapter.QuestionsAdapter;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
-import com.gracecode.iZhihu.R;
+import com.handmark.pulltorefresh.extras.listfragment.PullToRefreshListFragment;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.ArrayList;
 
-abstract class BaseListFragment extends ListFragment {
+abstract class BaseListFragment extends PullToRefreshListFragment implements AdapterView.OnItemClickListener {
     QuestionsAdapter questionsAdapter;
     private Activity activity;
     Context context;
@@ -27,6 +26,7 @@ abstract class BaseListFragment extends ListFragment {
     ArrayList<Question> questions;
     int selectedPosition;
     SharedPreferences sharedPref;
+    protected PullToRefreshListView pull2RefreshView;
 
     BaseListFragment() {
         super();
@@ -47,15 +47,22 @@ abstract class BaseListFragment extends ListFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.frag_questions, container, false);
+    public void onStart() {
+        super.onStart();
+
+        // 默认关闭下拉
+        pull2RefreshView.setMode(PullToRefreshBase.Mode.DISABLED);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setListAdapter(questionsAdapter);
+
+        // 下拉 ListView 控件
+        this.pull2RefreshView = getPullToRefreshListView();
+
+        getListView().setOnItemClickListener(this);
     }
 
     ArrayList<Question> getInitialData() {
@@ -71,8 +78,10 @@ abstract class BaseListFragment extends ListFragment {
         return ids;
     }
 
-    public void onListItemClick(ListView parent, View v, int position, long id) {
-        Question question = questions.get(position);
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+        // Android-PullToRefresh 似乎增加了个不可见条目，所以要 -1
+        Question question = questions.get((pull2RefreshView != null) ? position - 1 : position);
 
         Intent intent = new Intent(activity, Detail.class);
         intent.putExtra(Detail.INTENT_EXTRA_COLUM_ID, question.id);
