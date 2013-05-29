@@ -247,9 +247,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
                             Util.openShareIntentWithPlainText(this, shareString);
                         }
                     } else {
-                        Util.openShareIntentWithPlainText(this,
-                                fragQuestionDetail.getTitle(),
-                                fragQuestionDetail.getPlainContent());
+                        Util.openShareIntentWithPlainText(this, shareString);
                     }
 
                     return true;

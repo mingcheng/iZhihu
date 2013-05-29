@@ -21,26 +21,14 @@ public class About extends BaseActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         fragWebView = new WebViewFragment();
         getFragmentManager()
-            .beginTransaction()
-            .replace(android.R.id.content, fragWebView)
-            .commit();
+                .beginTransaction()
+                .replace(android.R.id.content, fragWebView)
+                .commit();
     }
 
     @Override
     public void onStart() {
         super.onStart();
         fragWebView.getWebView().loadUrl(URL_ASSETS_PREFIX + TEMPLATE_README_FILE);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-    }
-
-    @Override
-    public String toString() {
-        return "About{" +
-                "fragWebView=" + fragWebView +
-                '}';
     }
 }

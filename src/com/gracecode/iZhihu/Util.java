@@ -215,7 +215,7 @@ public class Util {
 
 
     public static void openShareIntentWithPlainText(Context context, String message) {
-        openShareIntentWithPlainText(context, message, "");
+        openShareIntentWithPlainText(context, "", message);
     }
 
     public static boolean savePref(SharedPreferences sharedPref, String key, int value) {

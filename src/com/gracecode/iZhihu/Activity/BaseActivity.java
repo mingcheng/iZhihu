@@ -22,13 +22,15 @@ public abstract class BaseActivity extends Activity {
     protected static PackageInfo packageInfo;
     private boolean openAnalytics = true;
 
-    public BaseActivity() {
+    BaseActivity() {
         super();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // setTheme(android.R.style.Theme_Holo_Light);
 
         actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -47,8 +49,8 @@ public abstract class BaseActivity extends Activity {
         if (openAnalytics) {
             MobclickAgent.onError(this);
         }
+
         UmengUpdateAgent.update(this);
-        // setTheme(android.R.style.Theme_Holo_Light);
     }
 
     @Override
@@ -60,6 +62,7 @@ public abstract class BaseActivity extends Activity {
         }
     }
 
+    @Override
     public void onPause() {
         if (openAnalytics) {
             MobclickAgent.onPause(context);
