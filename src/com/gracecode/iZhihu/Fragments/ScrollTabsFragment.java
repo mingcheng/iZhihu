@@ -92,8 +92,7 @@ public class ScrollTabsFragment extends Fragment {
     }
 
     public void notifyDatasetChanged() {
-
-// @see http://stackoverflow.com/questions/7700226/display-fragment-viewpager-within-a-fragment
+        // @see http://stackoverflow.com/questions/7700226/display-fragment-viewpager-within-a-fragment
         new Handler().post(new Runnable() {
             @Override
             public void run() {

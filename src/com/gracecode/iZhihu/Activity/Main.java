@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-import com.gracecode.iZhihu.Fragments.BaseListFragment;
 import com.gracecode.iZhihu.Fragments.ScrollTabsFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Service.FetchThumbnailsService;
@@ -50,14 +49,6 @@ public class Main extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-
-//        isNeedCacheThumbnails = sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true);
-//        if (isNeedCacheThumbnails) {
-//            startService(fetchThumbnailsServiceIntent);
-//        } else {
-//            stopService(fetchThumbnailsServiceIntent);
-//        }
-
         fetchQuestionsFromServer(isFirstRun());
     }
 
@@ -87,8 +78,6 @@ public class Main extends BaseActivity {
                     if (focus && i > 0) {
                         Toast.makeText(context,
                                 String.format(getString(R.string.affectRows), i), Toast.LENGTH_LONG).show();
-                        Util.savePref(sharedPreferences,
-                                BaseListFragment.KEY_SELECTED_POSITION, BaseListFragment.SELECT_NONE);
                     }
                     scrollTabsFragment.notifyDatasetChanged();
                 } catch (RuntimeException e) {

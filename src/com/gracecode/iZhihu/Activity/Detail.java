@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
-import com.gracecode.iZhihu.Fragments.BaseListFragment;
 import com.gracecode.iZhihu.Fragments.DetailFragment;
 import com.gracecode.iZhihu.Fragments.ScrollDetailFragment;
 import com.gracecode.iZhihu.R;
@@ -66,7 +65,6 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     private boolean isShareAndSave = true;
     private ScrollDetailFragment fragListQuestions = null;
     private ArrayList<Integer> questionsIds = new ArrayList<>();
-    private int currnetPosition = BaseListFragment.SELECT_NONE;
     private boolean isSetScrolltoRead = true;
     private ArrayList<Integer> readedQuestionsPositions = new ArrayList<>();
 
@@ -124,16 +122,13 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         this.isShareAndSave = sharedPreferences.getBoolean(getString(R.string.key_share_and_save), true);
         this.isSetScrolltoRead = sharedPreferences.getBoolean(getString(R.string.key_scroll_read), true);
 
-
-        this.currnetPosition = getIntent().getIntExtra(BaseListFragment.KEY_SELECTED_POSITION,
-                BaseListFragment.SELECT_NONE);
         this.questionsIds = getIntent().getIntegerArrayListExtra(INTENT_EXTRA_MUTI_IDS);
 
+        // 是否是滚动阅读
         if (isSetScrolltoRead) {
             if (questionsIds.size() > 0) {
                 this.fragListQuestions = new ScrollDetailFragment(this, questionsIds, id);
             }
-            readedQuestionsPositions.add(currnetPosition);
         } else {
             this.fragQuestionDetail = new DetailFragment(id, this);
         }
@@ -190,7 +185,6 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         }
 
         if (isSetScrolltoRead) {
-            Util.savePref(sharedPreferences, BaseListFragment.KEY_SELECTED_POSITION, currnetPosition);
             for (Integer i : readedQuestionsPositions) {
                 fragListQuestions.getDetailFragment(i).markReaded();
             }
@@ -276,7 +270,6 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
     @Override
     public void onPageSelected(int i) {
-        currnetPosition = i;
         DetailFragment fragment = fragListQuestions.getCurrentDetailFragment();
         if (fragment != null) {
             readedQuestionsPositions.add(i);

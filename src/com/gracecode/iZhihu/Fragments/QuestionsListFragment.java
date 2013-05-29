@@ -61,11 +61,6 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
 
@@ -112,6 +107,7 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
         for (int i = QuestionsDatabase.FIRST_PAGE; i <= currentPage; i++) {
             q.addAll(questionsDatabase.getRecentQuestions(i));
         }
+
         return q;
     }
 }

@@ -30,7 +30,7 @@ public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewP
         this.actionBar = activity.getActionBar();
 
         this.fragmentManager = activity.getFragmentManager();
-        this.fragments = new ArrayList<Fragment>();
+        this.fragments = new ArrayList<>();
 
         fragments.add(FIRST_TAB, Fragment.instantiate(activity, TAB_CLASSES[FIRST_TAB]));
         fragments.add(SECOND_TAB, Fragment.instantiate(activity, TAB_CLASSES[SECOND_TAB]));
@@ -40,12 +40,6 @@ public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewP
     public int getItemPosition(Object object) {
         return POSITION_NONE;
     }
-
-//    @Override
-//    public void destroyItem(ViewGroup collection, int position, Object view) {
-//        fragmentManager.executePendingTransactions();
-//        fragmentManager.saveFragmentInstanceState(fragments.get(position));
-//    }
 
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
