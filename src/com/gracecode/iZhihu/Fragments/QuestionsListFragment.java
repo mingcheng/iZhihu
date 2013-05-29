@@ -94,6 +94,7 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
     public ArrayList<Question> getInitialData() {
         ArrayList<Question> q = new ArrayList<>();
 
+        // @todo 载入的页面逻辑，需要优化
         this.currentPage = sharedPref.getInt(KEY_CURRENT_PAGE, QuestionsDatabase.FIRST_PAGE);
         for (int i = QuestionsDatabase.FIRST_PAGE; i <= currentPage; i++) {
             q.addAll(questionsDatabase.getRecentQuestions(i));

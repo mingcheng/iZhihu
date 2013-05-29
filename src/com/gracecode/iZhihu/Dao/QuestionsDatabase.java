@@ -48,7 +48,7 @@ public final class QuestionsDatabase {
             "CREATE INDEX " + COLUM_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ID + ");",
             "CREATE INDEX " + COLUM_ANSWER_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ANSWER_ID + ");"
     };
-    public static final int PRE_LIMIT_PAGE_SIZE = 25;
+    public static final int PRE_LIMIT_PAGE_SIZE = 10;
     public static final int FIRST_PAGE = 1;
     private static final String[] SELECT_ALL = new String[]{
             "_id", COLUM_ID, COLUM_QUESTION_ID, COLUM_ANSWER_ID,
