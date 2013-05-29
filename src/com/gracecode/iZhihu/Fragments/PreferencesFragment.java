@@ -29,7 +29,7 @@ public class PreferencesFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.preferences);
 
         this.activity = getActivity();
-        this.thumbnailsDatabase = new ThumbnailsDatabase(activity);
+        thumbnailsDatabase = new ThumbnailsDatabase(activity);
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
 
         try {
@@ -56,7 +56,7 @@ public class PreferencesFragment extends PreferenceFragment {
     private void markVersionNumber() {
         Preference aboutPref = findPreference(getString(R.string.key_about));
         aboutPref.setSummary(
-            getString(R.string.version_tail) + " " + packageInfo.versionName + "(" + packageInfo.versionCode + ")");
+                getString(R.string.version_tail) + " " + packageInfo.versionName + "(" + packageInfo.versionCode + ")");
     }
 
 
@@ -72,8 +72,8 @@ public class PreferencesFragment extends PreferenceFragment {
 
     private void setCacheEnabled(boolean status) {
         for (String key : new String[]{
-            getString(R.string.key_only_wifi_cache),
-            getString(R.string.key_clear_caches)
+                getString(R.string.key_only_wifi_cache),
+                getString(R.string.key_clear_caches)
         }) {
             findPreference(key).setEnabled(status);
         }
@@ -94,7 +94,7 @@ public class PreferencesFragment extends PreferenceFragment {
             return true;
         } else if (getString(R.string.feedback).equals(key)) {
             String subject =
-                String.format(getString(R.string.feedback_title), getString(R.string.app_name), packageInfo.versionName);
+                    String.format(getString(R.string.feedback_title), getString(R.string.app_name), packageInfo.versionName);
             Util.sendMail(activity, new String[]{getString(R.string.author_email)}, subject, "");
             return true;
         } else if (getString(R.string.key_about).equals(key)) {
@@ -110,17 +110,17 @@ public class PreferencesFragment extends PreferenceFragment {
         } else if (getString(R.string.key_clear_caches).equals(key)) {
             if (isEnableCache) {
                 new AlertDialog.Builder(activity)
-                    .setTitle(R.string.app_name)
-                    .setMessage(R.string.really_clear_cache)
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            thumbnailsDatabase.clearAll();
-                            markCacheCountsAndSize();
-                        }
-                    })
-                    .show();
+                        .setTitle(R.string.app_name)
+                        .setMessage(R.string.really_clear_cache)
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                thumbnailsDatabase.clearAll();
+                                markCacheCountsAndSize();
+                            }
+                        })
+                        .show();
             }
             return true;
         }

@@ -17,7 +17,7 @@ public class QuestionsListFragment extends BaseListFragment implements AbsListVi
     private int currentPage = QuestionsDatabase.FIRST_PAGE;
     private boolean isRunning = false;
 
-    private Handler updateDataSetChangedHandler = new Handler() {
+    private final Handler updateDataSetChangedHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             try {

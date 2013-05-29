@@ -71,10 +71,6 @@ public class ThumbnailsDatabase {
 
         }
 
-        @Override
-        public synchronized void close() {
-            super.close();
-        }
     }
 
     public ThumbnailsDatabase(Context context) {
@@ -165,7 +161,7 @@ public class ThumbnailsDatabase {
      *
      * @return
      */
-    public int clearAll() {
+    public void clearAll() {
         List<String> cachedThumbnails = getCachedThumbnails();
         for (int i = 0, size = cachedThumbnails.size(); i < size; i++) {
             File thumbnail = new File(cachedThumbnails.get(i));
@@ -174,13 +170,13 @@ public class ThumbnailsDatabase {
 
         SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
         try {
-            return db.delete(DATABASE_THUMBNAILS_TABLE_NAME, null, null);
+            db.delete(DATABASE_THUMBNAILS_TABLE_NAME, null, null);
         } finally {
             db.close();
         }
     }
 
-    public boolean markAsCached(String url, String localPath, String mimeType, int status, int width, int height) {
+    public boolean markAsCached(String url, String localPath, String mimeType, int status) {
         File localPathFile = new File(localPath);
         if (!localPathFile.isFile() || !localPathFile.exists()) {
             return false;
@@ -190,8 +186,8 @@ public class ThumbnailsDatabase {
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUM_LOCAL_PATH, localPath);
-        contentValues.put(COLUM_WIDTH, width);
-        contentValues.put(COLUM_HEIGHT, height);
+        contentValues.put(COLUM_WIDTH, com.gracecode.iZhihu.Tasks.FetchThumbnailTask.DEFAULT_WIDTH);
+        contentValues.put(COLUM_HEIGHT, com.gracecode.iZhihu.Tasks.FetchThumbnailTask.DEFAULT_HEIGHT);
         contentValues.put(COLUM_SIZE, localPathFile.length());
         contentValues.put(COLUM_MIME_TYPE, mimeType);
         contentValues.put(COLUM_TIMESTAMP, System.currentTimeMillis());
@@ -212,7 +208,7 @@ public class ThumbnailsDatabase {
                 COLUM_LOCAL_PATH + " IS NULL AND " + COLUM_STATUS + " IS NULL", null, null, null, COLUM_ID + " DESC", null);
 
         int idxUrl = cursor.getColumnIndex(COLUM_URL);
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
 
         try {
             for (int i = 0, count = cursor.getCount(); i < count; i++) {
@@ -233,7 +229,7 @@ public class ThumbnailsDatabase {
                 COLUM_LOCAL_PATH + " IS NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, COLUM_ID + " DESC", null);
 
         int idxUrl = cursor.getColumnIndex(COLUM_LOCAL_PATH);
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
 
         try {
             for (int i = 0, count = cursor.getCount(); i < count; i++) {

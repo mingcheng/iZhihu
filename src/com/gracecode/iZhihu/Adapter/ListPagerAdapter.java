@@ -3,7 +3,6 @@ package com.gracecode.iZhihu.Adapter;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
@@ -14,22 +13,17 @@ import java.util.ArrayList;
 
 public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewPager.OnPageChangeListener {
     private static final String[] TAB_CLASSES =
-        {QuestionsListFragment.class.getName(), StaredListFragment.class.getName()};
+            {QuestionsListFragment.class.getName(), StaredListFragment.class.getName()};
 
     public static final int FIRST_TAB = 0;
     private static final int SECOND_TAB = 1;
-    private final Activity activity;
     private final ActionBar actionBar;
-    private final FragmentManager fragmentManager;
     private final ArrayList<Fragment> fragments;
 
     public ListPagerAdapter(Activity activity) {
         super(activity.getFragmentManager());
 
-        this.activity = activity;
         this.actionBar = activity.getActionBar();
-
-        this.fragmentManager = activity.getFragmentManager();
         this.fragments = new ArrayList<>();
 
         fragments.add(FIRST_TAB, Fragment.instantiate(activity, TAB_CLASSES[FIRST_TAB]));

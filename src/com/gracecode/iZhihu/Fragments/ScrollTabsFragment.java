@@ -101,9 +101,9 @@ public class ScrollTabsFragment extends Fragment {
         });
     }
 
-    public boolean savePref(String key, int value) {
+    void savePref(String key, int value) {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(key, value);
-        return editor.commit();
+        editor.commit();
     }
 }

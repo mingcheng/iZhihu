@@ -59,10 +59,10 @@ public final class QuestionsDatabase {
             COLUM_CONTENT
     };
 
-    protected File databaseFile;
+    protected final File databaseFile;
     protected DatabaseOpenHelper databaseOpenHelper;
-    protected Context context;
-    private QuestionsDatabase questionsDatabase;
+    protected final Context context;
+    private final QuestionsDatabase questionsDatabase;
 
     private int idxId;
     private int idxQuestionId;
@@ -93,10 +93,6 @@ public final class QuestionsDatabase {
         }
 
 
-        @Override
-        public synchronized void close() {
-            super.close();
-        }
     }
 
 
@@ -177,7 +173,7 @@ public final class QuestionsDatabase {
 
 
     public ArrayList<Question> getRecentQuestions(int page) {
-        ArrayList<Question> questionArrayList = new ArrayList<Question>();
+        ArrayList<Question> questionArrayList = new ArrayList<>();
         Cursor cursor = getRecentQuestionsCursor(page);
 
         for (getIndexFromCursor(cursor); cursor.moveToNext(); ) {
@@ -190,7 +186,7 @@ public final class QuestionsDatabase {
     }
 
     public ArrayList<Question> getStaredQuestions() {
-        ArrayList<Question> questionArrayList = new ArrayList<Question>();
+        ArrayList<Question> questionArrayList = new ArrayList<>();
         Cursor cursor = getStaredQuestionsCursor();
 
         try {

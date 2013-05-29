@@ -19,7 +19,7 @@ import com.gracecode.iZhihu.R;
 
 import java.util.ArrayList;
 
-public abstract class BaseListFragment extends ListFragment {
+abstract class BaseListFragment extends ListFragment {
     QuestionsAdapter questionsAdapter;
     private Activity activity;
     Context context;
@@ -50,11 +50,6 @@ public abstract class BaseListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.frag_questions, container, false);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override

@@ -12,9 +12,6 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.*;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
@@ -59,7 +56,7 @@ public class DetailFragment extends WebViewFragment {
     private boolean isShareByTextOnly = false;
     private boolean isNeedConvertTraditionalChinese = false;
 
-    private WebViewClient webViewClient = new WebViewClient() {
+    private final WebViewClient webViewClient = new WebViewClient() {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
@@ -78,7 +75,7 @@ public class DetailFragment extends WebViewFragment {
     };
 
 
-    private Runnable genScreenShots = new Runnable() {
+    private final Runnable genScreenShots = new Runnable() {
         @Override
         public void run() {
             Bitmap bitmap = null;
@@ -142,16 +139,6 @@ public class DetailFragment extends WebViewFragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -240,11 +227,6 @@ public class DetailFragment extends WebViewFragment {
         return Html.fromHtml(getFormatedContent()).toString();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
 
     private String getKeyScrollById() {
         return KEY_SCROLL_BY + this.id;
@@ -265,11 +247,6 @@ public class DetailFragment extends WebViewFragment {
                 }
             }, AUTO_SCROLL_DELAY);
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
     @Override
@@ -403,7 +380,7 @@ public class DetailFragment extends WebViewFragment {
     /**
      * 标记为已阅读
      *
-     * @return
+     * @return Boolean
      */
     public boolean markReaded() {
         return (questionsDatabase != null) && (questionsDatabase.markSingleQuestionAsReaded(id) > 0);

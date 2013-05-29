@@ -20,7 +20,7 @@ public class Util {
     public static final String DEFAULT_CHARSET = "utf-8";
     public static final String REGEX_MATCH_IMAGE = "<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>";
     public static final String MIME_IMAGE_PNG = "image/png";
-    private static String MIME_PLAIN_TEXT = "text/plain";
+    private static final String MIME_PLAIN_TEXT = "text/plain";
 
     public static void openWithBrowser(Activity activity, String url) {
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -218,9 +218,9 @@ public class Util {
         openShareIntentWithPlainText(context, "", message);
     }
 
-    public static boolean savePref(SharedPreferences sharedPref, String key, int value) {
+    public static void savePref(SharedPreferences sharedPref, String key, int value) {
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt(key, value);
-        return editor.commit();
+        editor.commit();
     }
 }

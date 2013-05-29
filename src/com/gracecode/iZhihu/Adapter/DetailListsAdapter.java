@@ -17,7 +17,7 @@ import java.util.List;
 public class DetailListsAdapter extends FragmentStatePagerAdapter {
     private final List<Integer> questionsIds;
     private final Activity activity;
-    private HashMap<Integer, Fragment> questionFragments;
+    private final HashMap<Integer, Fragment> questionFragments;
 
     public DetailListsAdapter(Activity activity, List<Integer> questionsIds) {
         super(activity.getFragmentManager());

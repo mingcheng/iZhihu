@@ -23,7 +23,6 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     public static final String INTENT_EXTRA_MUTI_IDS = "mutiIds";
     private static final String TAG = Detail.class.getName();
 
-    private int id;
     private DetailFragment fragQuestionDetail = null;
     private Menu menuItem;
     private PowerManager.WakeLock wakeLock;
@@ -33,7 +32,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     /**
      * 标记当前条目（未）收藏
      */
-    private Runnable MarkAsStared = new Runnable() {
+    private final Runnable MarkAsStared = new Runnable() {
         @Override
         public void run() {
             if (fragQuestionDetail.markStared(!fragQuestionDetail.isStared())) {
@@ -45,7 +44,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     };
 
 
-    private android.os.Handler UIChangedChangedHandler = new android.os.Handler() {
+    private final android.os.Handler UIChangedChangedHandler = new android.os.Handler() {
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what) {
@@ -64,9 +63,8 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     private boolean isShareByTextOnly = false;
     private boolean isShareAndSave = true;
     private ScrollDetailFragment fragListQuestions = null;
-    private ArrayList<Integer> questionsIds = new ArrayList<>();
     private boolean isSetScrolltoRead = true;
-    private ArrayList<Integer> readedQuestionsPositions = new ArrayList<>();
+    private final ArrayList<Integer> readedQuestionsPositions = new ArrayList<>();
 
 
     private boolean isStared() {
@@ -106,8 +104,8 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         PowerManager powerManager = ((PowerManager) getSystemService(POWER_SERVICE));
 
         // 获取当权选定的条目
-        this.id = getIntent().getIntExtra(INTENT_EXTRA_COLUM_ID, DetailFragment.ID_NOT_FOUND);
-        if (this.id == DetailFragment.ID_NOT_FOUND) {
+        int id = getIntent().getIntExtra(INTENT_EXTRA_COLUM_ID, DetailFragment.ID_NOT_FOUND);
+        if (id == DetailFragment.ID_NOT_FOUND) {
             finish();
         }
 
@@ -122,7 +120,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         this.isShareAndSave = sharedPreferences.getBoolean(getString(R.string.key_share_and_save), true);
         this.isSetScrolltoRead = sharedPreferences.getBoolean(getString(R.string.key_scroll_read), true);
 
-        this.questionsIds = getIntent().getIntegerArrayListExtra(INTENT_EXTRA_MUTI_IDS);
+        ArrayList<Integer> questionsIds = getIntent().getIntegerArrayListExtra(INTENT_EXTRA_MUTI_IDS);
 
         // 是否是滚动阅读
         if (isSetScrolltoRead) {
@@ -169,7 +167,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         File screenshots = getScreenShotFile();
         if (!isShareByTextOnly && !isShareAndSave && screenshots != null && screenshots.exists()) {
             try {
-                boolean isdeleted = screenshots.delete();
+                screenshots.delete();
             } catch (Exception e) {
                 e.printStackTrace();
             }

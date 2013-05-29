@@ -15,11 +15,11 @@ import com.gracecode.iZhihu.Util;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 
-public abstract class BaseActivity extends Activity {
-    protected static ActionBar actionBar;
+abstract class BaseActivity extends Activity {
+    static ActionBar actionBar;
     protected static Context context;
-    protected static SharedPreferences sharedPreferences;
-    protected static PackageInfo packageInfo;
+    static SharedPreferences sharedPreferences;
+    private static PackageInfo packageInfo;
     private boolean openAnalytics = true;
 
     BaseActivity() {

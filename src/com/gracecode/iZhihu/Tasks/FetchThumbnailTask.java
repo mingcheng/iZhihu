@@ -30,8 +30,8 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
     private static final String USER_AGENT_STRING = "Mozilla/5.0 (Linux; U; Android 4.2.1; en-us; device Build/FRG83)" +
             " AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Safari/533.1";
 
-    private static final int DEFAULT_HEIGHT = 0;
-    private static final int DEFAULT_WIDTH = 0;
+    public static final int DEFAULT_HEIGHT = 0;
+    public static final int DEFAULT_WIDTH = 0;
     private static final int DOWNLOAD_NOTIFY_ID = 0;
     private final ThumbnailsDatabase database;
     private final int TIMEOUT_SECONDS = 5000;
@@ -78,16 +78,15 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
                     int statusCode = httpResponse.getStatusLine().getStatusCode();
                     if (statusCode == HttpStatus.SC_OK) {
                         entity = httpResponse.getEntity();
-                        File localCacheFile = new File(getLocalPath(url));
+                        File localCacheFile = new File(getLocalPath());
 
                         if (Util.putFileContent(localCacheFile, entity.getContent())) {
                             Header contentType = httpResponse.getFirstHeader("Content-Type");
                             boolean isCached = database.markAsCached(url,
                                     localCacheFile.getAbsolutePath(),
                                     contentType.getValue(),
-                                    statusCode,
-                                    DEFAULT_WIDTH,
-                                    DEFAULT_HEIGHT);
+                                    statusCode
+                            );
 
                             if (isCached) {
                                 publishProgress(i);
@@ -96,17 +95,13 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
                         }
 
                     } else {
-                        database.markAsCached(url, null, null, statusCode, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+                        database.markAsCached(url, null, null, statusCode);
                         getRequest.abort();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
-                } finally {
-                    getRequest = null;
-                    httpResponse = null;
-                    entity = null;
                 }
             }
         }
@@ -114,7 +109,7 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
         return downloaded;
     }
 
-    private String getLocalPath(String url) {
+    private String getLocalPath() {
         long timeStamp = System.currentTimeMillis();
         File cacheDir = database.getLocalCacheDirectory();
         return cacheDir + File.separator + timeStamp;

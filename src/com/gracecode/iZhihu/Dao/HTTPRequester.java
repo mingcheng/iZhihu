@@ -36,23 +36,23 @@ public class HTTPRequester {
     private static final int HTTP_STATUS_OK = 200;
     private static final int TIMEOUT_SECONDS = 5;
 
-    protected static Context context;
+    private static Context context;
     private final SharedPreferences sharedPreferences;
 
     public HTTPRequester(Context context) {
 
-        this.context = context;
+        HTTPRequester.context = context;
         this.sharedPreferences = context.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
     }
 
 
-    public void saveSharedPreference(String key, String value) {
+    void saveSharedPreference(String key, String value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.commit();
     }
 
-    public String getSharedPreference(String key, String defaultValue) {
+    String getSharedPreference(String key, String defaultValue) {
         return sharedPreferences.getString(key, defaultValue);
     }
 
@@ -117,7 +117,7 @@ public class HTTPRequester {
         return fetch(DEFAULT_START_OFFSET);
     }
 
-    public void markRequestTimestamp(Long timestamp) {
+    void markRequestTimestamp(Long timestamp) {
         saveSharedPreference(KEY_LAST_QUERY_TIMESTAMP, String.valueOf(timestamp));
     }
 
@@ -130,10 +130,10 @@ public class HTTPRequester {
         String signString = getSignString(timeStampString);
 
         return String.format(URL_REQUEST,
-            timeStampString,
-            signString,
-            offset,
-            DEVICE_UUID);
+                timeStampString,
+                signString,
+                offset,
+                DEVICE_UUID);
     }
 
     private String getSignString(String stamp) {

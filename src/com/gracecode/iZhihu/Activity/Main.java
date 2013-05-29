@@ -16,7 +16,7 @@ import com.gracecode.iZhihu.Util;
 public class Main extends BaseActivity {
     private ScrollTabsFragment scrollTabsFragment;
     private Intent fetchThumbnailsServiceIntent;
-    private boolean isNeedCacheThumbnails = true;
+    private final boolean isNeedCacheThumbnails = true;
 
     /**
      * 判断是否第一次启动
