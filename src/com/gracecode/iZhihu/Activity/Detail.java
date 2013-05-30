@@ -29,6 +29,12 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     private static final int MESSAGE_UPDATE_START_SUCCESS = 0;
     private static final int MESSAGE_UPDATE_START_FAILD = -1;
 
+    private boolean isShareByTextOnly = false;
+    private boolean isShareAndSave = true;
+    private ScrollDetailFragment fragListQuestions = null;
+    private boolean isSetScrolltoRead = true;
+    private final ArrayList<Integer> readedQuestionsPositions = new ArrayList<>();
+
     /**
      * 标记当前条目（未）收藏
      */
@@ -44,6 +50,9 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     };
 
 
+    /**
+     * 刷新 UI 线程集中的地方
+     */
     private final android.os.Handler UIChangedChangedHandler = new android.os.Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -60,16 +69,17 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             }
         }
     };
-    private boolean isShareByTextOnly = false;
-    private boolean isShareAndSave = true;
-    private ScrollDetailFragment fragListQuestions = null;
-    private boolean isSetScrolltoRead = true;
-    private final ArrayList<Integer> readedQuestionsPositions = new ArrayList<>();
 
 
+    /**
+     * 判断是否标记星标
+     *
+     * @return
+     */
     private boolean isStared() {
         return (fragQuestionDetail != null) && fragQuestionDetail.isStared();
     }
+
 
     /**
      * 更新 ActionBar 的收藏图标，并返回状态
@@ -96,6 +106,37 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     }
 
 
+    /**
+     * 获取截图文件
+     *
+     * @return
+     */
+    private File getScreenShotFile() {
+        if (fragQuestionDetail == null) {
+            return null;
+        }
+
+        int id = fragQuestionDetail.getQuestionId();
+        if (id != DetailFragment.ID_NOT_FOUND) {
+            File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+            return new File(pictureDirectory, id + ".png");
+        } else {
+            return null;
+        }
+    }
+
+
+    /**
+     * 更新当前的条目
+     *
+     * @param fragment
+     */
+    public void updateCurrentQuestion(DetailFragment fragment) {
+        this.fragQuestionDetail = fragment;
+        updateMenu();
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +149,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         if (id == DetailFragment.ID_NOT_FOUND) {
             finish();
         }
+        ArrayList<Integer> questionsIds = getIntent().getIntegerArrayListExtra(INTENT_EXTRA_MUTI_IDS);
 
         // 屏幕常亮控制
         this.wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, Detail.class.getName());
@@ -116,8 +158,6 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         this.isShareByTextOnly = sharedPreferences.getBoolean(getString(R.string.key_share_text_only), false);
         this.isShareAndSave = sharedPreferences.getBoolean(getString(R.string.key_share_and_save), true);
         this.isSetScrolltoRead = sharedPreferences.getBoolean(getString(R.string.key_scroll_read), true);
-
-        ArrayList<Integer> questionsIds = getIntent().getIntegerArrayListExtra(INTENT_EXTRA_MUTI_IDS);
 
         // 是否是滚动阅读
         if (isSetScrolltoRead) {
@@ -134,20 +174,6 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
         // ActionBar 的样式
         actionBar.setDisplayHomeAsUpEnabled(true);
-    }
-
-    private File getScreenShotFile() {
-        if (fragQuestionDetail == null) {
-            return null;
-        }
-
-        int id = fragQuestionDetail.getQuestionId();
-        if (id != DetailFragment.ID_NOT_FOUND) {
-            File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            return new File(pictureDirectory, id + ".png");
-        } else {
-            return null;
-        }
     }
 
 
@@ -251,20 +277,12 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         return super.onOptionsItemSelected(item);
     }
 
-    public void updateCurrentQuestion(DetailFragment fragment) {
-        this.fragQuestionDetail = fragment;
-        updateMenu();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     public void onPageScrolled(int i, float v, int i2) {
 
     }
+
 
     @Override
     public void onPageSelected(int i) {
@@ -274,6 +292,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             updateCurrentQuestion(fragment);
         }
     }
+
 
     @Override
     public void onPageScrollStateChanged(int i) {

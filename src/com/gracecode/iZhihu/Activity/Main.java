@@ -30,27 +30,32 @@ public class Main extends BaseActivity {
             editor.putBoolean(getString(R.string.app_name), false);
             editor.commit();
         }
+
         return isFirstrun;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         scrollTabsFragment = new ScrollTabsFragment();
+        fetchThumbnailsServiceIntent = new Intent(this, FetchThumbnailsService.class);
+
         getFragmentManager()
                 .beginTransaction()
                 .replace(android.R.id.content, scrollTabsFragment)
                 .commit();
-
-        fetchThumbnailsServiceIntent = new Intent(this, FetchThumbnailsService.class);
     }
+
 
     @Override
     public void onStart() {
         super.onStart();
+
         fetchQuestionsFromServer(isFirstRun());
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -58,6 +63,12 @@ public class Main extends BaseActivity {
         return true;
     }
 
+
+    /**
+     * 从服务器获取条目
+     *
+     * @param focus 强制刷新
+     */
     void fetchQuestionsFromServer(final Boolean focus) {
         FetchQuestionTask task = new FetchQuestionTask(context, new FetchQuestionTask.Callback() {
             private ProgressDialog progressDialog;
@@ -86,7 +97,9 @@ public class Main extends BaseActivity {
                     if (progressDialog != null) {
                         progressDialog.dismiss();
                     }
-                    if (isNeedCacheThumbnails && i > 0 && Util.isExternalStorageExists()) {
+
+                    // 离线下载图片
+                    if (Util.isExternalStorageExists() && isNeedCacheThumbnails && i > 0) {
                         startService(fetchThumbnailsServiceIntent);
                     } else {
                         stopService(fetchThumbnailsServiceIntent);
@@ -97,6 +110,7 @@ public class Main extends BaseActivity {
 
         task.execute(focus);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
