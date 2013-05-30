@@ -69,18 +69,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62c0643c-7be3-40f5-9448-f28526b27123" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Detail.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Detail.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android-PullToRefresh/extras/PullToRefreshListFragment/src/com/handmark/pulltorefresh/extras/listfragment/PullToRefreshBaseListFragment.java" afterPath="$PROJECT_DIR$/../Android-PullToRefresh/extras/PullToRefreshListFragment/src/com/handmark/pulltorefresh/extras/listfragment/PullToRefreshBaseListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android-PullToRefresh/extras/PullToRefreshListFragment/src/com/handmark/pulltorefresh/extras/listfragment/PullToRefreshExpandableListFragment.java" afterPath="$PROJECT_DIR$/../Android-PullToRefresh/extras/PullToRefreshListFragment/src/com/handmark/pulltorefresh/extras/listfragment/PullToRefreshExpandableListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android-PullToRefresh/extras/PullToRefreshListFragment/src/com/handmark/pulltorefresh/extras/listfragment/PullToRefreshListFragment.java" afterPath="$PROJECT_DIR$/../Android-PullToRefresh/extras/PullToRefreshListFragment/src/com/handmark/pulltorefresh/extras/listfragment/PullToRefreshListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android-PullToRefresh/sample/src/com/handmark/pulltorefresh/samples/PullToRefreshListFragmentActivity.java" afterPath="$PROJECT_DIR$/../Android-PullToRefresh/sample/src/com/handmark/pulltorefresh/samples/PullToRefreshListFragmentActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android-PullToRefresh/extras/PullToRefreshViewPager/src/com/handmark/pulltorefresh/extras/viewpager/PullToRefreshViewPager.java" afterPath="$PROJECT_DIR$/../Android-PullToRefresh/extras/PullToRefreshViewPager/src/com/handmark/pulltorefresh/extras/viewpager/PullToRefreshViewPager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android-PullToRefresh/library/src/com/handmark/pulltorefresh/library/internal/RotateLoadingLayout.java" afterPath="$PROJECT_DIR$/../Android-PullToRefresh/library/src/com/handmark/pulltorefresh/library/internal/RotateLoadingLayout.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android-PullToRefresh/sample/res/layout/activity_ptr_grid.xml" afterPath="$PROJECT_DIR$/../Android-PullToRefresh/sample/res/layout/activity_ptr_grid.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android-PullToRefresh/sample/res/layout/activity_ptr_list_fragment.xml" afterPath="$PROJECT_DIR$/../Android-PullToRefresh/sample/res/layout/activity_ptr_list_fragment.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Android-PullToRefresh/library/res/values-zh/pull_refresh_strings.xml" afterPath="$PROJECT_DIR$/../Android-PullToRefresh/library/res/values-zh/pull_refresh_strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/about.html" afterPath="$PROJECT_DIR$/assets/about.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -94,7 +83,7 @@
     <file path="/Config.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367030266888" ignored="false" />
     <file path="/FavoritesList.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367637967751" ignored="false" />
     <file path="/Detail.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369884119384" ignored="false" />
-    <file path="/Dummy.txt" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369882873938" ignored="false" />
+    <file path="/Dummy.txt" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369884212753" ignored="false" />
     <file path="/frag_questions.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367763106011" ignored="false" />
     <file path="/themes.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369131627860" ignored="false" />
     <file path="/Main.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369883261748" ignored="false" />
@@ -364,6 +353,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -419,7 +422,7 @@
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="options.lastSelected" value="project.propVCSSupport.Confirmation" />
+    <property name="options.lastSelected" value="application.passwordSafe" />
     <property name="project.structure.side.proportion" value="0.18808413" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
@@ -722,11 +725,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.44476327" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23479189" sideWeight="0.62239295" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3269494" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3731513" sideWeight="0.6119082" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.442371" sideWeight="0.68230563" order="11" side_tool="false" content_ui="tabs" x="528" y="76" width="1156" height="828" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930845" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21685083" sideWeight="0.62239295" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26243094" sideWeight="0.7554039" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26243094" sideWeight="0.6268487" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24459614" sideWeight="0.999306" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29225805" sideWeight="0.73702425" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -737,7 +741,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890856" sideWeight="0.6722488" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32309443" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3731513" sideWeight="0.6119082" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4516496" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -784,7 +787,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化每页的载入逻辑" />
+    <option name="LAST_COMMIT_MESSAGE" value=" 重构语法方面的代码" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -807,9 +810,9 @@
     <MESSAGE value="增加简繁体互换的功能" />
     <MESSAGE value="调整纯文本分享的内容" />
     <MESSAGE value="清除 ListView 定位代码（性能太差）" />
-    <MESSAGE value=" 重构语法方面的代码" />
     <MESSAGE value=" 增加滑动载入更多的交互" />
     <MESSAGE value="优化每页的载入逻辑" />
+    <MESSAGE value=" 重构语法方面的代码" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -831,12 +834,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../Android-PullToRefresh/library/res/values-zh/pull_refresh_strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="82" selection-start="332" selection-end="332" vertical-scroll-proportion="0.182708" />
+        <state line="7" column="82" selection-start="332" selection-end="332" vertical-scroll-proportion="0.182708">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../Android-PullToRefresh/library/src/com/handmark/pulltorefresh/library/PullToRefreshBase.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1320" column="82" selection-start="37711" selection-end="37711" vertical-scroll-proportion="0.31484503" />
+        <state line="1320" column="82" selection-start="37711" selection-end="37711" vertical-scroll-proportion="0.31484503">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../Android-PullToRefresh/library/src/com/handmark/pulltorefresh/library/PullToRefreshListView.java">
@@ -921,7 +928,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="44" selection-start="1952" selection-end="1952" vertical-scroll-proportion="0.8836663">
+        <state line="56" column="52" selection-start="2171" selection-end="2171" vertical-scroll-proportion="1.052879">
           <folding />
         </state>
       </provider>
