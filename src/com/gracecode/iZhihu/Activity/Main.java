@@ -4,12 +4,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
 import com.gracecode.iZhihu.Fragments.ScrollTabsFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Service.FetchThumbnailsService;
@@ -56,7 +58,7 @@ public class Main extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        fetchQuestionsFromServer(isFirstRun());
+        fetchQuestionsFromServer(false);
     }
 
 
@@ -80,19 +82,29 @@ public class Main extends BaseActivity {
 
             @Override
             public void onPreExecute() {
-                if (focus) {
+                if (isFirstRun()) {
                     progressDialog = ProgressDialog.show(Main.this,
                             getString(R.string.app_name), getString(R.string.loading), false, false);
                 }
 
-                if (menuRefersh != null) {
+                if (focus && menuRefersh != null) {
                     Animation rotation = AnimationUtils.loadAnimation(context, R.anim.refresh_rotate);
 
-                    ImageView v = new ImageView(context);
-                    v.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_refersh));
-                    v.startAnimation(rotation);
+                    RelativeLayout layout = new RelativeLayout(context);
+                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.MATCH_PARENT,
+                            RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-                    menuRefersh.setActionView(v);
+                    ImageView imageView = new ImageView(context);
+                    imageView.setLayoutParams(params);
+
+                    layout.setGravity(Gravity.CENTER_VERTICAL | Gravity.TOP);
+                    layout.addView(imageView);
+
+                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_refersh));
+                    imageView.startAnimation(rotation);
+
+                    menuRefersh.setActionView(layout);
                 }
             }
 
@@ -102,8 +114,7 @@ public class Main extends BaseActivity {
                 try {
                     i = (Integer) affectedRows;
                     if (focus && i > 0) {
-                        Toast.makeText(context,
-                                String.format(getString(R.string.affectRows), i), Toast.LENGTH_LONG).show();
+                        Util.showLongToast(context, String.format(getString(R.string.affectRows)));
                     }
                     scrollTabsFragment.notifyDatasetChanged();
                 } catch (RuntimeException e) {
@@ -121,7 +132,10 @@ public class Main extends BaseActivity {
                     }
 
                     if (menuRefersh != null) {
-                        menuRefersh.getActionView().clearAnimation();
+                        View v = menuRefersh.getActionView();
+                        if (v != null) {
+                            v.clearAnimation();
+                        }
                         menuRefersh.setActionView(null);
                     }
                 }
@@ -136,7 +150,7 @@ public class Main extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_refresh:
-                fetchQuestionsFromServer(false);
+                fetchQuestionsFromServer(true);
                 return true;
         }
 
