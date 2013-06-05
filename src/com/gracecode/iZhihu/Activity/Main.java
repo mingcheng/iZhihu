@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.gracecode.iZhihu.Fragments.ScrollTabsFragment;
 import com.gracecode.iZhihu.R;
@@ -17,6 +20,7 @@ public class Main extends BaseActivity {
     private ScrollTabsFragment scrollTabsFragment;
     private Intent fetchThumbnailsServiceIntent;
     private final boolean isNeedCacheThumbnails = true;
+    private MenuItem menuRefersh = null;
 
     /**
      * 判断是否第一次启动
@@ -52,7 +56,6 @@ public class Main extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-
         fetchQuestionsFromServer(isFirstRun());
     }
 
@@ -60,6 +63,8 @@ public class Main extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+
+        menuRefersh = menu.findItem(R.id.menu_refresh);
         return true;
     }
 
@@ -78,6 +83,16 @@ public class Main extends BaseActivity {
                 if (focus) {
                     progressDialog = ProgressDialog.show(Main.this,
                             getString(R.string.app_name), getString(R.string.loading), false, false);
+                }
+
+                if (menuRefersh != null) {
+                    Animation rotation = AnimationUtils.loadAnimation(context, R.anim.refresh_rotate);
+
+                    ImageView v = new ImageView(context);
+                    v.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_refersh));
+                    v.startAnimation(rotation);
+
+                    menuRefersh.setActionView(v);
                 }
             }
 
@@ -104,6 +119,11 @@ public class Main extends BaseActivity {
                     } else {
                         stopService(fetchThumbnailsServiceIntent);
                     }
+
+                    if (menuRefersh != null) {
+                        menuRefersh.getActionView().clearAnimation();
+                        menuRefersh.setActionView(null);
+                    }
                 }
             }
         });
@@ -116,7 +136,7 @@ public class Main extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_refresh:
-                fetchQuestionsFromServer(true);
+                fetchQuestionsFromServer(false);
                 return true;
         }
 

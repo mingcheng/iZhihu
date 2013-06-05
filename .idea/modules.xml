@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../Android-PullToRefresh/library/PullToRefresh.iml" filepath="$PROJECT_DIR$/../Android-PullToRefresh/library/PullToRefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Android-PullToRefresh/extras/PullToRefreshListFragment/PullToRefreshListFragment.iml" filepath="$PROJECT_DIR$/../Android-PullToRefresh/extras/PullToRefreshListFragment/PullToRefreshListFragment.iml" />
       <module fileurl="file://$PROJECT_DIR$/iZhihu.iml" filepath="$PROJECT_DIR$/iZhihu.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../Android-PullToRefresh/library/library.iml" filepath="$PROJECT_DIR$/../Android-PullToRefresh/library/library.iml" />
     </modules>
   </component>
 </project>
