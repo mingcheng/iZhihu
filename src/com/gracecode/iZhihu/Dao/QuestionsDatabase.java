@@ -48,7 +48,7 @@ public final class QuestionsDatabase {
             "CREATE INDEX " + COLUM_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ID + ");",
             "CREATE INDEX " + COLUM_ANSWER_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ANSWER_ID + ");"
     };
-    public static final int PRE_LIMIT_PAGE_SIZE = 3;
+    public static final int PRE_LIMIT_PAGE_SIZE = 12;
     public static final int FIRST_PAGE = 1;
     private static final String[] SELECT_ALL = new String[]{
             "_id", COLUM_ID, COLUM_QUESTION_ID, COLUM_ANSWER_ID,
@@ -149,7 +149,7 @@ public final class QuestionsDatabase {
     protected Cursor getRecentQuestionsCursor(int page) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
         Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, null, null, null, null,
-                COLUM_UPDATE_AT + " DESC " + "LIMIT " + (page - 1) * PRE_LIMIT_PAGE_SIZE + "," + PRE_LIMIT_PAGE_SIZE);
+                COLUM_UPDATE_AT + " DESC " + " LIMIT " + (page - 1) * PRE_LIMIT_PAGE_SIZE + "," + "" + (PRE_LIMIT_PAGE_SIZE + 1));
         cursor.moveToFirst();
         return cursor;
     }
