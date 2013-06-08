@@ -3,10 +3,11 @@ package com.gracecode.iZhihu.Adapter;
 import android.app.Activity;
 import android.app.Fragment;
 import android.support.v13.app.FragmentStatePagerAdapter;
+import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Fragments.DetailFragment;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,32 +16,32 @@ import java.util.List;
  * Date: 13-5-15
  */
 public class DetailListsAdapter extends FragmentStatePagerAdapter {
-    private final List<Integer> questionsIds;
     private final Activity activity;
     private final HashMap<Integer, Fragment> questionFragments;
+    private final ArrayList<Question> questions;
 
-    public DetailListsAdapter(Activity activity, List<Integer> questionsIds) {
+    public DetailListsAdapter(Activity activity, ArrayList<Question> questions) {
         super(activity.getFragmentManager());
 
         this.activity = activity;
-        this.questionsIds = questionsIds;
+        this.questions = questions;
         this.questionFragments = new HashMap<>();
     }
 
     @Override
     public Fragment getItem(int i) {
-        int id = questionsIds.get(i);
-        if (questionFragments.containsKey(id)) {
-            return questionFragments.get(id);
+        Question question = questions.get(i);
+        if (questionFragments.containsKey(i)) {
+            return questionFragments.get(i);
         }
 
-        Fragment fragment = new DetailFragment(id, activity);
-        questionFragments.put(id, fragment);
+        Fragment fragment = new DetailFragment(activity, question);
+        questionFragments.put(i, fragment);
         return fragment;
     }
 
     @Override
     public int getCount() {
-        return questionsIds.size();
+        return questions.size();
     }
 }

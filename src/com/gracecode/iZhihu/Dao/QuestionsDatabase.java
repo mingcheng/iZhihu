@@ -48,7 +48,7 @@ public final class QuestionsDatabase {
             "CREATE INDEX " + COLUM_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ID + ");",
             "CREATE INDEX " + COLUM_ANSWER_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ANSWER_ID + ");"
     };
-    public static final int PRE_LIMIT_PAGE_SIZE = 10;
+    public static final int PRE_LIMIT_PAGE_SIZE = 3;
     public static final int FIRST_PAGE = 1;
     private static final String[] SELECT_ALL = new String[]{
             "_id", COLUM_ID, COLUM_QUESTION_ID, COLUM_ANSWER_ID,
@@ -201,7 +201,6 @@ public final class QuestionsDatabase {
         }
     }
 
-
     private void getIndexFromCursor(Cursor cursor) {
         this.idxId = cursor.getColumnIndex(QuestionsDatabase.COLUM_ID);
         this.idxQuestionId = cursor.getColumnIndex(QuestionsDatabase.COLUM_QUESTION_ID);
@@ -216,19 +215,20 @@ public final class QuestionsDatabase {
     }
 
     private Question convertCursorIntoQuestion(Cursor cursor) {
-        Question question = new Question(this);
-        question.id = cursor.getInt(idxId);
-        question.questionId = cursor.getInt(idxQuestionId);
-        question.answerId = cursor.getInt(idxAnswerId);
+        Question question = new Question();
 
-        question.title = cursor.getString(idxTitle);
-        question.content = cursor.getString(idxContent);
-        question.description = cursor.getString(idxDespcrition);
-        question.userName = cursor.getString(idxUserName);
-        question.updateAt = cursor.getString(idxUpdateAt);
+        question.setId(cursor.getInt(idxId));
+        question.setQuestionId(cursor.getInt(idxQuestionId));
+        question.setAnswerId(cursor.getInt(idxAnswerId));
 
-        question.stared = (cursor.getInt(idxStared) == VALUE_STARED);
-        question.unread = (cursor.getInt(idxUnread) == VALUE_UNREADED);
+        question.setTitle(cursor.getString(idxTitle));
+        question.setContent(cursor.getString(idxContent));
+        question.setDescription(cursor.getString(idxDespcrition));
+        question.setUserName(cursor.getString(idxUserName));
+        question.setUpdateAt(cursor.getString(idxUpdateAt));
+
+        question.setStared(cursor.getInt(idxStared) == VALUE_STARED);
+        question.setUnread(cursor.getInt(idxUnread) == VALUE_UNREADED);
 
         return question;
     }
@@ -259,7 +259,7 @@ public final class QuestionsDatabase {
      * @throws QuestionNotFoundException
      */
     public Question getSingleQuestion(int id) {
-        Question question = new Question(this);
+        Question question = new Question();
         Cursor cursor = getSingleQuestionCursor(id);
 
         try {
@@ -275,49 +275,58 @@ public final class QuestionsDatabase {
     }
 
 
-    public int markSingleQuestionAsReaded(int id) {
+    synchronized public int markAsRead(int id) {
         SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
-
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUM_UNREAD, VALUE_READED);
 
         try {
-            return db.update(DATABASE_QUESTIONS_TABLE_NAME, contentValues, COLUM_ID + " = ?", new String[]{String.valueOf(id)});
+            return db.update(DATABASE_QUESTIONS_TABLE_NAME, contentValues,
+                    COLUM_ID + " = ?", new String[]{String.valueOf(id)});
         } finally {
             db.close();
         }
     }
 
 
-    protected boolean isStared(int id) {
+    private int getSingleIntFieldValue(int id, String field) {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
-        String sql = "SELECT " + COLUM_STARED + " FROM " + DATABASE_QUESTIONS_TABLE_NAME +
+
+        String sql = "SELECT " + field + " FROM " + DATABASE_QUESTIONS_TABLE_NAME +
                 " WHERE " + COLUM_ID + " = " + id + " LIMIT 1";
 
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.getCount() != 1) {
-            return false;
+            return -1;
         }
 
         try {
             cursor.moveToFirst();
-            int result = cursor.getInt(cursor.getColumnIndex(QuestionsDatabase.COLUM_STARED));
-            return (result == VALUE_STARED);
+            return cursor.getInt(cursor.getColumnIndex(field));
         } finally {
             cursor.close();
             db.close();
         }
     }
 
+    synchronized public boolean isStared(int id) {
+        int value = getSingleIntFieldValue(id, COLUM_STARED);
+        return (value == VALUE_STARED) ? true : false;
+    }
 
-    public int markQuestionAsStared(int id, boolean flag) {
+    synchronized public boolean isUnread(int id) {
+        int value = getSingleIntFieldValue(id, COLUM_UNREAD);
+        return (value == VALUE_READED) ? false : true;
+    }
+
+    synchronized public int markQuestionAsStared(int id, boolean flag) {
         SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
-
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUM_STARED, flag ? VALUE_STARED : VALUE_UNSTARED);
 
         try {
-            return db.update(DATABASE_QUESTIONS_TABLE_NAME, contentValues, COLUM_ID + " = ?", new String[]{String.valueOf(id)});
+            return db.update(DATABASE_QUESTIONS_TABLE_NAME, contentValues,
+                    COLUM_ID + " = ?", new String[]{String.valueOf(id)});
         } finally {
             db.close();
         }
@@ -332,7 +341,7 @@ public final class QuestionsDatabase {
      * @throws JSONException
      * @throws SQLiteException
      */
-    public long insertSingleQuestion(JSONObject question) throws JSONException, SQLiteException {
+    synchronized public long insertSingleQuestion(JSONObject question) throws JSONException, SQLiteException {
         SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
@@ -360,7 +369,7 @@ public final class QuestionsDatabase {
     /**
      * 关闭数据库
      */
-    public void close() {
+    synchronized public void close() {
         if (databaseOpenHelper != null) {
             databaseOpenHelper.close();
             databaseOpenHelper = null;

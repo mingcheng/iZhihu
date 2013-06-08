@@ -9,9 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.gracecode.iZhihu.Activity.Detail;
 import com.gracecode.iZhihu.Adapter.DetailListsAdapter;
+import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.R;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,17 +21,17 @@ import java.util.List;
  * Date: 13-5-15
  */
 public class ScrollDetailFragment extends Fragment {
-    private final List<Integer> questionIds;
-    private final Integer selectedId;
     private final Detail detailActivity;
+    private final ArrayList<Question> questions;
+    private final Integer position;
     private ViewPager viewPager;
     private Activity activity;
     private DetailListsAdapter adapter;
 
-    public ScrollDetailFragment(Detail detailActivity, List<Integer> questionIds, Integer selectedId) {
+    public ScrollDetailFragment(Detail detailActivity, ArrayList<Question> questions, Integer position) {
         this.detailActivity = detailActivity;
-        this.questionIds = questionIds;
-        this.selectedId = selectedId;
+        this.questions = questions;
+        this.position = position;
     }
 
     @Override
@@ -45,35 +46,10 @@ public class ScrollDetailFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         this.activity = getActivity();
-        this.adapter = new DetailListsAdapter(activity, questionIds);
+        this.adapter = new DetailListsAdapter(activity, questions);
 
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(detailActivity);
-        viewPager.setCurrentItem(questionIds.indexOf(selectedId));
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        detailActivity.updateCurrentQuestion(getCurrentDetailFragment());
-    }
-
-    public DetailFragment getDetailFragment(int pos) {
-        Fragment fragment = adapter.getItem(pos);
-        if (fragment instanceof DetailFragment) {
-            return (DetailFragment) fragment;
-        } else {
-            return null;
-        }
-    }
-
-    public DetailFragment getCurrentDetailFragment() {
-        int currentItem = viewPager.getCurrentItem();
-        Fragment fragment = adapter.getItem(currentItem);
-        if (fragment instanceof DetailFragment) {
-            return (DetailFragment) fragment;
-        } else {
-            return null;
-        }
+        viewPager.setCurrentItem(position);
     }
 }

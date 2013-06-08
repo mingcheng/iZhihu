@@ -15,7 +15,6 @@ import java.util.ArrayList;
 public class QuestionsListFragment extends BaseListFragment implements PullToRefreshBase.OnRefreshListener2<ListView> {
     private static final String KEY_CURRENT_PAGE = "KEY_CURRENT_PAGE";
     private int currentPage = QuestionsDatabase.FIRST_PAGE;
-    private boolean isRunning = false;
 
     private final Handler updateDataSetChangedHandler = new Handler() {
         @Override
@@ -34,74 +33,88 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
         }
     };
 
-    private void getMoreLocalQuestions() {
-        if (isRunning) {
-            return;
-        }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            this.currentPage = savedInstanceState.getInt(KEY_CURRENT_PAGE);
+        }
+    }
+
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt(KEY_CURRENT_PAGE, currentPage);
+        super.onSaveInstanceState(outState);
+    }
+
+
+    /**
+     * Get more times from database.
+     */
+    synchronized private void getMoreQuestionsFromDatabase() {
         new Thread(new Runnable() {
+            private static final long DELAY_TIME = 1000;
+
             @Override
             public void run() {
                 int size = 0;
-
-                isRunning = true;
                 try {
+                    Thread.sleep(DELAY_TIME);
+
                     if (currentPage <= questionsDatabase.getTotalPages()) {
                         ArrayList<Question> newDatas = questionsDatabase.getRecentQuestions(++currentPage);
                         questions.addAll(newDatas);
                         size = newDatas.size();
                     }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 } finally {
                     updateDataSetChangedHandler.sendEmptyMessage(size);
-                    isRunning = false;
                 }
             }
         }).start();
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
-
-        try {
-            Question question = questions.get(selectedPosition);
-            questions.remove(selectedPosition);
-            questions.add(selectedPosition, questionsDatabase.getSingleQuestion(question.id));
-        } catch (IndexOutOfBoundsException e) {
-            e.printStackTrace();
-        } finally {
-            questionsAdapter.notifyDataSetChanged();
-        }
 
         pull2RefreshView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
         pull2RefreshView.setOnRefreshListener(this);
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onResume() {
+        if (questions != null) {
+            for (Question question : questions) {
+                question.setUnread(questionsDatabase.isUnread(question.getId()));
+                question.setStared(questionsDatabase.isStared(question.getId()));
+            }
+        }
 
+        super.onResume();
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+
+    @Override
     public void onStop() {
-        Util.savePref(sharedPref, KEY_CURRENT_PAGE, currentPage);
         super.onStop();
     }
 
 
     @Override
     public ArrayList<Question> getInitialData() {
-        ArrayList<Question> q = new ArrayList<>();
-
-        // @todo 载入的页面逻辑，需要优化
-        this.currentPage = sharedPref.getInt(KEY_CURRENT_PAGE, QuestionsDatabase.FIRST_PAGE);
-        for (int i = QuestionsDatabase.FIRST_PAGE; i <= currentPage; i++) {
-            q.addAll(questionsDatabase.getRecentQuestions(i));
-        }
-
-        return q;
+        return getRecentQuestion();
     }
+
 
     /**
      * 远程刷新获取条目
@@ -110,8 +123,9 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
      */
     @Override
     public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-//        Util.showLongToast(context, "down");
+
     }
+
 
     /**
      * 载入本地更多的条目
@@ -120,6 +134,6 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
      */
     @Override
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-        getMoreLocalQuestions();
+        getMoreQuestionsFromDatabase();
     }
 }

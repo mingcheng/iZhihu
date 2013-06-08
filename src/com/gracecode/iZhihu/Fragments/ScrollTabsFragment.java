@@ -55,8 +55,12 @@ public class ScrollTabsFragment extends Fragment {
 
     @Override
     public void onResume() {
-        super.onResume();
+        int selectIndex = sharedPref.getInt(KEY_CURRENT_TAB, ListPagerAdapter.FIRST_TAB);
+        actionBar.setSelectedNavigationItem(selectIndex);
+        viewPager.setCurrentItem(selectIndex);
+
         notifyDatasetChanged();
+        super.onResume();
     }
 
     @Override
@@ -73,21 +77,11 @@ public class ScrollTabsFragment extends Fragment {
         this.context = activity.getApplicationContext();
         this.actionBar = activity.getActionBar();
         this.sharedPref = context.getSharedPreferences(getString(R.string.app_name), Context.MODE_PRIVATE);
+        this.listAdapter = new ListPagerAdapter(activity);
 
-        listAdapter = new ListPagerAdapter(activity);
+        viewPager.setAdapter(listAdapter);
+        viewPager.setOnPageChangeListener(listAdapter);
 
-        // @todo this is shit!
-        new Handler().post(new Runnable() {
-            @Override
-            public void run() {
-                viewPager.setAdapter(listAdapter);
-                viewPager.setOnPageChangeListener(listAdapter);
-
-                int selectIndex = sharedPref.getInt(KEY_CURRENT_TAB, ListPagerAdapter.FIRST_TAB);
-                actionBar.setSelectedNavigationItem(selectIndex);
-                viewPager.setCurrentItem(selectIndex);
-            }
-        });
         rebuildTables();
     }
 

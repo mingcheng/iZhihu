@@ -7,14 +7,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Picture;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.webkit.*;
 import com.gracecode.iZhihu.Dao.Question;
-import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
@@ -35,16 +33,12 @@ public class DetailFragment extends WebViewFragment {
     private static final String URL_ASSETS_PREFIX = "file:///android_asset/";
     private static final String MIME_HTML_TYPE = "text/html";
     public static final int ID_NOT_FOUND = 0;
-    private static final int NONE_SCROLL_Y = 0;
-    private static final long AUTO_SCROLL_DELAY = 500;
     private static final int FIVE_MINUTES = 1000 * 60 * 5;
     private static final String NEED_CONVERT = "0x000";
     private static final String NONEED_CONVERT = "0x111";
 
-    private final int id;
     private final Context context;
     private Activity activity;
-    private static QuestionsDatabase questionsDatabase;
     private static ThumbnailsDatabase thumbnailsDatabase;
     private SharedPreferences sharedPreferences;
     private static JChineseConvertor chineseConvertor = null;
@@ -60,8 +54,6 @@ public class DetailFragment extends WebViewFragment {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            // @todo 记忆滚动需要优化
-            //decideAutoScroll();
             if (Util.isExternalStorageExists() && !isShareByTextOnly) {
                 new Thread(genScreenShots).start();
             }
@@ -116,7 +108,7 @@ public class DetailFragment extends WebViewFragment {
     }
 
     public File getTempScreenShotsFile() {
-        return new File(context.getCacheDir(), question.answerId + ".png");
+        return new File(context.getCacheDir(), question.getAnswerId() + ".png");
     }
 
     private String getTemplateString() {
@@ -130,9 +122,9 @@ public class DetailFragment extends WebViewFragment {
         return template;
     }
 
-    public DetailFragment(int id, Context context) {
-        this.id = id;
+    public DetailFragment(Context context, Question question) {
         this.context = context;
+        this.question = question;
 
         try {
             chineseConvertor = JChineseConvertor.getInstance();
@@ -146,7 +138,6 @@ public class DetailFragment extends WebViewFragment {
 
         this.activity = getActivity();
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        questionsDatabase = new QuestionsDatabase(context);
         thumbnailsDatabase = new ThumbnailsDatabase(context);
 
         this.isNeedIndent = sharedPreferences.getBoolean(getString(R.string.key_indent), false);
@@ -156,19 +147,18 @@ public class DetailFragment extends WebViewFragment {
         this.isNeedConvertTraditionalChinese =
                 sharedPreferences.getBoolean(getString(R.string.key_traditional_chinese), false);
 
-        try {
-            question = questionsDatabase.getSingleQuestion(id);
-        } catch (QuestionsDatabase.QuestionNotFoundException e) {
-            Util.showLongToast(context, e.getMessage());
-        }
+        WebView webView = getWebView();
+        WebSettings webSettings = webView.getSettings();
 
-        getWebView().getSettings().setLoadWithOverviewMode(true);
-        getWebView().getSettings().setUseWideViewPort(true);
-        getWebView().getSettings().setJavaScriptEnabled(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setUseWideViewPort(true);
+        webSettings.setJavaScriptEnabled(true);
 
-        getWebView().loadDataWithBaseURL(URL_ASSETS_PREFIX, getFormatedContent(), MIME_HTML_TYPE, Util.DEFAULT_CHARSET, null);
-        getWebView().setWebViewClient(webViewClient);
-        getWebView().setWebChromeClient(new WebChromeClient() {
+        webView.loadDataWithBaseURL(URL_ASSETS_PREFIX, getFormatedContent(),
+                MIME_HTML_TYPE, Util.DEFAULT_CHARSET, null);
+
+        webView.setWebViewClient(webViewClient);
+        webView.setWebChromeClient(new WebChromeClient() {
             public boolean onConsoleMessage(ConsoleMessage cm) {
                 Log.d(TAG, cm.message() + "\nFrom line " + cm.lineNumber() + " of " + cm.sourceId());
                 return true;
@@ -178,15 +168,15 @@ public class DetailFragment extends WebViewFragment {
 
     private File getCachedFile() {
         String CONVERT_FLAG = isNeedConvertTraditionalChinese ? NEED_CONVERT : NONEED_CONVERT;
-        String hashed = Base64.encodeToString((question.id + CONVERT_FLAG + getClassName()).getBytes(), Base64.DEFAULT);
+        String hashed = Base64.encodeToString((question.getId() + CONVERT_FLAG + getClassName()).getBytes(),
+                Base64.DEFAULT);
         return new File(activity.getCacheDir(), hashed.trim());
     }
-
 
     private String getFormatedContent() {
         String className = getClassName(), templateString = getTemplateString(), data = "";
 
-
+        // Cached by file.
         try {
             File cacheFile = getCachedFile();
 
@@ -195,18 +185,16 @@ public class DetailFragment extends WebViewFragment {
             } else {
                 data = String.format(templateString,
                         className,
-                        isNeedReplaceSymbol ? Util.replaceSymbol(question.title) : question.title,
-                        formatContent(question.description),
-                        question.userName,
-                        "<p class='update-at'>" + question.updateAt + "</p>" + formatContent(question.content)
+                        isNeedReplaceSymbol ? Util.replaceSymbol(question.getTitle()) : question.getTitle(),
+                        formatContent(question.getDescription()),
+                        question.getUserName(),
+                        "<p class='update-at'>" + question.getUpdateAt() + "</p>" + formatContent(question.getContent())
                 );
 
                 // @see https://code.google.com/p/jcc/
-                if (isNeedConvertTraditionalChinese) {
-                    data = chineseConvertor.s2t(data);
-                } else {
-                    data = chineseConvertor.t2s(data);
-                }
+                data = (isNeedConvertTraditionalChinese) ?
+                        chineseConvertor.s2t(data) : chineseConvertor.t2s(data);
+
                 Util.putFileContent(cacheFile, new ByteArrayInputStream(data.getBytes()));
             }
 
@@ -217,36 +205,12 @@ public class DetailFragment extends WebViewFragment {
         }
     }
 
-
-    public String getTitle() {
-        return question.title;
-    }
-
-
     public String getPlainContent() {
         return Html.fromHtml(getFormatedContent()).toString();
     }
 
-
     private String getKeyScrollById() {
-        return KEY_SCROLL_BY + this.id;
-    }
-
-    /**
-     * 判断是否需要自动滚动
-     */
-    private void decideAutoScroll() {
-        final int savedScrollY = sharedPreferences.getInt(getKeyScrollById(), NONE_SCROLL_Y);
-        boolean needAutoScroll = sharedPreferences.getBoolean(getString(R.string.key_auto_scroll), true);
-
-        if (needAutoScroll && savedScrollY != NONE_SCROLL_Y) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    getWebView().scrollTo(0, savedScrollY);
-                }
-            }, AUTO_SCROLL_DELAY);
-        }
+        return KEY_SCROLL_BY + question.getId();
     }
 
     @Override
@@ -275,7 +239,6 @@ public class DetailFragment extends WebViewFragment {
 
         return content;
     }
-
 
     private String formatContent(String content) {
         content = formatParagraph(content);
@@ -337,11 +300,11 @@ public class DetailFragment extends WebViewFragment {
     }
 
     public int getQuestionId() {
-        return (question != null) ? question.questionId : ID_NOT_FOUND;
+        return (question != null) ? question.getAnswerId() : ID_NOT_FOUND;
     }
 
     public int getAnswerId() {
-        return (question != null) ? question.answerId : ID_NOT_FOUND;
+        return (question != null) ? question.getAnswerId() : ID_NOT_FOUND;
     }
 
     /**
@@ -367,33 +330,13 @@ public class DetailFragment extends WebViewFragment {
     }
 
     /**
-     * 标记为收藏
-     *
-     * @param status
-     * @return
-     */
-    public boolean markStared(boolean status) {
-        return (questionsDatabase != null) && (questionsDatabase.markQuestionAsStared(id, status) > 0);
-    }
-
-
-    /**
-     * 标记为已阅读
-     *
-     * @return Boolean
-     */
-    public boolean markReaded() {
-        return (questionsDatabase != null) && (questionsDatabase.markSingleQuestionAsReaded(id) > 0);
-    }
-
-
-    /**
      * 获取分享的文案
      *
      * @return
      */
     public String getShareString() {
-        return String.format("%s #%s# %s", question.title, context.getString(R.string.app_name), getOnlineShortUrl(question.answerId));
+        return String.format("%s #%s# %s", question.getTitle(), context.getString(R.string.app_name),
+                getOnlineShortUrl(question.getAnswerId()));
     }
 
     /**
@@ -414,5 +357,4 @@ public class DetailFragment extends WebViewFragment {
 
         return "http://z.ihu.im/u/" + s;
     }
-
 }

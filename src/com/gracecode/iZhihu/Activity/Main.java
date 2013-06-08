@@ -116,7 +116,8 @@ public class Main extends BaseActivity {
                     if (focus && i > 0) {
                         Util.showLongToast(context, String.format(getString(R.string.affectRows)));
                     }
-                    scrollTabsFragment.notifyDatasetChanged();
+
+                    //scrollTabsFragment.notifyDatasetChanged();
                 } catch (RuntimeException e) {
                     Util.showShortToast(context, getString(R.string.rebuild_ui_faild));
                 } finally {

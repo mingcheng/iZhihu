@@ -1,14 +1,17 @@
 package com.gracecode.iZhihu.Activity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
 import android.os.PowerManager;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Fragments.DetailFragment;
 import com.gracecode.iZhihu.Fragments.ScrollDetailFragment;
@@ -19,21 +22,33 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class Detail extends BaseActivity implements ViewPager.OnPageChangeListener {
-    public static final String INTENT_EXTRA_COLUM_ID = QuestionsDatabase.COLUM_ID;
-    public static final String INTENT_EXTRA_MUTI_IDS = "mutiIds";
     private static final String TAG = Detail.class.getName();
 
-    private DetailFragment fragQuestionDetail = null;
+    public static final String INTENT_EXTRA_CURRENT_QUESTION = "currentQuestion";
+    public static final String INTENT_EXTRA_QUESTIONS = "questions";
+    public static final String INTENT_EXTRA_CURRENT_POSITION = "currentPosition";
+    public static final String INTENT_MODIFIED_LISTS = "modifiedLists";
+    private static final int DEFAULT_POSITION = 0;
+
     private Menu menuItem;
     private PowerManager.WakeLock wakeLock;
+
     private static final int MESSAGE_UPDATE_START_SUCCESS = 0;
     private static final int MESSAGE_UPDATE_START_FAILD = -1;
 
+    private QuestionsDatabase questionsDatabase;
+
+    private DetailFragment fragCurrentQuestionDetail = null;
+    private ScrollDetailFragment fragListQuestions = null;
+
+    private Question currentQuestion = null;
+    private ArrayList<Question> questionsList = new ArrayList<>();
+    private int currentPosition = DEFAULT_POSITION;
+
     private boolean isShareByTextOnly = false;
     private boolean isShareAndSave = true;
-    private ScrollDetailFragment fragListQuestions = null;
-    private boolean isSetScrolltoRead = true;
-    private final ArrayList<Integer> readedQuestionsPositions = new ArrayList<>();
+    private boolean isSetScrollRead = true;
+
 
     /**
      * 标记当前条目（未）收藏
@@ -41,7 +56,10 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     private final Runnable MarkAsStared = new Runnable() {
         @Override
         public void run() {
-            if (fragQuestionDetail.markStared(!fragQuestionDetail.isStared())) {
+            Boolean isStared = currentQuestion.isStared();
+
+            if (questionsDatabase.markQuestionAsStared(currentQuestion.getId(), !isStared) > 0) {
+                currentQuestion.setStared(!isStared);
                 UIChangedChangedHandler.sendEmptyMessage(MESSAGE_UPDATE_START_SUCCESS);
             } else {
                 UIChangedChangedHandler.sendEmptyMessage(MESSAGE_UPDATE_START_FAILD);
@@ -59,7 +77,8 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             switch (msg.what) {
                 case MESSAGE_UPDATE_START_SUCCESS:
                     Util.showShortToast(context,
-                            getString(isStared() ? R.string.mark_as_starred : R.string.cancel_mark_as_stared));
+                            getString(currentQuestion.isStared() ?
+                                    R.string.mark_as_starred : R.string.cancel_mark_as_stared));
 
                     updateMenu();
                     break;
@@ -72,21 +91,11 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
 
     /**
-     * 判断是否标记星标
-     *
-     * @return
-     */
-    private boolean isStared() {
-        return (fragQuestionDetail != null) && fragQuestionDetail.isStared();
-    }
-
-
-    /**
      * 更新 ActionBar 的收藏图标，并返回状态
      */
     private void updateMenu() {
         if (menuItem != null) {
-            menuItem.findItem(R.id.menu_favorite).setIcon(isStared() ?
+            menuItem.findItem(R.id.menu_favorite).setIcon(currentQuestion.isStared() ?
                     R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
 
             if (!Util.isExternalStorageExists() && !isShareByTextOnly) {
@@ -112,28 +121,28 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
      * @return
      */
     private File getScreenShotFile() {
-        if (fragQuestionDetail == null) {
+        if (currentQuestion == null) {
             return null;
         }
 
-        int id = fragQuestionDetail.getQuestionId();
-        if (id != DetailFragment.ID_NOT_FOUND) {
+        if (currentQuestion.getId() != DetailFragment.ID_NOT_FOUND) {
             File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            return new File(pictureDirectory, id + ".png");
+            return new File(pictureDirectory, currentQuestion.getId() + ".png");
         } else {
             return null;
         }
     }
 
 
-    /**
-     * 更新当前的条目
-     *
-     * @param fragment
-     */
-    public void updateCurrentQuestion(DetailFragment fragment) {
-        this.fragQuestionDetail = fragment;
-        updateMenu();
+    private void updateCurrentQuestion(int index) {
+        currentQuestion = questionsList.get(index);
+        if (currentQuestion != null) {
+            updateMenu();
+
+            currentPosition = index;
+            questionsDatabase.markAsRead(currentQuestion.getId());
+            currentQuestion.setUnread(false);
+        }
     }
 
 
@@ -141,35 +150,36 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 电源管理
-        PowerManager powerManager = ((PowerManager) getSystemService(POWER_SERVICE));
+        if (savedInstanceState != null) {
+            // ...
+        }
 
         // 获取当权选定的条目
-        int id = getIntent().getIntExtra(INTENT_EXTRA_COLUM_ID, DetailFragment.ID_NOT_FOUND);
-        if (id == DetailFragment.ID_NOT_FOUND) {
-            finish();
-        }
-        ArrayList<Integer> questionsIds = getIntent().getIntegerArrayListExtra(INTENT_EXTRA_MUTI_IDS);
+        this.currentQuestion = getIntent().getParcelableExtra(INTENT_EXTRA_CURRENT_QUESTION);
+        this.questionsList = getIntent().getParcelableArrayListExtra(INTENT_EXTRA_QUESTIONS);
+        this.currentPosition = getIntent().getIntExtra(INTENT_EXTRA_CURRENT_POSITION, DEFAULT_POSITION);
 
         // 屏幕常亮控制
+        PowerManager powerManager = ((PowerManager) getSystemService(POWER_SERVICE));
         this.wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, Detail.class.getName());
 
         // 配置项
         this.isShareByTextOnly = sharedPreferences.getBoolean(getString(R.string.key_share_text_only), false);
         this.isShareAndSave = sharedPreferences.getBoolean(getString(R.string.key_share_and_save), true);
-        this.isSetScrolltoRead = sharedPreferences.getBoolean(getString(R.string.key_scroll_read), true);
+        this.isSetScrollRead = sharedPreferences.getBoolean(getString(R.string.key_scroll_read), true);
+
+        // Database for questions.
+        this.questionsDatabase = new QuestionsDatabase(context);
 
         // 是否是滚动阅读
-        if (isSetScrolltoRead) {
-            if (questionsIds.size() > 0) {
-                this.fragListQuestions = new ScrollDetailFragment(this, questionsIds, id);
-            }
+        if (isSetScrollRead && questionsList.size() > 0) {
+            this.fragListQuestions = new ScrollDetailFragment(this, questionsList, currentPosition);
         } else {
-            this.fragQuestionDetail = new DetailFragment(id, this);
+            this.fragCurrentQuestionDetail = new DetailFragment(this, currentQuestion);
         }
 
         getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, (isSetScrolltoRead) ? fragListQuestions : fragQuestionDetail)
+                .replace(android.R.id.content, (isSetScrollRead) ? fragListQuestions : fragCurrentQuestionDetail)
                 .commit();
 
         // ActionBar 的样式
@@ -178,8 +188,18 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        // ...
+        super.onSaveInstanceState(outState);
+    }
+
+
+    @Override
     public void onResume() {
         super.onResume();
+
+        // Mark and update current item.
+        updateCurrentQuestion(currentPosition);
 
         // 弱化 Navigation Bar
         getWindow().getDecorView()
@@ -208,15 +228,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             wakeLock.release();
         }
 
-        if (isSetScrolltoRead) {
-            for (Integer i : readedQuestionsPositions) {
-                fragListQuestions.getDetailFragment(i).markReaded();
-            }
-        }
-
-        if (fragQuestionDetail != null) {
-            fragQuestionDetail.markReaded();
-        }
+        // mark as read
     }
 
 
@@ -229,9 +241,22 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     }
 
 
+    private void returnModifiedListsAndFinish() {
+        Intent intent = new Intent();
+        intent.putParcelableArrayListExtra(INTENT_MODIFIED_LISTS, questionsList);
+        setResult(Intent.FILL_IN_PACKAGE, intent);
+        finish();
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
+            // Home(Back button)
+            case android.R.id.home:
+                returnModifiedListsAndFinish();
+                return true;
+
             // Toggle star
             case R.id.menu_favorite:
                 new Thread(MarkAsStared).start();
@@ -240,9 +265,8 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             // View question via zhihu.com
             case R.id.menu_view_at_zhihu:
                 String url =
-                        String.format(
-                                getString(R.string.url_zhihu_questioin_pre),
-                                fragQuestionDetail.getQuestionId(), fragQuestionDetail.getAnswerId());
+                        String.format(getString(R.string.url_zhihu_questioin_pre),
+                                currentQuestion.getQuestionId(), currentQuestion.getAnswerId());
 
                 Util.openWithBrowser(this, url);
                 return true;
@@ -250,13 +274,13 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             // Share question by intent
             case R.id.menu_share:
                 File screenShotFile = getScreenShotFile();
-                String shareString = fragQuestionDetail.getShareString();
+                String shareString = fragCurrentQuestionDetail.getShareString();
 
                 try {
                     // @todo 优化这段代码的逻辑
                     if (!isShareByTextOnly) {
-                        if (!screenShotFile.exists() && fragQuestionDetail.isTempScreenShotsFileCached()) {
-                            Util.copyFile(fragQuestionDetail.getTempScreenShotsFile(), screenShotFile);
+                        if (!screenShotFile.exists() && fragCurrentQuestionDetail.isTempScreenShotsFileCached()) {
+                            Util.copyFile(fragCurrentQuestionDetail.getTempScreenShotsFile(), screenShotFile);
                         }
 
                         if (screenShotFile.exists()) {
@@ -277,25 +301,33 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            returnModifiedListsAndFinish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     public void onPageScrolled(int i, float v, int i2) {
-
+        // ...
     }
-
 
     @Override
     public void onPageSelected(int i) {
-        DetailFragment fragment = fragListQuestions.getCurrentDetailFragment();
-        if (fragment != null) {
-            readedQuestionsPositions.add(i);
-            updateCurrentQuestion(fragment);
-        }
+        updateCurrentQuestion(i);
     }
 
 
     @Override
     public void onPageScrollStateChanged(int i) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        questionsDatabase.close();
     }
 }

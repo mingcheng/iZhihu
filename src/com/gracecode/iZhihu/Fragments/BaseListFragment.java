@@ -18,13 +18,15 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.ArrayList;
 
-abstract class BaseListFragment extends PullToRefreshListFragment implements AdapterView.OnItemClickListener {
+public abstract class BaseListFragment extends PullToRefreshListFragment implements AdapterView.OnItemClickListener {
+    private static final String SAVED_QUESTIONS = "savedQuestions";
+
+    Context context;
     QuestionsAdapter questionsAdapter;
     private Activity activity;
-    Context context;
     QuestionsDatabase questionsDatabase;
     ArrayList<Question> questions;
-    int selectedPosition;
+
     SharedPreferences sharedPref;
     protected PullToRefreshListView pull2RefreshView;
 
@@ -42,8 +44,23 @@ abstract class BaseListFragment extends PullToRefreshListFragment implements Ada
 
         // @todo 初始化数据库
         this.questionsDatabase = new QuestionsDatabase(context);
-        this.questions = getInitialData();
+
+        if (savedInstanceState != null) {
+            this.questions = savedInstanceState.getParcelableArrayList(SAVED_QUESTIONS);
+        }
+
+        if (this.questions == null || this.questions.size() <= 0) {
+            this.questions = getInitialData();
+        }
         this.questionsAdapter = new QuestionsAdapter(context, questions);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (questions != null && questions.size() > 0) {
+            outState.putParcelableArrayList(SAVED_QUESTIONS, questions);
+        }
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -55,54 +72,82 @@ abstract class BaseListFragment extends PullToRefreshListFragment implements Ada
     }
 
     @Override
+    public void onResume() {
+        if (questionsAdapter != null) {
+            questionsAdapter.notifyDataSetChanged();
+        }
+
+        super.onResume();
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         setListAdapter(questionsAdapter);
 
         // 下拉 ListView 控件
         this.pull2RefreshView = getPullToRefreshListView();
-
         getListView().setOnItemClickListener(this);
+
+        super.onActivityCreated(savedInstanceState);
     }
 
+
+    /**
+     * Initial Data
+     *
+     * @return An Empty ArrayList By Default.
+     */
     ArrayList<Question> getInitialData() {
         return new ArrayList<>();
     }
 
-    private ArrayList<Integer> getQuestionsIdArrays() {
-        ArrayList<Integer> ids = new ArrayList<>();
-
-        for (Question question : questions) {
-            ids.add(question.id);
-        }
-        return ids;
-    }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         // Android-PullToRefresh 似乎增加了个不可见条目，所以要 -1
-        Question question = questions.get((pull2RefreshView != null) ? position - 1 : position);
+        int selectedPosition = (pull2RefreshView != null) ? position - 1 : position;
+        Question question = questions.get(selectedPosition);
 
         Intent intent = new Intent(activity, Detail.class);
-        intent.putExtra(Detail.INTENT_EXTRA_COLUM_ID, question.id);
-        intent.putExtra(Detail.INTENT_EXTRA_MUTI_IDS, getQuestionsIdArrays());
-        startActivity(intent);
+        intent.putExtra(Detail.INTENT_EXTRA_CURRENT_POSITION, selectedPosition);
+        intent.putExtra(Detail.INTENT_EXTRA_CURRENT_QUESTION, question);
+        intent.putExtra(Detail.INTENT_EXTRA_QUESTIONS, questions);
+
+        startActivityForResult(intent, Intent.FILL_IN_PACKAGE);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Intent.FILL_IN_PACKAGE) {
+            questions = data.getParcelableArrayListExtra(Detail.INTENT_MODIFIED_LISTS);
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    /**
+     * Get Recent Questions By Update Time.
+     *
+     * @return questions
+     */
     public ArrayList<Question> getRecentQuestion() {
         return questionsDatabase.getRecentQuestions();
     }
 
-    ArrayList<Question> getStaredQuestions() {
+
+    /**
+     * Get Stared Questions.
+     *
+     * @return questions
+     */
+    public ArrayList<Question> getStaredQuestions() {
         return questionsDatabase.getStaredQuestions();
     }
 
     @Override
     public void onDestroy() {
+        questionsDatabase.close();
         super.onDestroy();
-        if (questionsDatabase != null) {
-            questionsDatabase.close();
-            questionsDatabase = null;
-        }
     }
 }

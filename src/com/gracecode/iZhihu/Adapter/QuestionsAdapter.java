@@ -87,18 +87,18 @@ public final class QuestionsAdapter extends BaseAdapter {
         }
 
         String title = isNeedConvertTraditionalChinese ?
-                chineseConvertor.s2t(question.title) : chineseConvertor.t2s(question.title);
+                chineseConvertor.s2t(question.getTitle()) : chineseConvertor.t2s(question.getTitle());
         holder.title.setText(Util.replaceSymbol(title));
         holder.description.setText(getConvertDescription(question));
 
         ImageView flag = holder.flag;
-        if (question.stared) {
+        if (question.isStared()) {
             flag.setBackgroundResource(R.drawable.ic_action_star_selected);
         } else {
             flag.setBackgroundResource(R.drawable.ic_action_unread);
         }
 
-        if (question.unread || question.stared) {
+        if (question.isUnread() || question.isStared()) {
             flag.setVisibility(View.VISIBLE);
         } else {
             flag.setVisibility(View.INVISIBLE);
@@ -106,14 +106,14 @@ public final class QuestionsAdapter extends BaseAdapter {
         return convertView;
     }
 
-
+    // @todo zhenghe
     private String getConvertDescription(Question question) {
-        String content = Html.fromHtml(question.content).toString();
+        String content = Html.fromHtml(question.getContent()).toString();
         int maxLength = (content.length() > MAX_DESPCRIPTION_LENGTH) ? MAX_DESPCRIPTION_LENGTH : content.length();
 
         content = content.substring(0, maxLength).trim();
-        content = ((question.userName.length() > 1) ?
-                question.userName.trim() + context.getString(R.string.colon) + " " : "") + content;
+        content = ((question.getUserName().length() > 1) ?
+                question.getUserName().trim() + context.getString(R.string.colon) + " " : "") + content;
 
         // 转换简繁体
         return isNeedConvertTraditionalChinese ? chineseConvertor.s2t(content) : chineseConvertor.t2s(content);
