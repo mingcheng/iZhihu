@@ -17,17 +17,15 @@ public class StaredListFragment extends BaseListFragment {
     @Override
     public void onStart() {
         super.onStart();
-        this.questions = getStaredQuestions();
-//
-//        try {
-//            Question question = questions.get(selectedPosition);
-//            if (!question.isStared()) {
-//                questions.remove(selectedPosition);
-//            }
-//        } catch (IndexOutOfBoundsException e) {
-//            e.printStackTrace();
-//        } finally {
-//            questionsAdapter.notifyDataSetChanged();
-//        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    questions = getStaredQuestions();
+                } finally {
+                    questionsAdapter.notifyDataSetChanged();
+                }
+            }
+        }).start();
     }
 }

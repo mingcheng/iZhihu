@@ -71,14 +71,6 @@ public abstract class BaseListFragment extends PullToRefreshListFragment impleme
         pull2RefreshView.setMode(PullToRefreshBase.Mode.DISABLED);
     }
 
-    @Override
-    public void onResume() {
-        if (questionsAdapter != null) {
-            questionsAdapter.notifyDataSetChanged();
-        }
-
-        super.onResume();
-    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

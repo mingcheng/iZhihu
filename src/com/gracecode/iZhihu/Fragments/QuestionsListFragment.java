@@ -88,13 +88,18 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
 
     @Override
     public void onResume() {
-        if (questions != null) {
-            for (Question question : questions) {
-                question.setUnread(questionsDatabase.isUnread(question.getId()));
-                question.setStared(questionsDatabase.isStared(question.getId()));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    for (Question question : questions) {
+                        question.setStared(questionsDatabase.isStared(question.getId()));
+                    }
+                } finally {
+                    questionsAdapter.notifyDataSetChanged();
+                }
             }
-        }
-
+        }).start();
         super.onResume();
     }
 
