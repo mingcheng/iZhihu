@@ -96,7 +96,7 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
                         question.setStared(questionsDatabase.isStared(question.getId()));
                     }
                 } finally {
-                    questionsAdapter.notifyDataSetChanged();
+                    updateDataSetChangedHandler.sendEmptyMessage(questions.size());
                 }
             }
         }).start();

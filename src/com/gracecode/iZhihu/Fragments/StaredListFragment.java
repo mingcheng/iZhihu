@@ -1,10 +1,21 @@
 package com.gracecode.iZhihu.Fragments;
 
+import android.app.Activity;
+import android.os.Handler;
+import android.os.Message;
 import com.gracecode.iZhihu.Dao.Question;
 
 import java.util.ArrayList;
 
 public class StaredListFragment extends BaseListFragment {
+
+    private final Handler updateDataSetChangedHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            questionsAdapter.notifyDataSetChanged();
+        }
+    };
+
     public StaredListFragment() {
         super();
     }
@@ -23,7 +34,7 @@ public class StaredListFragment extends BaseListFragment {
                 try {
                     questions = getStaredQuestions();
                 } finally {
-                    questionsAdapter.notifyDataSetChanged();
+                    updateDataSetChangedHandler.sendEmptyMessage(Activity.RESULT_OK);
                 }
             }
         }).start();
