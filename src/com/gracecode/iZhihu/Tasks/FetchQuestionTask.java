@@ -3,7 +3,6 @@ package com.gracecode.iZhihu.Tasks;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.util.Log;
-import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
 import com.gracecode.iZhihu.R;
@@ -13,10 +12,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class FetchQuestionTask extends BaseTasks<Boolean, String, ArrayList<Question>> {
+public class FetchQuestionTask extends BaseTasks<Boolean, String, Integer> {
     private final static int MAX_FETCH_TIMES = 3600 * 1000 * 2; // 2 hours
     private final static String TAG = FetchQuestionTask.class.getName();
     private static ThumbnailsDatabase fetchThumbnailsDatabase;
@@ -29,15 +27,15 @@ public class FetchQuestionTask extends BaseTasks<Boolean, String, ArrayList<Ques
     }
 
     @Override
-    protected ArrayList<Question> doInBackground(Boolean... booleans) {
+    protected Integer doInBackground(Boolean... booleans) {
+        int affectedRows = 0;
         String heap = "";
         Boolean isFresh = System.currentTimeMillis() - HTTPRequester.getLastRequestTimeStamp() < MAX_FETCH_TIMES;
-        ArrayList<Question> questions = new ArrayList<>();
 
         try {
             for (Boolean focus : booleans) {
                 if (!focus && isFresh) {
-                    return questions;
+                    return affectedRows;
                 }
 
                 // Fetch new data from server.
@@ -46,9 +44,7 @@ public class FetchQuestionTask extends BaseTasks<Boolean, String, ArrayList<Ques
                 for (int i = 0, length = fetchedData.length(); i < length; i++) {
                     JSONObject item = (JSONObject) fetchedData.get(i);
                     if (questionsDatabase.insertSingleQuestion(item) >= 1) {
-                        // Add and return new questions.
-                        int answerId = item.getInt(QuestionsDatabase.COLUM_ANSWER_ID);
-                        questions.add(questionsDatabase.getSingleQuestionByAnswerId(answerId));
+                        affectedRows++;
 
                         // Add heap for thumbnail use.
                         heap += item.getString(QuestionsDatabase.COLUM_CONTENT) +
@@ -80,7 +76,7 @@ public class FetchQuestionTask extends BaseTasks<Boolean, String, ArrayList<Ques
             publishProgress(e.getLocalizedMessage());
         }
 
-        return questions;
+        return affectedRows;
     }
 
     @Override

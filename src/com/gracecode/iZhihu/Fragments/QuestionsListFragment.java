@@ -45,6 +45,13 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
         super.onSaveInstanceState(outState);
     }
 
+    public void updateQuestionsFromDatabase() {
+        questions.clear();
+        for (int i = QuestionsDatabase.FIRST_PAGE; i <= currentPage; i++) {
+            questions.addAll(questionsDatabase.getRecentQuestions(i));
+        }
+    }
+
     public void addNewQuestionsAtHead(ArrayList<Question> questions) {
         this.questions.addAll(0, questions);
     }

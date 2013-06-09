@@ -69,16 +69,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62c0643c-7be3-40f5-9448-f28526b27123" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/BaseListFragment.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/BaseListFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchQuestionTask.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchQuestionTask.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/ListPagerAdapter.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/ListPagerAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Dao/Question.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Dao/Question.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Dao/QuestionsDatabase.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Dao/QuestionsDatabase.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/QuestionsListFragment.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/QuestionsListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/ScrollTabsFragment.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/ScrollTabsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Util.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Util.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="iZhihu.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -93,7 +86,7 @@
     <file path="/Dummy.txt" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370686552349" ignored="false" />
     <file path="/frag_questions.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367763106011" ignored="false" />
     <file path="/themes.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369131627860" ignored="false" />
-    <file path="/Main.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370771954848" ignored="false" />
+    <file path="/Main.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370796574260" ignored="false" />
     <file path="/main.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367834642122" ignored="false" />
     <file path="/MainTabListener.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367908942094" ignored="false" />
     <file path="/preferences.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370757173448" ignored="false" />
@@ -107,7 +100,7 @@
     <file path="/Requester.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367839669395" ignored="false" />
     <file path="/Cache.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367064225102" ignored="false" />
     <file path="/ZhihuDatabase.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367072573226" ignored="false" />
-    <file path="/FetchQuestionTask.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370770377172" ignored="false" />
+    <file path="/FetchQuestionTask.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370773523409" ignored="false" />
     <file path="/LoadingDialog.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367131224026" ignored="false" />
     <file path="/detail.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367935884878" ignored="false" />
     <file path="/colors.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369372874902" ignored="false" />
@@ -126,7 +119,7 @@
     <file path="/BaseList.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367727105676" ignored="false" />
     <file path="/QuestionsListAdapter.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367745298030" ignored="false" />
     <file path="/BaseListFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370769149246" ignored="false" />
-    <file path="/QuestionsListFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370771390498" ignored="false" />
+    <file path="/QuestionsListFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370795996707" ignored="false" />
     <file path="/DetailFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370589200935" ignored="false" />
     <file path="/StaredListFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370688703947" ignored="false" />
     <file path="/GetMoreLocalQuestionsTask.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367766822684" ignored="false" />
@@ -164,13 +157,14 @@
     <file path="/PullToRefreshListFragmentActivity.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369814090456" ignored="false" />
     <file path="$PROJECT_DIR$/../Android-PullToRefresh/sample/gen/com/handmark/pulltorefresh/samples/BuildConfig.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369813496616" ignored="false" />
     <file path="/PullToRefreshListFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369813898985" ignored="false" />
-    <file path="/a.dummy" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369815295108" ignored="false" />
+    <file path="/a.dummy" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370773507740" ignored="false" />
     <file path="/RotateLoadingLayout.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369819030778" ignored="false" />
     <file path="/*.regexp" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370743087487" ignored="false" />
     <file path="/pull_refresh_strings.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369819407274" ignored="false" />
     <file path="/HTTPRequester.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369987477520" ignored="false" />
     <file path="/PullToRefreshBase.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369996615972" ignored="false" />
     <file path="/refresh_rotate.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370429076123" ignored="false" />
+    <file path="$PROJECT_DIR$/.idea/workspace.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370796679606" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +182,23 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java" line="134" class="com.gracecode.iZhihu.Activity.Main$1" package="com.gracecode.iZhihu.Activity">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -234,44 +244,7 @@
     <favorites_list name="iZhihu" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="127" column="71" selection-start="4486" selection-end="4486" vertical-scroll-proportion="0.35703">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QuestionsAdapter.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/QuestionsAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="91" column="0" selection-start="3025" selection-end="3025" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="HTTPRequester.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Dao/HTTPRequester.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="94" column="0" selection-start="3377" selection-end="3377" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ListPagerAdapter.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/ListPagerAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="31" column="10" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -308,20 +281,20 @@
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Util.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/BaseListFragment.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Dao/QuestionsDatabase.java" />
-        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchQuestionTask.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/ScrollTabsFragment.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/ListPagerAdapter.java" />
-        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/QuestionsListFragment.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Dao/Question.java" />
+        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchQuestionTask.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/QuestionsListFragment.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="16" />
-    <option name="y" value="37" />
+    <option name="x" value="15" />
+    <option name="y" value="22" />
     <option name="width" value="1425" />
-    <option name="height" value="988" />
+    <option name="height" value="825" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -907,7 +880,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="16" y="37" width="1425" height="988" extended-state="6" />
+    <frame x="15" y="22" width="1425" height="825" extended-state="6" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287827" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -918,13 +891,13 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.44476327" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23479189" sideWeight="0.62239295" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3269494" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.34004474" sideWeight="0.6119082" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.442371" sideWeight="0.68230563" order="11" side_tool="false" content_ui="tabs" x="885" y="853" width="1156" height="825" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3392613" sideWeight="0.6119082" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.442371" sideWeight="0.68230563" order="11" side_tool="false" content_ui="tabs" x="223" y="38" width="1156" height="809" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930845" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21685083" sideWeight="0.62239295" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31979695" sideWeight="0.7684564" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23154363" sideWeight="0.999306" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31979695" sideWeight="0.71682626" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28317374" sideWeight="0.999306" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29225805" sideWeight="0.73702425" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29318038" sideWeight="0.40465117" order="4" side_tool="true" content_ui="tabs" />
@@ -1023,38 +996,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Detail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="17" selection-start="3282" selection-end="3282" vertical-scroll-proportion="0.33242875">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;field#MarkAsStared#0;class#Detail#0" expanded="true" />
-            <element signature="e#1968#2467#0" expanded="true" />
-            <element signature="e#2460#2461#0" expanded="true" />
-            <element signature="docComment;field#UIChangedChangedHandler#0;class#Detail#0" expanded="true" />
-            <element signature="docComment;method#updateMenu#0;class#Detail#0" expanded="true" />
-            <element signature="docComment;method#isNeedScreenWakeLock#0;class#Detail#0" expanded="true" />
-            <element signature="docComment;method#getScreenShotFile#0;class#Detail#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Util.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="200" column="5" selection-start="6410" selection-end="6410" vertical-scroll-proportion="3.7325747">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/BaseListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="131" column="6" selection-start="4091" selection-end="4091" vertical-scroll-proportion="0.6210721">
-          <folding>
-            <element signature="docComment;method#getInitialData#0;class#BaseListFragment#0" expanded="true" />
-            <element signature="docComment;method#notifyDataSetChanged#0;class#BaseListFragment#0" expanded="true" />
-            <element signature="docComment;method#getRecentQuestion#0;class#BaseListFragment#0" expanded="true" />
-            <element signature="docComment;method#getStaredQuestions#0;class#BaseListFragment#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1091,48 +1036,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchQuestionTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="46" selection-start="1457" selection-end="1457" vertical-scroll-proportion="0.430605">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/ScrollTabsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="105" column="27" selection-start="3351" selection-end="3367" vertical-scroll-proportion="0.71530247">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/ListPagerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="10" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/QuestionsListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="37" selection-start="1498" selection-end="1519" vertical-scroll-proportion="0.658363">
-          <folding>
-            <element signature="docComment;method#getMoreQuestionsFromDatabase#0;class#QuestionsListFragment#0" expanded="true" />
-            <element signature="docComment;method#onPullDownToRefresh#0;class#QuestionsListFragment#0" expanded="true" />
-            <element signature="docComment;method#onPullUpToRefresh#0;class#QuestionsListFragment#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Dao/HTTPRequester.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="94" column="0" selection-start="3377" selection-end="3377" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/QuestionsAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="0" selection-start="3025" selection-end="3025" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1147,10 +1053,78 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchQuestionTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="27" selection-start="3115" selection-end="3115" vertical-scroll-proportion="1.262519">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/QuestionsAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="91" column="0" selection-start="3025" selection-end="3025" vertical-scroll-proportion="0.28528073">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/ListPagerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="10" selection-start="1151" selection-end="1151" vertical-scroll-proportion="0.3915023">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/BaseListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="22" selection-start="758" selection-end="758" vertical-scroll-proportion="0.032258064">
+          <folding>
+            <element signature="docComment;method#getInitialData#0;class#BaseListFragment#0" expanded="true" />
+            <element signature="docComment;method#notifyDataSetChanged#0;class#BaseListFragment#0" expanded="true" />
+            <element signature="docComment;method#setQuestions#0;class#BaseListFragment#0" expanded="true" />
+            <element signature="docComment;method#getRecentQuestion#0;class#BaseListFragment#0" expanded="true" />
+            <element signature="docComment;method#getStaredQuestions#0;class#BaseListFragment#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Dao/HTTPRequester.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="29" selection-start="4445" selection-end="4445" vertical-scroll-proportion="0.6552419">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/QuestionsListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="110" column="30" selection-start="3486" selection-end="3486" vertical-scroll-proportion="0.81653225">
+          <folding>
+            <element signature="docComment;method#getMoreQuestionsFromDatabase#0;class#QuestionsListFragment#0" expanded="true" />
+            <element signature="e#3027#3443#0" expanded="true" />
+            <element signature="e#3432#3433#0" expanded="true" />
+            <element signature="docComment;method#onPullDownToRefresh#0;class#QuestionsListFragment#0" expanded="true" />
+            <element signature="docComment;method#onPullUpToRefresh#0;class#QuestionsListFragment#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="127" column="71" selection-start="4486" selection-end="4486" vertical-scroll-proportion="0.35703">
+        <state line="119" column="0" selection-start="3996" selection-end="3996" vertical-scroll-proportion="0.48387095">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Detail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="13" selection-start="729" selection-end="729" vertical-scroll-proportion="0.3326613">
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;field#MarkAsStared#0;class#Detail#0" expanded="true" />
+            <element signature="docComment;field#UIChangedChangedHandler#0;class#Detail#0" expanded="true" />
+            <element signature="docComment;method#updateMenu#0;class#Detail#0" expanded="true" />
+            <element signature="docComment;method#isNeedScreenWakeLock#0;class#Detail#0" expanded="true" />
+            <element signature="docComment;method#getScreenShotFile#0;class#Detail#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -13,7 +13,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.gracecode.iZhihu.Adapter.ListPagerAdapter;
-import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Fragments.BaseListFragment;
 import com.gracecode.iZhihu.Fragments.QuestionsListFragment;
 import com.gracecode.iZhihu.Fragments.ScrollTabsFragment;
@@ -21,8 +20,6 @@ import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Service.FetchThumbnailsService;
 import com.gracecode.iZhihu.Tasks.FetchQuestionTask;
 import com.gracecode.iZhihu.Util;
-
-import java.util.ArrayList;
 
 public class Main extends BaseActivity {
     private ScrollTabsFragment scrollTabsFragment;
@@ -115,22 +112,25 @@ public class Main extends BaseActivity {
             }
 
             @Override
-            public void onPostExecute(Object questions) {
+            public void onPostExecute(Object o) {
                 // @todo
-                int affectedRows = ((ArrayList<Question>) questions).size();
+                int affectedRows = (int) o;
                 try {
-                    if (focus && affectedRows > 0) {
-                        Util.showLongToast(context, String.format(getString(R.string.affectRows), affectedRows));
-                    }
+                    if (affectedRows > 0) {
+                        BaseListFragment fragment = (scrollTabsFragment.getListAdapter())
+                                .getBaseListFragment(ListPagerAdapter.FIRST_TAB);
 
-                    BaseListFragment fragment = (scrollTabsFragment.getListAdapter())
-                            .getBaseListFragment(ListPagerAdapter.FIRST_TAB);
-                    if (fragment instanceof QuestionsListFragment) {
-                        ((QuestionsListFragment) fragment).addNewQuestionsAtHead((ArrayList<Question>) questions);
-                    }
+                        if (fragment instanceof QuestionsListFragment) {
+                            ((QuestionsListFragment) fragment).updateQuestionsFromDatabase();
+                        }
 
-                    // !!
-                    scrollTabsFragment.notifyDatasetChanged();
+                        // !!
+                        scrollTabsFragment.notifyDatasetChanged();
+
+                        if (focus) {
+                            Util.showLongToast(context, String.format(getString(R.string.affectRows), affectedRows));
+                        }
+                    }
                 } catch (RuntimeException e) {
                     Util.showShortToast(context, getString(R.string.rebuild_ui_faild));
                 } finally {
