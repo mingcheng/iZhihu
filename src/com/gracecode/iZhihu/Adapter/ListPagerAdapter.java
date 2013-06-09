@@ -6,28 +6,29 @@ import android.app.Fragment;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
+import com.gracecode.iZhihu.Fragments.BaseListFragment;
 import com.gracecode.iZhihu.Fragments.QuestionsListFragment;
 import com.gracecode.iZhihu.Fragments.StaredListFragment;
 
 import java.util.ArrayList;
 
 public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewPager.OnPageChangeListener {
-    private static final String[] TAB_CLASSES =
-            {QuestionsListFragment.class.getName(), StaredListFragment.class.getName()};
-
     public static final int FIRST_TAB = 0;
-    private static final int SECOND_TAB = 1;
+    public static final int SECOND_TAB = 1;
+
     private final ActionBar actionBar;
-    private final ArrayList<Fragment> fragments;
+    private final ArrayList<BaseListFragment> fragments = new ArrayList<>();
 
     public ListPagerAdapter(Activity activity) {
         super(activity.getFragmentManager());
+        actionBar = activity.getActionBar();
 
-        this.actionBar = activity.getActionBar();
-        this.fragments = new ArrayList<>();
+        fragments.add(FIRST_TAB, new QuestionsListFragment());
+        fragments.add(SECOND_TAB, new StaredListFragment());
+    }
 
-        fragments.add(FIRST_TAB, Fragment.instantiate(activity, TAB_CLASSES[FIRST_TAB]));
-        fragments.add(SECOND_TAB, Fragment.instantiate(activity, TAB_CLASSES[SECOND_TAB]));
+    public BaseListFragment getBaseListFragment(int index) {
+        return fragments.get(index);
     }
 
     @Override
@@ -47,11 +48,12 @@ public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewP
 
     @Override
     public int getCount() {
-        return TAB_CLASSES.length;
+        return fragments.size();
     }
 
     @Override
     public void onPageScrolled(int i, float v, int i2) {
+        // ...
     }
 
     @Override
@@ -70,5 +72,6 @@ public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewP
 
     @Override
     public void onPageScrollStateChanged(int i) {
+        // ...
     }
 }

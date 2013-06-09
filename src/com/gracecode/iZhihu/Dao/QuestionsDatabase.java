@@ -233,10 +233,12 @@ public final class QuestionsDatabase {
         return question;
     }
 
-    private Cursor getSingleQuestionCursor(int id) throws QuestionNotFoundException {
+
+    private Cursor getSingleQuestionCursorByField(String field, int value) throws QuestionNotFoundException {
         SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
 
-        Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, COLUM_ID + " = " + id, null, null, null, null);
+        Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL,
+                field + " = " + value, null, null, null, null);
         cursor.moveToFirst();
 
         try {
@@ -250,17 +252,14 @@ public final class QuestionsDatabase {
         return cursor;
     }
 
+    private Cursor getSingleQuestionCursorById(int id) throws QuestionNotFoundException {
+        return getSingleQuestionCursorByField(COLUM_ID, id);
+    }
 
-    /**
-     * 获取单条问题
-     *
-     * @param id
-     * @return
-     * @throws QuestionNotFoundException
-     */
-    public Question getSingleQuestion(int id) {
+
+    public Question getSingleQuestionByField(String field, int value) {
         Question question = new Question();
-        Cursor cursor = getSingleQuestionCursor(id);
+        Cursor cursor = getSingleQuestionCursorByField(field, value);
 
         try {
             getIndexFromCursor(cursor);
@@ -274,6 +273,21 @@ public final class QuestionsDatabase {
         return question;
     }
 
+
+    /**
+     * 获取单条问题
+     *
+     * @param id
+     * @return
+     * @throws QuestionNotFoundException
+     */
+    public Question getSingleQuestionById(int id) {
+        return getSingleQuestionByField(COLUM_ID, id);
+    }
+
+    public Question getSingleQuestionByAnswerId(int id) {
+        return getSingleQuestionByField(COLUM_ANSWER_ID, id);
+    }
 
     synchronized public int markAsRead(int id) {
         SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();

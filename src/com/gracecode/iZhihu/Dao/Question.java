@@ -7,15 +7,15 @@ import com.gracecode.iZhihu.R;
 
 
 public final class Question implements Parcelable {
-    private int id;
-    private int questionId;
-    private int answerId;
+    private int id = 0;
+    private int questionId = 0;
+    private int answerId = 0;
 
-    private String title;
-    private String content;
-    private String description;
-    private String userName;
-    private String updateAt;
+    private String title = "";
+    private String content = "";
+    private String description = "";
+    private String userName = "";
+    private String updateAt = "";
 
     private boolean stared = false;
     private boolean unread = true;

@@ -102,4 +102,8 @@ public class ScrollTabsFragment extends Fragment {
         editor.putInt(key, value);
         editor.commit();
     }
+
+    public ListPagerAdapter getListAdapter() {
+        return listAdapter;
+    }
 }

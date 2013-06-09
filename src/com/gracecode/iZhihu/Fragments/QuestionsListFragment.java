@@ -45,6 +45,9 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
         super.onSaveInstanceState(outState);
     }
 
+    public void addNewQuestionsAtHead(ArrayList<Question> questions) {
+        this.questions.addAll(0, questions);
+    }
 
     /**
      * Get more times from database.
@@ -137,4 +140,5 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
         getMoreQuestionsFromDatabase();
     }
+
 }

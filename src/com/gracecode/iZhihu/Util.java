@@ -3,7 +3,6 @@ package com.gracecode.iZhihu;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -12,7 +11,6 @@ import android.widget.Toast;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -217,18 +215,5 @@ public class Util {
 
     public static void openShareIntentWithPlainText(Context context, String message) {
         openShareIntentWithPlainText(context, "", message);
-    }
-
-    public static void savePref(SharedPreferences sharedPref, String key, int value) {
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(key, value);
-        editor.commit();
-    }
-
-    public static List removeDuplicate(List list) {
-        HashSet h = new HashSet(list);
-        list.clear();
-        list.addAll(h);
-        return list;
     }
 }

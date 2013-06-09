@@ -12,11 +12,17 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import com.gracecode.iZhihu.Adapter.ListPagerAdapter;
+import com.gracecode.iZhihu.Dao.Question;
+import com.gracecode.iZhihu.Fragments.BaseListFragment;
+import com.gracecode.iZhihu.Fragments.QuestionsListFragment;
 import com.gracecode.iZhihu.Fragments.ScrollTabsFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Service.FetchThumbnailsService;
 import com.gracecode.iZhihu.Tasks.FetchQuestionTask;
 import com.gracecode.iZhihu.Util;
+
+import java.util.ArrayList;
 
 public class Main extends BaseActivity {
     private ScrollTabsFragment scrollTabsFragment;
@@ -109,14 +115,21 @@ public class Main extends BaseActivity {
             }
 
             @Override
-            public void onPostExecute(Object affectedRows) {
-                int i = 0;
+            public void onPostExecute(Object questions) {
+                // @todo
+                int affectedRows = ((ArrayList<Question>) questions).size();
                 try {
-                    i = (Integer) affectedRows;
-                    if (focus && i > 0) {
-                        Util.showLongToast(context, String.format(getString(R.string.affectRows)));
+                    if (focus && affectedRows > 0) {
+                        Util.showLongToast(context, String.format(getString(R.string.affectRows), affectedRows));
                     }
 
+                    BaseListFragment fragment = (scrollTabsFragment.getListAdapter())
+                            .getBaseListFragment(ListPagerAdapter.FIRST_TAB);
+                    if (fragment instanceof QuestionsListFragment) {
+                        ((QuestionsListFragment) fragment).addNewQuestionsAtHead((ArrayList<Question>) questions);
+                    }
+
+                    // !!
                     scrollTabsFragment.notifyDatasetChanged();
                 } catch (RuntimeException e) {
                     Util.showShortToast(context, getString(R.string.rebuild_ui_faild));
@@ -126,7 +139,8 @@ public class Main extends BaseActivity {
                     }
 
                     // 离线下载图片
-                    if (Util.isExternalStorageExists() && isNeedCacheThumbnails && i > 0) {
+                    if (Util.isWifiConnected(context) && Util.isExternalStorageExists()
+                            && isNeedCacheThumbnails && affectedRows > 0) {
                         startService(fetchThumbnailsServiceIntent);
                     } else {
                         stopService(fetchThumbnailsServiceIntent);

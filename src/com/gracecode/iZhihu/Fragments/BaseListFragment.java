@@ -119,6 +119,24 @@ public abstract class BaseListFragment extends PullToRefreshListFragment impleme
 
 
     /**
+     * notifyDataSetChanged by manually
+     */
+    public void notifyDataSetChanged() {
+        if (questionsAdapter != null) {
+            questionsAdapter.notifyDataSetChanged();
+        }
+    }
+
+    /**
+     * Set Questions
+     *
+     * @param questions
+     */
+    public void setQuestions(ArrayList<Question> questions) {
+        this.questions = questions;
+    }
+
+    /**
      * Get Recent Questions By Update Time.
      *
      * @return questions

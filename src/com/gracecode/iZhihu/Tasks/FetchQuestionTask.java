@@ -3,6 +3,7 @@ package com.gracecode.iZhihu.Tasks;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.util.Log;
+import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
 import com.gracecode.iZhihu.R;
@@ -12,9 +13,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class FetchQuestionTask extends BaseTasks<Boolean, String, Integer> {
+public class FetchQuestionTask extends BaseTasks<Boolean, String, ArrayList<Question>> {
     private final static int MAX_FETCH_TIMES = 3600 * 1000 * 2; // 2 hours
     private final static String TAG = FetchQuestionTask.class.getName();
     private static ThumbnailsDatabase fetchThumbnailsDatabase;
@@ -27,24 +29,28 @@ public class FetchQuestionTask extends BaseTasks<Boolean, String, Integer> {
     }
 
     @Override
-    protected Integer doInBackground(Boolean... booleans) {
+    protected ArrayList<Question> doInBackground(Boolean... booleans) {
         String heap = "";
-        int affectedRows = 0;
+        Boolean isFresh = System.currentTimeMillis() - HTTPRequester.getLastRequestTimeStamp() < MAX_FETCH_TIMES;
+        ArrayList<Question> questions = new ArrayList<>();
 
         try {
             for (Boolean focus : booleans) {
-                if (!focus && System.currentTimeMillis() - HTTPRequester.getLastRequestTimeStamp() < MAX_FETCH_TIMES) {
-                    return affectedRows;
+                if (!focus && isFresh) {
+                    return questions;
                 }
 
-                int startId = questionsDatabase.getStartId();
-                JSONArray fetchedData = HTTPRequester.fetch(startId);
+                // Fetch new data from server.
+                JSONArray fetchedData = HTTPRequester.fetch(questionsDatabase.getStartId());
 
                 for (int i = 0, length = fetchedData.length(); i < length; i++) {
                     JSONObject item = (JSONObject) fetchedData.get(i);
                     if (questionsDatabase.insertSingleQuestion(item) >= 1) {
-                        affectedRows++;
+                        // Add and return new questions.
+                        int answerId = item.getInt(QuestionsDatabase.COLUM_ANSWER_ID);
+                        questions.add(questionsDatabase.getSingleQuestionByAnswerId(answerId));
 
+                        // Add heap for thumbnail use.
                         heap += item.getString(QuestionsDatabase.COLUM_CONTENT) +
                                 item.getString(QuestionsDatabase.COLUM_QUESTION_DESCRIPTION);
                     }
@@ -74,7 +80,7 @@ public class FetchQuestionTask extends BaseTasks<Boolean, String, Integer> {
             publishProgress(e.getLocalizedMessage());
         }
 
-        return affectedRows;
+        return questions;
     }
 
     @Override
