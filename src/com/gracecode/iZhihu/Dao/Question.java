@@ -1,7 +1,9 @@
 package com.gracecode.iZhihu.Dao;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.gracecode.iZhihu.R;
 
 
 public final class Question implements Parcelable {
@@ -150,5 +152,32 @@ public final class Question implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    public String getShareString(Context context) {
+        return String.format(context.getString(R.string.share_template),
+                getTitle(),
+                getOnlineShortUrl(getAnswerId()),
+                context.getString(R.string.app_name)
+        );
+    }
+
+    /**
+     * 读知乎在线连接
+     *
+     * @param number
+     * @return
+     */
+    private static String getOnlineShortUrl(int number) {
+        String s = "", KEY = "6BCMx(0gEwTj3FbUGPe7rtKfqosmZOX2S)5IvH.zu9DdQRL41AnV8ckylhp!YNWJi";
+        int l = KEY.length();
+
+        while (number > 0) {
+            int x = number % l;
+            s = KEY.substring(x, x + 1) + s;
+            number = (int) Math.floor(number / l);
+        }
+
+        return "http://z.ihu.im/u/" + s;
     }
 }

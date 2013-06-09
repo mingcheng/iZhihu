@@ -19,6 +19,7 @@ import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Detail extends BaseActivity implements ViewPager.OnPageChangeListener {
@@ -120,17 +121,13 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
      *
      * @return
      */
-    private File getScreenShotFile() {
-        if (currentQuestion == null) {
-            return null;
+    private File getScreenShotFile() throws IOException {
+        if (currentQuestion == null || currentQuestion.getId() == DetailFragment.ID_NOT_FOUND) {
+            throw new IOException();
         }
 
-        if (currentQuestion.getId() != DetailFragment.ID_NOT_FOUND) {
-            File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            return new File(pictureDirectory, currentQuestion.getId() + ".png");
-        } else {
-            return null;
-        }
+        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        return new File(pictureDirectory, currentQuestion.getId() + ".png");
     }
 
 
@@ -142,6 +139,10 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             currentPosition = index;
             questionsDatabase.markAsRead(currentQuestion.getId());
             currentQuestion.setUnread(false);
+
+            if (fragListQuestions != null) {
+                fragCurrentQuestionDetail = fragListQuestions.getItem(currentPosition);
+            }
         }
     }
 
@@ -210,13 +211,13 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         }
 
         // 是否保留分享时用的图片
-        File screenshots = getScreenShotFile();
-        if (!isShareByTextOnly && !isShareAndSave && screenshots != null && screenshots.exists()) {
-            try {
+        try {
+            File screenshots = getScreenShotFile();
+            if (!isShareByTextOnly && !isShareAndSave && screenshots != null && screenshots.exists()) {
                 screenshots.delete();
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -273,28 +274,27 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
             // Share question by intent
             case R.id.menu_share:
-                File screenShotFile = getScreenShotFile();
-                String shareString = fragCurrentQuestionDetail.getShareString();
+                String shareString = currentQuestion.getShareString(context);
+
+                if (isShareByTextOnly) {
+                    Util.openShareIntentWithPlainText(this, shareString);
+                    return true;
+                }
 
                 try {
-                    // @todo 优化这段代码的逻辑
-                    if (!isShareByTextOnly) {
-                        if (!screenShotFile.exists() && fragCurrentQuestionDetail.isTempScreenShotsFileCached()) {
-                            Util.copyFile(fragCurrentQuestionDetail.getTempScreenShotsFile(), screenShotFile);
-                        }
-
-                        if (screenShotFile.exists()) {
-                            Util.openShareIntentWithImage(this, shareString, Uri.fromFile(screenShotFile));
-                        } else {
-                            Util.openShareIntentWithPlainText(this, shareString);
-                        }
+                    File screenShotFile = getScreenShotFile();
+                    if (fragCurrentQuestionDetail.isTempScreenShotsFileCached()) {
+                        Util.copyFile(fragCurrentQuestionDetail.getTempScreenShotsFile(), screenShotFile);
+                        Util.openShareIntentWithImage(this, shareString, Uri.fromFile(screenShotFile));
                     } else {
-                        Util.openShareIntentWithPlainText(this, shareString);
+                        throw new IOException();
                     }
 
-                    return true;
-                } catch (Exception e) {
+                } catch (IOException e) {
+                    Util.openShareIntentWithPlainText(this, shareString);
                     e.printStackTrace();
+                } finally {
+                    return true;
                 }
         }
 

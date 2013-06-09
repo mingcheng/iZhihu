@@ -38,6 +38,7 @@ public class ScrollDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.view_pages, container, false);
         this.viewPager = (ViewPager) view.findViewById(R.id.pager);
+
         return view;
     }
 
@@ -51,5 +52,10 @@ public class ScrollDetailFragment extends Fragment {
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(detailActivity);
         viewPager.setCurrentItem(position);
+    }
+
+    public DetailFragment getItem(int pos) {
+        Fragment fragment = adapter.getItem(pos);
+        return (fragment instanceof DetailFragment) ? (DetailFragment) fragment : null;
     }
 }

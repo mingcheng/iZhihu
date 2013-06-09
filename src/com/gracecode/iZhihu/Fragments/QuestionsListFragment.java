@@ -6,8 +6,6 @@ import android.os.Message;
 import android.widget.ListView;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
-import com.gracecode.iZhihu.R;
-import com.gracecode.iZhihu.Util;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 
 import java.util.ArrayList;
@@ -22,8 +20,6 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
             try {
                 if (msg.what > 0) {
                     questionsAdapter.notifyDataSetChanged();
-                } else {
-                    Util.showShortToast(context, getString(R.string.not_more_questions));
                 }
             } catch (IllegalStateException e) {
                 e.printStackTrace();

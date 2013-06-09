@@ -104,8 +104,8 @@ public class DetailFragment extends WebViewFragment {
         File tempScreenShotsFile = getTempScreenShotsFile();
         Boolean is5MinutesAgo = (System.currentTimeMillis() - tempScreenShotsFile.lastModified()) < FIVE_MINUTES;
         return tempScreenShotsFile.exists() && tempScreenShotsFile.length() > 0 && is5MinutesAgo;
-
     }
+
 
     public File getTempScreenShotsFile() {
         return new File(context.getCacheDir(), question.getAnswerId() + ".png");
@@ -295,18 +295,6 @@ public class DetailFragment extends WebViewFragment {
         return className;
     }
 
-    public boolean isStared() {
-        return (question != null) && question.isStared();
-    }
-
-    public int getQuestionId() {
-        return (question != null) ? question.getAnswerId() : ID_NOT_FOUND;
-    }
-
-    public int getAnswerId() {
-        return (question != null) ? question.getAnswerId() : ID_NOT_FOUND;
-    }
-
     /**
      * 截取所有网页内容到 Bitmap
      *
@@ -329,32 +317,4 @@ public class DetailFragment extends WebViewFragment {
         }
     }
 
-    /**
-     * 获取分享的文案
-     *
-     * @return
-     */
-    public String getShareString() {
-        return String.format("%s #%s# %s", question.getTitle(), context.getString(R.string.app_name),
-                getOnlineShortUrl(question.getAnswerId()));
-    }
-
-    /**
-     * 读知乎在线连接
-     *
-     * @param number
-     * @return
-     */
-    private static String getOnlineShortUrl(int number) {
-        String s = "", KEY = "6BCMx(0gEwTj3FbUGPe7rtKfqosmZOX2S)5IvH.zu9DdQRL41AnV8ckylhp!YNWJi";
-        int l = KEY.length();
-
-        while (number > 0) {
-            int x = number % l;
-            s = KEY.substring(x, x + 1) + s;
-            number = (int) Math.floor(number / l);
-        }
-
-        return "http://z.ihu.im/u/" + s;
-    }
 }
