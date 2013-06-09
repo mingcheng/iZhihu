@@ -151,15 +151,6 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState != null) {
-            // ...
-        }
-
-        // 获取当权选定的条目
-        this.currentQuestion = getIntent().getParcelableExtra(INTENT_EXTRA_CURRENT_QUESTION);
-        this.questionsList = getIntent().getParcelableArrayListExtra(INTENT_EXTRA_QUESTIONS);
-        this.currentPosition = getIntent().getIntExtra(INTENT_EXTRA_CURRENT_POSITION, DEFAULT_POSITION);
-
         // 屏幕常亮控制
         PowerManager powerManager = ((PowerManager) getSystemService(POWER_SERVICE));
         this.wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, Detail.class.getName());
@@ -172,6 +163,17 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         // Database for questions.
         this.questionsDatabase = new QuestionsDatabase(context);
 
+        // 获取当权选定的条目
+        if (savedInstanceState != null) {
+            this.currentQuestion = savedInstanceState.getParcelable(INTENT_EXTRA_CURRENT_POSITION);
+            this.questionsList = savedInstanceState.getParcelableArrayList(INTENT_EXTRA_QUESTIONS);
+            this.currentPosition = savedInstanceState.getInt(INTENT_EXTRA_CURRENT_POSITION);
+        } else {
+            this.currentQuestion = getIntent().getParcelableExtra(INTENT_EXTRA_CURRENT_QUESTION);
+            this.questionsList = getIntent().getParcelableArrayListExtra(INTENT_EXTRA_QUESTIONS);
+            this.currentPosition = getIntent().getIntExtra(INTENT_EXTRA_CURRENT_POSITION, DEFAULT_POSITION);
+        }
+
         // 是否是滚动阅读
         if (isSetScrollRead && questionsList.size() > 0) {
             this.fragListQuestions = new ScrollDetailFragment(this, questionsList, currentPosition);
@@ -179,18 +181,20 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             this.fragCurrentQuestionDetail = new DetailFragment(this, currentQuestion);
         }
 
+        // ActionBar 的样式
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, (isSetScrollRead) ? fragListQuestions : fragCurrentQuestionDetail)
                 .commit();
-
-        // ActionBar 的样式
-        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        // ...
+        outState.putParcelableArrayList(INTENT_EXTRA_QUESTIONS, questionsList);
+        outState.putParcelable(INTENT_EXTRA_CURRENT_POSITION, currentQuestion);
+        outState.putInt(INTENT_EXTRA_CURRENT_POSITION, currentPosition);
         super.onSaveInstanceState(outState);
     }
 
@@ -228,8 +232,6 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         if (isNeedScreenWakeLock()) {
             wakeLock.release();
         }
-
-        // mark as read
     }
 
 
