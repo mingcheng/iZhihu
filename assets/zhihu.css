@@ -48,12 +48,9 @@ ul, ol {
     list-style-position: inside;
 }
 
-/*
 p {
-    color: inherit;
     text-rendering: optimizeLegibility;
 }
-*/
 
 sup {
     border-left: 2px solid #999;
@@ -114,6 +111,20 @@ body .question img {
     margin: .5em auto;
     border-radius: 3px;
 }
+
+body .question ul ,
+                 body .question ol {
+    margin-left:  1.2em;
+}
+
+body .question ul {
+ list-style: square;
+           }
+
+           body .question ol {
+
+           list-style: decimal;
+           }
 
 body .question img {
 }
