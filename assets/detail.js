@@ -6,5 +6,7 @@
 */
 
 Zepto(function($) {
+      var title =  $("#J_Title"), thumbs = $(".content img");
 
+     //document.write(thumbs.length);
 });

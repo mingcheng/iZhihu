@@ -16,19 +16,15 @@
     font-weight: bold;
 }
 
-@font-face {
-    font-family: test;
-    src: url(deng.ttf);
-}
-
 body {
     font-family: XinGothic;
     background: #eee9e9;
     text-shadow: 0 1px 0 #fff5ee;
     font-size: 16px;
     color: #333;
-    padding: 1em;
     line-height: 1.5em;
+    padding: 0px;
+    margin: 0px;
 }
 
 a {
@@ -72,8 +68,6 @@ blockquote {
     color: #666;
 }
 
-
-
 hr {
     margin: 0;
     border-width: 0;
@@ -86,15 +80,35 @@ body a:active {
     text-decoration: none;
 }
 
+body .title {
+padding: 1em 1em 0 1em;
+}
 
-body .question h1 {
+body .title h1 {
     font-size: 1.1em;
     color: #111;
-    margin: 0 0 1em 0;
+    padding: 0 0 1em 0;
 }
+
+body .title {
+
+}
+
+body .title h1 {
+
+}
+
+body .title .question_description {
+    color: #777;
+    padding: 0em;
+    font-size: .9em;
+margin: 0;
+}
+
 
 body .question {
     word-wrap: break-word;
+        padding: .5em 1em 1em 1em;
 }
 
 body .question p {
@@ -135,12 +149,6 @@ body .question a:link {
     white-space: wrap-all;
 }
 
-.question_description {
-    color: #777;
-    padding: 0em;
-    font-size: .9em;
-    line-height: 1.5em;
-}
 
 .user_name {
     border-top: 3px double #ccc;
@@ -151,10 +159,6 @@ body .question a:link {
 
 .update-at {
     display: none;
-    font-size: small;
-    text-align: left;
-    color: #999;
-    padding: 0 0 2em 0;
 }
 
 .end {
