@@ -47,14 +47,16 @@ public class ThumbnailsDatabase {
     };
 
     private final Context context;
-    private final File databaseFile;
-    private final DatabaseOpenHelper databaseOpenHelper;
 
     public void close() {
-        databaseOpenHelper.close();
+
     }
 
-    private static class DatabaseOpenHelper extends SQLiteOpenHelper {
+    private static final class DatabaseOpenHelper extends SQLiteOpenHelper {
+        public DatabaseOpenHelper(Context context) {
+            super(context, (new File(context.getCacheDir(), FILE_DATABASE_NAME)).getAbsolutePath(), null, DATABASE_VERSION);
+        }
+
         public DatabaseOpenHelper(Context context, String name) {
             super(context, name, null, DATABASE_VERSION);
         }
@@ -76,8 +78,6 @@ public class ThumbnailsDatabase {
     public ThumbnailsDatabase(Context context) {
         this.context = context;
 
-        this.databaseFile = new File(context.getCacheDir(), FILE_DATABASE_NAME);
-        this.databaseOpenHelper = new DatabaseOpenHelper(context, databaseFile.getAbsolutePath());
     }
 
     public File getLocalCacheDirectory() {
@@ -100,7 +100,7 @@ public class ThumbnailsDatabase {
             return false;
         }
 
-        SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
+        SQLiteDatabase db = new DatabaseOpenHelper(context).getWritableDatabase();
         try {
             ContentValues contentValues = new ContentValues();
             contentValues.put(COLUM_URL, url);
@@ -122,7 +122,7 @@ public class ThumbnailsDatabase {
      * @return
      */
     public String getCachedPath(String url) {
-        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
+        SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME,
                 new String[]{COLUM_LOCAL_PATH},
                 COLUM_URL + "=?", new String[]{url}, null, null, null, "1");
@@ -168,7 +168,7 @@ public class ThumbnailsDatabase {
             thumbnail.delete();
         }
 
-        SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
+        SQLiteDatabase db = new DatabaseOpenHelper(context).getWritableDatabase();
         try {
             db.delete(DATABASE_THUMBNAILS_TABLE_NAME, null, null);
         } finally {
@@ -182,7 +182,7 @@ public class ThumbnailsDatabase {
             return false;
         }
 
-        SQLiteDatabase db = databaseOpenHelper.getWritableDatabase();
+        SQLiteDatabase db = new DatabaseOpenHelper(context).getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUM_LOCAL_PATH, localPath);
@@ -203,7 +203,7 @@ public class ThumbnailsDatabase {
 
 
     public List<String> getNotCachedThumbnails() {
-        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
+        SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{COLUM_URL},
                 COLUM_LOCAL_PATH + " IS NULL AND " + COLUM_STATUS + " IS NULL", null, null, null, COLUM_ID + " DESC", null);
 
@@ -224,7 +224,7 @@ public class ThumbnailsDatabase {
 
 
     public List<String> getCachedThumbnails() {
-        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
+        SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{COLUM_LOCAL_PATH},
                 COLUM_LOCAL_PATH + " IS NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, COLUM_ID + " DESC", null);
 
@@ -245,7 +245,7 @@ public class ThumbnailsDatabase {
 
 
     public int getTotalCachedCount() {
-        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
+        SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{"COUNT(" + COLUM_ID + ") AS " + COLUM_ID},
                 COLUM_LOCAL_PATH + " NOT NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, null, null);
 
@@ -260,7 +260,7 @@ public class ThumbnailsDatabase {
 
 
     public long getTotalCachedSize() {
-        SQLiteDatabase db = databaseOpenHelper.getReadableDatabase();
+        SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
         Cursor cursor = db.query(DATABASE_THUMBNAILS_TABLE_NAME, new String[]{"SUM(" + COLUM_SIZE + ") AS " + COLUM_ID},
                 COLUM_LOCAL_PATH + " NOT NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, null, null);
 
