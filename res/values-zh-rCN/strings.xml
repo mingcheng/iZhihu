@@ -63,6 +63,7 @@
     <string name="scroll_read_summary">在详情页中左右手势滑动阅读上下篇条目</string>
     <string name="traditional_chinese">正體中文</string>
     <string name="traditional_chinese_summary">將所有的內容轉換為正體字（繁體中文），反之使用簡體字</string>
-    <string name="not_more_questions">没有更多的条目了。</string>
+    <string name="nomore_questions">没有更多的条目了。</string>
     <string name="share_template" formatted="false">%s %s 分享自 #%s#</string>
+    <string name="no_newer_questions">没有更新的条目</string>
 </resources>

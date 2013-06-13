@@ -126,10 +126,12 @@ public class Main extends BaseActivity {
 
                         // !!
                         scrollTabsFragment.notifyDatasetChanged();
+                    }
 
-                        if (focus) {
-                            Util.showLongToast(context, String.format(getString(R.string.affectRows), affectedRows));
-                        }
+                    if (focus) {
+                        Util.showLongToast(context,
+                                (affectedRows > 0) ?
+                                        String.format(getString(R.string.affectRows), affectedRows) : getString(R.string.no_newer_questions));
                     }
                 } catch (RuntimeException e) {
                     Util.showShortToast(context, getString(R.string.rebuild_ui_faild));

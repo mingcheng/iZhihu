@@ -323,9 +323,8 @@ public final class QuestionsDatabase {
         }
     }
 
-    synchronized public boolean isStared(int id) {
-        int value = getSingleIntFieldValue(id, COLUM_STARED);
-        return (value == VALUE_STARED) ? true : false;
+    public boolean isStared(int id) {
+        return (getSingleIntFieldValue(id, COLUM_STARED) == VALUE_STARED) ? true : false;
     }
 
     synchronized public boolean isUnread(int id) {

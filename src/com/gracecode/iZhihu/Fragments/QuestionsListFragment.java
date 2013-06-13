@@ -6,6 +6,8 @@ import android.os.Message;
 import android.widget.ListView;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
+import com.gracecode.iZhihu.R;
+import com.gracecode.iZhihu.Util;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 
 import java.util.ArrayList;
@@ -20,11 +22,16 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
             try {
                 if (msg.what > 0) {
                     questionsAdapter.notifyDataSetChanged();
+                } else {
+                    Util.showShortToast(context, getString(R.string.nomore_questions));
                 }
             } catch (IllegalStateException e) {
                 e.printStackTrace();
             } finally {
                 pull2RefreshView.onRefreshComplete();
+                if (msg.what <= 0) {
+                    pull2RefreshView.setMode(PullToRefreshBase.Mode.DISABLED);
+                }
             }
         }
     };
@@ -61,14 +68,13 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
      */
     synchronized private void getMoreQuestionsFromDatabase() {
         new Thread(new Runnable() {
-            private static final long DELAY_TIME = 1000;
+            private static final long DELAY_TIME = 800;
 
             @Override
             public void run() {
                 int size = 0;
                 try {
                     Thread.sleep(DELAY_TIME);
-
                     if (currentPage <= questionsDatabase.getTotalPages()) {
                         ArrayList<Question> newDatas = questionsDatabase.getRecentQuestions(++currentPage);
                         questions.addAll(newDatas);
@@ -98,8 +104,10 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
             @Override
             public void run() {
                 try {
-                    for (Question question : questions) {
-                        question.setStared(questionsDatabase.isStared(question.getId()));
+                    if (questions != null && questions.size() > 0) {
+                        for (Question question : questions) {
+                            question.setStared(questionsDatabase.isStared(question.getId()));
+                        }
                     }
                 } finally {
                     updateDataSetChangedHandler.sendEmptyMessage(questions.size());

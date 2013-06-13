@@ -72,6 +72,7 @@
     <string name="key_traditional_chinese">key_traditional_chinese</string>
     <string name="traditional_chinese">Traditional Chinese</string>
     <string name="traditional_chinese_summary">Convert all characters to Traditional Chinese</string>
-    <string name="not_more_questions">No more items</string>
+    <string name="nomore_questions">No more items</string>
     <string name="share_template" formatted="false">%s %s, Share By #%s#</string>
+    <string name="no_newer_questions">No Newer Questions</string>
 </resources>
