@@ -61,7 +61,9 @@ public class Main extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        fetchQuestionsFromServer(false);
+        if (Util.isNetworkConnected(context)) {
+            fetchQuestionsFromServer(false);
+        }
     }
 
 
@@ -83,6 +85,37 @@ public class Main extends BaseActivity {
         FetchQuestionTask task = new FetchQuestionTask(context, new FetchQuestionTask.Callback() {
             private ProgressDialog progressDialog;
 
+
+            private void startAnimationIcon() {
+                Animation rotation = AnimationUtils.loadAnimation(context, R.anim.refresh_rotate);
+
+                RelativeLayout layout = new RelativeLayout(context);
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT,
+                        RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+                ImageView imageView = new ImageView(context);
+                imageView.setLayoutParams(params);
+
+                layout.setGravity(Gravity.CENTER_VERTICAL | Gravity.TOP);
+                layout.addView(imageView);
+
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_refersh));
+                imageView.startAnimation(rotation);
+
+                menuRefersh.setActionView(layout);
+            }
+
+
+            private void clearAnimationIcon() {
+                View v = menuRefersh.getActionView();
+                if (v != null) {
+                    v.clearAnimation();
+                }
+                menuRefersh.setActionView(null);
+            }
+
+
             @Override
             public void onPreExecute() {
                 if (isFirstRun()) {
@@ -90,26 +123,11 @@ public class Main extends BaseActivity {
                             getString(R.string.app_name), getString(R.string.loading), false, false);
                 }
 
-                if (focus && menuRefersh != null) {
-                    Animation rotation = AnimationUtils.loadAnimation(context, R.anim.refresh_rotate);
-
-                    RelativeLayout layout = new RelativeLayout(context);
-                    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                            RelativeLayout.LayoutParams.MATCH_PARENT,
-                            RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-                    ImageView imageView = new ImageView(context);
-                    imageView.setLayoutParams(params);
-
-                    layout.setGravity(Gravity.CENTER_VERTICAL | Gravity.TOP);
-                    layout.addView(imageView);
-
-                    imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_refersh));
-                    imageView.startAnimation(rotation);
-
-                    menuRefersh.setActionView(layout);
+                if (menuRefersh != null) {
+                    startAnimationIcon();
                 }
             }
+
 
             @Override
             public void onPostExecute(Object o) {
@@ -140,20 +158,15 @@ public class Main extends BaseActivity {
                         progressDialog.dismiss();
                     }
 
+                    if (menuRefersh != null) {
+                        clearAnimationIcon();
+                    }
+
                     // 离线下载图片
-                    if (Util.isWifiConnected(context) && Util.isExternalStorageExists()
-                            && isNeedCacheThumbnails && affectedRows > 0) {
+                    if (Util.isWifiConnected(context) && Util.isExternalStorageExists() && isNeedCacheThumbnails && affectedRows > 0) {
                         startService(fetchThumbnailsServiceIntent);
                     } else {
                         stopService(fetchThumbnailsServiceIntent);
-                    }
-
-                    if (menuRefersh != null) {
-                        View v = menuRefersh.getActionView();
-                        if (v != null) {
-                            v.clearAnimation();
-                        }
-                        menuRefersh.setActionView(null);
                     }
                 }
             }

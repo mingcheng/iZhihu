@@ -1,7 +1,6 @@
 package com.gracecode.iZhihu.Activity;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,13 +8,14 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.update.UmengUpdateAgent;
 
-abstract class BaseActivity extends Activity {
+abstract class BaseActivity extends FragmentActivity {
     static ActionBar actionBar;
     protected static Context context;
     static SharedPreferences sharedPreferences;
