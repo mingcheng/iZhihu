@@ -1,7 +1,9 @@
 package com.gracecode.iZhihu.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -31,22 +33,25 @@ public final class QuestionsAdapter extends BaseAdapter {
     private final LayoutInflater layoutInflater;
     private static JChineseConvertor chineseConvertor = null;
     private final SharedPreferences sharedPreferences;
+    private final Typeface xinGothicTypeFace = null;
     private boolean isNeedConvertTraditionalChinese = false;
 
-    public QuestionsAdapter(Context context, List<Question> questions) {
-        this.context = context;
+    public QuestionsAdapter(Activity activity, List<Question> questions) {
+        this.context = activity;
         this.questions = questions;
-        this.layoutInflater = LayoutInflater.from(context);
-        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        this.layoutInflater = LayoutInflater.from(activity);
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
 
         this.isNeedConvertTraditionalChinese =
-                sharedPreferences.getBoolean(context.getString(R.string.key_traditional_chinese), false);
+                sharedPreferences.getBoolean(activity.getString(R.string.key_traditional_chinese), false);
 
         try {
             chineseConvertor = JChineseConvertor.getInstance();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+//        xinGothicTypeFace = Typeface.createFromAsset(activity.getAssets(), "XinGothic.otf");
     }
 
     @Override
@@ -74,6 +79,12 @@ public final class QuestionsAdapter extends BaseAdapter {
 
             TextView textViewTitle = (TextView) convertView.findViewById(R.id.title);
             TextView textViewDescription = (TextView) convertView.findViewById(R.id.description);
+
+            if (xinGothicTypeFace != null) {
+                textViewTitle.setTypeface(xinGothicTypeFace);
+                textViewDescription.setTypeface(xinGothicTypeFace);
+            }
+
             ImageView imageViewFlag = (ImageView) convertView.findViewById(R.id.unread_flag);
 
             holder = new ViewHolder();

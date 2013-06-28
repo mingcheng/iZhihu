@@ -7,18 +7,21 @@
 
 @font-face {
     font-family: XinGothic;
-    src: url(XinGothic.otf);
+    src: url(file:///android_asset/XinGothic.otf);
 }
 
 @font-face {
     font-family: XinGothic;
-    src: url(XinGothic-Bold.otf);
+    src: url(file:///android_asset/XinGothic-Bold.otf);
     font-weight: bold;
 }
 
+* {
+      font-family: XinGothic;
+}
+
 body {
-    font-family: XinGothic;
-    background: #eee9e9;
+    background: #eee9e9 url(file:///android_asset/metal.jpg) repeat;
     text-shadow: 0 1px 0 #fff5ee;
     font-size: 16px;
     color: #333;
@@ -165,8 +168,8 @@ body .question a:link {
 .end {
     width: 113px;
     height: 40px;
-    background: url(izhihu.png) no-repeat center;
-    margin: 3em auto 1em auto;
+    background: url(file:///android_asset/izhihu.png) no-repeat center;
+    margin: 1.5em auto 1em auto;
     background-size: 113px 40px;
     opacity: .9;
 }

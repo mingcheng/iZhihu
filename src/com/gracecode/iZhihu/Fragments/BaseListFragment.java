@@ -52,7 +52,8 @@ public abstract class BaseListFragment extends PullToRefreshListFragment impleme
         if (this.questions == null || this.questions.size() <= 0) {
             this.questions = getInitialData();
         }
-        this.questionsAdapter = new QuestionsAdapter(context, questions);
+
+        this.questionsAdapter = new QuestionsAdapter(getActivity(), questions);
     }
 
     @Override
