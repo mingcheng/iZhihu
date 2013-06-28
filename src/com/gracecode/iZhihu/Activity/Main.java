@@ -59,8 +59,9 @@ public class Main extends BaseActivity {
 
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
+
         if (Util.isNetworkConnected(context)) {
             fetchQuestionsFromServer(false);
         }
@@ -84,7 +85,6 @@ public class Main extends BaseActivity {
     void fetchQuestionsFromServer(final Boolean focus) {
         FetchQuestionTask task = new FetchQuestionTask(context, new FetchQuestionTask.Callback() {
             private ProgressDialog progressDialog;
-
 
             private void startAnimationIcon() {
                 Animation rotation = AnimationUtils.loadAnimation(context, R.anim.refresh_rotate);
