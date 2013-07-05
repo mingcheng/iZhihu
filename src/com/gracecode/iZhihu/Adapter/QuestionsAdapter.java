@@ -33,7 +33,7 @@ public final class QuestionsAdapter extends BaseAdapter {
     private final LayoutInflater layoutInflater;
     private static JChineseConvertor chineseConvertor = null;
     private final SharedPreferences sharedPreferences;
-    private final Typeface xinGothicTypeFace = null;
+    private Typeface xinGothicTypeFace = null;
     private boolean isNeedConvertTraditionalChinese = false;
 
     public QuestionsAdapter(Activity activity, List<Question> questions) {

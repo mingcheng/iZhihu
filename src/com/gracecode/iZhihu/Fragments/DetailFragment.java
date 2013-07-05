@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Picture;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Base64;
@@ -133,8 +132,9 @@ public class DetailFragment extends WebViewFragment {
         }
     }
 
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    @Override
+    public void onResume() {
+        super.onResume();
 
         this.activity = getActivity();
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);

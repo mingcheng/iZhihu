@@ -17,13 +17,15 @@
 }
 
 * {
-      font-family: XinGothic;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 body {
+    font-family: XinGothic;
     background: #eee9e9 url(file:///android_asset/metal.jpg) repeat;
     text-shadow: 0 1px 0 #fff5ee;
-    font-size: 16px;
+    font-size: 1em;
     color: #333;
     line-height: 1.5em;
     padding: 0px;
@@ -47,16 +49,12 @@ ul, ol {
     list-style-position: inside;
 }
 
-p {
-    text-rendering: optimizeLegibility;
-}
-
 sup {
     border-left: 2px solid #999;
     padding: 5px 0 5px 10px;
     display: block;
     vertical-align: baseline;
-    font-size: 100%;
+    font-size: 1em;
 }
 
 sup img {
@@ -67,7 +65,7 @@ blockquote {
     margin: 10px 0;
     padding-left: 10px;
     border-left: 2px solid #999;
-    font-size: 90%;
+    font-size: .9em;
     color: #666;
 }
 
@@ -88,17 +86,9 @@ body .title {
 }
 
 body .title h1 {
-    font-size: 1.1em;
+    font-size: 1.2em;
     color: #111;
     padding: 0 0 1em 0;
-}
-
-body .title {
-
-}
-
-body .title h1 {
-
 }
 
 body .title .question_description {
@@ -110,7 +100,6 @@ body .title .question_description {
 
 
 body .question {
-    word-wrap: break-word;
     padding: .5em 1em 1em 1em;
 }
 
@@ -238,7 +227,7 @@ font-weight: normal;
 }
 
 .small {
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .normal {
@@ -246,10 +235,10 @@ font-weight: normal;
 }
 
 .big {
-    font-size: 20px;
+    font-size: 21px;
 }
 
 .huge {
-    font-size: 22px;
+    font-size: 24px;
 }
 
