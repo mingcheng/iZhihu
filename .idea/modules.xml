@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../Android-PullToRefresh/library/PullToRefresh.iml" filepath="$PROJECT_DIR$/../Android-PullToRefresh/library/PullToRefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Android-PullToRefresh/extras/PullToRefreshListFragment/PullToRefreshListFragment.iml" filepath="$PROJECT_DIR$/../Android-PullToRefresh/extras/PullToRefreshListFragment/PullToRefreshListFragment.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../aFileChooser/aFileChooser/aFileChooser.iml" filepath="$PROJECT_DIR$/../aFileChooser/aFileChooser/aFileChooser.iml" />
       <module fileurl="file://$PROJECT_DIR$/iZhihu.iml" filepath="$PROJECT_DIR$/iZhihu.iml" />
     </modules>
   </component>

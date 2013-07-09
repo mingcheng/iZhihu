@@ -75,4 +75,11 @@
     <string name="nomore_questions">No more items</string>
     <string name="share_template" formatted="false">%s %s, Share By #%s#</string>
     <string name="no_newer_questions">No Newer Questions</string>
+    <string name="custom_fonts_enabled">Use Custom Fonts</string>
+    <string name="custom_fonts_summary">Read the text though your favourite fonts.</string>
+    <string name="custom_fonts">Main Custom Fonts</string>
+
+
+    <string name="custom_fonts_bold">Custom Bold Font</string>
+    <string name="not_set_yet">Not setted yet</string>
 </resources>

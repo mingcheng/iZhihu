@@ -12,6 +12,26 @@
                 android:summary="@string/traditional_chinese_summary"
                 />
 
+        <CheckBoxPreference
+                android:key="@string/key_custom_fonts_enabled"
+                android:title="@string/custom_fonts_enabled"
+                android:defaultValue="false"
+                android:summary="@string/custom_fonts_summary"
+                />
+
+        <Preference
+                android:key="@string/key_custom_fonts"
+                android:title="@string/custom_fonts"
+                android:enabled="false"
+                android:summary="@string/not_set_yet"
+                />
+
+        <Preference
+                android:key="@string/key_custom_fonts_bold"
+                android:title="@string/custom_fonts_bold"
+                android:enabled="false"
+                android:summary="@string/not_set_yet"
+                />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -72,14 +92,14 @@
                 android:summary="@string/tradition_symbol_summary"
                 />
 
-        <CheckBoxPreference
-                android:key="@string/key_auto_scroll"
-                android:title="@string/auto_scroll"
-                android:defaultValue="false"
-                android:enabled="false"
-                android:visibility="gone"
-                android:summary="@string/auto_scroll_summary"
-                />
+        <!--<CheckBoxPreference-->
+                <!--android:key="@string/key_auto_scroll"-->
+                <!--android:title="@string/auto_scroll"-->
+                <!--android:defaultValue="false"-->
+                <!--android:enabled="false"-->
+                <!--android:visibility="gone"-->
+                <!--android:summary="@string/auto_scroll_summary"-->
+                <!--/>-->
     </PreferenceCategory>
 
 

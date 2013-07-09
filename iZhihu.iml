@@ -19,6 +19,7 @@
     <orderEntry type="library" name="jcc-bate-0.7.3" level="project" />
     <orderEntry type="module" module-name="PullToRefresh" />
     <orderEntry type="module" module-name="PullToRefreshListFragment" />
+    <orderEntry type="module" module-name="aFileChooser" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

@@ -66,4 +66,9 @@
     <string name="nomore_questions">没有更多的条目了。</string>
     <string name="share_template" formatted="false">%s %s 分享自 #%s#</string>
     <string name="no_newer_questions">没有更新的条目</string>
+    <string name="custom_fonts_enabled">使用自定义字体</string>
+    <string name="custom_fonts_summary">使用您自己喜欢的字体阅读条目详情</string>
+    <string name="custom_fonts">设置字体</string>
+    <string name="custom_fonts_bold">设置粗体(Bold)</string>
+    <string name="not_set_yet">未设置</string>
 </resources>

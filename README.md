@@ -144,6 +144,14 @@
 * 使用 https://github.com/chrisbanes/Android-PullToRefresh 下拉刷新控件
 * 使用 友盟(umeng.com) 统计工具
 
+感谢以下兄弟的捐助和支持（按照捐款时间排序）：
+
+* 乌金一 (jin**@gmail.com)
+* 杨志安 (yzh**@foxmail.com)
+
+截至目前（2013年7月5日）累计收到捐助 25RMB 整。
+
+
 ## 联系
 
 * lucky@gracecode.com

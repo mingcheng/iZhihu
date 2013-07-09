@@ -8,6 +8,9 @@
     <string name="key_enable_cache">key_enable_cache</string>
     <string name="key_font_size">key_font_size</string>
     <string name="key_indent">key_indent</string>
+    <string name="key_custom_fonts_bold">key_custom_fonts_bold</string>
+    <string name="key_custom_fonts">key_custom_fonts</string>
+    <string name="key_custom_fonts_enabled">key_custom_fonts_enabled</string>
     <string name="key_only_wifi_cache">key_only_wifi_cache</string>
     <string name="key_scroll_read">key_scroll_read</string>
     <string name="key_share_and_save">key_share_and_save</string>
@@ -15,5 +18,6 @@
     <string name="key_symbol">key_symbol</string>
     <string name="key_wake_lock">key_wake_lock</string>
     <string name="url_donate" formated="false">http://t.cn/zQ7EeUj</string>
-    <string name="url_zhihu_questioin_pre" formatted="false">http://www.zhihu.com/question/%d/answer/%d?from=duzhihu</string>
+    <string name="url_zhihu_questioin_pre" formatted="false">http://www.zhihu.com/question/%d/answer/%d?from=duzhihu
+    </string>
 </resources>

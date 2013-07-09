@@ -7,15 +7,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.util.Log;
 import com.gracecode.iZhihu.Activity.About;
 import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
+import com.ipaulpro.afilechooser.utils.FileUtils;
+
+import java.io.File;
 
 public class PreferencesFragment extends PreferenceFragment {
     private Activity activity;
@@ -50,6 +55,9 @@ public class PreferencesFragment extends PreferenceFragment {
 
         setCacheEnabled(sharedPreferences.getBoolean(getString(R.string.key_enable_cache), true));
         setSaveThumbnailsEnabled(sharedPreferences.getBoolean(getString(R.string.key_share_text_only), false));
+
+        setCustomFontsEnabled(sharedPreferences.getBoolean(getString(R.string.key_custom_fonts_enabled), false));
+        updateAndMarkFontsPath();
     }
 
 
@@ -74,6 +82,26 @@ public class PreferencesFragment extends PreferenceFragment {
         for (String key : new String[]{
                 getString(R.string.key_only_wifi_cache),
                 getString(R.string.key_clear_caches)
+        }) {
+            findPreference(key).setEnabled(status);
+        }
+    }
+
+
+    private void updateAndMarkFontsPath() {
+        for (String key : new String[]{
+                getString(R.string.key_custom_fonts),
+                getString(R.string.key_custom_fonts_bold)
+        }) {
+            String path = sharedPreferences.getString(key, getString(R.string.not_set_yet));
+            findPreference(key).setSummary(path);
+        }
+    }
+
+    private void setCustomFontsEnabled(boolean status) {
+        for (String key : new String[]{
+                getString(R.string.key_custom_fonts),
+                getString(R.string.key_custom_fonts_bold)
         }) {
             findPreference(key).setEnabled(status);
         }
@@ -107,6 +135,13 @@ public class PreferencesFragment extends PreferenceFragment {
         } else if (getString(R.string.key_share_text_only).equals(key)) {
             setSaveThumbnailsEnabled(isShareTextOnly);
             return true;
+        } else if (getString(R.string.key_custom_fonts_enabled).equals(key)) {
+            Boolean isCustomFontsEnabled = sharedPreferences.getBoolean(getString(R.string.key_custom_fonts_enabled), false);
+            setCustomFontsEnabled(isCustomFontsEnabled);
+        } else if (getString(R.string.key_custom_fonts).equals(key)) {
+            startActivityForFontResult(getString(R.string.custom_fonts), R.string.key_custom_fonts);
+        } else if (getString(R.string.key_custom_fonts_bold).equals(key)) {
+            startActivityForFontResult(getString(R.string.custom_fonts_bold), R.string.key_custom_fonts_bold);
         } else if (getString(R.string.key_clear_caches).equals(key)) {
             if (isEnableCache) {
                 new AlertDialog.Builder(activity)
@@ -122,10 +157,49 @@ public class PreferencesFragment extends PreferenceFragment {
                         })
                         .show();
             }
+
             return true;
         }
 
         return super.onPreferenceTreeClick(prefScreen, pref);
+    }
+
+
+    private void startActivityForFontResult(String title, int flag) {
+        Intent target = new Intent(getActivity(), com.ipaulpro.afilechooser.FileChooserActivity.class);
+        target.putExtra("type", "otf|ttf|ttc|fon");
+        target.putExtra("title", title);
+        startActivityForResult(target, flag);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data != null) {
+            // Get the URI of the selected file
+            final Uri uri = data.getData();
+
+            try {
+                // Create a file instance from the URI
+                final File file = FileUtils.getFile(uri);
+
+                switch (requestCode) {
+                    case R.string.key_custom_fonts:
+                    case R.string.key_custom_fonts_bold:
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(getString(requestCode), file.getAbsolutePath());
+                        editor.commit();
+                        break;
+                }
+
+            } catch (Exception e) {
+                Log.e("FileSelectorTestActivity", "File select error", e);
+            }
+        }
+
+        updateAndMarkFontsPath();
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 
