@@ -63,12 +63,12 @@
         <activity
                 android:name="com.ipaulpro.afilechooser.FileChooserActivity"
                 android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.GET_CONTENT"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.OPENABLE"/>
-                <data android:mimeType="font/opentype"/>
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.GET_CONTENT"/>-->
+                <!--<category android:name="android.intent.category.DEFAULT"/>-->
+                <!--<category android:name="android.intent.category.OPENABLE"/>-->
+                <!--<data android:mimeType="font/opentype"/>-->
+            <!--</intent-filter>-->
         </activity>
 
         <service

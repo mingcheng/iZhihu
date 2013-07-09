@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-
     <PreferenceCategory
             android:title="@string/appearance">
 
@@ -10,6 +9,16 @@
                 android:title="@string/traditional_chinese"
                 android:defaultValue="false"
                 android:summary="@string/traditional_chinese_summary"
+                />
+
+        <ListPreference
+                android:key="@string/key_font_size"
+                android:title="@string/font_size"
+                android:summary="@string/font_size_summary"
+                android:entries="@array/font_size_entries"
+                android:entryValues="@array/font_size_entries_values"
+                android:dialogTitle="@string/font_size"
+                android:defaultValue="@string/default_font_size"
                 />
 
         <CheckBoxPreference
@@ -32,23 +41,7 @@
                 android:enabled="false"
                 android:summary="@string/not_set_yet"
                 />
-    </PreferenceCategory>
 
-    <PreferenceCategory
-            android:title="@string/share">
-        <CheckBoxPreference
-                android:key="@string/key_share_text_only"
-                android:title="@string/share_plain_only"
-                android:defaultValue="false"
-                android:summary="@string/share_plain_only_summary"
-                />
-
-        <CheckBoxPreference
-                android:key="@string/key_share_and_save"
-                android:title="@string/share_and_save"
-                android:defaultValue="true"
-                android:summary="@string/share_and_save_summary"
-                />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -68,15 +61,6 @@
                 android:summary="@string/scroll_read_summary"
                 />
 
-        <ListPreference
-                android:key="@string/key_font_size"
-                android:title="@string/font_size"
-                android:summary="@string/font_size_summary"
-                android:entries="@array/font_size_entries"
-                android:entryValues="@array/font_size_entries_values"
-                android:dialogTitle="@string/font_size"
-                android:defaultValue="@string/default_font_size"
-                />
 
         <CheckBoxPreference
                 android:key="@string/key_indent"
@@ -93,15 +77,31 @@
                 />
 
         <!--<CheckBoxPreference-->
-                <!--android:key="@string/key_auto_scroll"-->
-                <!--android:title="@string/auto_scroll"-->
-                <!--android:defaultValue="false"-->
-                <!--android:enabled="false"-->
-                <!--android:visibility="gone"-->
-                <!--android:summary="@string/auto_scroll_summary"-->
-                <!--/>-->
+        <!--android:key="@string/key_auto_scroll"-->
+        <!--android:title="@string/auto_scroll"-->
+        <!--android:defaultValue="false"-->
+        <!--android:enabled="false"-->
+        <!--android:visibility="gone"-->
+        <!--android:summary="@string/auto_scroll_summary"-->
+        <!--/>-->
     </PreferenceCategory>
 
+    <PreferenceCategory
+            android:title="@string/share">
+        <CheckBoxPreference
+                android:key="@string/key_share_text_only"
+                android:title="@string/share_plain_only"
+                android:defaultValue="false"
+                android:summary="@string/share_plain_only_summary"
+                />
+
+        <CheckBoxPreference
+                android:key="@string/key_share_and_save"
+                android:title="@string/share_and_save"
+                android:defaultValue="true"
+                android:summary="@string/share_and_save_summary"
+                />
+    </PreferenceCategory>
 
     <PreferenceCategory
             android:title="@string/caches">
