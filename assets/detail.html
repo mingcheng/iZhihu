@@ -5,8 +5,20 @@
         <meta name="viewport" content="minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no"/>
         <link rel="stylesheet" type="text/css" href="reset-min.css"/>
         <link rel="stylesheet" type="text/css" href="zhihu.css"/>
+        <style>
+            @font-face {
+                font-family: CustomFonts;
+                src: url(%s);
+            }
+
+            @font-face {
+                font-family: CustomFonts;
+                font-weight: bold;
+                src: url(%s);
+            }
+        </style>
     </head>
-    <body class="%s">
+    <body class="%s" style="font-family: CustomFonts;">
         <div class="title" id="J_Title">
             <h1 class="question_title">%s</h1>
             <div class="question_description">%s</div>

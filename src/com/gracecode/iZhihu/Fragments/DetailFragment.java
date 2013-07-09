@@ -49,6 +49,11 @@ public class DetailFragment extends WebViewFragment {
     private boolean isShareByTextOnly = false;
     private boolean isNeedConvertTraditionalChinese = false;
 
+    private boolean isCustomFontEnabled = false;
+    private String customFontPath;
+    private String customBoldFontPath;
+
+
     private final WebViewClient webViewClient = new WebViewClient() {
         @Override
         public void onPageFinished(WebView view, String url) {
@@ -147,6 +152,11 @@ public class DetailFragment extends WebViewFragment {
         this.isNeedConvertTraditionalChinese =
                 sharedPreferences.getBoolean(getString(R.string.key_traditional_chinese), false);
 
+        // Custom Fonts Preference
+        this.isCustomFontEnabled = sharedPreferences.getBoolean(getString(R.string.key_custom_fonts_enabled), false);
+        this.customFontPath = sharedPreferences.getString(getString(R.string.key_custom_fonts), "");
+        this.customBoldFontPath = sharedPreferences.getString(getString(R.string.key_custom_fonts_bold), "");
+
         WebView webView = getWebView();
         WebSettings webSettings = webView.getSettings();
 
@@ -154,6 +164,7 @@ public class DetailFragment extends WebViewFragment {
         webSettings.setUseWideViewPort(true);
         webSettings.setJavaScriptEnabled(true);
 
+        // Load page from generated HTML string.
         webView.loadDataWithBaseURL(URL_ASSETS_PREFIX, getFormatedContent(),
                 MIME_HTML_TYPE, Util.DEFAULT_CHARSET, null);
 
@@ -176,14 +187,23 @@ public class DetailFragment extends WebViewFragment {
     private String getFormatedContent() {
         String className = getClassName(), templateString = getTemplateString(), data = "";
 
+
         // Cached by file.
         try {
             File cacheFile = getCachedFile();
 
-            if (cacheFile.exists()) {
+            // @TODO Cache needed.
+            if (false && cacheFile.exists()) {
                 data = Util.getFileContent(cacheFile.getAbsolutePath());
             } else {
+                if (!isCustomFontEnabled) {
+                    this.customFontPath = "";
+                    this.customBoldFontPath = "";
+                }
+
                 data = String.format(templateString,
+                        "file:///" + customFontPath,
+                        "file:///" + customBoldFontPath,
                         className,
                         isNeedReplaceSymbol ? Util.replaceSymbol(question.getTitle()) : question.getTitle(),
                         formatContent(question.getDescription()),
