@@ -33,7 +33,7 @@ public class Comment extends BaseActivity {
         progressDialog = ProgressDialog.show(Comment.this,
                 getString(R.string.app_name), getString(R.string.loading), false, false);
 
-        answerId = getIntent().getIntExtra(ANSWER_ID, 15324367);
+        answerId = getIntent().getIntExtra(ANSWER_ID, 0);
         if (answerId == 0) {
             showErrorAndFinish("");
         }
