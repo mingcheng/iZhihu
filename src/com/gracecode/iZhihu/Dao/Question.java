@@ -7,6 +7,8 @@ import com.gracecode.iZhihu.R;
 
 
 public final class Question implements Parcelable {
+    private static final String KEY = "6BCMx(0gEwTj3FbUGPe7rtKfqosmZOX2S)5IvH.zu9DdQRL41AnV8ckylhp!YNWJi";
+
     private int id = 0;
     private int questionId = 0;
     private int answerId = 0;
@@ -169,7 +171,7 @@ public final class Question implements Parcelable {
      * @return
      */
     private static String getOnlineShortUrl(int number) {
-        String s = "", KEY = "6BCMx(0gEwTj3FbUGPe7rtKfqosmZOX2S)5IvH.zu9DdQRL41AnV8ckylhp!YNWJi";
+        String s = "";
         int l = KEY.length();
 
         while (number > 0) {

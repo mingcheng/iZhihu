@@ -265,6 +265,15 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
                 new Thread(MarkAsStared).start();
                 return true;
 
+            case R.id.menu_comment:
+                int answerId = currentQuestion.getAnswerId();
+
+                Intent intent = new Intent(Detail.this, Comment.class);
+                intent.putExtra(Comment.ANSWER_ID, answerId);
+                startActivity(intent);
+
+                break;
+
             // View question via zhihu.com
             case R.id.menu_view_at_zhihu:
                 String url =

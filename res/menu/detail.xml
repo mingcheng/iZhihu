@@ -3,29 +3,36 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_favorite"
-        android:title="@string/favorite"
-        android:icon="@drawable/ic_action_star"
-        android:showAsAction="always"
-        />
+            android:id="@+id/menu_favorite"
+            android:title="@string/favorite"
+            android:icon="@drawable/ic_action_star"
+            android:showAsAction="always"
+            />
 
     <item
-        android:id="@+id/menu_view_at_zhihu"
-        android:title="@string/view_at_zhihu"
-        android:showAsAction="never"
-        />
+            android:id="@+id/menu_comment"
+            android:title="@string/comment"
+            android:icon="@drawable/ic_comment"
+            android:showAsAction="never"
+            />
 
     <item
-        android:id="@+id/menu_share"
-        android:title="@string/share"
-        android:icon="@android:drawable/ic_menu_share"
-        android:showAsAction="collapseActionView"
-        />
+            android:id="@+id/menu_view_at_zhihu"
+            android:title="@string/view_at_zhihu"
+            android:showAsAction="never"
+            />
 
     <item
-        android:id="@+id/menu_preference"
-        android:icon="@drawable/ic_action_pref"
-        android:title="@string/preference"
-        android:showAsAction="collapseActionView"
-        />
+            android:id="@+id/menu_share"
+            android:title="@string/share"
+            android:icon="@android:drawable/ic_menu_share"
+            android:showAsAction="collapseActionView"
+            />
+
+    <item
+            android:id="@+id/menu_preference"
+            android:icon="@drawable/ic_action_pref"
+            android:title="@string/preference"
+            android:showAsAction="collapseActionView"
+            />
 </menu>

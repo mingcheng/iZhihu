@@ -163,7 +163,8 @@ public class Main extends BaseActivity {
                     }
 
                     // 离线下载图片
-                    if (Util.isWifiConnected(context) && Util.isExternalStorageExists() && isNeedCacheThumbnails && affectedRows > 0) {
+                    if (Util.isWifiConnected(context) && Util.isExternalStorageExists()
+                            && isNeedCacheThumbnails && affectedRows > 0) {
                         startService(fetchThumbnailsServiceIntent);
                     } else {
                         stopService(fetchThumbnailsServiceIntent);

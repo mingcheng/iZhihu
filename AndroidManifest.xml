@@ -48,6 +48,15 @@
         </activity>
 
         <activity
+                android:name=".Activity.Comment"
+                android:screenOrientation="portrait"
+                >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+        </activity>
+
+        <activity
                 android:name=".Activity.Preference">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

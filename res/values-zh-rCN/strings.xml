@@ -71,4 +71,5 @@
     <string name="custom_fonts">设置字体</string>
     <string name="custom_fonts_bold">设置粗体(Bold)</string>
     <string name="not_set_yet">未设置</string>
+    <string name="comment">评论</string>
 </resources>

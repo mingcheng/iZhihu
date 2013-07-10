@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                style="@style/Question">
+
+
+    <ImageView
+            android:id="@+id/comment_icon"
+            android:padding="5dp"
+            android:src="@drawable/ic_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/comment"
+            />
+
+    <TextView
+            android:id="@+id/author"
+            style="@style/Question.Title"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/comment_icon"
+            android:textColor="@color/gray64"
+            />
+
+    <TextView
+            android:id="@+id/time"
+            style="@style/Question.Description"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    <TextView
+            android:id="@+id/content"
+            style="@style/Question.Title"
+            android:textColor="@color/black"
+            android:layout_below="@id/author"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            />
+
+</RelativeLayout>
