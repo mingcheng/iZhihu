@@ -4,20 +4,23 @@ import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import com.gracecode.iZhihu.Util;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.zip.GZIPInputStream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -88,6 +91,7 @@ public class HTTPRequester {
 
         HttpGet httpGet = new HttpGet(requestUrl);
         httpGet.addHeader("Platform", "Android");
+        httpGet.addHeader("Accept-Encoding", "gzip, deflate");
 
         DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
 
@@ -97,9 +101,15 @@ public class HTTPRequester {
 
         HttpResponse httpResponse = defaultHttpClient.execute(httpGet);
         if (httpResponse.getStatusLine().getStatusCode() == HTTP_STATUS_OK) {
-            String responseString = EntityUtils.toString(httpResponse.getEntity());
-            Log.v(context.getPackageName(), responseString);
 
+            InputStream instream = httpResponse.getEntity().getContent();
+            Header contentEncoding = httpResponse.getFirstHeader("Content-Encoding");
+            if (contentEncoding != null && contentEncoding.getValue().equalsIgnoreCase("gzip")) {
+                instream = new GZIPInputStream(instream);
+            }
+
+            String responseString = Util.inputStream2String(instream);
+            Log.v(context.getPackageName(), responseString);
 
             JSONObject jsonObject = new JSONObject(responseString);
             if (jsonObject.getInt("success") != 1) {
