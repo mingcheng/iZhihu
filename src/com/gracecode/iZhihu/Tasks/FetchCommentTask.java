@@ -1,7 +1,7 @@
 package com.gracecode.iZhihu.Tasks;
 
 import android.content.Context;
-import com.gracecode.iZhihu.Util;
+import android.util.Log;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -51,6 +51,7 @@ public class FetchCommentTask extends BaseTasks<Long, Void, String> {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                Log.e(context.getPackageName(), e.getMessage());
             }
         }
 
@@ -58,6 +59,6 @@ public class FetchCommentTask extends BaseTasks<Long, Void, String> {
     }
 
     private String getRequestUrl(Long answerId) {
-        return "https://api.zhihu.com/answers/" + answerId + "/comments?limit=" + LIMIT + "&offset=0";
+        return "http://api.zhihu.com/answers/" + answerId + "/comments?limit=" + LIMIT + "&offset=0";
     }
 }

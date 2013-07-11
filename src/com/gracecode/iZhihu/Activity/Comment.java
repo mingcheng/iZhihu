@@ -84,20 +84,21 @@ public class Comment extends BaseActivity {
             new FetchCommentTask(context, new FetchCommentTask.Callback() {
                 @Override
                 public void onPostExecute(Object result) {
-                    if (result != null) {
-                        String json = result.toString();
-                        try {
+                    try {
+                        if (result != null) {
+                            String json = result.toString();
                             showCommentsFromArray(convertJSON2ArrayList(json));
 
                             // Write data into cache file.
                             Util.putFileContent(cacheFile, new ByteArrayInputStream(json.getBytes()));
-                        } catch (Exception e) {
-                            cacheFile.delete();
-                            e.printStackTrace();
-                            showErrorAndFinish(e.getMessage());
+
+                        } else {
+                            showErrorAndFinish("");
                         }
-                    } else {
-                        showErrorAndFinish("");
+                    } catch (Exception e) {
+                        cacheFile.delete();
+                        e.printStackTrace();
+                        showErrorAndFinish(e.getMessage());
                     }
                 }
 

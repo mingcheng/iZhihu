@@ -192,9 +192,11 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList(INTENT_EXTRA_QUESTIONS, questionsList);
-        outState.putParcelable(INTENT_EXTRA_CURRENT_POSITION, currentQuestion);
-        outState.putInt(INTENT_EXTRA_CURRENT_POSITION, currentPosition);
+        if (outState != null) {
+            outState.putParcelableArrayList(INTENT_EXTRA_QUESTIONS, questionsList);
+            outState.putParcelable(INTENT_EXTRA_CURRENT_POSITION, currentQuestion);
+            outState.putInt(INTENT_EXTRA_CURRENT_POSITION, currentPosition);
+        }
         super.onSaveInstanceState(outState);
     }
 
