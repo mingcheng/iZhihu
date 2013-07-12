@@ -70,11 +70,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62c0643c-7be3-40f5-9448-f28526b27123" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Comment.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Comment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Detail.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Detail.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchCommentTask.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchCommentTask.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/menu/detail.xml" afterPath="$PROJECT_DIR$/res/menu/detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-zh-rCN/strings.xml" afterPath="$PROJECT_DIR$/res/values-zh-rCN/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="iZhihu.iws" />
@@ -87,7 +84,7 @@
     <file path="/Config.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367030266888" ignored="false" />
     <file path="/FavoritesList.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367637967751" ignored="false" />
     <file path="/Detail.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373458039035" ignored="false" />
-    <file path="/Dummy.txt" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373539451912" ignored="false" />
+    <file path="/Dummy.txt" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373596050566" ignored="false" />
     <file path="/frag_questions.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367763106011" ignored="false" />
     <file path="/themes.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369131627860" ignored="false" />
     <file path="/Main.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1372403812558" ignored="false" />
@@ -106,7 +103,7 @@
     <file path="/ZhihuDatabase.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367072573226" ignored="false" />
     <file path="/FetchQuestionTask.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370773523409" ignored="false" />
     <file path="/LoadingDialog.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367131224026" ignored="false" />
-    <file path="/detail.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373439715654" ignored="false" />
+    <file path="/detail.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373596081080" ignored="false" />
     <file path="/colors.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369372874902" ignored="false" />
     <file path="/fragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373358255199" ignored="false" />
     <file path="/zhihu.css" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373035975716" ignored="false" />
@@ -239,6 +236,8 @@
     <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy5671768216523106537tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373439837258" ignored="false" />
     <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy3012498390859569985tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373440012647" ignored="false" />
     <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy3453646275860555727tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373510137716" ignored="false" />
+    <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy538325766366505184tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373596112100" ignored="false" />
+    <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy1206605161297435975tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373596526161" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -257,6 +256,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchCommentTask.java" line="57" class="com.gracecode.iZhihu.Tasks.FetchCommentTask" package="com.gracecode.iZhihu.Tasks">
         <option name="ENABLED" value="true" />
@@ -409,7 +409,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </line_breakpoints>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -501,8 +500,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="36" />
-    <option name="y" value="44" />
+    <option name="x" value="265" />
+    <option name="y" value="51" />
     <option name="width" value="1442" />
     <option name="height" value="941" />
   </component>
@@ -582,7 +581,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -903,6 +901,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -913,7 +912,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="ExportedApkPath" value="$USER_HOME$/Desktop/iZhihu_1.4.2.apk" />
+    <property name="ExportedApkPath" value="$USER_HOME$/Desktop/iZhihu_1.5.2.apk" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="139" />
     <property name="ExportedModule" value="iZhihu" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="149" />
@@ -928,8 +927,8 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="options.lastSelected" value="project.propCompiler" />
-    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="project.structure.side.proportion" value="0.22519511" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="AndroidRunProguardForReleaseBuild" value="false" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -1239,21 +1238,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="36" y="44" width="1442" height="941" extended-state="0" />
-    <editor active="false" />
+    <frame x="265" y="51" width="1442" height="941" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287827" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.442371" sideWeight="0.68230563" order="11" side_tool="false" content_ui="tabs" x="908" y="323" width="1012" height="704" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40377805" sideWeight="0.9971306" order="3" side_tool="false" content_ui="tabs" x="430" y="177" width="1334" height="779" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.44476327" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23479189" sideWeight="0.62239295" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3269494" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.44864225" sideWeight="0.6119082" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.442371" sideWeight="0.68230563" order="11" side_tool="false" content_ui="tabs" x="908" y="323" width="1012" height="704" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930845" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21685083" sideWeight="0.62239295" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2858166" sideWeight="0.8146399" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.40377805" sideWeight="0.9971306" order="3" side_tool="false" content_ui="tabs" x="430" y="177" width="1334" height="779" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23479189" sideWeight="0.62239295" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.44476327" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2901146" sideWeight="0.55135775" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18536009" sideWeight="0.999306" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3269494" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29225805" sideWeight="0.73702425" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.55523676" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1264,7 +1264,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890856" sideWeight="0.6722488" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32130778" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4498229" sideWeight="0.6119082" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4516496" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1454,7 +1453,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/res/menu/detail.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="51" selection-start="929" selection-end="929" vertical-scroll-proportion="0.545676">
+        <state line="16" column="34" selection-start="536" selection-end="536" vertical-scroll-proportion="0.38670695">
           <folding />
         </state>
       </provider>

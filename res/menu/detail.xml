@@ -9,12 +9,13 @@
             android:showAsAction="always"
             />
 
-    <!--<item-->
-            <!--android:id="@+id/menu_comment"-->
-            <!--android:title="@string/comment"-->
-            <!--android:icon="@drawable/ic_comment"-->
-            <!--android:showAsAction="never"-->
-            <!--/>-->
+    <item
+            android:id="@+id/menu_comment"
+            android:title="@string/comment"
+            android:icon="@drawable/ic_comment"
+            android:showAsAction="never"
+            android:enabled="false"
+            />
 
     <item
             android:id="@+id/menu_view_at_zhihu"
