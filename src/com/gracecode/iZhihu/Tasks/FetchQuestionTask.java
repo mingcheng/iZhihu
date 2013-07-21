@@ -1,45 +1,53 @@
 package com.gracecode.iZhihu.Tasks;
 
-import android.accounts.NetworkErrorException;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import com.gracecode.iZhihu.Dao.HTTPRequester;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
 import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
-import com.gracecode.iZhihu.R;
+import com.gracecode.iZhihu.Service.FetchThumbnailsService;
 import com.gracecode.iZhihu.Util;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.List;
 
-public class FetchQuestionTask extends BaseTasks<Boolean, String, Integer> {
+public class FetchQuestionTask {
     private final static int MAX_FETCH_TIMES = 3600 * 1000 * 2; // 2 hours
     private final static String TAG = FetchQuestionTask.class.getName();
     private static ThumbnailsDatabase fetchThumbnailsDatabase;
+    private final HTTPRequester httpRequester;
+    private final QuestionsDatabase questionsDatabase;
+    private final Callback callback;
+    private final Context context;
+    private boolean focus = false;
     private boolean isNeedCacheThumbnails = true;
+    private String errorMessage = "";
+    private int affectedRows = 0;
 
-    public FetchQuestionTask(Context context, Callback callback) {
-        super(context, callback);
-        fetchThumbnailsDatabase = new ThumbnailsDatabase(context);
-        isNeedCacheThumbnails = sharedPreferences.getBoolean(context.getString(R.string.key_enable_cache), true);
+    public interface Callback {
+        public abstract void onFinished();
     }
 
-    @Override
-    protected Integer doInBackground(Boolean... booleans) {
-        int affectedRows = 0;
-        String heap = "";
-        Boolean isFresh = System.currentTimeMillis() - HTTPRequester.getLastRequestTimeStamp() < MAX_FETCH_TIMES;
+    private Runnable fetcher = new Runnable() {
+        private boolean isRunning = false;
 
-        try {
-            for (Boolean focus : booleans) {
-                if (!focus && isFresh) {
-                    return affectedRows;
+        @Override
+        public void run() {
+            // Fetch new data from server.
+            try {
+                if (isRunning) {
+                    return;
+                }
+                isRunning = true;
+
+                if (isFresh() && !focus) {
+                    return;
                 }
 
-                // Fetch new data from server.
-                JSONArray fetchedData = HTTPRequester.fetch(questionsDatabase.getStartId());
+                String heap = "";
+                JSONArray fetchedData = httpRequester.fetch(questionsDatabase.getStartId());
 
                 for (int i = 0, length = fetchedData.length(); i < length; i++) {
                     JSONObject item = (JSONObject) fetchedData.get(i);
@@ -47,42 +55,80 @@ public class FetchQuestionTask extends BaseTasks<Boolean, String, Integer> {
                         affectedRows++;
 
                         // Add heap for thumbnail use.
-                        heap += item.getString(QuestionsDatabase.COLUM_CONTENT) +
-                                item.getString(QuestionsDatabase.COLUM_QUESTION_DESCRIPTION);
+                        heap += (item.getString(QuestionsDatabase.COLUM_CONTENT) +
+                                item.getString(QuestionsDatabase.COLUM_QUESTION_DESCRIPTION));
                     }
                 }
 
-                if (isNeedCacheThumbnails) {
-                    List<String> needCachedUrls = Util.getImageUrls(heap);
-                    for (String url : needCachedUrls) {
-                        if (!fetchThumbnailsDatabase.add(url)) {
-                            Log.i(TAG, "Cant add image " + url + " into cache request queue.");
-                        }
+                // Add url into database and mark.
+                List<String> needCachedUrls = Util.getImageUrls(heap);
+                for (String url : needCachedUrls) {
+                    if (!fetchThumbnailsDatabase.add(url)) {
+                        Log.e(TAG, "Cant add image " + url + " into cache request queue.");
                     }
                 }
+
+                // 离线下载图片
+                Intent fetchThumbnailsServiceIntent = new Intent(context, FetchThumbnailsService.class);
+                if (isNeedCacheThumbnails() && getAffectedRows() > 0
+                        && Util.isWifiConnected(context)
+                        && Util.isExternalStorageExists()) {
+                    context.startService(fetchThumbnailsServiceIntent);
+                } else {
+                    context.stopService(fetchThumbnailsServiceIntent);
+                }
+            } catch (Exception e) {
+                errorMessage = e.getMessage();
+            } finally {
+                // Call then request is finished.
+                callback.onFinished();
+                isRunning = false;
             }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            publishProgress(e.getLocalizedMessage());
-        } catch (IOException e) {
-            e.printStackTrace();
-            publishProgress(e.getLocalizedMessage());
-        } catch (NetworkErrorException e) {
-            e.printStackTrace();
-            publishProgress(e.getLocalizedMessage());
-        } catch (Exception e) {
-            e.printStackTrace();
-            publishProgress(e.getLocalizedMessage());
         }
+    };
 
-        return affectedRows;
+    public FetchQuestionTask(Context context, Callback callback) {
+        this.context = context;
+        this.fetchThumbnailsDatabase = new ThumbnailsDatabase(context);
+        this.questionsDatabase = new QuestionsDatabase(context);
+        this.httpRequester = new HTTPRequester(context);
+        this.callback = callback;
     }
 
-    @Override
-    protected void onProgressUpdate(String... messages) {
-        for (String message : messages) {
-            Util.showLongToast(context, message);
-        }
+    public void start() {
+        this.start(false);
+    }
+
+    public void start(boolean f) {
+        this.focus = f;
+        new Thread(fetcher).start();
+    }
+
+//    public void cancel() {
+//
+//    }
+
+    public boolean isNeedCacheThumbnails() {
+        return isNeedCacheThumbnails;
+    }
+
+    public boolean isFresh() {
+        return (System.currentTimeMillis() - httpRequester.getLastRequestTimeStamp()) < MAX_FETCH_TIMES;
+    }
+
+    public void setIsNeedCacheThumbnails(boolean needs) {
+        isNeedCacheThumbnails = needs;
+    }
+
+    public boolean hasError() {
+        return (errorMessage.length() > 0) ? true : false;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public int getAffectedRows() {
+        return affectedRows;
     }
 }

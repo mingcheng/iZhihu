@@ -43,11 +43,9 @@ public class HTTPRequester {
     private final SharedPreferences sharedPreferences;
 
     public HTTPRequester(Context context) {
-
-        HTTPRequester.context = context;
+        this.context = context;
         this.sharedPreferences = context.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
     }
-
 
     void saveSharedPreference(String key, String value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
