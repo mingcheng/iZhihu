@@ -278,12 +278,23 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
             // View question via zhihu.com
             case R.id.menu_view_at_zhihu:
+                if (Util.isZhihuInstalled(this)) {
+                    String url = "zhihu://answers/" + currentQuestion.getAnswerId();
+                    Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(i);
+                } else {
+                    Util.showShortToast(this, getString(R.string.zhihu_not_intstalled));
+                }
+                return true;
+
+            // View question at online
+            case R.id.menu_view_at_online:
                 String url =
                         String.format(getString(R.string.url_zhihu_questioin_pre),
                                 currentQuestion.getQuestionId(), currentQuestion.getAnswerId());
 
                 Util.openWithBrowser(this, url);
-                return true;
+                break;
 
             // Share question by intent
             case R.id.menu_share:

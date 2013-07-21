@@ -66,7 +66,7 @@
     <string name="tradition_symbol_summary">Use tradition Chinese symbol for read.</string>
     <string name="version">Version</string>
     <string name="version_tail">Version:</string>
-    <string name="view_at_zhihu">View At Online</string>
+    <string name="view_at_zhihu">View At Client</string>
     <string name="wakelock_screen">Lock Screen</string>
     <string name="wakelock_screen_summary">Screen always on while reading.</string>
     <string name="key_traditional_chinese">key_traditional_chinese</string>
@@ -83,4 +83,6 @@
     <string name="custom_fonts_bold">Custom Bold Font</string>
     <string name="not_set_yet">Not setted yet</string>
     <string name="comment">Comments</string>
+    <string name="zhihu_not_intstalled">\"Zhihu\" Android Client Not Installed.</string>
+    <string name="view_at_online">View Online</string>
 </resources>

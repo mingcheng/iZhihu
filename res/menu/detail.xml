@@ -17,6 +17,13 @@
             android:enabled="false"
             />
 
+
+    <item
+            android:id="@+id/menu_view_at_online"
+            android:title="@string/view_at_online"
+            android:showAsAction="never"
+            />
+
     <item
             android:id="@+id/menu_view_at_zhihu"
             android:title="@string/view_at_zhihu"

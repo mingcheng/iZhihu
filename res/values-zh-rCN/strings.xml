@@ -25,7 +25,7 @@
     <string name="cancel_mark_as_stared">取消收藏</string>
     <string name="feedback_title" formatted="false">针对 %s %s 的反馈</string>
     <string name="choose_email_client">请选择电子邮件客户端</string>
-    <string name="view_at_zhihu">网页版</string>
+    <string name="view_at_zhihu">客户端</string>
     <string name="donate_summary">如您觉得这应用对您有帮助，万分感谢您点杯咖啡犒劳下作者</string>
     <string name="donate">点杯咖啡</string>
     <string name="about_summary">欢迎使用「读知乎」客户端</string>
@@ -73,4 +73,6 @@
     <string name="not_set_yet">未设置</string>
     <string name="comment">评论</string>
     <string name="network_error">网络错误，请稍后重试</string>
+    <string name="zhihu_not_intstalled">知乎客户端没有安装</string>
+    <string name="view_at_online">网页版</string>
 </resources>

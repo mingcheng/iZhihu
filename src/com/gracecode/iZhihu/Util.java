@@ -3,6 +3,8 @@ package com.gracecode.iZhihu;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -23,7 +25,6 @@ public class Util {
 
     public static void openWithBrowser(Activity activity, String url) {
         Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        //i.setClassName("com.android.browser", "com.android.browser.BrowserActivity");
         activity.startActivity(i);
     }
 
@@ -237,5 +238,17 @@ public class Util {
         }
 
         return out.toString();
+    }
+
+    public static boolean isZhihuInstalled(Activity activity) {
+        PackageInfo packageInfo;
+        try {
+            packageInfo = activity.getPackageManager().getPackageInfo("com.zhihu.android", 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            packageInfo = null;
+            e.printStackTrace();
+        }
+
+        return (packageInfo == null) ? false : true;
     }
 }
