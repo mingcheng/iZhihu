@@ -25,6 +25,7 @@ public class Main extends BaseActivity {
     private ScrollTabsFragment scrollTabsFragment;
     private MenuItem menuRefersh;
     private FetchQuestionTask fetchQuestionsTask;
+    private Boolean focusRefresh = false;
 
 
     @Override
@@ -41,9 +42,9 @@ public class Main extends BaseActivity {
             @Override
             public void onFinished() {
                 UIChangedChangedHandler.sendEmptyMessage(MESSAGE_UPDATE_COMPLETE);
-
-//                    UIChangedChangedHandler.sendEmptyMessage(MESSAGE_UPDATE_SHOW_RESULT);
-
+                if (focusRefresh) {
+                    UIChangedChangedHandler.sendEmptyMessage(MESSAGE_UPDATE_SHOW_RESULT);
+                }
             }
         });
     }
@@ -162,10 +163,10 @@ public class Main extends BaseActivity {
     void fetchQuestionsFromServer(final Boolean focus) {
         UIChangedChangedHandler.sendEmptyMessage(MESSAGE_UPDATE_LOADING);
 
-
         Boolean isNeedCacheThumbnails = sharedPreferences.getBoolean(context.getString(R.string.key_enable_cache), true);
         fetchQuestionsTask.setIsNeedCacheThumbnails(isNeedCacheThumbnails);
 
+        this.focusRefresh = focus;
         // Start fetch from new thread.
         fetchQuestionsTask.start(focus);
     }
