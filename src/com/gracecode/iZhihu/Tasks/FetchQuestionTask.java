@@ -47,6 +47,7 @@ public class FetchQuestionTask {
                 }
 
                 String heap = "";
+                affectedRows = 0;
                 JSONArray fetchedData = httpRequester.fetch(questionsDatabase.getStartId());
 
                 for (int i = 0, length = fetchedData.length(); i < length; i++) {
@@ -121,7 +122,7 @@ public class FetchQuestionTask {
     }
 
     public boolean hasError() {
-        return (errorMessage.length() > 0) ? true : false;
+        return (errorMessage != null && errorMessage.length() > 0) ? true : false;
     }
 
     public String getErrorMessage() {

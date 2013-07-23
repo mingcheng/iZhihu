@@ -71,7 +71,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62c0643c-7be3-40f5-9448-f28526b27123" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/drawable/ic_launcher.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchQuestionTask.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchQuestionTask.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="iZhihu.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -83,10 +86,10 @@
     <file path="/Config.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367030266888" ignored="false" />
     <file path="/FavoritesList.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367637967751" ignored="false" />
     <file path="/Detail.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374408268591" ignored="false" />
-    <file path="/Dummy.txt" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374408244238" ignored="false" />
+    <file path="/Dummy.txt" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374542484547" ignored="false" />
     <file path="/frag_questions.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367763106011" ignored="false" />
     <file path="/themes.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369131627860" ignored="false" />
-    <file path="/Main.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374416451695" ignored="false" />
+    <file path="/Main.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374543212690" ignored="false" />
     <file path="/main.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367834642122" ignored="false" />
     <file path="/MainTabListener.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367908942094" ignored="false" />
     <file path="/preferences.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373341734840" ignored="false" />
@@ -100,7 +103,7 @@
     <file path="/Requester.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367839669395" ignored="false" />
     <file path="/Cache.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367064225102" ignored="false" />
     <file path="/ZhihuDatabase.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367072573226" ignored="false" />
-    <file path="/FetchQuestionTask.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374415929930" ignored="false" />
+    <file path="/FetchQuestionTask.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374419047019" ignored="false" />
     <file path="/LoadingDialog.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367131224026" ignored="false" />
     <file path="/detail.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374370052944" ignored="false" />
     <file path="/colors.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369372874902" ignored="false" />
@@ -159,7 +162,7 @@
     <file path="/PullToRefreshListFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369813898985" ignored="false" />
     <file path="/a.dummy" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370773507740" ignored="false" />
     <file path="/RotateLoadingLayout.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369819030778" ignored="false" />
-    <file path="/*.regexp" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373340763104" ignored="false" />
+    <file path="/*.regexp" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374543364500" ignored="false" />
     <file path="/pull_refresh_strings.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369819407274" ignored="false" />
     <file path="/HTTPRequester.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374414289646" ignored="false" />
     <file path="/PullToRefreshBase.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369996615972" ignored="false" />
@@ -247,6 +250,7 @@
     <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy7820491491900997018tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374408391346" ignored="false" />
     <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy2508533018127076906tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374413139892" ignored="false" />
     <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy6937856973380771264tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374416207147" ignored="false" />
+    <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy8961397906688153812tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374542637994" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -265,189 +269,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchCommentTask.java" line="57" class="com.gracecode.iZhihu.Tasks.FetchCommentTask" package="com.gracecode.iZhihu.Tasks">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchCommentTask.java" line="49" class="com.gracecode.iZhihu.Tasks.FetchCommentTask" package="com.gracecode.iZhihu.Tasks">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchCommentTask.java" line="47" class="com.gracecode.iZhihu.Tasks.FetchCommentTask" package="com.gracecode.iZhihu.Tasks">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchCommentTask.java" line="52" class="com.gracecode.iZhihu.Tasks.FetchCommentTask" package="com.gracecode.iZhihu.Tasks">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Comment.java" line="89" class="com.gracecode.iZhihu.Activity.Comment$1" package="com.gracecode.iZhihu.Activity">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Comment.java" line="92" class="com.gracecode.iZhihu.Activity.Comment$1" package="com.gracecode.iZhihu.Activity">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Comment.java" line="95" class="com.gracecode.iZhihu.Activity.Comment$1" package="com.gracecode.iZhihu.Activity">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Comment.java" line="80" class="com.gracecode.iZhihu.Activity.Comment" package="com.gracecode.iZhihu.Activity">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Comment.java" line="37" class="com.gracecode.iZhihu.Activity.Comment" package="com.gracecode.iZhihu.Activity">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Comment.java" line="100" class="com.gracecode.iZhihu.Activity.Comment$1" package="com.gracecode.iZhihu.Activity">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java" line="94" class="com.gracecode.iZhihu.Activity.Main$2" package="com.gracecode.iZhihu.Activity">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchQuestionTask.java" line="80" class="com.gracecode.iZhihu.Tasks.FetchQuestionTask$1" package="com.gracecode.iZhihu.Tasks">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -484,6 +305,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -519,7 +341,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/CommentAdapter.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Comment.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchCommentTask.java" />
         <option value="$PROJECT_DIR$/res/values/themes_light.xml" />
@@ -535,12 +356,13 @@
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/x.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchQuestionTask.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/QuestionsListFragment.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="364" />
-    <option name="y" value="90" />
+    <option name="x" value="250" />
+    <option name="y" value="43" />
     <option name="width" value="1474" />
     <option name="height" value="975" />
   </component>
@@ -592,34 +414,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com.gracecode.iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -630,60 +425,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="External Libraries" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.1.2 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.1.2 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Android 4.1.2 Platform &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android.jar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="android" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -956,9 +697,54 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.gracecode.iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -994,7 +780,7 @@
     <property name="GenerateAntBuildDialog.generateSingleFile" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../aFileChooser/aFileChooser" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/JFZHY6.0ForJava.jar!/" />
     <property name="GenerateAntBuildDialog.inclineRuntiemClasspath" value="false" />
     <property name="DEBUGGABLE_DEVICE" value="0146B5BA0A01A00B" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="izhihu" />
@@ -1016,8 +802,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/res/drawable-xhdpi" />
       <recent name="$PROJECT_DIR$/res/drawable" />
+      <recent name="$PROJECT_DIR$/res/drawable-xhdpi" />
       <recent name="$PROJECT_DIR$/assets" />
       <recent name="$PROJECT_DIR$/res/values-zh-rCN" />
     </key>
@@ -1295,21 +1081,22 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="364" y="90" width="1474" height="975" extended-state="0" />
+    <frame x="250" y="43" width="1474" height="975" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3280363" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32122588" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5164586" sideWeight="0.9971306" order="3" side_tool="false" content_ui="tabs" x="430" y="177" width="1334" height="779" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.44476327" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23479189" sideWeight="0.62239295" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3269494" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31328037" sideWeight="0.6119082" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.442371" sideWeight="0.68230563" order="11" side_tool="false" content_ui="tabs" x="642" y="355" width="1012" height="639" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3110102" sideWeight="0.6119082" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.442371" sideWeight="0.68230563" order="11" side_tool="false" content_ui="tabs" x="901" y="388" width="1012" height="639" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930845" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21685083" sideWeight="0.62239295" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23109244" sideWeight="0.72985244" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24159664" sideWeight="0.68898976" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27014756" sideWeight="0.999306" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29225805" sideWeight="0.73702425" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.55523676" order="12" side_tool="false" content_ui="tabs" />
@@ -1320,7 +1107,6 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29225805" sideWeight="0.73702425" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890856" sideWeight="0.6722488" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32130778" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4516496" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1404,129 +1190,102 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/values/themes_light.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="49" selection-start="778" selection-end="778" vertical-scroll-proportion="0.41830066">
-          <folding />
-        </state>
+    <entry file="file://$PROJECT_DIR$/res/drawable-xhdpi/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="242" column="42" selection-start="7861" selection-end="7877" vertical-scroll-proportion="0.60784316">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/menu/detail.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="47" selection-start="766" selection-end="784" vertical-scroll-proportion="0.4509804">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="22" selection-start="4289" selection-end="4293" vertical-scroll-proportion="0.74232084">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/local/Cellar/android-sdk/r21.1/platforms/android-16/android.jar!/android/os/Bundle.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="11" selection-start="365" selection-end="365" vertical-scroll-proportion="0.16842106">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="37" selection-start="573" selection-end="573" vertical-scroll-proportion="-0.66549706">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values-zh-rCN/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="18" selection-start="1849" selection-end="1849" vertical-scroll-proportion="0.34545454">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Detail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="151" column="0" selection-start="4885" selection-end="4885" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;field#MarkAsStared#0;class#Detail#0" expanded="true" />
-            <element signature="docComment;field#UIChangedChangedHandler#0;class#Detail#0" expanded="true" />
-            <element signature="docComment;method#updateMenu#0;class#Detail#0" expanded="true" />
-            <element signature="docComment;method#isNeedScreenWakeLock#0;class#Detail#0" expanded="true" />
-            <element signature="docComment;method#getScreenShotFile#0;class#Detail#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/local/Cellar/android-sdk/r21.1/platforms/android-16/android.jar!/java/lang/Thread.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="11" selection-start="388" selection-end="388" vertical-scroll-proportion="0.32160804">
-          <folding />
-        </state>
+    <entry file="file://$PROJECT_DIR$/res/drawable/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="39" selection-start="188" selection-end="188" vertical-scroll-proportion="0.043636363">
-          <folding />
-        </state>
+        <state line="3" column="39" selection-start="188" selection-end="188" vertical-scroll-proportion="0.043636363" />
       </provider>
     </entry>
     <entry file="jar:///usr/local/Cellar/android-sdk/r21.1/platforms/android-16/android.jar!/android/app/ProgressDialog.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="160" selection-start="1424" selection-end="1424" vertical-scroll-proportion="0.48257372">
-          <folding />
-        </state>
+        <state line="23" column="160" selection-start="1424" selection-end="1424" vertical-scroll-proportion="0.48257372" />
       </provider>
     </entry>
     <entry file="jar:///usr/local/Cellar/android-sdk/r21.1/platforms/android-16/android.jar!/android/os/MessageQueue.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="1" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="1" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="jar:///usr/local/Cellar/android-sdk/r21.1/platforms/android-16/android.jar!/java/lang/Object.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="22" selection-start="705" selection-end="796" vertical-scroll-proportion="0.59534883">
-          <folding />
-        </state>
+        <state line="25" column="22" selection-start="705" selection-end="796" vertical-scroll-proportion="0.59534883" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Dao/HTTPRequester.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="91" selection-start="3757" selection-end="3757" vertical-scroll-proportion="0.50080776">
+        <state line="99" column="91" selection-start="3757" selection-end="3757" vertical-scroll-proportion="0.50080776" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchQuestionTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="42" column="50" selection-start="1418" selection-end="1418" vertical-scroll-proportion="0.18362573" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/drawable-xhdpi/ic_launcher.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/ListPagerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="47" selection-start="1893" selection-end="1893" vertical-scroll-proportion="1.0479532">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/ScrollTabsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="93" column="38" selection-start="3100" selection-end="3100" vertical-scroll-proportion="0.64444447">
+          <folding>
+            <element signature="e#2948#3159#0" expanded="true" />
+            <element signature="e#3148#3149#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="337" column="12" selection-start="17835" selection-end="17835" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/QuestionsListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="25" column="60" selection-start="993" selection-end="993" vertical-scroll-proportion="0.33333334">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/QuestionsAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="19" selection-start="741" selection-end="741" vertical-scroll-proportion="-0.68566495">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="46" selection-start="1623" selection-end="1623" vertical-scroll-proportion="0.7877759">
+        <state line="66" column="12" selection-start="2275" selection-end="2275" vertical-scroll-proportion="1.3019892">
           <folding>
-            <element signature="e#1409#1755#0" expanded="true" />
-            <element signature="e#1744#1745#0" expanded="true" />
-            <element signature="docComment;field#UIChangedChangedHandler#0;class#Main#0" expanded="true" />
+            <element signature="e#2051#2272#0" expanded="true" />
+            <element signature="e#2261#2262#0" expanded="true" />
             <element signature="docComment;method#fetchQuestionsFromServer#0;class#Main#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/FetchQuestionTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="16" selection-start="3728" selection-end="3728" vertical-scroll-proportion="0.33333334">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1607,7 +1366,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>jcc-bate-0.7.3</last-edited>
+          <last-edited>umeng_sdk</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

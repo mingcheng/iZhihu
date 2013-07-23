@@ -12,6 +12,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import com.gracecode.iZhihu.Adapter.ListPagerAdapter;
+import com.gracecode.iZhihu.Fragments.BaseListFragment;
+import com.gracecode.iZhihu.Fragments.QuestionsListFragment;
 import com.gracecode.iZhihu.Fragments.ScrollTabsFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.FetchQuestionTask;
@@ -54,9 +57,14 @@ public class Main extends BaseActivity {
     public void onResume() {
         super.onResume();
 
-        if (Util.isNetworkConnected(context)) {
-            fetchQuestionsFromServer(false);
-        }
+        UIChangedChangedHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (Util.isNetworkConnected(context)) {
+                    fetchQuestionsFromServer(false);
+                }
+            }
+        }, 1000);
     }
 
 
@@ -117,9 +125,20 @@ public class Main extends BaseActivity {
                     break;
 
                 case MESSAGE_UPDATE_COMPLETE:
+                    try {
+                        if (fetchQuestionsTask.getAffectedRows() > 0) {
+                            BaseListFragment fragment = (scrollTabsFragment.getListAdapter())
+                                    .getBaseListFragment(ListPagerAdapter.FIRST_TAB);
 
-                    // @TODO preformeces ineeded.
-                    scrollTabsFragment.notifyDatasetChanged();
+                            if (fragment instanceof QuestionsListFragment) {
+                                ((QuestionsListFragment) fragment).updateQuestionsFromDatabase();
+                            }
+                        }
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    } finally {
+                        scrollTabsFragment.notifyDatasetChanged();
+                    }
 
                     if (menuRefersh != null) {
                         View v = menuRefersh.getActionView();
