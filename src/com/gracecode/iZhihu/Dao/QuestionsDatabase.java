@@ -36,6 +36,7 @@ public final class QuestionsDatabase {
     private static final int DATABASE_VERSION = 1;
     private static final String FILE_DATABASE_NAME = "zhihu.sqlite";
     private static final String DATABASE_QUESTIONS_TABLE_NAME = "izhihu";
+    private static final String DATABASE_QUESTIONS_VIRTUAL_TABLE_NAME = "izhihu_";
 
     private final static String[] SQL_CREATE_TABLES = {
             "CREATE TABLE " + DATABASE_QUESTIONS_TABLE_NAME + " (" +
@@ -45,7 +46,12 @@ public final class QuestionsDatabase {
                     COLUM_USER_NAME + " text,  " + COLUM_USER_AVATAR + " text, " + COLUM_QUESTION_TITLE + " text, " +
                     COLUM_QUESTION_DESCRIPTION + " text, " + COLUM_CONTENT + " text, " + COLUM_UPDATE_AT + " text, " +
                     COLUM_UNREAD + " integer DEFAULT 0, " + COLUM_STARED + " integer DEFAULT 0 );",
+            "CREATE VIRTUAL TABLE " + DATABASE_QUESTIONS_VIRTUAL_TABLE_NAME +
+                    " USING fts3("
+                    + COLUM_ANSWER_ID + " integer not null, "
+                    + COLUM_QUESTION_TITLE + " text);",
             "CREATE INDEX " + COLUM_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ID + ");",
+            "CREATE INDEX " + COLUM_QUESTION_TITLE + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_QUESTION_TITLE + ");",
             "CREATE INDEX " + COLUM_ANSWER_ID + "_idx ON " + DATABASE_QUESTIONS_TABLE_NAME + "(" + COLUM_ANSWER_ID + ");"
     };
     public static final int PRE_LIMIT_PAGE_SIZE = 12;
@@ -72,10 +78,9 @@ public final class QuestionsDatabase {
     private int idxUpdateAt;
     private int idxAnswerId;
 
-
     private static final class DatabaseOpenHelper extends SQLiteOpenHelper {
         public DatabaseOpenHelper(Context context) {
-            super(context, (new File(context.getCacheDir(), FILE_DATABASE_NAME)).getAbsolutePath(), null, DATABASE_VERSION);
+            super(context, getDatabaseFilePath(context), null, DATABASE_VERSION);
         }
 
         public DatabaseOpenHelper(Context context, String name) {
@@ -92,10 +97,11 @@ public final class QuestionsDatabase {
         @Override
         public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i2) {
         }
-
-
     }
 
+    public static String getDatabaseFilePath(Context context) {
+        return new File(context.getCacheDir(), FILE_DATABASE_NAME).getAbsolutePath();
+    }
 
     public int getStartId() {
         int returnId = HTTPRequester.DEFAULT_START_OFFSET;
@@ -145,10 +151,8 @@ public final class QuestionsDatabase {
 
     protected Cursor getRecentQuestionsCursor(int page) {
         SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
-        Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, null, null, null, null,
-                COLUM_UPDATE_AT + " DESC " + " LIMIT " + (page - 1) * PRE_LIMIT_PAGE_SIZE + "," + "" + (PRE_LIMIT_PAGE_SIZE + 1));
-        cursor.moveToFirst();
-        return cursor;
+        return db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, null, null, null, null,
+                COLUM_UPDATE_AT + " DESC " + " LIMIT " + (page - 1) * PRE_LIMIT_PAGE_SIZE + "," + PRE_LIMIT_PAGE_SIZE);
     }
 
 
@@ -170,24 +174,24 @@ public final class QuestionsDatabase {
 
 
     public ArrayList<Question> getRecentQuestions(int page) {
-        ArrayList<Question> questionArrayList = new ArrayList<>();
-        Cursor cursor = getRecentQuestionsCursor(page);
+        return getAllQuestionsByCursor(getRecentQuestionsCursor(page));
+    }
 
-        for (getIndexFromCursor(cursor); cursor.moveToNext(); ) {
-            Question question = convertCursorIntoQuestion(cursor);
-            questionArrayList.add(question);
-        }
-
-        cursor.close();
-        return questionArrayList;
+    public ArrayList<Question> searchQuestions(String keys) {
+        return getAllQuestionsByCursor(searchQuestionsCursorByLike(keys));
     }
 
     public ArrayList<Question> getStaredQuestions() {
+        return getAllQuestionsByCursor(getStaredQuestionsCursor());
+    }
+
+    private ArrayList<Question> getAllQuestionsByCursor(Cursor cursor) {
         ArrayList<Question> questionArrayList = new ArrayList<>();
-        Cursor cursor = getStaredQuestionsCursor();
 
         try {
-            for (getIndexFromCursor(cursor); cursor.moveToNext(); ) {
+            getIndexFromCursor(cursor);
+            for (int i = 0; i < cursor.getCount(); i++) {
+                cursor.moveToPosition(i);
                 Question question = convertCursorIntoQuestion(cursor);
                 questionArrayList.add(question);
             }
@@ -197,6 +201,25 @@ public final class QuestionsDatabase {
             cursor.close();
         }
     }
+
+
+    public Cursor searchQuestionsCursorByLike(String keys) {
+        SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
+        Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL,
+                COLUM_QUESTION_TITLE + " LIKE '%" + keys + "%'", null, null, null,
+                COLUM_ANSWER_ID + " LIMIT " + PRE_LIMIT_PAGE_SIZE / 2);
+
+        return cursor;
+    }
+
+//    public Cursor searchQuestionsCursor(String keys) {
+//        SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
+//        Cursor cursor = db.query(DATABASE_QUESTIONS_VIRTUAL_TABLE_NAME, new String[]{COLUM_ANSWER_ID, COLUM_QUESTION_TITLE},
+//                COLUM_QUESTION_TITLE + " MATCH '" + keys + "'", null, null, null,
+//                COLUM_ANSWER_ID + " DESC LIMIT " + PRE_LIMIT_PAGE_SIZE / 2);
+//        cursor.moveToFirst();
+//        return cursor;
+//    }
 
     private void getIndexFromCursor(Cursor cursor) {
         this.idxId = cursor.getColumnIndex(QuestionsDatabase.COLUM_ID);
@@ -369,6 +392,11 @@ public final class QuestionsDatabase {
         contentValues.put(COLUM_USER_AVATAR, question.getString(COLUM_USER_AVATAR));
 
         try {
+//            ContentValues v = new ContentValues();
+//            v.put(COLUM_ANSWER_ID, question.getInt(COLUM_ANSWER_ID));
+//            v.put(COLUM_QUESTION_TITLE, question.getString(COLUM_QUESTION_TITLE));
+//            db.insert(DATABASE_QUESTIONS_VIRTUAL_TABLE_NAME, null, v);
+
             return db.insert(DATABASE_QUESTIONS_TABLE_NAME, null, contentValues);
         } finally {
             db.close();

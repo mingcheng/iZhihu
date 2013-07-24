@@ -75,4 +75,6 @@
     <string name="network_error">网络错误，请稍后重试</string>
     <string name="zhihu_not_intstalled">知乎客户端没有安装</string>
     <string name="view_at_online">网页版</string>
+    <string name="search_hint">Input search key</string>
+    <string name="search">Search</string>
 </resources>

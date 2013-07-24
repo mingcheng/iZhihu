@@ -85,4 +85,6 @@
     <string name="comment">Comments</string>
     <string name="zhihu_not_intstalled">\"Zhihu\" Android Client Not Installed.</string>
     <string name="view_at_online">View Online</string>
+    <string name="search_hint">Input search key</string>
+    <string name="search">Search</string>
 </resources>

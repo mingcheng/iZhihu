@@ -9,9 +9,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
@@ -26,7 +24,7 @@ import java.util.List;
  * User: mingcheng
  * Date: 13-5-5
  */
-public final class QuestionsAdapter extends BaseAdapter {
+public final class QuestionsAdapter extends BaseAdapter implements Filterable {
     private static final int MAX_DESPCRIPTION_LENGTH = 100;
     private final List<Question> questions;
     private final Context context;
@@ -128,6 +126,24 @@ public final class QuestionsAdapter extends BaseAdapter {
 
         // 转换简繁体
         return isNeedConvertTraditionalChinese ? chineseConvertor.s2t(content) : chineseConvertor.t2s(content);
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new KNoFilter();
+    }
+
+    private class KNoFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence arg0) {
+            return new FilterResults();
+        }
+
+        @Override
+        protected void publishResults(CharSequence arg0, FilterResults arg1) {
+            notifyDataSetChanged();
+        }
     }
 
     private static class ViewHolder {

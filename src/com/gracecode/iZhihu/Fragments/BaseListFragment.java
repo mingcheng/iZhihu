@@ -12,6 +12,7 @@ import com.gracecode.iZhihu.Activity.Detail;
 import com.gracecode.iZhihu.Adapter.QuestionsAdapter;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
+import com.gracecode.iZhihu.Util;
 import com.handmark.pulltorefresh.extras.listfragment.PullToRefreshListFragment;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -99,14 +100,7 @@ public abstract class BaseListFragment extends PullToRefreshListFragment impleme
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         // Android-PullToRefresh 似乎增加了个不可见条目，所以要 -1
         int selectedPosition = (pull2RefreshView != null) ? position - 1 : position;
-        Question question = questions.get(selectedPosition);
-
-        Intent intent = new Intent(activity, Detail.class);
-        intent.putExtra(Detail.INTENT_EXTRA_CURRENT_POSITION, selectedPosition);
-        intent.putExtra(Detail.INTENT_EXTRA_CURRENT_QUESTION, question);
-        intent.putExtra(Detail.INTENT_EXTRA_QUESTIONS, questions);
-
-        startActivityForResult(intent, Intent.FILL_IN_PACKAGE);
+        Util.startDetailActivity(getActivity(), questions, selectedPosition);
     }
 
     @Override

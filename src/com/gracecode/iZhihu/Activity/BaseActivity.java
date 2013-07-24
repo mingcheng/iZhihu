@@ -94,6 +94,10 @@ abstract class BaseActivity extends Activity {
                 intent = new Intent(this, About.class);
                 startActivity(intent);
                 return true;
+
+            case R.id.menu_donate:
+                Util.openWithBrowser(this, getString(R.string.url_donate));
+                return true;
         }
 
         return super.onOptionsItemSelected(item);

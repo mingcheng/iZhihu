@@ -3,26 +3,40 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_refresh"
-        android:title="@string/refersh"
-        android:icon="@drawable/ic_action_refersh"
-        android:showAsAction="always"
-        />
-    <item
-        android:id="@+id/menu_preference"
-        android:icon="@drawable/ic_action_pref"
-        android:title="@string/preference"
-        android:showAsAction="never|collapseActionView"
-        />
-    <item
-        android:id="@+id/menu_feedback"
-        android:title="@string/feedback"
-        android:showAsAction="never"
-        />
+            android:id="@+id/menu_refresh"
+            android:title="@string/refersh"
+            android:icon="@drawable/ic_action_refersh"
+            android:showAsAction="ifRoom"
+            />
 
     <item
-        android:id="@+id/menu_about"
-        android:title="@string/about"
-        android:showAsAction="never"
-        />
+            android:id="@+id/menu_search"
+            android:title="@string/search"
+            android:showAsAction="ifRoom|collapseActionView"
+            android:icon="@android:drawable/ic_menu_search"
+            android:actionLayout="@layout/search"/>
+
+    <item
+            android:id="@+id/menu_preference"
+            android:icon="@drawable/ic_action_pref"
+            android:title="@string/preference"
+            android:showAsAction="never|collapseActionView"
+            />
+    <item
+            android:id="@+id/menu_feedback"
+            android:title="@string/feedback"
+            android:showAsAction="never"
+            />
+
+    <item
+            android:id="@+id/menu_donate"
+            android:title="@string/donate"
+            android:showAsAction="never"
+            />
+
+    <item
+            android:id="@+id/menu_about"
+            android:title="@string/about"
+            android:showAsAction="never"
+            />
 </menu>

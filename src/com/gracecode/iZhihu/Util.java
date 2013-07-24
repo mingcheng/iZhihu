@@ -10,6 +10,8 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.widget.Toast;
+import com.gracecode.iZhihu.Activity.Detail;
+import com.gracecode.iZhihu.Dao.Question;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -250,5 +252,17 @@ public class Util {
         }
 
         return (packageInfo == null) ? false : true;
+    }
+
+    public static void startDetailActivity(Activity activity, ArrayList<Question> questions, int position) {
+        Intent intent = new Intent(activity, Detail.class);
+        intent.putExtra(Detail.INTENT_EXTRA_CURRENT_POSITION, position);
+        intent.putExtra(Detail.INTENT_EXTRA_QUESTIONS, questions);
+
+        if (questions.get(position) != null) {
+            intent.putExtra(Detail.INTENT_EXTRA_CURRENT_QUESTION, questions.get(position));
+        }
+
+        activity.startActivityForResult(intent, Intent.FILL_IN_PACKAGE);
     }
 }
