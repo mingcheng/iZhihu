@@ -232,6 +232,7 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
         autoCompleteTextView = (AutoCompleteTextView) menuItem.getActionView().findViewById(R.id.search);
 
         questionsAdapter = new QuestionsAdapter(this, searchedQuestions);
+        questionsAdapter.setHideDescription(true); // Hide Description
 
         autoCompleteTextView.addTextChangedListener(textWatcher);
         autoCompleteTextView.setAdapter(questionsAdapter);

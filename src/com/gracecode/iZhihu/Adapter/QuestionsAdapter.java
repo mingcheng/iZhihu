@@ -33,6 +33,7 @@ public final class QuestionsAdapter extends BaseAdapter implements Filterable {
     private final SharedPreferences sharedPreferences;
     private Typeface xinGothicTypeFace = null;
     private boolean isNeedConvertTraditionalChinese = false;
+    private boolean isHideDescription = false;
 
     public QuestionsAdapter(Activity activity, List<Question> questions) {
         this.context = activity;
@@ -112,7 +113,15 @@ public final class QuestionsAdapter extends BaseAdapter implements Filterable {
         } else {
             flag.setVisibility(View.INVISIBLE);
         }
+
+        if (isHideDescription) {
+            holder.description.setVisibility(View.GONE);
+        }
         return convertView;
+    }
+
+    public void setHideDescription(boolean flag) {
+        isHideDescription = flag;
     }
 
     // @todo zhenghe
