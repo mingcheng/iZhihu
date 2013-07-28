@@ -20,7 +20,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import java.util.ArrayList;
 
 public abstract class BaseListFragment extends PullToRefreshListFragment implements AdapterView.OnItemClickListener {
-    private static final String SAVED_QUESTIONS = "savedQuestions";
+    public static final String SAVED_QUESTIONS = "savedQuestions";
 
     Context context;
     QuestionsAdapter questionsAdapter;
@@ -56,6 +56,7 @@ public abstract class BaseListFragment extends PullToRefreshListFragment impleme
 
         this.questionsAdapter = new QuestionsAdapter(getActivity(), questions);
     }
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {

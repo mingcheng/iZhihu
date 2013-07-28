@@ -1,5 +1,6 @@
 package com.gracecode.iZhihu.Activity;
 
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -22,7 +23,6 @@ import android.widget.RelativeLayout;
 import com.gracecode.iZhihu.Adapter.ListPagerAdapter;
 import com.gracecode.iZhihu.Adapter.QuestionsAdapter;
 import com.gracecode.iZhihu.Dao.Question;
-import com.gracecode.iZhihu.Fragments.BaseListFragment;
 import com.gracecode.iZhihu.Fragments.QuestionsListFragment;
 import com.gracecode.iZhihu.Fragments.ScrollTabsFragment;
 import com.gracecode.iZhihu.R;
@@ -152,7 +152,7 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
                 case MESSAGE_UPDATE_COMPLETE:
                     try {
                         if (fetchQuestionsTask.getAffectedRows() > 0) {
-                            BaseListFragment fragment = (scrollTabsFragment.getListAdapter())
+                            Fragment fragment = (scrollTabsFragment.getListAdapter())
                                     .getBaseListFragment(ListPagerAdapter.FIRST_TAB);
 
                             if (fragment instanceof QuestionsListFragment) {

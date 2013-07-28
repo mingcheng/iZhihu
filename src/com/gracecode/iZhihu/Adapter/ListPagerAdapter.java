@@ -6,7 +6,6 @@ import android.app.Fragment;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
-import com.gracecode.iZhihu.Fragments.BaseListFragment;
 import com.gracecode.iZhihu.Fragments.QuestionsListFragment;
 import com.gracecode.iZhihu.Fragments.StaredListFragment;
 
@@ -17,17 +16,18 @@ public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewP
     public static final int SECOND_TAB = 1;
 
     private final ActionBar actionBar;
-    private final ArrayList<BaseListFragment> fragments = new ArrayList<>();
+    private final ArrayList<Fragment> fragments = new ArrayList<>();
 
     public ListPagerAdapter(Activity activity) {
         super(activity.getFragmentManager());
         actionBar = activity.getActionBar();
 
         fragments.add(FIRST_TAB, new QuestionsListFragment());
+//        fragments.add(FIRST_TAB, new QuestionsGridFragment());
         fragments.add(SECOND_TAB, new StaredListFragment());
     }
 
-    public BaseListFragment getBaseListFragment(int index) {
+    public Fragment getBaseListFragment(int index) {
         return fragments.get(index);
     }
 
