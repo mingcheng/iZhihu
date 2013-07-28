@@ -193,7 +193,7 @@ public class DetailFragment extends WebViewFragment {
             File cacheFile = getCachedFile();
 
             // @TODO Cache needed.
-            if (false && cacheFile.exists()) {
+            if (cacheFile.exists()) {
                 data = Util.getFileContent(cacheFile.getAbsolutePath());
             } else {
                 if (!isCustomFontEnabled) {

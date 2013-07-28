@@ -31,10 +31,12 @@ public class Util {
     }
 
     public static String replaceSymbol(String content) {
-        content = content.replaceAll("“", "「");
-        content = content.replaceAll("”", "」");
-        content = content.replaceAll("‘", "『");
-        content = content.replaceAll("’", "』");
+        content = content.replaceAll("(“)([\u4e00-\u9fa5|\\s]+)", "「$2");
+        content = content.replaceAll("([\u4e30-\u9fa5|\\s]+)(”)", "$1」");
+
+        content = content.replaceAll("(‘)([\u4e00-\u9fa5|\\s]+)", "『$2");
+        content = content.replaceAll("([\u4e00-\u9fa5|\\s]+)(’)", "$1』");
+
         return content;
     }
 
