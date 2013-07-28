@@ -17,7 +17,6 @@ import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
 import taobe.tec.jcc.JChineseConvertor;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -193,7 +192,7 @@ public class DetailFragment extends WebViewFragment {
             File cacheFile = getCachedFile();
 
             // @TODO Cache needed.
-            if (cacheFile.exists()) {
+            if (false && cacheFile.exists()) {
                 data = Util.getFileContent(cacheFile.getAbsolutePath());
             } else {
                 if (!isCustomFontEnabled) {
@@ -215,7 +214,7 @@ public class DetailFragment extends WebViewFragment {
                 data = (isNeedConvertTraditionalChinese) ?
                         chineseConvertor.s2t(data) : chineseConvertor.t2s(data);
 
-                Util.putFileContent(cacheFile, new ByteArrayInputStream(data.getBytes()));
+//                Util.putFileContent(cacheFile, new ByteArrayInputStream(data.getBytes()));
             }
 
         } catch (IOException e) {

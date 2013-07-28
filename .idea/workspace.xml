@@ -69,15 +69,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62c0643c-7be3-40f5-9448-f28526b27123" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/QuestionsGridFragment.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/gridview.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/BaseListFragment.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/BaseListFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/DetailFragment.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/DetailFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/ListPagerAdapter.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/ListPagerAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Activity/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/QuestionsListFragment.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/QuestionsListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Util.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/Util.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="iZhihu.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -126,7 +119,7 @@
     <file path="/QuestionsListAdapter.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367745298030" ignored="false" />
     <file path="/BaseListFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374719098160" ignored="false" />
     <file path="/QuestionsListFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374719370823" ignored="false" />
-    <file path="/DetailFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1375015628002" ignored="false" />
+    <file path="/DetailFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1375017547308" ignored="false" />
     <file path="/StaredListFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1370688703947" ignored="false" />
     <file path="/GetMoreLocalQuestionsTask.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367766822684" ignored="false" />
     <file path="/FetchQuestion.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368187167529" ignored="false" />
@@ -289,6 +282,7 @@
     <file path="/gridview.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374718735897" ignored="false" />
     <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy4127862182663320211tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374719222985" ignored="false" />
     <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy6691501875737894021tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1375014748041" ignored="false" />
+    <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy3688793470952538494tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1375017655130" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -396,7 +390,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/res/layout/search.xml" />
         <option value="$PROJECT_DIR$/res/layout/listview_question_item.xml" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Tasks/SearchQuestionTask.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Dao/QuestionsDatabase.java" />
@@ -412,12 +405,13 @@
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Adapter/ListPagerAdapter.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Util.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/DetailFragment.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="103" />
-    <option name="y" value="71" />
+    <option name="x" value="59" />
+    <option name="y" value="126" />
     <option name="width" value="1474" />
     <option name="height" value="975" />
   </component>
@@ -908,8 +902,8 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="103" y="71" width="1474" height="975" extended-state="0" />
-    <editor active="false" />
+    <frame x="59" y="126" width="1474" height="975" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3280363" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -923,7 +917,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21685083" sideWeight="0.62239295" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26260504" sideWeight="0.72985244" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27014756" sideWeight="0.999306" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27014756" sideWeight="0.999306" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29225805" sideWeight="0.73702425" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.55523676" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1017,11 +1011,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/CommentsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="13" selection-start="323" selection-end="323" vertical-scroll-proportion="0.09356725" />
-      </provider>
-    </entry>
     <entry file="jar:///usr/local/Cellar/android-sdk/r21.1/platforms/android-16/android.jar!/android/app/Fragment.class">
       <provider selected="true" editor-type-id="text-editor">
         <state line="103" column="29" selection-start="4342" selection-end="4342" vertical-scroll-proportion="0.33333334" />
@@ -1096,9 +1085,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="36" selection-start="227" selection-end="227" vertical-scroll-proportion="0.10406504">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/Fragments/DetailFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="195" column="16" selection-start="7536" selection-end="7536" vertical-scroll-proportion="0.18211383">
+        <state line="200" column="93" selection-start="7781" selection-end="7781" vertical-scroll-proportion="0.4113821">
           <folding />
         </state>
       </provider>
