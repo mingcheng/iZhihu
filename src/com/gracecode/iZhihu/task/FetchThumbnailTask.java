@@ -3,7 +3,7 @@ package com.gracecode.iZhihu.task;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.support.v4.app.NotificationCompat;
-import com.gracecode.iZhihu.databases.ThumbnailsDatabase;
+import com.gracecode.iZhihu.db.ThumbnailsDatabase;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.util.Helper;
 import org.apache.http.Header;

@@ -3,9 +3,9 @@ package com.gracecode.iZhihu.task;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import com.gracecode.iZhihu.util.Requester;
-import com.gracecode.iZhihu.databases.QuestionsDatabase;
-import com.gracecode.iZhihu.databases.ThumbnailsDatabase;
+import com.gracecode.iZhihu.api.Requester;
+import com.gracecode.iZhihu.db.QuestionsDatabase;
+import com.gracecode.iZhihu.db.ThumbnailsDatabase;
 import com.gracecode.iZhihu.service.FetchThumbnailsService;
 import com.gracecode.iZhihu.util.Helper;
 import org.json.JSONArray;
@@ -61,7 +61,7 @@ public class FetchQuestionTask {
                     }
                 }
 
-                // Add url into database and mark.
+                // Add url into db and mark.
                 List<String> needCachedUrls = Helper.getImageUrls(heap);
                 for (String url : needCachedUrls) {
                     if (!fetchThumbnailsDatabase.add(url)) {

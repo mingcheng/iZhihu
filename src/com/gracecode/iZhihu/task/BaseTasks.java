@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import com.gracecode.iZhihu.util.Requester;
-import com.gracecode.iZhihu.databases.QuestionsDatabase;
+import com.gracecode.iZhihu.api.Requester;
+import com.gracecode.iZhihu.db.QuestionsDatabase;
 
 abstract class BaseTasks<Params, Progress, Result> extends AsyncTask<Params, Progress, Result> {
 

@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.dao.Question;
-import com.gracecode.iZhihu.util.Requester;
+import com.gracecode.iZhihu.api.Requester;
 import org.json.JSONException;
 import org.json.JSONObject;
 

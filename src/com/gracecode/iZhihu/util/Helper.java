@@ -11,7 +11,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.widget.Toast;
 import com.gracecode.iZhihu.R;
-import com.gracecode.iZhihu.ui.activity.Detail;
+import com.gracecode.iZhihu.activity.Detail;
 import com.gracecode.iZhihu.dao.Question;
 
 import java.io.*;

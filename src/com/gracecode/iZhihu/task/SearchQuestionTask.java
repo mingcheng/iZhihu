@@ -3,7 +3,7 @@ package com.gracecode.iZhihu.task;
 import android.content.Context;
 import android.os.AsyncTask;
 import com.gracecode.iZhihu.dao.Question;
-import com.gracecode.iZhihu.databases.QuestionsDatabase;
+import com.gracecode.iZhihu.db.QuestionsDatabase;
 
 import java.util.ArrayList;
 
