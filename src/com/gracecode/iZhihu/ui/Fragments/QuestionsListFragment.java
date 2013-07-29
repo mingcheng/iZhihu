@@ -1,4 +1,4 @@
-package com.gracecode.iZhihu.Fragments;
+package com.gracecode.iZhihu.ui.Fragments;
 
 import android.os.Bundle;
 import android.os.Handler;

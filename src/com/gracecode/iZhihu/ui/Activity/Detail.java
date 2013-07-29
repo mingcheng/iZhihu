@@ -1,4 +1,4 @@
-package com.gracecode.iZhihu.Activity;
+package com.gracecode.iZhihu.ui.Activity;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -13,8 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;
-import com.gracecode.iZhihu.Fragments.DetailFragment;
-import com.gracecode.iZhihu.Fragments.ScrollDetailFragment;
+import com.gracecode.iZhihu.ui.Fragments.DetailFragment;
+import com.gracecode.iZhihu.ui.Fragments.ScrollDetailFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;
 

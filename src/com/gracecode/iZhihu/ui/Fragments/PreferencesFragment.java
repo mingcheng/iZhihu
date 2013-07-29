@@ -1,4 +1,4 @@
-package com.gracecode.iZhihu.Fragments;
+package com.gracecode.iZhihu.ui.Fragments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -14,7 +14,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.util.Log;
-import com.gracecode.iZhihu.Activity.About;
+import com.gracecode.iZhihu.ui.Activity.About;
 import com.gracecode.iZhihu.Dao.ThumbnailsDatabase;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Util;

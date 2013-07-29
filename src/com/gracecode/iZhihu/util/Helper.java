@@ -1,4 +1,4 @@
-package com.gracecode.iZhihu;
+package com.gracecode.iZhihu.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,8 +10,9 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
 import android.widget.Toast;
-import com.gracecode.iZhihu.Activity.Detail;
-import com.gracecode.iZhihu.Dao.Question;
+import com.gracecode.iZhihu.R;
+import com.gracecode.iZhihu.ui.activity.Detail;
+import com.gracecode.iZhihu.dao.Question;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Util {
+public class Helper {
     public static final String DEFAULT_CHARSET = "utf-8";
     public static final String REGEX_MATCH_IMAGE = "<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>";
     public static final String MIME_IMAGE_PNG = "image/png";

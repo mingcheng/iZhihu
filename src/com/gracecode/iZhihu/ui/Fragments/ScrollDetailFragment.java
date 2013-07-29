@@ -1,4 +1,4 @@
-package com.gracecode.iZhihu.Fragments;
+package com.gracecode.iZhihu.ui.Fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.gracecode.iZhihu.Activity.Detail;
+import com.gracecode.iZhihu.ui.Activity.Detail;
 import com.gracecode.iZhihu.Adapter.DetailListsAdapter;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.R;

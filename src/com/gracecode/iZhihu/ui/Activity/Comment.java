@@ -1,4 +1,4 @@
-package com.gracecode.iZhihu.Activity;
+package com.gracecode.iZhihu.ui.Activity;
 
 
 import android.app.AlertDialog;
@@ -7,7 +7,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Base64;
 import com.gracecode.iZhihu.Dao.CommentItem;
-import com.gracecode.iZhihu.Fragments.CommentsFragment;
+import com.gracecode.iZhihu.ui.Fragments.CommentsFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.FetchCommentTask;
 import com.gracecode.iZhihu.Util;

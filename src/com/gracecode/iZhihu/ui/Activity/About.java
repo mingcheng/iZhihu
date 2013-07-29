@@ -1,4 +1,4 @@
-package com.gracecode.iZhihu.Activity;
+package com.gracecode.iZhihu.ui.Activity;
 
 import android.os.Bundle;
 import android.webkit.WebViewFragment;

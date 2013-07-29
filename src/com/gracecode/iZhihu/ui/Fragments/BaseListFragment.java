@@ -1,4 +1,4 @@
-package com.gracecode.iZhihu.Fragments;
+package com.gracecode.iZhihu.ui.Fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.AdapterView;
-import com.gracecode.iZhihu.Activity.Detail;
+import com.gracecode.iZhihu.ui.Activity.Detail;
 import com.gracecode.iZhihu.Adapter.QuestionsAdapter;
 import com.gracecode.iZhihu.Dao.Question;
 import com.gracecode.iZhihu.Dao.QuestionsDatabase;

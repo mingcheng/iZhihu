@@ -1,4 +1,4 @@
-package com.gracecode.iZhihu.Activity;
+package com.gracecode.iZhihu.ui.Activity;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -23,8 +23,8 @@ import android.widget.RelativeLayout;
 import com.gracecode.iZhihu.Adapter.ListPagerAdapter;
 import com.gracecode.iZhihu.Adapter.QuestionsAdapter;
 import com.gracecode.iZhihu.Dao.Question;
-import com.gracecode.iZhihu.Fragments.QuestionsListFragment;
-import com.gracecode.iZhihu.Fragments.ScrollTabsFragment;
+import com.gracecode.iZhihu.ui.Fragments.QuestionsListFragment;
+import com.gracecode.iZhihu.ui.Fragments.ScrollTabsFragment;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.Tasks.FetchQuestionTask;
 import com.gracecode.iZhihu.Tasks.SearchQuestionTask;

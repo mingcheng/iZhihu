@@ -1,7 +1,7 @@
-package com.gracecode.iZhihu.Activity;
+package com.gracecode.iZhihu.ui.Activity;
 
 import android.os.Bundle;
-import com.gracecode.iZhihu.Fragments.PreferencesFragment;
+import com.gracecode.iZhihu.ui.Fragments.PreferencesFragment;
 import com.gracecode.iZhihu.R;
 
 public class Preference extends BaseActivity {
