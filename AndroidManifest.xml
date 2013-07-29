@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.gracecode.iZhihu"
-          android:versionCode="201307301"
-          android:versionName="1.6.3">
+          android:versionCode="201307311"
+          android:versionName="1.6.4">
 
     <uses-sdk
-            android:minSdkVersion="15"
+            android:minSdkVersion="14"
             android:targetSdkVersion="16"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -38,47 +38,11 @@
             </intent-filter>
         </activity>
 
-        <activity
-                android:name=".activity.Detail"
-                android:screenOrientation="portrait"
-                >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-
-        <activity
-                android:name=".activity.Comment"
-                android:screenOrientation="portrait"
-                >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-
-        <activity
-                android:name=".activity.Preference">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-        <activity
-                android:name=".activity.About">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-            </intent-filter>
-        </activity>
-
-        <activity
-                android:name="com.ipaulpro.afilechooser.FileChooserActivity"
-                android:exported="false">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.GET_CONTENT"/>-->
-            <!--<category android:name="android.intent.category.DEFAULT"/>-->
-            <!--<category android:name="android.intent.category.OPENABLE"/>-->
-            <!--<data android:mimeType="font/opentype"/>-->
-            <!--</intent-filter>-->
-        </activity>
+        <activity android:name=".activity.Detail"/>
+        <activity android:name=".activity.Comment"/>
+        <activity android:name=".activity.Preference"/>
+        <activity android:name=".activity.About"/>
+        <activity android:name="com.ipaulpro.afilechooser.FileChooserActivity"/>
 
         <service
                 android:name=".service.FetchThumbnailsService"
