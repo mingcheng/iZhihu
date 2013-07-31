@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import com.gracecode.iZhihu.dao.Question;
 import com.gracecode.iZhihu.R;
+import com.gracecode.iZhihu.dao.Question;
 import com.gracecode.iZhihu.util.Helper;
 import taobe.tec.jcc.JChineseConvertor;
 
@@ -78,6 +78,10 @@ public final class QuestionsAdapter extends BaseAdapter implements Filterable {
 
             TextView textViewTitle = (TextView) convertView.findViewById(R.id.title);
             TextView textViewDescription = (TextView) convertView.findViewById(R.id.description);
+
+            // @see https://twitter.com/wuketidai/status/362225046728609792
+            textViewTitle.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            textViewDescription.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
             if (xinGothicTypeFace != null) {
                 textViewTitle.setTypeface(xinGothicTypeFace);
