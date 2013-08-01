@@ -6,14 +6,16 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Picture;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.webkit.*;
+import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.dao.Question;
 import com.gracecode.iZhihu.db.ThumbnailsDatabase;
-import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.util.Helper;
 import taobe.tec.jcc.JChineseConvertor;
 
@@ -21,6 +23,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +38,8 @@ public class DetailFragment extends WebViewFragment {
     private static final int FIVE_MINUTES = 1000 * 60 * 5;
     private static final String NEED_CONVERT = "0x000";
     private static final String NONEED_CONVERT = "0x111";
+    private static final int INITIAL_VIEW = 0x00;
+    private static final int RESUME_JUMP = 0x01;
 
     private final Context context;
     private Activity activity;
@@ -52,6 +58,48 @@ public class DetailFragment extends WebViewFragment {
     private String customFontPath;
     private String customBoldFontPath;
 
+    /**
+     * 刷新 UI 线程集中的地方
+     */
+    private final android.os.Handler UIChangedChangedHandler = new android.os.Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case INITIAL_VIEW:
+                    getWebView().setVisibility(View.VISIBLE);
+                    new Timer().schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            if (getWebView() != null) {
+                                getWebView().setScrollY(getSavedScrollYOffset());
+                            }
+                        }
+                    }, 1000);
+                    break;
+
+//                case RESUME_JUMP:
+//                    new Timer().schedule(new TimerTask() {
+//                        @Override
+//                        public void run() {
+//                            if (getWebView() != null) {
+//                                getWebView().setScrollY(getSavedScrollYOffset());
+//                            }
+//                        }
+//                    }, 1200);
+//                    break;
+            }
+        }
+    };
+
+    private void saveScrollYOffset() {
+        SharedPreferences.Editor edit = sharedPreferences.edit();
+        edit.putInt(getKeyScrollById(), getWebView().getScrollY());
+        edit.commit();
+    }
+
+    private int getSavedScrollYOffset() {
+        return sharedPreferences.getInt(getKeyScrollById(), 0);
+    }
 
     private final WebViewClient webViewClient = new WebViewClient() {
         @Override
@@ -60,6 +108,9 @@ public class DetailFragment extends WebViewFragment {
             if (Helper.isExternalStorageExists() && !isShareByTextOnly) {
                 new Thread(genScreenShots).start();
             }
+
+            getWebView().pageDown(true);
+            UIChangedChangedHandler.sendEmptyMessage(INITIAL_VIEW);
         }
 
         @Override
@@ -68,7 +119,6 @@ public class DetailFragment extends WebViewFragment {
             return true;
         }
     };
-
 
     private final Runnable genScreenShots = new Runnable() {
         @Override
@@ -174,6 +224,7 @@ public class DetailFragment extends WebViewFragment {
                 return true;
             }
         });
+        webView.setVisibility(View.INVISIBLE);
     }
 
     private File getCachedFile() {
@@ -235,10 +286,7 @@ public class DetailFragment extends WebViewFragment {
     @Override
     public void onPause() {
         super.onPause();
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(getKeyScrollById(), getWebView().getScrollY());
-        editor.commit();
+        saveScrollYOffset();
     }
 
     private String formatParagraph(String content) {
@@ -336,4 +384,31 @@ public class DetailFragment extends WebViewFragment {
         }
     }
 
+    private int getPageScrollHeight() {
+        return (int) (getWebView().getHeight() * 0.9);
+    }
+
+    synchronized public void scrollPageBy(int offset) {
+        int contentHeight = (int) (getWebView().getContentHeight() * getWebView().getScale());
+        int maxScrollHeight = contentHeight - getWebView().getHeight();
+        int scrollY = getWebView().getScrollY() + offset;
+
+        if (scrollY < 0) {
+            scrollY = 0;
+        }
+
+        if (scrollY >= maxScrollHeight) {
+            scrollY = maxScrollHeight;
+        }
+
+        getWebView().scrollTo(0, scrollY);
+    }
+
+    public void nextPage() {
+        scrollPageBy(getPageScrollHeight());
+    }
+
+    public void prevPage() {
+        scrollPageBy(getPageScrollHeight() * -1);
+    }
 }

@@ -16,6 +16,7 @@
     <string name="key_share_and_save">key_share_and_save</string>
     <string name="key_share_text_only">key_share_plain_only</string>
     <string name="key_symbol">key_symbol</string>
+    <string name="key_page_turning_by_volkey">key_page_updown_by_volkey</string>
     <string name="key_wake_lock">key_wake_lock</string>
     <string name="url_donate" formated="false">http://t.cn/zQ7EeUj</string>
     <string name="url_zhihu_questioin_pre" formatted="false">http://www.zhihu.com/question/%d/answer/%d?from=duzhihu

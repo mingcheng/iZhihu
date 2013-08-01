@@ -55,6 +55,13 @@
                 />
 
         <CheckBoxPreference
+                android:key="@string/key_page_turning_by_volkey"
+                android:title="@string/turning_page_by_volkey"
+                android:defaultValue="true"
+                android:summary="@string/turning_page_by_volkey_summary"
+                />
+
+        <CheckBoxPreference
                 android:key="@string/key_scroll_read"
                 android:title="@string/scroll_read"
                 android:defaultValue="true"

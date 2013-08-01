@@ -87,4 +87,6 @@
     <string name="view_at_online">View Online</string>
     <string name="search_hint">Input search key</string>
     <string name="search">Search</string>
+    <string name="turning_page_by_volkey">Volume Key</string>
+    <string name="turning_page_by_volkey_summary">Turning Page(Up or Down) By Volume Key</string>
 </resources>

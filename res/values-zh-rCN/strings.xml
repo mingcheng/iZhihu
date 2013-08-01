@@ -77,4 +77,6 @@
     <string name="view_at_online">网页版</string>
     <string name="search_hint">请输入关键字</string>
     <string name="search">搜索</string>
+    <string name="turning_page_by_volkey">音量键翻页</string>
+    <string name="turning_page_by_volkey_summary">使用音量键上下翻页</string>
 </resources>

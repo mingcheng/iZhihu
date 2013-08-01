@@ -11,11 +11,11 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.dao.Question;
 import com.gracecode.iZhihu.db.QuestionsDatabase;
 import com.gracecode.iZhihu.fragment.DetailFragment;
 import com.gracecode.iZhihu.fragment.ScrollDetailFragment;
-import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.util.Helper;
 
 import java.io.File;
@@ -332,6 +332,24 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             returnModifiedListsAndFinish();
         }
+
+        boolean isTurningPageByVolumeKey =
+                sharedPreferences.getBoolean(getString(R.string.key_page_turning_by_volkey), true);
+
+        if (isTurningPageByVolumeKey
+                && (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_VOLUME_DOWN:
+                    fragCurrentQuestionDetail.nextPage();
+                    break;
+                case KeyEvent.KEYCODE_VOLUME_UP:
+                    fragCurrentQuestionDetail.prevPage();
+                    break;
+            }
+
+            return true;
+        }
+
         return super.onKeyDown(keyCode, event);
     }
 
