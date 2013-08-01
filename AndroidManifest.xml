@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.gracecode.iZhihu"
-          android:versionCode="201307311"
-          android:versionName="1.6.4">
+          android:versionCode="201308021"
+          android:versionName="1.6.6">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -38,12 +38,25 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.Detail"/>
-        <activity android:name=".activity.Comment"/>
-        <activity android:name=".activity.Preference"/>
-        <activity android:name=".activity.About"/>
-        <activity android:name="com.ipaulpro.afilechooser.FileChooserActivity"/>
-
+        <activity
+                android:screenOrientation="portrait"
+                android:name=".activity.Detail"
+                />
+        <activity
+                android:screenOrientation="portrait"
+                android:name=".activity.Comment"
+                />
+        <activity
+                android:screenOrientation="portrait"
+                android:name=".activity.Preference"
+                />
+        <activity
+                android:screenOrientation="portrait"
+                android:name=".activity.About"
+                />
+        <activity
+                android:screenOrientation="portrait"
+                android:name="com.ipaulpro.afilechooser.FileChooserActivity"/>
         <service
                 android:name=".service.FetchThumbnailsService"
                 android:icon="@drawable/ic_launcher"
