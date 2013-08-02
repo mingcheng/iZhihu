@@ -1,5 +1,6 @@
 package com.gracecode.iZhihu.fragment;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import android.text.Html;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.webkit.*;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.dao.Question;
@@ -394,7 +396,11 @@ public class DetailFragment extends WebViewFragment {
             scrollY = maxScrollHeight;
         }
 
-        getWebView().scrollTo(0, scrollY);
+        ObjectAnimator animator = ObjectAnimator.ofInt(getWebView(), "scrollY", scrollY);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.setDuration(250);
+        animator.start();
+//        getWebView().scrollTo(0, scrollY);
     }
 
     public void nextPage() {
