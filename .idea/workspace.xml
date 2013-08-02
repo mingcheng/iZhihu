@@ -69,6 +69,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62c0643c-7be3-40f5-9448-f28526b27123" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/activity/Detail.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/activity/Detail.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/gracecode/iZhihu/db/QuestionsDatabase.java" afterPath="$PROJECT_DIR$/src/com/gracecode/iZhihu/db/QuestionsDatabase.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="iZhihu.iws" />
@@ -80,8 +83,8 @@
     <file path="/QuestionDetail.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367646683099" ignored="false" />
     <file path="/Config.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367030266888" ignored="false" />
     <file path="/FavoritesList.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367637967751" ignored="false" />
-    <file path="/Detail.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1375345097481" ignored="false" />
-    <file path="/Dummy.txt" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1375328943540" ignored="false" />
+    <file path="/Detail.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1375411011362" ignored="false" />
+    <file path="/Dummy.txt" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1375408877392" ignored="false" />
     <file path="/frag_questions.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1367763106011" ignored="false" />
     <file path="/themes.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369131627860" ignored="false" />
     <file path="/Main.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374719961582" ignored="false" />
@@ -133,7 +136,7 @@
     <file path="/PreferencesFragment.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1373340856580" ignored="false" />
     <file path="/Thumbnail.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368025891794" ignored="false" />
     <file path="/ThumbnailsDatabase.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1371108477265" ignored="false" />
-    <file path="/QuestionsDatabase.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1374671509081" ignored="false" />
+    <file path="/QuestionsDatabase.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1375411139674" ignored="false" />
     <file path="/FetchThumbnailTask.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369388462791" ignored="false" />
     <file path="/FetchThumbnails.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1368158109299" ignored="false" />
     <file path="/FetchThumbnailsService.java" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1369405306598" ignored="false" />
@@ -323,6 +326,7 @@
     <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy2524620263036814494tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1375347909376" ignored="false" />
     <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy2331965230503255279tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1375350889973" ignored="false" />
     <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy2631957380170046784tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1375351323970" ignored="false" />
+    <file path="/private/var/folders/b8/8xg37h_94fg8hjf3f1g7lwy00000gp/T/android_manifest_copy7915629820368282754tmp/AndroidManifest.xml" changelist="62c0643c-7be3-40f5-9448-f28526b27123" time="1375410983349" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -341,9 +345,8 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/db/QuestionsDatabase.java" line="213" class="com.gracecode.iZhihu.db.QuestionsDatabase" package="com.gracecode.iZhihu.db">
+      <breakpoint url="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/db/QuestionsDatabase.java" line="223" class="com.gracecode.iZhihu.db.QuestionsDatabase" package="com.gracecode.iZhihu.db">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -395,6 +398,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -403,7 +407,47 @@
     <favorites_list name="iZhihu" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="DetailFragment.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/fragment/DetailFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="30" column="13" selection-start="883" selection-end="883" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="docComment;field#UIChangedChangedHandler#0;class#DetailFragment#0" expanded="true" />
+                <element signature="docComment;method#genCaptureBitmap#0;class#DetailFragment#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Detail.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/activity/Detail.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="345" column="18" selection-start="12120" selection-end="12120" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ListPagerAdapter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/adapter/ListPagerAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="40" column="0" selection-start="1339" selection-end="1339" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QuestionsDatabase.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/db/QuestionsDatabase.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="193" column="49" selection-start="7457" selection-end="7457" vertical-scroll-proportion="0.2261185">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -430,7 +474,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/util/HTTPRequester.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/dao/Comment.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/util/Requester.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/databases/QuestionsDatabase.java" />
@@ -442,16 +485,17 @@
         <option value="$PROJECT_DIR$/res/values/constants.xml" />
         <option value="$PROJECT_DIR$/res/values-zh-rCN/strings.xml" />
         <option value="$PROJECT_DIR$/res/xml/preferences.xml" />
-        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/activity/Detail.java" />
         <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/fragment/DetailFragment.java" />
         <option value="$PROJECT_DIR$/../aFileChooser/aFileChooser/src/com/ipaulpro/afilechooser/FileListFragment.java" />
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/activity/Detail.java" />
+        <option value="$PROJECT_DIR$/src/com/gracecode/iZhihu/db/QuestionsDatabase.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="209" />
-    <option name="y" value="61" />
+    <option name="x" value="1" />
+    <option name="y" value="22" />
     <option name="width" value="1474" />
     <option name="height" value="975" />
   </component>
@@ -504,6 +548,34 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.gracecode.iZhihu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -716,34 +788,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com.gracecode.iZhihu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -769,8 +813,8 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="options.lastSelected" value="project.propCompiler" />
-    <property name="project.structure.side.proportion" value="0.22519511" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="project.structure.side.proportion" value="0.22519511" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="AndroidRunProguardForReleaseBuild" value="false" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -1084,22 +1128,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="209" y="61" width="1474" height="975" extended-state="0" />
+    <frame x="1" y="22" width="1474" height="975" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3280363" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3200908" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27128264" sideWeight="0.9971306" order="3" side_tool="false" content_ui="tabs" x="430" y="177" width="1334" height="779" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.44476327" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23479189" sideWeight="0.62239295" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3269494" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3030647" sideWeight="0.6119082" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.442371" sideWeight="0.68230563" order="11" side_tool="false" content_ui="tabs" x="724" y="209" width="1012" height="757" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30192962" sideWeight="0.6119082" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.442371" sideWeight="0.68230563" order="11" side_tool="false" content_ui="tabs" x="962" y="252" width="1012" height="757" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930845" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21685083" sideWeight="0.62239295" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29131654" sideWeight="0.6969353" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29551822" sideWeight="0.69807035" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27014756" sideWeight="0.999306" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29225805" sideWeight="0.73702425" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32831737" sideWeight="0.55523676" order="12" side_tool="false" content_ui="tabs" />
@@ -1110,6 +1153,7 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29225805" sideWeight="0.73702425" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890856" sideWeight="0.6722488" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3200908" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4516496" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -1193,20 +1237,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/fragment/ScrollTabsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="68" selection-start="1236" selection-end="1236" vertical-scroll-proportion="0.35555556">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/adapter/QuestionsAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="75" selection-start="2701" selection-end="2701" vertical-scroll-proportion="0.41626015">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/anim/refresh_rotate.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -1253,21 +1283,7 @@
     </entry>
     <entry file="jar:///usr/local/Cellar/android-sdk/r21.1/platforms/android-16/android.jar!/android/view/View.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="28" selection-start="437" selection-end="437" vertical-scroll-proportion="0.24573378">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/fragment/DetailFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="32" selection-start="3397" selection-end="3397" vertical-scroll-proportion="1.8">
-          <folding>
-            <element signature="docComment;field#UIChangedChangedHandler#0;class#DetailFragment#0" expanded="true" />
-            <element signature="e#2594#2905#0" expanded="true" />
-            <element signature="e#2882#2883#0" expanded="true" />
-            <element signature="docComment;method#genCaptureBitmap#0;class#DetailFragment#0" expanded="true" />
-          </folding>
-        </state>
+        <state line="9" column="28" selection-start="437" selection-end="437" vertical-scroll-proportion="0.24573378" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/activity/Main.java">
@@ -1300,16 +1316,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/activity/Detail.java">
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/fragment/DetailFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="151" column="0" selection-start="4895" selection-end="4895" vertical-scroll-proportion="0.3327645">
-          <folding />
+        <state line="30" column="13" selection-start="883" selection-end="883" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="docComment;field#UIChangedChangedHandler#0;class#DetailFragment#0" expanded="true" />
+            <element signature="docComment;method#genCaptureBitmap#0;class#DetailFragment#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="0" selection-start="2544" selection-end="2544" vertical-scroll-proportion="0.6177474">
+        <state line="18" column="4" selection-start="928" selection-end="928" vertical-scroll-proportion="0.46829268">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/activity/Detail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="345" column="18" selection-start="12120" selection-end="12120" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/adapter/ListPagerAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="0" selection-start="1339" selection-end="1339" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/gracecode/iZhihu/db/QuestionsDatabase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="193" column="49" selection-start="7457" selection-end="7457" vertical-scroll-proportion="0.2261185">
           <folding />
         </state>
       </provider>

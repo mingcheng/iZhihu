@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.gracecode.iZhihu.R;
-import com.gracecode.iZhihu.dao.Question;
 import com.gracecode.iZhihu.api.Requester;
+import com.gracecode.iZhihu.dao.Question;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -176,7 +176,12 @@ public final class QuestionsDatabase {
 
 
     public ArrayList<Question> getRecentQuestions(int page) {
-        return getAllQuestionsByCursor(getRecentQuestionsCursor(page));
+        Cursor cursor = getRecentQuestionsCursor(page);
+        try {
+            return getAllQuestionsByCursor(cursor);
+        } finally {
+            cursor.close();
+        }
     }
 
     public ArrayList<Question> searchQuestions(String keys) {
@@ -184,7 +189,12 @@ public final class QuestionsDatabase {
     }
 
     public ArrayList<Question> getStaredQuestions() {
-        return getAllQuestionsByCursor(getStaredQuestionsCursor());
+        Cursor cursor = getStaredQuestionsCursor();
+        try {
+            return getAllQuestionsByCursor(cursor);
+        } finally {
+            cursor.close();
+        }
     }
 
     private ArrayList<Question> getAllQuestionsByCursor(Cursor cursor) {

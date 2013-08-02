@@ -1,6 +1,8 @@
 package com.gracecode.iZhihu.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,6 +35,8 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
     private Menu menuItem;
     private PowerManager.WakeLock wakeLock;
+    private PowerManager powerManager;
+    private AudioManager audioManager;
 
     private static final int MESSAGE_UPDATE_START_SUCCESS = 0;
     private static final int MESSAGE_UPDATE_START_FAILD = -1;
@@ -49,7 +53,6 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     private boolean isShareByTextOnly = false;
     private boolean isShareAndSave = true;
     private boolean isSetScrollRead = true;
-
 
     /**
      * 标记当前条目（未）收藏
@@ -89,6 +92,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             }
         }
     };
+    private int currentStreamVolume = 0;
 
 
     /**
@@ -152,8 +156,10 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         super.onCreate(savedInstanceState);
 
         // 屏幕常亮控制
-        PowerManager powerManager = ((PowerManager) getSystemService(POWER_SERVICE));
+        this.powerManager = ((PowerManager) getSystemService(POWER_SERVICE));
         this.wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, Detail.class.getName());
+
+        this.audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         // 配置项
         this.isShareByTextOnly = sharedPreferences.getBoolean(getString(R.string.key_share_text_only), false);
@@ -248,21 +254,20 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     }
 
 
-    private void returnModifiedListsAndFinish() {
+    private boolean returnModifiedListsAndFinish() {
         Intent intent = new Intent();
         intent.putParcelableArrayListExtra(INTENT_MODIFIED_LISTS, questionsList);
         setResult(Intent.FILL_IN_PACKAGE, intent);
         finish();
+        return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             // Home(Back button)
             case android.R.id.home:
-                returnModifiedListsAndFinish();
-                return true;
+                return returnModifiedListsAndFinish();
 
             // Toggle star
             case R.id.menu_favorite:
@@ -329,8 +334,23 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        currentStreamVolume = audioManager.getStreamVolume(AudioManager.STREAM_SYSTEM);
+        audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, 0, AudioManager.FLAG_PLAY_SOUND);
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        audioManager.setStreamVolume(AudioManager.STREAM_SYSTEM, currentStreamVolume, AudioManager.FLAG_PLAY_SOUND);
+        return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        int keyCode = event.getKeyCode();
+
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            returnModifiedListsAndFinish();
+            return returnModifiedListsAndFinish();
         }
 
         boolean isTurningPageByVolumeKey =
@@ -350,7 +370,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             return true;
         }
 
-        return super.onKeyDown(keyCode, event);
+        return super.dispatchKeyEvent(event);
     }
 
     @Override

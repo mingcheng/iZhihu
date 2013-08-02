@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 
     <application
             android:theme="@style/Theme.Light"
@@ -57,6 +58,7 @@
         <activity
                 android:screenOrientation="portrait"
                 android:name="com.ipaulpro.afilechooser.FileChooserActivity"/>
+
         <service
                 android:name=".service.FetchThumbnailsService"
                 android:icon="@drawable/ic_launcher"
