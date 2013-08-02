@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,12 +19,12 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.adapter.ListPagerAdapter;
 import com.gracecode.iZhihu.adapter.QuestionsAdapter;
 import com.gracecode.iZhihu.dao.Question;
 import com.gracecode.iZhihu.fragment.QuestionsListFragment;
 import com.gracecode.iZhihu.fragment.ScrollTabsFragment;
-import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.task.FetchQuestionTask;
 import com.gracecode.iZhihu.task.SearchQuestionTask;
 import com.gracecode.iZhihu.util.Helper;
@@ -288,8 +287,6 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
             searchString = editable.toString().trim();
 
             if (searchString != null && searchString.length() > 0) {
-                Log.e("", searchString);
-
                 new SearchQuestionTask(context, new SearchQuestionTask.Callback() {
                     @Override
                     public void onPreExecute() {

@@ -29,6 +29,13 @@ public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewP
 
     public Fragment getBaseListFragment(int index) {
         return fragments.get(index);
+//        switch (index) {
+//            case SECOND_TAB:
+//                return new StaredListFragment();
+//
+//            default:
+//                return new QuestionsListFragment();
+//        }
     }
 
     @Override
@@ -73,5 +80,6 @@ public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewP
     @Override
     public void onPageScrollStateChanged(int i) {
         // ...
+
     }
 }

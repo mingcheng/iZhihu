@@ -51,7 +51,6 @@ public class FetchCommentTask extends BaseTasks<Long, Void, String> {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                Log.e(context.getPackageName(), e.getMessage());
             }
         }
 

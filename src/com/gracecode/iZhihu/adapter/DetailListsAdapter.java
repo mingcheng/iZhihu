@@ -3,6 +3,7 @@ package com.gracecode.iZhihu.adapter;
 import android.app.Activity;
 import android.app.Fragment;
 import android.support.v13.app.FragmentStatePagerAdapter;
+import android.view.ViewGroup;
 import com.gracecode.iZhihu.dao.Question;
 import com.gracecode.iZhihu.fragment.DetailFragment;
 
@@ -17,7 +18,7 @@ import java.util.HashMap;
  */
 public class DetailListsAdapter extends FragmentStatePagerAdapter {
     private final Activity activity;
-    private final HashMap<Integer, Fragment> questionFragments;
+    private final HashMap<Integer, Fragment> questionFragments = new HashMap<>();
     private final ArrayList<Question> questions;
 
     public DetailListsAdapter(Activity activity, ArrayList<Question> questions) {
@@ -25,7 +26,6 @@ public class DetailListsAdapter extends FragmentStatePagerAdapter {
 
         this.activity = activity;
         this.questions = questions;
-        this.questionFragments = new HashMap<>();
     }
 
     @Override
@@ -43,5 +43,15 @@ public class DetailListsAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return questions.size();
+    }
+
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        try {
+            super.destroyItem(container, position, object);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 }

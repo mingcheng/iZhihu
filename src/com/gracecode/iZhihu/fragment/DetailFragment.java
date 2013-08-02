@@ -71,22 +71,15 @@ public class DetailFragment extends WebViewFragment {
                         @Override
                         public void run() {
                             if (getWebView() != null) {
-                                getWebView().setScrollY(getSavedScrollYOffset());
+                                UIChangedChangedHandler.sendEmptyMessage(RESUME_JUMP);
                             }
                         }
                     }, 1000);
                     break;
 
-//                case RESUME_JUMP:
-//                    new Timer().schedule(new TimerTask() {
-//                        @Override
-//                        public void run() {
-//                            if (getWebView() != null) {
-//                                getWebView().setScrollY(getSavedScrollYOffset());
-//                            }
-//                        }
-//                    }, 1200);
-//                    break;
+                case RESUME_JUMP:
+                    getWebView().setScrollY(getSavedScrollYOffset());
+                    break;
             }
         }
     };

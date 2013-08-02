@@ -151,51 +151,52 @@ public final class QuestionsDatabase {
         this.context = context;
     }
 
-    protected Cursor getRecentQuestionsCursor(int page) {
-        SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
-        return db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, null, null, null, null,
-                COLUM_UPDATE_AT + " DESC " + " LIMIT " + (page - 1) * PRE_LIMIT_PAGE_SIZE + "," + PRE_LIMIT_PAGE_SIZE);
-    }
-
-
-    protected Cursor getRecentQuestionsCursor() {
-        return getRecentQuestionsCursor(FIRST_PAGE);
-    }
-
-
-    protected Cursor getStaredQuestionsCursor() {
-        SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
-        return db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, " stared = 1 ", null, null, null,
-                COLUM_UPDATE_AT + " DESC");
-    }
-
-
     public ArrayList<Question> getRecentQuestions() {
         return getRecentQuestions(FIRST_PAGE);
     }
 
 
     public ArrayList<Question> getRecentQuestions(int page) {
-        Cursor cursor = getRecentQuestionsCursor(page);
+        SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
+        Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL,
+                null, null, null, null,
+                COLUM_UPDATE_AT + " DESC " +
+                        " LIMIT " + (page - 1) * PRE_LIMIT_PAGE_SIZE + "," + PRE_LIMIT_PAGE_SIZE);
         try {
             return getAllQuestionsByCursor(cursor);
         } finally {
             cursor.close();
+            db.close();
         }
     }
+
 
     public ArrayList<Question> searchQuestions(String keys) {
-        return getAllQuestionsByCursor(searchQuestionsCursorByLike(keys));
-    }
-
-    public ArrayList<Question> getStaredQuestions() {
-        Cursor cursor = getStaredQuestionsCursor();
+        SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
+        Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL,
+                COLUM_QUESTION_TITLE + " LIKE '%" + keys + "%'", null, null, null,
+                COLUM_ANSWER_ID + " LIMIT " + PRE_LIMIT_PAGE_SIZE / 2);
         try {
             return getAllQuestionsByCursor(cursor);
         } finally {
             cursor.close();
+            db.close();
         }
     }
+
+
+    public ArrayList<Question> getStaredQuestions() {
+        SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
+        Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL, " stared = 1 ", null, null, null,
+                COLUM_UPDATE_AT + " DESC");
+        try {
+            return getAllQuestionsByCursor(cursor);
+        } finally {
+            cursor.close();
+            db.close();
+        }
+    }
+
 
     private ArrayList<Question> getAllQuestionsByCursor(Cursor cursor) {
         ArrayList<Question> questionArrayList = new ArrayList<>();
@@ -212,16 +213,6 @@ public final class QuestionsDatabase {
         } finally {
             cursor.close();
         }
-    }
-
-
-    public Cursor searchQuestionsCursorByLike(String keys) {
-        SQLiteDatabase db = new DatabaseOpenHelper(context).getReadableDatabase();
-        Cursor cursor = db.query(DATABASE_QUESTIONS_TABLE_NAME, SELECT_ALL,
-                COLUM_QUESTION_TITLE + " LIKE '%" + keys + "%'", null, null, null,
-                COLUM_ANSWER_ID + " LIMIT " + PRE_LIMIT_PAGE_SIZE / 2);
-
-        return cursor;
     }
 
 //    public Cursor searchQuestionsCursor(String keys) {
