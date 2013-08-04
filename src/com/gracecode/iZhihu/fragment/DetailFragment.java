@@ -1,5 +1,6 @@
 package com.gracecode.iZhihu.fragment;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
@@ -68,7 +69,9 @@ public class DetailFragment extends WebViewFragment {
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case INITIAL_VIEW:
-                    getWebView().setVisibility(View.VISIBLE);
+                    if (getWebView() != null) {
+                        getWebView().setVisibility(View.VISIBLE);
+                    }
                     new Timer().schedule(new TimerTask() {
                         @Override
                         public void run() {
@@ -80,7 +83,10 @@ public class DetailFragment extends WebViewFragment {
                     break;
 
                 case RESUME_JUMP:
-                    getWebView().setScrollY(getSavedScrollYOffset());
+                    if (getWebView() != null) {
+                        getWebView().setVisibility(View.VISIBLE);
+                        getWebView().setScrollY(getSavedScrollYOffset());
+                    }
                     break;
             }
         }
@@ -380,10 +386,13 @@ public class DetailFragment extends WebViewFragment {
     }
 
     private int getPageScrollHeight() {
-        return (int) (getWebView().getHeight() * 0.9);
+        return getWebView().getHeight() / 2;
     }
 
+    boolean isPaging = false;
+
     synchronized public void scrollPageBy(int offset) {
+        if (isPaging) return;
         int contentHeight = (int) (getWebView().getContentHeight() * getWebView().getScale());
         int maxScrollHeight = contentHeight - getWebView().getHeight();
         int scrollY = getWebView().getScrollY() + offset;
@@ -399,6 +408,27 @@ public class DetailFragment extends WebViewFragment {
         ObjectAnimator animator = ObjectAnimator.ofInt(getWebView(), "scrollY", scrollY);
         animator.setInterpolator(new DecelerateInterpolator());
         animator.setDuration(250);
+        animator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                isPaging = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                isPaging = false;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+                isPaging = false;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
         animator.start();
 //        getWebView().scrollTo(0, scrollY);
     }
