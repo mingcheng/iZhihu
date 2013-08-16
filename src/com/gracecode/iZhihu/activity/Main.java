@@ -255,7 +255,7 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
         return true;
     }
 
-    ArrayList<Question> searchedQuestions = new ArrayList<>();
+    ArrayList<Question> searchedQuestions = new ArrayList<Question>();
     QuestionsAdapter questionsAdapter;
 
     @Override

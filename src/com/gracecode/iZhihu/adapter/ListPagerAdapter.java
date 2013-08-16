@@ -16,7 +16,7 @@ public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewP
     public static final int SECOND_TAB = 1;
 
     private final ActionBar actionBar;
-    private final ArrayList<Fragment> fragments = new ArrayList<>();
+    private final ArrayList<Fragment> fragments = new ArrayList<Fragment>();
 
     public ListPagerAdapter(Activity activity) {
         super(activity.getFragmentManager());

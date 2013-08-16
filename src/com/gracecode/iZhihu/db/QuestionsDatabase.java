@@ -199,7 +199,7 @@ public final class QuestionsDatabase {
 
 
     private ArrayList<Question> getAllQuestionsByCursor(Cursor cursor) {
-        ArrayList<Question> questionArrayList = new ArrayList<>();
+        ArrayList<Question> questionArrayList = new ArrayList<Question>();
 
         try {
             getIndexFromCursor(cursor);

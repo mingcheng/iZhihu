@@ -90,7 +90,7 @@ public class Helper {
     }
 
     public static List<String> getImageUrls(String content) {
-        List<String> result = new ArrayList<>();
+        List<String> result = new ArrayList<String>();
         Pattern pattern = Pattern.compile(REGEX_MATCH_IMAGE, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(content);
 

@@ -208,7 +208,7 @@ public class ThumbnailsDatabase {
                 COLUM_LOCAL_PATH + " IS NULL AND " + COLUM_STATUS + " IS NULL", null, null, null, COLUM_ID + " DESC", null);
 
         int idxUrl = cursor.getColumnIndex(COLUM_URL);
-        List<String> result = new ArrayList<>();
+        List<String> result = new ArrayList<String>();
 
         try {
             for (int i = 0, count = cursor.getCount(); i < count; i++) {
@@ -229,7 +229,7 @@ public class ThumbnailsDatabase {
                 COLUM_LOCAL_PATH + " IS NULL AND " + COLUM_STATUS + "=" + HttpStatus.SC_OK, null, null, null, COLUM_ID + " DESC", null);
 
         int idxUrl = cursor.getColumnIndex(COLUM_LOCAL_PATH);
-        List<String> result = new ArrayList<>();
+        List<String> result = new ArrayList<String>();
 
         try {
             for (int i = 0, count = cursor.getCount(); i < count; i++) {

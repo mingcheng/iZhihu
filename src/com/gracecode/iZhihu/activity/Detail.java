@@ -47,7 +47,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     private ScrollDetailFragment fragListQuestions = null;
 
     private Question currentQuestion = null;
-    private ArrayList<Question> questionsList = new ArrayList<>();
+    private ArrayList<Question> questionsList = new ArrayList<Question>();
     private int currentPosition = DEFAULT_POSITION;
 
     private boolean isShareByTextOnly = false;
