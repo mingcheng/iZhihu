@@ -39,7 +39,7 @@ public class SearchQuestionTask extends AsyncTask<String, Void, ArrayList<Questi
 
     @Override
     protected ArrayList<Question> doInBackground(String... keys) {
-        ArrayList<Question> result = new ArrayList<>();
+        ArrayList<Question> result = new ArrayList<Question>();
         for (String key : keys) {
             ArrayList<Question> q = questionDatabase.searchQuestions(key);
             result.addAll(q);

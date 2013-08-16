@@ -6,8 +6,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Base64;
-import com.gracecode.iZhihu.fragment.CommentsFragment;
 import com.gracecode.iZhihu.R;
+import com.gracecode.iZhihu.fragment.CommentsFragment;
 import com.gracecode.iZhihu.task.FetchCommentTask;
 import com.gracecode.iZhihu.util.Helper;
 import org.json.JSONArray;
@@ -143,7 +143,7 @@ public class Comment extends BaseActivity {
      * @return
      */
     private ArrayList<com.gracecode.iZhihu.dao.Comment> convertJSON2ArrayList(String jsonString) throws JSONException {
-        ArrayList<com.gracecode.iZhihu.dao.Comment> comments = new ArrayList<>();
+        ArrayList<com.gracecode.iZhihu.dao.Comment> comments = new ArrayList<com.gracecode.iZhihu.dao.Comment>();
 
         JSONObject jsonObject = new JSONObject(jsonString);
         JSONArray data = jsonObject.getJSONArray("data");

@@ -93,7 +93,7 @@ public abstract class BaseListFragment extends PullToRefreshListFragment impleme
      * @return An Empty ArrayList By Default.
      */
     ArrayList<Question> getInitialData() {
-        return new ArrayList<>();
+        return new ArrayList<Question>();
     }
 
 

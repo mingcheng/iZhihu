@@ -18,7 +18,7 @@ import java.util.HashMap;
  */
 public class DetailListsAdapter extends FragmentStatePagerAdapter {
     private final Activity activity;
-    private final HashMap<Integer, Fragment> questionFragments = new HashMap<>();
+    private final HashMap<Integer, Fragment> questionFragments = new HashMap<Integer, Fragment>();
     private final ArrayList<Question> questions;
 
     public DetailListsAdapter(Activity activity, ArrayList<Question> questions) {

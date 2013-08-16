@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class QuestionsGridFragment extends Fragment {
 
     private GridView vQuestionsGrid;
-    ArrayList<Question> questions = new ArrayList<>();
+    ArrayList<Question> questions = new ArrayList<Question>();
     private Activity activity;
     private Context context;
     private SharedPreferences sharedPref;
