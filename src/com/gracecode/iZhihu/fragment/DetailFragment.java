@@ -360,6 +360,10 @@ public class DetailFragment extends WebViewFragment {
             className += " indent";
         }
 
+        if (isCustomFontEnabled) {
+            className += " custom-fonts";
+        }
+
         return className;
     }
 
