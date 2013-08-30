@@ -5,12 +5,25 @@
  * @link   http://www.gracecode.com/
  */
 
+
+@font-face {
+    font-family: XinGothic;
+    src: url("file:///android_asset/XinGothic.otf");
+}
+
+@font-face {
+    font-family: XinGothic;
+    font-weight: bold;
+    src: url("file:///android_asset/XinGothic-Bold.otf");
+}
+
 * {
     word-wrap: break-word;
     word-break: break-all;
 }
 
 body {
+    font-family: XinGothic;
     background: #eee9e9 url(file:///android_asset/metal.jpg) repeat;
     text-shadow: 0 1px 0 #fff5ee;
     font-size: 1em;

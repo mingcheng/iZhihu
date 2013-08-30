@@ -244,9 +244,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     @Override
     public void onPause() {
         super.onPause();
-        if (isNeedScreenWakeLock()) {
-            wakeLock.release();
-        }
+        wakeLock.release();
     }
 
 
@@ -278,15 +276,15 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             case R.id.menu_favorite:
                 new Thread(MarkAsStared).start();
                 return true;
-
-            case R.id.menu_comment:
-                int answerId = currentQuestion.getAnswerId();
-
-                Intent intent = new Intent(Detail.this, Comment.class);
-                intent.putExtra(Comment.ANSWER_ID, answerId);
-                startActivity(intent);
-
-                break;
+//
+//            case R.id.menu_comment:
+//                int answerId = currentQuestion.getAnswerId();
+//
+//                Intent intent = new Intent(Detail.this, Comment.class);
+//                intent.putExtra(Comment.ANSWER_ID, answerId);
+//                startActivity(intent);
+//
+//                break;
 
             // View question via zhihu.com
             case R.id.menu_view_at_zhihu:

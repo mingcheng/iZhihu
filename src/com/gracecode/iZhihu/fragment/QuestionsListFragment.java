@@ -3,17 +3,21 @@ package com.gracecode.iZhihu.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.ListView;
+import com.gracecode.iZhihu.BuildConfig;
+import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.dao.Question;
 import com.gracecode.iZhihu.db.QuestionsDatabase;
-import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.util.Helper;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class QuestionsListFragment extends BaseListFragment implements PullToRefreshBase.OnRefreshListener2<ListView> {
     private static final String KEY_CURRENT_PAGE = "KEY_CURRENT_PAGE";
+    private static final String TAG = QuestionsListFragment.class.getName();
     private int currentPage = QuestionsDatabase.FIRST_PAGE;
 
     private final Handler updateDataSetChangedHandler = new Handler() {
@@ -81,7 +85,7 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
                         size = newDatas.size();
                     }
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    if (BuildConfig.DEBUG) Log.e(TAG, e.getMessage());
                 } finally {
                     updateDataSetChangedHandler.sendEmptyMessage(size);
                 }
@@ -104,11 +108,15 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
             @Override
             public void run() {
                 try {
-                    if (questions != null && questions.size() > 0) {
+                    if (questions.size() > 0) {
                         for (Question question : questions) {
                             question.setStared(questionsDatabase.isStared(question.getId()));
                         }
                     }
+                } catch (ConcurrentModificationException e) {
+                    if (BuildConfig.DEBUG) Log.e(TAG, e.getMessage());
+                } catch (NullPointerException e) {
+                    if (BuildConfig.DEBUG) Log.e(TAG, e.getMessage());
                 } finally {
                     updateDataSetChangedHandler.sendEmptyMessage(questions.size());
                 }
