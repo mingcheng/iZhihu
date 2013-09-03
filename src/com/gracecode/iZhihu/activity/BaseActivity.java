@@ -18,7 +18,7 @@ import com.umeng.update.UmengUpdateAgent;
 abstract class BaseActivity extends Activity {
     static ActionBar actionBar;
     protected static Context context;
-    static SharedPreferences sharedPreferences;
+    static SharedPreferences mSharedPreferences;
     private static PackageInfo packageInfo;
     private boolean openAnalytics = true;
 
@@ -37,7 +37,7 @@ abstract class BaseActivity extends Activity {
         actionBar.setIcon(android.R.color.transparent);
 
         context = getApplicationContext();
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         try {
             packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -45,7 +45,7 @@ abstract class BaseActivity extends Activity {
             e.printStackTrace();
         }
 
-        openAnalytics = sharedPreferences.getBoolean(getString(R.string.key_analytics), true);
+        openAnalytics = mSharedPreferences.getBoolean(getString(R.string.key_analytics), true);
         if (openAnalytics) {
             MobclickAgent.onError(this);
         }

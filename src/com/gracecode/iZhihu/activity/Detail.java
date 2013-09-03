@@ -118,7 +118,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
      * @return boolean
      */
     private boolean isNeedScreenWakeLock() {
-        return sharedPreferences.getBoolean(getString(R.string.key_wake_lock), true);
+        return mSharedPreferences.getBoolean(getString(R.string.key_wake_lock), true);
     }
 
 
@@ -164,9 +164,9 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         this.audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         // 配置项
-        this.isShareByTextOnly = sharedPreferences.getBoolean(getString(R.string.key_share_text_only), false);
-        this.isShareAndSave = sharedPreferences.getBoolean(getString(R.string.key_share_and_save), true);
-        this.isSetScrollRead = sharedPreferences.getBoolean(getString(R.string.key_scroll_read), true);
+        this.isShareByTextOnly = mSharedPreferences.getBoolean(getString(R.string.key_share_text_only), false);
+        this.isShareAndSave = mSharedPreferences.getBoolean(getString(R.string.key_share_and_save), true);
+        this.isSetScrollRead = mSharedPreferences.getBoolean(getString(R.string.key_scroll_read), true);
 
         // Database for questions.
         this.questionsDatabase = new QuestionsDatabase(context);
@@ -363,7 +363,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         }
 
         boolean isTurningPageByVolumeKey =
-                sharedPreferences.getBoolean(getString(R.string.key_page_turning_by_volkey), true);
+                mSharedPreferences.getBoolean(getString(R.string.key_page_turning_by_volkey), true);
 
         if (isTurningPageByVolumeKey
                 && (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {

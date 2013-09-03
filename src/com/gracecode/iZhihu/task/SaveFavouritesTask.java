@@ -17,10 +17,12 @@ import java.util.ArrayList;
 
 public class SaveFavouritesTask extends AsyncTask<Void, Void, Boolean> {
     private static final String TAG = SaveFavouritesTask.class.getName();
+    private static final int NOTIFY_ID = 0x00ff;
 
+    private final Context mContext;
     private final Requester mHttpRequester;
     private final QuestionsDatabase mQuestionsDatabase;
-    private final Context mContext;
+    private String mErrorMessage;
 
     public SaveFavouritesTask(Context context) {
         mContext = context;
@@ -42,16 +44,26 @@ public class SaveFavouritesTask extends AsyncTask<Void, Void, Boolean> {
         ArrayList<Integer> ids = getStaredQuestionsId();
 
         try {
+            if (ids.isEmpty()) {
+                return false;
+            }
+
             String idsString = ids.toString();
             mHttpRequester.saveFavourites(idsString.substring(1, idsString.length() - 1));
         } catch (IOException e) {
             if (BuildConfig.DEBUG) Log.e(TAG, e.getMessage());
+            mErrorMessage = e.getMessage();
             return false;
         } catch (NetworkErrorException e) {
             if (BuildConfig.DEBUG) Log.e(TAG, e.getMessage());
+            mErrorMessage = e.getMessage();
             return false;
         } catch (JSONException e) {
             if (BuildConfig.DEBUG) Log.e(TAG, e.getMessage());
+            mErrorMessage = e.getMessage();
+            return false;
+        } catch (NullPointerException e) {
+            mErrorMessage = e.getMessage();
             return false;
         }
 
@@ -60,10 +72,11 @@ public class SaveFavouritesTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected void onPostExecute(Boolean result) {
-        if (!result) {
-            return;
+        if (!result && mErrorMessage != null && !mErrorMessage.isEmpty()) {
+            mErrorMessage = mContext.getString(R.string.save_favourites_faild);
         }
 
-        Helper.showShortToast(mContext, mContext.getString(R.string.save_favourites_ok));
+        String text = (result) ? mContext.getString(R.string.save_favourites_ok) : mErrorMessage;
+        Helper.showShortToast(mContext, text);
     }
 }

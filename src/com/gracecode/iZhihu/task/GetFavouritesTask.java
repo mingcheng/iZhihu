@@ -16,12 +16,14 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class GetFavouritesTask extends AsyncTask<Void, Void, Boolean> {
+public class GetFavouritesTask extends AsyncTask<Void, Void, Integer> {
     private static final String TAG = GetFavouritesTask.class.getName();
+    private static final int NOTIFY_ID = 0xff00ff;
 
     private final Requester mHttpRequester;
     private final QuestionsDatabase mQuestionsDatabase;
     private final Context mContext;
+    private String mErrorMessage;
 
     public GetFavouritesTask(Context context) {
         mContext = context;
@@ -29,46 +31,65 @@ public class GetFavouritesTask extends AsyncTask<Void, Void, Boolean> {
         mQuestionsDatabase = new QuestionsDatabase(context);
     }
 
-    private void markStaredQuestions(List<String> ids) {
+    private int markStaredQuestions(List<String> ids) {
+        int result = 0;
         for (String id : ids) {
-            int i = Integer.parseInt(id);
-            if (i > 0) {
-                mQuestionsDatabase.markQuestionAsStared(i, true);
+            try {
+                int i = Integer.parseInt(id);
+                if (i > 0) {
+                    if (mQuestionsDatabase.markQuestionAsStared(i, true) > 0) {
+                        mQuestionsDatabase.markAsRead(i);
+                        result++;
+                    }
+                }
+            } catch (NumberFormatException e) {
+                continue;
             }
         }
+
+        return result;
     }
 
     @Override
-    protected Boolean doInBackground(Void... voids) {
+    protected Integer doInBackground(Void... voids) {
         try {
             JSONObject jsonObject = mHttpRequester.getFavourites();
-            String favourites = jsonObject.getString("favourites");
+            String favourites = jsonObject.getString("favourites").trim();
+
+            if (favourites.isEmpty()) {
+                return 0;
+            }
 
             // @see http://stackoverflow.com/questions/7347856/how-to-convert-a-string-into-an-arraylist
-            markStaredQuestions(Arrays.asList(favourites.split("\\s*,\\s*")));
+            return markStaredQuestions(Arrays.asList(favourites.split("\\s*,\\s*")));
         } catch (IOException e) {
             if (BuildConfig.DEBUG) Log.e(TAG, e.getMessage());
-            return false;
+            mErrorMessage = e.getMessage();
+            return 0;
         } catch (NetworkErrorException e) {
             if (BuildConfig.DEBUG) Log.e(TAG, e.getMessage());
-            return false;
+            mErrorMessage = e.getMessage();
+            return 0;
         } catch (JSONException e) {
             if (BuildConfig.DEBUG) Log.e(TAG, e.getMessage());
-            return false;
+            mErrorMessage = e.getMessage();
+            return 0;
         } catch (NullPointerException e) {
             if (BuildConfig.DEBUG) Log.e(TAG, e.getMessage());
-            return false;
+            mErrorMessage = e.getMessage();
+            return 0;
         }
-
-        return true;
     }
 
     @Override
-    protected void onPostExecute(Boolean result) {
-        if (!result) {
-            return;
+    protected void onPostExecute(Integer result) {
+        String message = (result > 0) ?
+                String.format(mContext.getString(R.string.syncd_message), result) : mContext.getString(R.string.get_favourites_faild);
+
+        if (mErrorMessage != null && !mErrorMessage.isEmpty()) {
+            message = mErrorMessage;
         }
 
-        Helper.showShortToast(mContext, mContext.getString(R.string.save_favourites_ok));
+        Helper.showShortToast(mContext, message);
     }
 }
