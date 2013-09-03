@@ -49,9 +49,13 @@
                 android:name=".activity.Comment"
                 />
         <activity
-                android:screenOrientation="portrait"
                 android:name=".activity.Preference"
-                />
+                >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+            </intent-filter>
+
+                </activity>
         <activity
                 android:screenOrientation="portrait"
                 android:name=".activity.About"

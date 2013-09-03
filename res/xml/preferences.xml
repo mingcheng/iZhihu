@@ -44,6 +44,21 @@
 
     </PreferenceCategory>
 
+
+    <PreferenceCategory android:title="@string/sync">
+        <Preference
+                android:key="@string/key_backup_sync"
+                android:title="@string/backup_favourite"
+                android:summary="@string/backup_favourite_summary"
+                />
+
+        <Preference
+                android:key="@string/key_restore_sync"
+                android:title="@string/restore_favourite"
+                android:summary="@string/restore_favourite_summary"
+                />
+    </PreferenceCategory>
+
     <PreferenceCategory
             android:title="@string/read">
 

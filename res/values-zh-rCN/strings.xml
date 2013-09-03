@@ -79,4 +79,19 @@
     <string name="search">搜索</string>
     <string name="turning_page_by_volkey">音量键翻页</string>
     <string name="turning_page_by_volkey_summary">使用音量键上下翻页</string>
+    <string name="save_favourites_ok">已同步您的收藏到云端</string>
+	<string name="save_favourites_faild">抱歉，同步收藏到云端失败</string>
+    <string name="sync">同步&amp;备份</string>
+    <string name="sync_summary">同步您的收藏到云端</string>
+    <string name="sync_notify">通知</string>
+    <string name="sync_notify_summary">每次同步的时候发出通知</string>
+    <string name="sync_favourite">同步收藏</string>
+    <string name="backup_favourite">备份收藏</string>
+    <string name="restore_favourite">恢复收藏</string>
+    <string name="backup_favourite_summary">备份您的收藏的条目到云端</string>
+    <string name="restore_favourite_summary">从云端恢复您以前收藏的条目</string>
+    <string name="syncd_message">已从云端同步 %d 条数据</string>
+    <string name="get_favourites_faild">从云端获取数据失败，请稍后再试</string>
+    <string name="do_u_sure">您确定吗？</string>
+    <string name="save_favourites_conform">此项操作会覆盖您原先保存在云端的数据，您确认吗？</string>
 </resources>
