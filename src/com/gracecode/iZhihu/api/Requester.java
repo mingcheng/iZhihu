@@ -18,8 +18,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.zip.GZIPInputStream;
@@ -93,12 +93,30 @@ public class Requester {
         return hex.toString();
     }
 
-    synchronized public JSONArray saveFavourites(Serializable favourites)
+    synchronized public boolean saveFavourites(String favourites)
             throws IOException, NetworkErrorException, JSONException {
 
-        return null;
+        String requestUrl = getUrlSaveFavourites(favourites);
+        JSONObject jsonObject = requestJSONObjectFromServer(requestUrl);
+        if (jsonObject.getInt("success") != 1) {
+            return false;
+        }
+
+        return true;
     }
 
+
+    synchronized public JSONObject getFavourites()
+            throws IOException, NetworkErrorException, JSONException {
+
+        String requestUrl = getUrlGetFavourites();
+        JSONObject jsonObject = requestJSONObjectFromServer(requestUrl);
+        if (jsonObject.getInt("success") != 1) {
+            return null;
+        }
+
+        return jsonObject.getJSONObject("data");
+    }
 
     synchronized public JSONArray sync(Integer offset) throws IOException, NetworkErrorException, JSONException {
         JSONObject jsonObject = requestJSONObjectFromServer(getSyncRequestUrl(offset));
@@ -178,16 +196,16 @@ public class Requester {
     }
 
 
-    private String getUrlSaveFavourites(Serializable data) {
+    private String getUrlSaveFavourites(String data) throws UnsupportedEncodingException {
         String timeStampString = getTimeStampString();
         String signString = getSignString(timeStampString, "save-favourites");
 
 //        "/?method=save-favourites&timestamp=%s&sign=%s&device=%s&favourites=%s&platform=android";
-        return String.format(URL_GET_FAVOURITES,
+        return String.format(URL_SAVE_FAVOURITES,
                 timeStampString,
                 signString,
                 DEVICE_UUID,
-                data.toString());
+                URLEncoder.encode(data, "UTF-8"));
     }
 
 
