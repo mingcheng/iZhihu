@@ -9,10 +9,12 @@ import android.os.Environment;
 import android.os.Message;
 import android.os.PowerManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import com.gracecode.iZhihu.BuildConfig;
 import com.gracecode.iZhihu.R;
 import com.gracecode.iZhihu.dao.Question;
 import com.gracecode.iZhihu.db.QuestionsDatabase;
@@ -244,7 +246,11 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     @Override
     public void onPause() {
         super.onPause();
-        wakeLock.release();
+        try {
+            wakeLock.release();
+        } catch (RuntimeException e) {
+            if (BuildConfig.DEBUG) Log.e(TAG, e.getMessage());
+        }
     }
 
 
