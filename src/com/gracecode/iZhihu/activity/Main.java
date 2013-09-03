@@ -210,7 +210,7 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
         fetchQuestionsTask.setIsNeedCacheThumbnails(isNeedCacheThumbnails);
 
         this.focusRefresh = focus;
-        // Start fetch from new thread.
+        // Start sync from new thread.
         fetchQuestionsTask.start(focus);
     }
 

@@ -4,6 +4,7 @@ import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import com.gracecode.iZhihu.BuildConfig;
 import com.gracecode.iZhihu.util.Helper;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
@@ -17,6 +18,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -29,8 +31,16 @@ import java.util.zip.GZIPInputStream;
  * Date: 13-4-27
  */
 public class Requester {
+    private static final String TAG = Requester.class.getName();
 
-    private static final String URL_REQUEST = "http://z.ihu.im/?method=sync&timestamp=%s&sign=%s&start=%d&device=%s";
+    private static final String URL_DOMAIN = "http://z.ihu.im";
+    private static final String URL_SYNC_REQUEST
+            = URL_DOMAIN + "/?method=sync&timestamp=%s&sign=%s&start=%d&device=%s";
+    private static final String URL_GET_FAVOURITES
+            = URL_DOMAIN + "/?method=get-favourites&timestamp=%s&sign=%s&device=%s&platform=android";
+    private static final String URL_SAVE_FAVOURITES
+            = URL_DOMAIN + "/?method=save-favourites&timestamp=%s&sign=%s&device=%s&favourites=%s&platform=android";
+
     private static final String DEVICE_UUID = android.os.Build.SERIAL;
     private static final String APP_KEY = "133ff1e10a8b244767ef734fb86f37fd";
     public static final int DEFAULT_START_OFFSET = -1;
@@ -83,11 +93,43 @@ public class Requester {
         return hex.toString();
     }
 
-    synchronized public JSONArray fetch(Integer offset) throws IOException, NetworkErrorException, JSONException {
-        String requestUrl = getRequestUrl(offset);
-        Log.i(context.getPackageName(), "The request URL is " + requestUrl);
+    synchronized public JSONArray saveFavourites(Serializable favourites)
+            throws IOException, NetworkErrorException, JSONException {
 
-        HttpGet httpGet = new HttpGet(requestUrl);
+        return null;
+    }
+
+
+    synchronized public JSONArray sync(Integer offset) throws IOException, NetworkErrorException, JSONException {
+        JSONObject jsonObject = requestJSONObjectFromServer(getSyncRequestUrl(offset));
+        if (jsonObject.getInt("success") != 1) {
+            throw new JSONException(jsonObject.getString("message"));
+        }
+
+        markRequestTimestamp(System.currentTimeMillis());
+        return jsonObject.getJSONArray("data");
+    }
+
+
+    private JSONObject requestJSONObjectFromServer(String url)
+            throws IOException, NetworkErrorException, JSONException {
+        return new JSONObject(requestStringFromServer(url));
+    }
+
+    /**
+     * Request string from server
+     *
+     * @param url
+     * @return
+     * @throws IOException
+     * @throws NetworkErrorException
+     */
+    private String requestStringFromServer(String url) throws IOException, NetworkErrorException {
+        if (BuildConfig.DEBUG) {
+            Log.v(TAG, "The request URL is " + url);
+        }
+
+        HttpGet httpGet = new HttpGet(url);
         httpGet.addHeader("Platform", "Android");
         httpGet.addHeader("Accept-Encoding", "gzip, deflate");
 
@@ -107,22 +149,20 @@ public class Requester {
             }
 
             String responseString = Helper.inputStream2String(instream);
-            Log.v(context.getPackageName(), responseString);
 
-            JSONObject jsonObject = new JSONObject(responseString);
-            if (jsonObject.getInt("success") != 1) {
-                throw new JSONException(jsonObject.getString("message"));
+            if (BuildConfig.DEBUG) {
+                Log.v(context.getPackageName(), responseString);
             }
 
-            markRequestTimestamp(System.currentTimeMillis());
-            return jsonObject.getJSONArray("data");
+            return responseString;
         } else {
             throw new NetworkErrorException(httpResponse.getStatusLine().getStatusCode() + "");
         }
     }
 
+
     synchronized public JSONArray fetch() throws JSONException, IOException, NetworkErrorException {
-        return fetch(DEFAULT_START_OFFSET);
+        return sync(DEFAULT_START_OFFSET);
     }
 
     void markRequestTimestamp(Long timestamp) {
@@ -133,18 +173,47 @@ public class Requester {
         markRequestTimestamp(0l);
     }
 
-    private String getRequestUrl(int offset) {
-        String timeStampString = String.valueOf(System.currentTimeMillis()).substring(0, TIME_STAMP_LENGTH);
-        String signString = getSignString(timeStampString);
+    private String getTimeStampString() {
+        return String.valueOf(System.currentTimeMillis()).substring(0, TIME_STAMP_LENGTH);
+    }
 
-        return String.format(URL_REQUEST,
+
+    private String getUrlSaveFavourites(Serializable data) {
+        String timeStampString = getTimeStampString();
+        String signString = getSignString(timeStampString, "save-favourites");
+
+//        "/?method=save-favourites&timestamp=%s&sign=%s&device=%s&favourites=%s&platform=android";
+        return String.format(URL_GET_FAVOURITES,
+                timeStampString,
+                signString,
+                DEVICE_UUID,
+                data.toString());
+    }
+
+
+    private String getUrlGetFavourites() {
+        String timeStampString = getTimeStampString();
+        String signString = getSignString(timeStampString, "get-favourites");
+
+        //  "/?method=get-favourites&timestamp=%s&sign=%s&device=%s&platform=android";
+        return String.format(URL_GET_FAVOURITES,
+                timeStampString,
+                signString,
+                DEVICE_UUID);
+    }
+
+    private String getSyncRequestUrl(int offset) {
+        String timeStampString = getTimeStampString();
+        String signString = getSignString(timeStampString, "sync");
+
+        return String.format(URL_SYNC_REQUEST,
                 timeStampString,
                 signString,
                 offset,
                 DEVICE_UUID);
     }
 
-    private String getSignString(String stamp) {
-        return md5(APP_KEY + stamp + "sync");
+    private String getSignString(String stamp, String method) {
+        return md5(APP_KEY + stamp + method);
     }
 }
