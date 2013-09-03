@@ -1,6 +1,7 @@
 package com.gracecode.iZhihu.task;
 
 import android.accounts.NetworkErrorException;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -24,6 +25,7 @@ public class GetFavouritesTask extends AsyncTask<Void, Void, Integer> {
     private final QuestionsDatabase mQuestionsDatabase;
     private final Context mContext;
     private String mErrorMessage;
+    private ProgressDialog mProgressDialog;
 
     public GetFavouritesTask(Context context) {
         mContext = context;
@@ -48,6 +50,13 @@ public class GetFavouritesTask extends AsyncTask<Void, Void, Integer> {
         }
 
         return result;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        mProgressDialog = ProgressDialog.show(
+                mContext,
+                mContext.getString(R.string.app_name), mContext.getString(R.string.loading), false, false);
     }
 
     @Override
@@ -83,6 +92,8 @@ public class GetFavouritesTask extends AsyncTask<Void, Void, Integer> {
 
     @Override
     protected void onPostExecute(Integer result) {
+        mProgressDialog.dismiss();
+
         String message = (result > 0) ?
                 String.format(mContext.getString(R.string.syncd_message), result) : mContext.getString(R.string.get_favourites_faild);
 

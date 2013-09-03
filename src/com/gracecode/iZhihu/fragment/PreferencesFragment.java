@@ -159,16 +159,15 @@ public class PreferencesFragment extends PreferenceFragment {
             setSyncNotifyEnabled(isSyncEnabled);
         } else if (getString(R.string.key_backup_sync).equals(key)) {
             new AlertDialog.Builder(getActivity())
-                    .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle(R.string.app_name)
                     .setMessage(R.string.save_favourites_conform)
+                    .setIcon(android.R.color.transparent)
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             (new SaveFavouritesTask(getActivity())).execute();
                         }
                     })
-
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
         } else if (getString(R.string.key_restore_sync).equals(key)) {
