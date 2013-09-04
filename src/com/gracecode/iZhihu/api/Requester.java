@@ -62,13 +62,13 @@ public class Requester {
     // @see http://android-developers.blogspot.com/2011/03/identifying-app-installations.html
     private String getUUID() {
         String serial = android.os.Build.SERIAL;
-        if (serial.length() <= 0) {
+        if (serial.isEmpty()) {
             serial = Settings.Secure.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
         }
 
         serial = md5(serial);
         if (BuildConfig.DEBUG) {
-            Log.i(TAG, "Your devices' serial number is " + serial);
+            Log.i(TAG, "Your device's serial number is " + serial);
         }
 
         return serial;
