@@ -12,7 +12,7 @@ public class StaredListFragment extends BaseListFragment {
     private final Handler updateDataSetChangedHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            questionsAdapter.notifyDataSetChanged();
+            mQuestionsAdapter.notifyDataSetChanged();
         }
     };
 
@@ -32,7 +32,7 @@ public class StaredListFragment extends BaseListFragment {
             @Override
             public void run() {
                 try {
-                    questions = getStaredQuestions();
+                    mQuestions = getStaredQuestions();
                 } finally {
                     updateDataSetChangedHandler.sendEmptyMessage(Activity.RESULT_OK);
                 }

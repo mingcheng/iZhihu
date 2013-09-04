@@ -2,7 +2,7 @@
 <resources>
     <string name="about">About</string>
     <string name="about_summary" formatted="false"><![CDATA[Thank you for using \'Read Zhihu\']]></string>
-    <string name="affectRows">New %d questions.</string>
+    <string name="affectRows">New %d mQuestions.</string>
     <string name="analytics">Enable Analytics</string>
     <string name="analytics_summary" formatted="false">
         <![CDATA[Help make \'Read Zhihu\' better by opting into anonymous statistics.]]>
@@ -35,7 +35,7 @@
     <string name="font_size_summary">Select your favourite font size for read.</string>
     <string name="huge">Huge</string>
     <string name="large">Large</string>
-    <string name="loaded_more_data">Loading more questions</string>
+    <string name="loaded_more_data">Loading more mQuestions</string>
     <string name="loading">Loading, Please Wait...</string>
     <string name="mark_as_starred">Starred</string>
     <string name="medium">Medium</string>

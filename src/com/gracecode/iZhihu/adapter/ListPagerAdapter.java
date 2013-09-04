@@ -16,19 +16,19 @@ public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewP
     public static final int SECOND_TAB = 1;
 
     private final ActionBar actionBar;
-    private final ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+    private final static ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
 
     public ListPagerAdapter(Activity activity) {
         super(activity.getFragmentManager());
         actionBar = activity.getActionBar();
 
-        fragments.add(FIRST_TAB, new QuestionsListFragment());
+        mFragments.add(FIRST_TAB, new QuestionsListFragment());
 //        fragment.add(FIRST_TAB, new QuestionsGridFragment());
-        fragments.add(SECOND_TAB, new StaredListFragment());
+        mFragments.add(SECOND_TAB, new StaredListFragment());
     }
 
     public Fragment getBaseListFragment(int index) {
-        return fragments.get(index);
+        return mFragments.get(index);
 //        switch (index) {
 //            case SECOND_TAB:
 //                return new StaredListFragment();
@@ -50,12 +50,12 @@ public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewP
 
     @Override
     public Fragment getItem(int i) {
-        return fragments.get(i);
+        return mFragments.get(i);
     }
 
     @Override
     public int getCount() {
-        return fragments.size();
+        return mFragments.size();
     }
 
     @Override

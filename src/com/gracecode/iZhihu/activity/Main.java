@@ -20,7 +20,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.gracecode.iZhihu.R;
-import com.gracecode.iZhihu.adapter.ListPagerAdapter;
 import com.gracecode.iZhihu.adapter.QuestionsAdapter;
 import com.gracecode.iZhihu.dao.Question;
 import com.gracecode.iZhihu.fragment.QuestionsListFragment;
@@ -154,13 +153,9 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
 
                 case MESSAGE_UPDATE_COMPLETE:
                     try {
-                        if (mFetchQuestionsTask.getAffectedRows() > 0) {
-                            Fragment fragment = (mScrollTabsFragment.getListAdapter())
-                                    .getBaseListFragment(ListPagerAdapter.FIRST_TAB);
-
-                            if (fragment instanceof QuestionsListFragment) {
-                                ((QuestionsListFragment) fragment).updateQuestionsFromDatabase();
-                            }
+                        Fragment fragment = mScrollTabsFragment.getCurrentFragment();
+                        if (fragment instanceof QuestionsListFragment) {
+                            ((QuestionsListFragment) fragment).updateQuestionsFromDatabase();
                         }
                     } catch (NullPointerException e) {
                         e.printStackTrace();
@@ -183,7 +178,6 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
                     if (mFetchQuestionsTask.hasError()) {
                         Helper.showShortToast(context, mFetchQuestionsTask.getErrorMessage());
                     }
-
 
                     break;
 

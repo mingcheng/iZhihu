@@ -29,9 +29,9 @@ import java.util.ArrayList;
 public class Detail extends BaseActivity implements ViewPager.OnPageChangeListener {
     private static final String TAG = Detail.class.getName();
 
-    public static final String INTENT_EXTRA_CURRENT_QUESTION = "currentQuestion";
+    public static final String INTENT_EXTRA_CURRENT_QUESTION = "mCurrentQuestion";
     public static final String INTENT_EXTRA_QUESTIONS = "questions";
-    public static final String INTENT_EXTRA_CURRENT_POSITION = "currentPosition";
+    public static final String INTENT_EXTRA_CURRENT_POSITION = "mCurrentPosition";
     public static final String INTENT_MODIFIED_LISTS = "modifiedLists";
     private static final int DEFAULT_POSITION = 0;
 
@@ -43,14 +43,14 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     private static final int MESSAGE_UPDATE_START_SUCCESS = 0;
     private static final int MESSAGE_UPDATE_START_FAILD = -1;
 
-    private QuestionsDatabase questionsDatabase;
+    private QuestionsDatabase mQuestionsDatabase;
 
-    private DetailFragment fragCurrentQuestionDetail = null;
-    private ScrollDetailFragment fragListQuestions = null;
+    private DetailFragment mFragCurrentQuestionDetail = null;
+    private ScrollDetailFragment mFragListQuestions = null;
 
-    private Question currentQuestion = null;
+    private Question mCurrentQuestion = null;
     private ArrayList<Question> questionsList = new ArrayList<Question>();
-    private int currentPosition = DEFAULT_POSITION;
+    private int mCurrentPosition = DEFAULT_POSITION;
 
     private boolean isShareByTextOnly = false;
     private boolean isShareAndSave = true;
@@ -59,13 +59,13 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     /**
      * 标记当前条目（未）收藏
      */
-    private final Runnable MarkAsStared = new Runnable() {
+    private final Runnable mMarkAsStared = new Runnable() {
         @Override
         public void run() {
-            Boolean isStared = currentQuestion.isStared();
+            Boolean isStared = mCurrentQuestion.isStared();
 
-            if (questionsDatabase.markQuestionAsStared(currentQuestion.getId(), !isStared) > 0) {
-                currentQuestion.setStared(!isStared);
+            if (mQuestionsDatabase.markQuestionAsStared(mCurrentQuestion.getId(), !isStared) > 0) {
+                mCurrentQuestion.setStared(!isStared);
                 UIChangedChangedHandler.sendEmptyMessage(MESSAGE_UPDATE_START_SUCCESS);
             } else {
                 UIChangedChangedHandler.sendEmptyMessage(MESSAGE_UPDATE_START_FAILD);
@@ -83,7 +83,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             switch (msg.what) {
                 case MESSAGE_UPDATE_START_SUCCESS:
                     Helper.showShortToast(context,
-                            getString(currentQuestion.isStared() ?
+                            getString(mCurrentQuestion.isStared() ?
                                     R.string.mark_as_starred : R.string.cancel_mark_as_stared));
 
                     updateMenu();
@@ -102,7 +102,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
      */
     private void updateMenu() {
         if (menuItem != null) {
-            menuItem.findItem(R.id.menu_favorite).setIcon(currentQuestion.isStared() ?
+            menuItem.findItem(R.id.menu_favorite).setIcon(mCurrentQuestion.isStared() ?
                     R.drawable.ic_action_star_selected : R.drawable.ic_action_star);
 
             if (!Helper.isExternalStorageExists() && !isShareByTextOnly) {
@@ -128,26 +128,26 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
      * @return
      */
     private File getScreenShotFile() throws IOException {
-        if (currentQuestion == null || currentQuestion.getId() == DetailFragment.ID_NOT_FOUND) {
+        if (mCurrentQuestion == null || mCurrentQuestion.getId() == DetailFragment.ID_NOT_FOUND) {
             throw new IOException();
         }
 
         File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        return new File(pictureDirectory, currentQuestion.getId() + ".png");
+        return new File(pictureDirectory, mCurrentQuestion.getId() + ".png");
     }
 
 
     private void updateCurrentQuestion(int index) {
-        currentQuestion = questionsList.get(index);
-        if (currentQuestion != null) {
+        mCurrentQuestion = questionsList.get(index);
+        if (mCurrentQuestion != null) {
             updateMenu();
 
-            currentPosition = index;
-            questionsDatabase.markAsRead(currentQuestion.getId());
-            currentQuestion.setUnread(false);
+            mCurrentPosition = index;
+            mQuestionsDatabase.markAsRead(mCurrentQuestion.getId());
+            mCurrentQuestion.setUnread(false);
 
-            if (fragListQuestions != null) {
-                fragCurrentQuestionDetail = fragListQuestions.getItem(currentPosition);
+            if (mFragListQuestions != null) {
+                mFragCurrentQuestionDetail = mFragListQuestions.getItem(mCurrentPosition);
             }
         }
     }
@@ -169,31 +169,31 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         this.isSetScrollRead = mSharedPreferences.getBoolean(getString(R.string.key_scroll_read), true);
 
         // Database for questions.
-        this.questionsDatabase = new QuestionsDatabase(context);
+        this.mQuestionsDatabase = new QuestionsDatabase(context);
 
         // 获取当权选定的条目
         if (savedInstanceState != null) {
-            this.currentQuestion = savedInstanceState.getParcelable(INTENT_EXTRA_CURRENT_POSITION);
+            this.mCurrentQuestion = savedInstanceState.getParcelable(INTENT_EXTRA_CURRENT_POSITION);
             this.questionsList = savedInstanceState.getParcelableArrayList(INTENT_EXTRA_QUESTIONS);
-            this.currentPosition = savedInstanceState.getInt(INTENT_EXTRA_CURRENT_POSITION);
+            this.mCurrentPosition = savedInstanceState.getInt(INTENT_EXTRA_CURRENT_POSITION);
         } else {
-            this.currentQuestion = getIntent().getParcelableExtra(INTENT_EXTRA_CURRENT_QUESTION);
+            this.mCurrentQuestion = getIntent().getParcelableExtra(INTENT_EXTRA_CURRENT_QUESTION);
             this.questionsList = getIntent().getParcelableArrayListExtra(INTENT_EXTRA_QUESTIONS);
-            this.currentPosition = getIntent().getIntExtra(INTENT_EXTRA_CURRENT_POSITION, DEFAULT_POSITION);
+            this.mCurrentPosition = getIntent().getIntExtra(INTENT_EXTRA_CURRENT_POSITION, DEFAULT_POSITION);
         }
 
         // 是否是滚动阅读
         if (isSetScrollRead && questionsList.size() > 0) {
-            this.fragListQuestions = new ScrollDetailFragment(this, questionsList, currentPosition);
+            this.mFragListQuestions = new ScrollDetailFragment(this, questionsList, mCurrentPosition);
         } else {
-            this.fragCurrentQuestionDetail = new DetailFragment(this, currentQuestion);
+            this.mFragCurrentQuestionDetail = new DetailFragment(this, mCurrentQuestion);
         }
 
         // ActionBar 的样式
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, (isSetScrollRead) ? fragListQuestions : fragCurrentQuestionDetail)
+                .replace(android.R.id.content, (isSetScrollRead) ? mFragListQuestions : mFragCurrentQuestionDetail)
                 .commit();
     }
 
@@ -203,8 +203,8 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         try {
             if (outState != null) {
                 outState.putParcelableArrayList(INTENT_EXTRA_QUESTIONS, questionsList);
-                outState.putParcelable(INTENT_EXTRA_CURRENT_POSITION, currentQuestion);
-                outState.putInt(INTENT_EXTRA_CURRENT_POSITION, currentPosition);
+                outState.putParcelable(INTENT_EXTRA_CURRENT_POSITION, mCurrentQuestion);
+                outState.putInt(INTENT_EXTRA_CURRENT_POSITION, mCurrentPosition);
             } else {
                 outState = new Bundle();
             }
@@ -221,7 +221,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
         super.onResume();
 
         // Mark and update current item.
-        updateCurrentQuestion(currentPosition);
+        updateCurrentQuestion(mCurrentPosition);
 
         // 弱化 Navigation Bar
         getWindow().getDecorView()
@@ -280,11 +280,11 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
             // Toggle star
             case R.id.menu_favorite:
-                new Thread(MarkAsStared).start();
+                new Thread(mMarkAsStared).start();
                 return true;
 //
 //            case R.id.menu_comment:
-//                int answerId = currentQuestion.getAnswerId();
+//                int answerId = mCurrentQuestion.getAnswerId();
 //
 //                Intent intent = new Intent(Detail.this, Comment.class);
 //                intent.putExtra(Comment.ANSWER_ID, answerId);
@@ -295,7 +295,7 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             // View question via zhihu.com
             case R.id.menu_view_at_zhihu:
                 if (Helper.isZhihuInstalled(this)) {
-                    String url = "zhihu://answers/" + currentQuestion.getAnswerId();
+                    String url = "zhihu://answers/" + mCurrentQuestion.getAnswerId();
                     Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(i);
                 } else {
@@ -307,14 +307,14 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
             case R.id.menu_view_at_online:
                 String url =
                         String.format(getString(R.string.url_zhihu_questioin_pre),
-                                currentQuestion.getQuestionId(), currentQuestion.getAnswerId());
+                                mCurrentQuestion.getQuestionId(), mCurrentQuestion.getAnswerId());
 
                 Helper.openWithBrowser(this, url);
                 break;
 
             // Share question by intent
             case R.id.menu_share:
-                String shareString = currentQuestion.getShareString(context);
+                String shareString = mCurrentQuestion.getShareString(context);
 
                 if (isShareByTextOnly) {
                     Helper.openShareIntentWithPlainText(this, shareString);
@@ -323,8 +323,8 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
 
                 try {
                     File screenShotFile = getScreenShotFile();
-                    if (fragCurrentQuestionDetail.isTempScreenShotsFileCached()) {
-                        Helper.copyFile(fragCurrentQuestionDetail.getTempScreenShotsFile(), screenShotFile);
+                    if (mFragCurrentQuestionDetail.isTempScreenShotsFileCached()) {
+                        Helper.copyFile(mFragCurrentQuestionDetail.getTempScreenShotsFile(), screenShotFile);
                         Helper.openShareIntentWithImage(this, shareString, Uri.fromFile(screenShotFile));
                     } else {
                         throw new IOException();
@@ -369,10 +369,10 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
                 && (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
             switch (keyCode) {
                 case KeyEvent.KEYCODE_VOLUME_DOWN:
-                    fragCurrentQuestionDetail.nextPage();
+                    mFragCurrentQuestionDetail.nextPage();
                     break;
                 case KeyEvent.KEYCODE_VOLUME_UP:
-                    fragCurrentQuestionDetail.prevPage();
+                    mFragCurrentQuestionDetail.prevPage();
                     break;
             }
 
@@ -401,6 +401,6 @@ public class Detail extends BaseActivity implements ViewPager.OnPageChangeListen
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        questionsDatabase.close();
+        mQuestionsDatabase.close();
     }
 }

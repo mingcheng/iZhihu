@@ -3,7 +3,6 @@ package com.gracecode.iZhihu.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -26,41 +25,42 @@ import java.util.List;
  */
 public final class QuestionsAdapter extends BaseAdapter implements Filterable {
     private static final int MAX_DESPCRIPTION_LENGTH = 100;
-    private final List<Question> questions;
-    private final Context context;
-    private final LayoutInflater layoutInflater;
-    private static JChineseConvertor chineseConvertor = null;
-    private final SharedPreferences sharedPreferences;
-    private Typeface xinGothicTypeFace = null;
+    private final List<Question> mQuestions;
+
+    private final Context mContext;
+    private final LayoutInflater mLayoutInflater;
+
+    private ViewHolder mViewHolder;
+    private static JChineseConvertor mChineseConvertor;
+    private final SharedPreferences mSharedPreferences;
+
     private boolean isNeedConvertTraditionalChinese = false;
     private boolean isHideDescription = false;
 
     public QuestionsAdapter(Activity activity, List<Question> questions) {
-        this.context = activity;
-        this.questions = questions;
-        this.layoutInflater = LayoutInflater.from(activity);
-        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+        this.mContext = activity;
+        this.mQuestions = questions;
+        this.mLayoutInflater = LayoutInflater.from(activity);
+        this.mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
 
         this.isNeedConvertTraditionalChinese =
-                sharedPreferences.getBoolean(activity.getString(R.string.key_traditional_chinese), false);
+                mSharedPreferences.getBoolean(activity.getString(R.string.key_traditional_chinese), false);
 
         try {
-            chineseConvertor = JChineseConvertor.getInstance();
+            mChineseConvertor = JChineseConvertor.getInstance();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        xinGothicTypeFace = Typeface.createFromAsset(activity.getAssets(), "XinGothic.otf");
     }
 
     @Override
     public int getCount() {
-        return questions.size();
+        return mQuestions.size();
     }
 
     @Override
     public Question getItem(int i) {
-        return questions.get(i);
+        return mQuestions.get(i);
     }
 
     @Override
@@ -70,11 +70,10 @@ public final class QuestionsAdapter extends BaseAdapter implements Filterable {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
         Question question = getItem(position);
 
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.listview_question_item, null);
+            convertView = mLayoutInflater.inflate(R.layout.listview_question_item, null);
 
             TextView textViewTitle = (TextView) convertView.findViewById(R.id.title);
             TextView textViewDescription = (TextView) convertView.findViewById(R.id.description);
@@ -83,44 +82,43 @@ public final class QuestionsAdapter extends BaseAdapter implements Filterable {
             textViewTitle.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
             textViewDescription.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
-            if (xinGothicTypeFace != null) {
-                textViewTitle.setTypeface(xinGothicTypeFace);
-                textViewDescription.setTypeface(xinGothicTypeFace);
-            }
-
             ImageView imageViewFlag = (ImageView) convertView.findViewById(R.id.unread_flag);
 
-            holder = new ViewHolder();
-            holder.description = textViewDescription;
-            holder.title = textViewTitle;
-            holder.flag = imageViewFlag;
+            mViewHolder = new ViewHolder();
+            mViewHolder.description = textViewDescription;
+            mViewHolder.title = textViewTitle;
+            mViewHolder.flag = imageViewFlag;
 
-            convertView.setTag(holder);
+            convertView.setTag(mViewHolder);
         } else {
-            holder = (ViewHolder) convertView.getTag();
+            mViewHolder = (ViewHolder) convertView.getTag();
         }
 
         String title = isNeedConvertTraditionalChinese ?
-                chineseConvertor.s2t(question.getTitle()) : chineseConvertor.t2s(question.getTitle());
-        holder.title.setText(Helper.replaceSymbol(title));
-        holder.description.setText(getConvertDescription(question));
+                mChineseConvertor.s2t(question.getTitle()) : mChineseConvertor.t2s(question.getTitle());
+        mViewHolder.title.setText(Helper.replaceSymbol(title));
+        mViewHolder.description.setText(getConvertDescription(question));
 
-        ImageView flag = holder.flag;
-        if (question.isStared()) {
-            flag.setBackgroundResource(R.drawable.ic_action_star_selected);
-        } else {
-            flag.setBackgroundResource(R.drawable.ic_action_unread);
-        }
-
-        if (question.isUnread() || question.isStared()) {
+        ImageView flag = mViewHolder.flag;
+        if (question.isUnread()) {
             flag.setVisibility(View.VISIBLE);
         } else {
             flag.setVisibility(View.INVISIBLE);
         }
 
-        if (isHideDescription) {
-            holder.description.setVisibility(View.GONE);
+        if (question.isStared()) {
+            flag.setBackgroundResource(R.drawable.ic_action_star_selected);
+            flag.setVisibility(View.VISIBLE);
+        } else {
+            flag.setBackgroundResource(R.drawable.ic_action_unread);
         }
+
+        if (isHideDescription) {
+            mViewHolder.description.setVisibility(View.GONE);
+        } else {
+            mViewHolder.description.setVisibility(View.VISIBLE);
+        }
+
         return convertView;
     }
 
@@ -135,10 +133,10 @@ public final class QuestionsAdapter extends BaseAdapter implements Filterable {
 
         content = content.substring(0, maxLength).trim();
         content = ((question.getUserName().length() > 1) ?
-                question.getUserName().trim() + context.getString(R.string.colon) + " " : "") + content;
+                question.getUserName().trim() + mContext.getString(R.string.colon) + " " : "") + content;
 
         // 转换简繁体
-        return isNeedConvertTraditionalChinese ? chineseConvertor.s2t(content) : chineseConvertor.t2s(content);
+        return isNeedConvertTraditionalChinese ? mChineseConvertor.s2t(content) : mChineseConvertor.t2s(content);
     }
 
     @Override

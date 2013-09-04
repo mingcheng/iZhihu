@@ -22,14 +22,14 @@ import java.util.ArrayList;
 public abstract class BaseListFragment extends PullToRefreshListFragment implements AdapterView.OnItemClickListener {
     public static final String SAVED_QUESTIONS = "savedQuestions";
 
-    Context context;
-    QuestionsAdapter questionsAdapter;
-    private Activity activity;
-    QuestionsDatabase questionsDatabase;
-    ArrayList<Question> questions;
+    Context mContext;
+    QuestionsAdapter mQuestionsAdapter;
+    private Activity mActivity;
+    QuestionsDatabase mQuestionsDatabase;
+    ArrayList<Question> mQuestions;
 
-    SharedPreferences sharedPref;
-    protected PullToRefreshListView pull2RefreshView;
+    SharedPreferences mSharedPreferences;
+    protected PullToRefreshListView mPull2RefreshView;
 
     BaseListFragment() {
         super();
@@ -39,30 +39,31 @@ public abstract class BaseListFragment extends PullToRefreshListFragment impleme
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.activity = getActivity();
-        this.context = activity.getApplicationContext();
-        this.sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        this.mActivity = getActivity();
+        this.mContext = mActivity.getApplicationContext();
+        this.mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
 
         // @todo 初始化数据库
-        this.questionsDatabase = new QuestionsDatabase(context);
+        this.mQuestionsDatabase = new QuestionsDatabase(mContext);
 
         if (savedInstanceState != null) {
-            this.questions = savedInstanceState.getParcelableArrayList(SAVED_QUESTIONS);
+            this.mQuestions = savedInstanceState.getParcelableArrayList(SAVED_QUESTIONS);
         }
 
-        if (this.questions == null || this.questions.size() <= 0) {
-            this.questions = getInitialData();
+        if (this.mQuestions == null || this.mQuestions.size() <= 0) {
+            this.mQuestions = getInitialData();
         }
 
-        this.questionsAdapter = new QuestionsAdapter(getActivity(), questions);
+        this.mQuestionsAdapter = new QuestionsAdapter(getActivity(), mQuestions);
     }
 
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        if (questions != null && questions.size() > 0) {
-            outState.putParcelableArrayList(SAVED_QUESTIONS, questions);
+        if (mQuestions != null && mQuestions.size() > 0) {
+            outState.putParcelableArrayList(SAVED_QUESTIONS, mQuestions);
         }
+
         super.onSaveInstanceState(outState);
     }
 
@@ -71,16 +72,16 @@ public abstract class BaseListFragment extends PullToRefreshListFragment impleme
         super.onStart();
 
         // 默认关闭下拉
-        pull2RefreshView.setMode(PullToRefreshBase.Mode.DISABLED);
+        mPull2RefreshView.setMode(PullToRefreshBase.Mode.DISABLED);
     }
 
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        setListAdapter(questionsAdapter);
+        setListAdapter(mQuestionsAdapter);
 
         // 下拉 ListView 控件
-        this.pull2RefreshView = getPullToRefreshListView();
+        this.mPull2RefreshView = getPullToRefreshListView();
         getListView().setOnItemClickListener(this);
 
         super.onActivityCreated(savedInstanceState);
@@ -100,15 +101,16 @@ public abstract class BaseListFragment extends PullToRefreshListFragment impleme
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
         // Android-PullToRefresh 似乎增加了个不可见条目，所以要 -1
-        int selectedPosition = (pull2RefreshView != null) ? position - 1 : position;
-        Helper.startDetailActivity(getActivity(), questions, selectedPosition);
+        int selectedPosition = (mPull2RefreshView != null) ? position - 1 : position;
+        Helper.startDetailActivity(getActivity(), mQuestions, selectedPosition);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Intent.FILL_IN_PACKAGE) {
-            questions = data.getParcelableArrayListExtra(Detail.INTENT_MODIFIED_LISTS);
+            mQuestions = data.getParcelableArrayListExtra(Detail.INTENT_MODIFIED_LISTS);
         }
+        notifyDataSetChanged();
 
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -118,42 +120,42 @@ public abstract class BaseListFragment extends PullToRefreshListFragment impleme
      * notifyDataSetChanged by manually
      */
     public void notifyDataSetChanged() {
-        if (questionsAdapter != null) {
-            questionsAdapter.notifyDataSetChanged();
+        if (mQuestionsAdapter != null) {
+            mQuestionsAdapter.notifyDataSetChanged();
         }
     }
 
     /**
      * Set Questions
      *
-     * @param questions
+     * @param mQuestions
      */
-    public void setQuestions(ArrayList<Question> questions) {
-        this.questions = questions;
+    public void setmQuestions(ArrayList<Question> mQuestions) {
+        this.mQuestions = mQuestions;
     }
 
     /**
      * Get Recent Questions By Update Time.
      *
-     * @return questions
+     * @return mQuestions
      */
     public ArrayList<Question> getRecentQuestion() {
-        return questionsDatabase.getRecentQuestions();
+        return mQuestionsDatabase.getRecentQuestions();
     }
 
 
     /**
      * Get Stared Questions.
      *
-     * @return questions
+     * @return mQuestions
      */
     public ArrayList<Question> getStaredQuestions() {
-        return questionsDatabase.getStaredQuestions();
+        return mQuestionsDatabase.getStaredQuestions();
     }
 
     @Override
     public void onDestroy() {
-        questionsDatabase.close();
+        mQuestionsDatabase.close();
         super.onDestroy();
     }
 }

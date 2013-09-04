@@ -16,25 +16,26 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
 public class QuestionsListFragment extends BaseListFragment implements PullToRefreshBase.OnRefreshListener2<ListView> {
-    private static final String KEY_CURRENT_PAGE = "KEY_CURRENT_PAGE";
     private static final String TAG = QuestionsListFragment.class.getName();
-    private int currentPage = QuestionsDatabase.FIRST_PAGE;
 
-    private final Handler updateDataSetChangedHandler = new Handler() {
+    private static final String KEY_CURRENT_PAGE = "KEY_CURRENT_PAGE";
+    private int mCurrentPage = QuestionsDatabase.FIRST_PAGE;
+
+    private final Handler mUpdateDataSetChangedHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             try {
                 if (msg.what > 0) {
-                    questionsAdapter.notifyDataSetChanged();
+                    mQuestionsAdapter.notifyDataSetChanged();
                 } else {
-                    Helper.showShortToast(context, getString(R.string.nomore_questions));
+                    Helper.showShortToast(mContext, getString(R.string.nomore_questions));
                 }
             } catch (IllegalStateException e) {
                 e.printStackTrace();
             } finally {
-                pull2RefreshView.onRefreshComplete();
+                mPull2RefreshView.onRefreshComplete();
                 if (msg.what <= 0) {
-                    pull2RefreshView.setMode(PullToRefreshBase.Mode.DISABLED);
+                    mPull2RefreshView.setMode(PullToRefreshBase.Mode.DISABLED);
                 }
             }
         }
@@ -45,26 +46,26 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            this.currentPage = savedInstanceState.getInt(KEY_CURRENT_PAGE);
+            this.mCurrentPage = savedInstanceState.getInt(KEY_CURRENT_PAGE);
         }
     }
 
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putInt(KEY_CURRENT_PAGE, currentPage);
+        outState.putInt(KEY_CURRENT_PAGE, mCurrentPage);
         super.onSaveInstanceState(outState);
     }
 
     public void updateQuestionsFromDatabase() {
-        questions.clear();
-        for (int i = QuestionsDatabase.FIRST_PAGE; i <= currentPage; i++) {
-            questions.addAll(questionsDatabase.getRecentQuestions(i));
+        mQuestions.clear();
+        for (int i = QuestionsDatabase.FIRST_PAGE; i <= mCurrentPage; i++) {
+            mQuestions.addAll(mQuestionsDatabase.getRecentQuestions(i));
         }
     }
 
     public void addNewQuestionsAtHead(ArrayList<Question> questions) {
-        this.questions.addAll(0, questions);
+        this.mQuestions.addAll(0, questions);
     }
 
     /**
@@ -72,22 +73,22 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
      */
     synchronized private void getMoreQuestionsFromDatabase() {
         new Thread(new Runnable() {
-            private static final long DELAY_TIME = 800;
+            private static final long DELAY_TIME = 1000;
 
             @Override
             public void run() {
                 int size = 0;
                 try {
                     Thread.sleep(DELAY_TIME);
-                    if (currentPage <= questionsDatabase.getTotalPages()) {
-                        ArrayList<Question> newDatas = questionsDatabase.getRecentQuestions(++currentPage);
-                        questions.addAll(newDatas);
+                    if (mCurrentPage <= mQuestionsDatabase.getTotalPages()) {
+                        ArrayList<Question> newDatas = mQuestionsDatabase.getRecentQuestions(++mCurrentPage);
+                        mQuestions.addAll(newDatas);
                         size = newDatas.size();
                     }
                 } catch (InterruptedException e) {
                     if (BuildConfig.DEBUG) Log.e(TAG, e.getMessage());
                 } finally {
-                    updateDataSetChangedHandler.sendEmptyMessage(size);
+                    mUpdateDataSetChangedHandler.sendEmptyMessage(size);
                 }
             }
         }).start();
@@ -98,8 +99,8 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
     public void onStart() {
         super.onStart();
 
-        pull2RefreshView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
-        pull2RefreshView.setOnRefreshListener(this);
+        mPull2RefreshView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+        mPull2RefreshView.setOnRefreshListener(this);
     }
 
     @Override
@@ -108,9 +109,9 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
             @Override
             public void run() {
                 try {
-                    if (questions.size() > 0) {
-                        for (Question question : questions) {
-                            question.setStared(questionsDatabase.isStared(question.getId()));
+                    if (mQuestions.size() > 0) {
+                        for (Question question : mQuestions) {
+                            question.setStared(mQuestionsDatabase.isStared(question.getId()));
                         }
                     }
                 } catch (ConcurrentModificationException e) {
@@ -118,10 +119,11 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
                 } catch (NullPointerException e) {
                     if (BuildConfig.DEBUG) Log.e(TAG, e.getMessage());
                 } finally {
-                    updateDataSetChangedHandler.sendEmptyMessage(questions.size());
+                    mUpdateDataSetChangedHandler.sendEmptyMessage(mQuestions.size());
                 }
             }
         }).start();
+
         super.onResume();
     }
 
@@ -163,5 +165,4 @@ public class QuestionsListFragment extends BaseListFragment implements PullToRef
     public void onPullUpToRefresh(PullToRefreshBase refreshView) {
         getMoreQuestionsFromDatabase();
     }
-
 }
