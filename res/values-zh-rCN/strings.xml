@@ -91,7 +91,7 @@
     <string name="backup_favourite_summary">备份您的收藏的条目到云端</string>
     <string name="restore_favourite_summary">从云端恢复您以前收藏的条目</string>
     <string name="syncd_message">已从云端同步 %d 条数据</string>
-    <string name="get_favourites_faild">从云端获取数据失败，请稍后再试</string>
+    <string name="get_favourites_faild">从云端获取数据失败（或许您需要先备份到云端）</string>
     <string name="do_u_sure">您确定吗？</string>
     <string name="save_favourites_conform">此项操作会覆盖您原先保存在云端的数据，您确认吗？</string>
 </resources>
