@@ -23,7 +23,7 @@ public class SaveFavouritesTask extends AsyncTask<Void, Void, Boolean> {
     private final Context mContext;
     private final Requester mHttpRequester;
     private final QuestionsDatabase mQuestionsDatabase;
-    private String mErrorMessage;
+    private String mErrorMessage = "";
     private ProgressDialog mProgressDialog;
 
     public SaveFavouritesTask(Context context) {
@@ -54,6 +54,7 @@ public class SaveFavouritesTask extends AsyncTask<Void, Void, Boolean> {
 
         try {
             if (ids.isEmpty()) {
+                mErrorMessage = mContext.getString(R.string.favourites_is_empty);
                 return false;
             }
 
@@ -83,7 +84,7 @@ public class SaveFavouritesTask extends AsyncTask<Void, Void, Boolean> {
     protected void onPostExecute(Boolean result) {
         mProgressDialog.dismiss();
 
-        if (!result && mErrorMessage != null && !mErrorMessage.isEmpty()) {
+        if (!result && mErrorMessage.isEmpty()) {
             mErrorMessage = mContext.getString(R.string.save_favourites_faild);
         }
 

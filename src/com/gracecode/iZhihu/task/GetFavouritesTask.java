@@ -63,7 +63,6 @@ public class GetFavouritesTask extends AsyncTask<Void, Void, Integer> {
     protected Integer doInBackground(Void... voids) {
         try {
             JSONObject jsonObject = mHttpRequester.getFavourites();
-
             if (jsonObject == null) {
                 return 0;
             }
