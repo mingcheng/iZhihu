@@ -110,8 +110,6 @@ public abstract class BaseListFragment extends PullToRefreshListFragment impleme
         if (resultCode == Intent.FILL_IN_PACKAGE) {
             mQuestions = data.getParcelableArrayListExtra(Detail.INTENT_MODIFIED_LISTS);
         }
-        notifyDataSetChanged();
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -130,7 +128,7 @@ public abstract class BaseListFragment extends PullToRefreshListFragment impleme
      *
      * @param mQuestions
      */
-    public void setmQuestions(ArrayList<Question> mQuestions) {
+    public void setQuestions(ArrayList<Question> mQuestions) {
         this.mQuestions = mQuestions;
     }
 
