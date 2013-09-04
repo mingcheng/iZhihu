@@ -94,4 +94,5 @@
     <string name="get_favourites_faild">从云端获取数据失败（或许您需要先备份到云端）</string>
     <string name="do_u_sure">您确定吗？</string>
     <string name="save_favourites_conform">此项操作会覆盖您原先保存在云端的数据，您确认吗？</string>
+    <string name="favourites_is_empty">抱歉，您目前的收藏列表是空的</string>
 </resources>

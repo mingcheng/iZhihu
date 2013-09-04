@@ -107,4 +107,5 @@
     <string name="get_favourites_faild">Get favourites faild.</string>
     <string name="do_u_sure">Do you sure?</string>
     <string name="save_favourites_conform">This will overwrite the previously saved data, sure?</string>
+    <string name="favourites_is_empty">Your favourites list is empty.</string>
 </resources>

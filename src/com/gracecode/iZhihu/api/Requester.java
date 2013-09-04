@@ -3,6 +3,7 @@ package com.gracecode.iZhihu.api;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.provider.Settings;
 import android.util.Log;
 import com.gracecode.iZhihu.BuildConfig;
 import com.gracecode.iZhihu.util.Helper;
@@ -41,7 +42,7 @@ public class Requester {
     private static final String URL_SAVE_FAVOURITES
             = URL_DOMAIN + "/?method=save-favourites&timestamp=%s&sign=%s&device=%s&favourites=%s&platform=android";
 
-    private static final String DEVICE_UUID = android.os.Build.SERIAL;
+    //    private static final String DEVICE_UUID = android.os.Build.SERIAL;
     private static final String APP_KEY = "133ff1e10a8b244767ef734fb86f37fd";
     public static final int DEFAULT_START_OFFSET = -1;
     private static final int TIME_STAMP_LENGTH = 10;
@@ -49,15 +50,32 @@ public class Requester {
     private static final int HTTP_STATUS_OK = 200;
     private static final int TIMEOUT_SECONDS = 5;
 
-    private static Context context;
+    private static Context mContext;
     private final SharedPreferences sharedPreferences;
 
     public Requester(Context context) {
-        this.context = context;
+        this.mContext = context;
         this.sharedPreferences = context.getSharedPreferences(getClass().getName(), Context.MODE_PRIVATE);
     }
 
-    void saveSharedPreference(String key, String value) {
+
+    // @see http://android-developers.blogspot.com/2011/03/identifying-app-installations.html
+    private String getUUID() {
+        String serial = android.os.Build.SERIAL;
+        if (serial.isEmpty()) {
+            serial = Settings.Secure.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
+        }
+
+        serial = md5(serial);
+        if (BuildConfig.DEBUG) {
+            Log.i(TAG, "Your device's serial number is " + serial);
+        }
+
+        return serial;
+    }
+
+
+    private void saveSharedPreference(String key, String value) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
         editor.commit();
@@ -169,7 +187,7 @@ public class Requester {
             String responseString = Helper.inputStream2String(instream);
 
             if (BuildConfig.DEBUG) {
-                Log.v(context.getPackageName(), responseString);
+                Log.v(mContext.getPackageName(), responseString);
             }
 
             return responseString;
@@ -204,7 +222,7 @@ public class Requester {
         return String.format(URL_SAVE_FAVOURITES,
                 timeStampString,
                 signString,
-                DEVICE_UUID,
+                getUUID(),
                 URLEncoder.encode(data, "UTF-8"));
     }
 
@@ -217,7 +235,7 @@ public class Requester {
         return String.format(URL_GET_FAVOURITES,
                 timeStampString,
                 signString,
-                DEVICE_UUID);
+                getUUID());
     }
 
     private String getSyncRequestUrl(int offset) {
@@ -228,7 +246,7 @@ public class Requester {
                 timeStampString,
                 signString,
                 offset,
-                DEVICE_UUID);
+                getUUID());
     }
 
     private String getSignString(String stamp, String method) {
