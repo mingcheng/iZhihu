@@ -2,7 +2,7 @@
 <resources>
     <string name="about">About</string>
     <string name="about_summary" formatted="false"><![CDATA[Thank you for using \'Read Zhihu\']]></string>
-    <string name="affectRows">New %d questions.</string>
+    <string name="affectRows">New %d mQuestions.</string>
     <string name="analytics">Enable Analytics</string>
     <string name="analytics_summary" formatted="false">
         <![CDATA[Help make \'Read Zhihu\' better by opting into anonymous statistics.]]>
@@ -35,7 +35,7 @@
     <string name="font_size_summary">Select your favourite font size for read.</string>
     <string name="huge">Huge</string>
     <string name="large">Large</string>
-    <string name="loaded_more_data">Loading more questions</string>
+    <string name="loaded_more_data">Loading more mQuestions</string>
     <string name="loading">Loading, Please Wait...</string>
     <string name="mark_as_starred">Starred</string>
     <string name="medium">Medium</string>
@@ -89,4 +89,22 @@
     <string name="search">Search</string>
     <string name="turning_page_by_volkey">Volume Key</string>
     <string name="turning_page_by_volkey_summary">Turning Page(Up or Down) By Volume Key</string>
+    <string name="save_favourites_ok">Saved favourites to server.</string>
+    <string name="sync">Sync</string>
+    <string name="key_sync_enabled">key_sync_enabled</string>
+    <string name="sync_summary">Sync your favourited items to service.</string>
+    <string name="key_sync_notify_enabled">key_sync_notify_enabled</string>
+    <string name="sync_notify">Notify Everytimes</string>
+    <string name="sync_notify_summary">Nofity the sync results on everytime.</string>
+    <string name="sync_favourite">Sync Favourite Items</string>
+    <string name="key_backup_sync">key_backup_sync</string>
+    <string name="key_restore_sync">key_restore_sync</string>
+    <string name="backup_favourite">Backup Favourites</string>
+    <string name="restore_favourite">Restore Favourites</string>
+    <string name="backup_favourite_summary">Backup your favourites to clouds.</string>
+    <string name="restore_favourite_summary">Restore your favourites from clouds.</string>
+    <string name="syncd_message">Synced %d items form could.</string>
+    <string name="get_favourites_faild">Get favourites faild.</string>
+    <string name="do_u_sure">Do you sure?</string>
+    <string name="save_favourites_conform">This will overwrite the previously saved data, sure?</string>
 </resources>

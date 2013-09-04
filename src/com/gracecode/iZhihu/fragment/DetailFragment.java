@@ -212,7 +212,7 @@ public class DetailFragment extends WebViewFragment {
 
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUseWideViewPort(true);
-        webSettings.setJavaScriptEnabled(true);
+        webSettings.setJavaScriptEnabled(false);
 
         // Load page from generated HTML string.
         webView.loadDataWithBaseURL(URL_ASSETS_PREFIX, getFormatedContent(),

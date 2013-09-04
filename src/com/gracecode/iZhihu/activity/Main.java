@@ -20,7 +20,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.gracecode.iZhihu.R;
-import com.gracecode.iZhihu.adapter.ListPagerAdapter;
 import com.gracecode.iZhihu.adapter.QuestionsAdapter;
 import com.gracecode.iZhihu.dao.Question;
 import com.gracecode.iZhihu.fragment.QuestionsListFragment;
@@ -38,37 +37,41 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
     private static final int MESSAGE_UPDATE_COMPLETE = 0x02;
     public static final int MESSAGE_UPDATE_SHOW_RESULT = 0x03;
 
-    private ScrollTabsFragment scrollTabsFragment;
-    private MenuItem menuRefersh;
-    private FetchQuestionTask fetchQuestionsTask;
-    private Boolean focusRefresh = false;
-    private InputMethodManager inputMethodManager;
-    private AutoCompleteTextView autoCompleteTextView;
-    private MenuItem menuSearchView;
-
+    private ScrollTabsFragment mScrollTabsFragment;
+    private MenuItem mMenuRefersh;
+    private FetchQuestionTask mFetchQuestionsTask;
+    private Boolean mFocusRefresh = false;
+    private InputMethodManager mInputMethodManager;
+    private AutoCompleteTextView mAutoCompleteTextView;
+    private MenuItem mMenuSearchView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        scrollTabsFragment = new ScrollTabsFragment();
-        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        mScrollTabsFragment = new ScrollTabsFragment();
+        mInputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         getFragmentManager()
                 .beginTransaction()
-                .replace(android.R.id.content, scrollTabsFragment)
+                .replace(android.R.id.content, mScrollTabsFragment)
                 .commit();
+    }
 
-        fetchQuestionsTask = new FetchQuestionTask(context, new FetchQuestionTask.Callback() {
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mFetchQuestionsTask = new FetchQuestionTask(context, new FetchQuestionTask.Callback() {
             @Override
             public void onFinished() {
                 UIChangedChangedHandler.sendEmptyMessage(MESSAGE_UPDATE_COMPLETE);
-                if (focusRefresh) {
+                if (mFocusRefresh) {
                     UIChangedChangedHandler.sendEmptyMessage(MESSAGE_UPDATE_SHOW_RESULT);
                 }
             }
         });
     }
-
 
     @Override
     public void onResume() {
@@ -83,8 +86,8 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
             }
         }, 1000);
 
-        if (menuSearchView != null) {
-            menuSearchView.collapseActionView();
+        if (mMenuSearchView != null) {
+            mMenuSearchView.collapseActionView();
         }
     }
 
@@ -92,10 +95,10 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        menuRefersh = menu.findItem(R.id.menu_refresh);
+        mMenuRefersh = menu.findItem(R.id.menu_refresh);
 
-        menuSearchView = menu.findItem(R.id.menu_search);
-        menuSearchView.setOnActionExpandListener(this);
+        mMenuSearchView = menu.findItem(R.id.menu_search);
+        mMenuSearchView.setOnActionExpandListener(this);
         return true;
     }
 
@@ -110,9 +113,9 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
          * @return Boolean
          */
         private boolean isFirstRun() {
-            Boolean status = sharedPreferences.getBoolean(getString(R.string.app_name), true);
+            Boolean status = mSharedPreferences.getBoolean(getString(R.string.app_name), true);
             if (status) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
+                SharedPreferences.Editor editor = mSharedPreferences.edit();
                 editor.putBoolean(getString(R.string.app_name), false);
                 editor.commit();
             }
@@ -143,49 +146,46 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
                     imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_action_refersh));
                     imageView.startAnimation(rotation);
 
-                    if (menuRefersh != null) {
-                        menuRefersh.setActionView(layout);
+                    if (mMenuRefersh != null) {
+                        mMenuRefersh.setActionView(layout);
                     }
                     break;
 
                 case MESSAGE_UPDATE_COMPLETE:
                     try {
-                        if (fetchQuestionsTask.getAffectedRows() > 0) {
-                            Fragment fragment = (scrollTabsFragment.getListAdapter())
-                                    .getBaseListFragment(ListPagerAdapter.FIRST_TAB);
-
-                            if (fragment instanceof QuestionsListFragment) {
-                                ((QuestionsListFragment) fragment).updateQuestionsFromDatabase();
-                            }
+                        Fragment fragment = mScrollTabsFragment.getCurrentFragment();
+                        if (fragment instanceof QuestionsListFragment) {
+                            ((QuestionsListFragment) fragment).updateQuestionsFromDatabase();
                         }
                     } catch (NullPointerException e) {
                         e.printStackTrace();
                     } finally {
-                        scrollTabsFragment.notifyDatasetChanged();
+                        mScrollTabsFragment.notifyDatasetChanged();
                     }
 
-                    if (menuRefersh != null) {
-                        View v = menuRefersh.getActionView();
+                    if (mMenuRefersh != null) {
+                        View v = mMenuRefersh.getActionView();
                         if (v != null) {
                             v.clearAnimation();
                         }
-                        menuRefersh.setActionView(null);
+                        mMenuRefersh.setActionView(null);
                     }
 
                     if (progressDialog != null) {
                         progressDialog.dismiss();
                     }
 
-                    if (fetchQuestionsTask.hasError()) {
-                        Helper.showShortToast(context, fetchQuestionsTask.getErrorMessage());
+                    if (mFetchQuestionsTask.hasError()) {
+                        Helper.showShortToast(context, mFetchQuestionsTask.getErrorMessage());
                     }
+
                     break;
 
                 case MESSAGE_UPDATE_SHOW_RESULT:
-                    if (fetchQuestionsTask != null) {
+                    if (mFetchQuestionsTask != null) {
                         String message = getString(R.string.no_newer_questions);
-                        if (fetchQuestionsTask.getAffectedRows() > 0) {
-                            message = String.format(getString(R.string.affectRows), fetchQuestionsTask.getAffectedRows());
+                        if (mFetchQuestionsTask.getAffectedRows() > 0) {
+                            message = String.format(getString(R.string.affectRows), mFetchQuestionsTask.getAffectedRows());
                         }
 
                         Helper.showShortToast(context, message);
@@ -206,12 +206,12 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
     void fetchQuestionsFromServer(final Boolean focus) {
         UIChangedChangedHandler.sendEmptyMessage(MESSAGE_UPDATE_LOADING);
 
-        Boolean isNeedCacheThumbnails = sharedPreferences.getBoolean(context.getString(R.string.key_enable_cache), true);
-        fetchQuestionsTask.setIsNeedCacheThumbnails(isNeedCacheThumbnails);
+        Boolean isNeedCacheThumbnails = mSharedPreferences.getBoolean(context.getString(R.string.key_enable_cache), true);
+        mFetchQuestionsTask.setIsNeedCacheThumbnails(isNeedCacheThumbnails);
 
-        this.focusRefresh = focus;
-        // Start fetch from new thread.
-        fetchQuestionsTask.start(focus);
+        this.mFocusRefresh = focus;
+        // Start sync from new thread.
+        mFetchQuestionsTask.start(focus);
     }
 
 
@@ -228,14 +228,14 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
 
     @Override
     public boolean onMenuItemActionExpand(MenuItem menuItem) {
-        autoCompleteTextView = (AutoCompleteTextView) menuItem.getActionView().findViewById(R.id.search);
+        mAutoCompleteTextView = (AutoCompleteTextView) menuItem.getActionView().findViewById(R.id.search);
 
         questionsAdapter = new QuestionsAdapter(this, searchedQuestions);
         questionsAdapter.setHideDescription(true); // Hide Description
 
-        autoCompleteTextView.addTextChangedListener(textWatcher);
-        autoCompleteTextView.setAdapter(questionsAdapter);
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mAutoCompleteTextView.addTextChangedListener(textWatcher);
+        mAutoCompleteTextView.setAdapter(questionsAdapter);
+        mAutoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Helper.startDetailActivity(Main.this, searchedQuestions, i);
@@ -243,12 +243,12 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
         });
 
         // Request focus.
-        autoCompleteTextView.requestFocus();
+        mAutoCompleteTextView.requestFocus();
         (new Timer()).schedule(
                 new TimerTask() {
                     @Override
                     public void run() {
-                        inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                        mInputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
                     }
                 }, 10
         );
@@ -260,9 +260,9 @@ public class Main extends BaseActivity implements MenuItem.OnActionExpandListene
 
     @Override
     public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-        if (autoCompleteTextView != null) {
-            inputMethodManager.hideSoftInputFromWindow(autoCompleteTextView.getApplicationWindowToken(), 0);
-            autoCompleteTextView.setText("");
+        if (mAutoCompleteTextView != null) {
+            mInputMethodManager.hideSoftInputFromWindow(mAutoCompleteTextView.getApplicationWindowToken(), 0);
+            mAutoCompleteTextView.setText("");
         }
         return true;
     }

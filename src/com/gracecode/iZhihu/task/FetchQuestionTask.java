@@ -48,7 +48,7 @@ public class FetchQuestionTask {
 
                 String heap = "";
                 affectedRows = 0;
-                JSONArray fetchedData = requester.fetch(questionsDatabase.getStartId());
+                JSONArray fetchedData = requester.sync(questionsDatabase.getStartId());
 
                 for (int i = 0, length = fetchedData.length(); i < length; i++) {
                     JSONObject item = (JSONObject) fetchedData.get(i);

@@ -33,19 +33,19 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
     public static final int DEFAULT_HEIGHT = 0;
     public static final int DEFAULT_WIDTH = 0;
     private static final int DOWNLOAD_NOTIFY_ID = 0;
-    private final ThumbnailsDatabase database;
+    private final ThumbnailsDatabase mDatabase;
     private final int TIMEOUT_SECONDS = 5000;
     private final DefaultHttpClient httpClient;
     private final List<String> urls;
     private final Context context;
-    private final NotificationManager notificationManager;
-    private NotificationCompat.Builder notificationCompat;
+    private final NotificationManager mNotificationManager;
+    private NotificationCompat.Builder mNotificationCompat;
 
 
     public FetchThumbnailTask(Context context, ThumbnailsDatabase database, List<String> urls, BaseTasks.Callback callback) {
         super(context, callback);
 
-        this.database = database;
+        this.mDatabase = database;
         this.httpClient = new DefaultHttpClient();
         this.urls = urls;
         this.context = context;
@@ -55,7 +55,7 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
         HttpConnectionParams.setSoTimeout(httpParams, TIMEOUT_SECONDS);
         HttpProtocolParams.setUserAgent(httpParams, USER_AGENT_STRING);
 
-        notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
         int downloaded = 0;
         for (int i = 0, size = urls.size(); i < size; i++) {
             String url = urls.get(i);
-            if (!database.isCached(url)) {
+            if (!mDatabase.isCached(url)) {
                 HttpGet getRequest;
                 HttpResponse httpResponse;
                 HttpEntity entity;
@@ -82,7 +82,7 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
 
                         if (Helper.putFileContent(localCacheFile, entity.getContent())) {
                             Header contentType = httpResponse.getFirstHeader("Content-Type");
-                            boolean isCached = database.markAsCached(url,
+                            boolean isCached = mDatabase.markAsCached(url,
                                     localCacheFile.getAbsolutePath(),
                                     contentType.getValue(),
                                     statusCode
@@ -95,7 +95,7 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
                         }
 
                     } else {
-                        database.markAsCached(url, null, null, statusCode);
+                        mDatabase.markAsCached(url, null, null, statusCode);
                         getRequest.abort();
                     }
                 } catch (IOException e) {
@@ -111,22 +111,22 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
 
     private String getLocalPath() {
         long timeStamp = System.currentTimeMillis();
-        File cacheDir = database.getLocalCacheDirectory();
+        File cacheDir = mDatabase.getLocalCacheDirectory();
         return cacheDir + File.separator + timeStamp;
     }
 
     @Override
     protected void onPreExecute() {
         String text = context.getString(R.string.downloading_offline_image);
-        notificationCompat = new NotificationCompat.Builder(context);
-        notificationCompat.setContentTitle(context.getString(R.string.app_name))
+        mNotificationCompat = new NotificationCompat.Builder(context);
+        mNotificationCompat.setContentTitle(context.getString(R.string.app_name))
                 .setContentText(text)
                 .setTicker(text)
                 .setSmallIcon(R.drawable.ic_downloading);
 
         if (urls.size() > 0) {
-            notificationCompat.setProgress(urls.size(), 0, false);
-            notificationManager.notify(DOWNLOAD_NOTIFY_ID, notificationCompat.build());
+            mNotificationCompat.setProgress(urls.size(), 0, false);
+            mNotificationManager.notify(DOWNLOAD_NOTIFY_ID, mNotificationCompat.build());
         }
 
         super.onPreExecute();
@@ -135,10 +135,10 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
     @Override
     protected void onProgressUpdate(Integer... values) {
         for (Integer value : values) {
-            notificationCompat
+            mNotificationCompat
                     //.setTicker(value + "/" + urls.size())
                     .setProgress(urls.size(), value, false);
-            notificationManager.notify(DOWNLOAD_NOTIFY_ID, notificationCompat.build());
+            mNotificationManager.notify(DOWNLOAD_NOTIFY_ID, mNotificationCompat.build());
         }
 
         super.onProgressUpdate(values);
@@ -147,14 +147,14 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
     @Override
     protected void onPostExecute(Integer result) {
         String text = String.format(context.getString(R.string.downloaded_offline_image_complete), result);
-        notificationCompat.setContentTitle(context.getString(R.string.app_name))
+        mNotificationCompat.setContentTitle(context.getString(R.string.app_name))
                 .setContentText(text)
                 .setTicker(text)
                 .setSmallIcon(R.drawable.ic_launcher);
 
         if (result != 0) {
-            notificationCompat.setProgress(0, 0, false);
-            notificationManager.notify(DOWNLOAD_NOTIFY_ID, notificationCompat.build());
+            mNotificationCompat.setProgress(0, 0, false);
+            mNotificationManager.notify(DOWNLOAD_NOTIFY_ID, mNotificationCompat.build());
         }
 
         try {
@@ -162,8 +162,8 @@ public class FetchThumbnailTask extends BaseTasks<Void, Integer, Integer> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            notificationManager.cancel(DOWNLOAD_NOTIFY_ID);
-            database.close();
+            mNotificationManager.cancel(DOWNLOAD_NOTIFY_ID);
+            mDatabase.close();
         }
 
         super.onPostExecute(result);
