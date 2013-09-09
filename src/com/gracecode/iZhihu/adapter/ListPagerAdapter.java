@@ -65,7 +65,11 @@ public class ListPagerAdapter extends FragmentStatePagerAdapter implements ViewP
 
     @Override
     public void onPageSelected(int i) {
-        actionBar.setSelectedNavigationItem(i);
+        switch (i) {
+            case FIRST_TAB:
+            case SECOND_TAB:
+                actionBar.setSelectedNavigationItem(i);
+        }
     }
 
     @Override
