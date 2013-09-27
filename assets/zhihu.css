@@ -164,6 +164,15 @@ body .question a:link {
     opacity: .9;
 }
 
+.logo {
+    width: 128px;
+    height: 145px;
+    background: url(file:///android_asset/logo_about.png) no-repeat center;
+    margin: 1em auto 1em auto;
+    background-size: 128px 145px;
+    opacity: .9;
+}
+
 
 .about {
 
