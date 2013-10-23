@@ -1,5 +1,7 @@
 # 「读知乎」 Android 客户端
 
+### _**除非得到知乎官方的允许，这个项目不会再继续了，望大家理解。**_
+
 ### 随时随地获得「知乎」最新精选条目！
 
 欢迎访问「读知乎」官方站 http://z.ihu.im/ 。
@@ -247,7 +249,7 @@
 
 ## 联系
 
-* lucky@gracecode.com
+* lucky[at]gracecode.com
 * Twitter: @feelinglucky
 * Weibo: @手气还不错
 * http://gracecode.com
