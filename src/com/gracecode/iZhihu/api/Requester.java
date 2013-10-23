@@ -34,7 +34,7 @@ import java.util.zip.GZIPInputStream;
 public class Requester {
     private static final String TAG = Requester.class.getName();
 
-    private static final String URL_DOMAIN = "http://z.ihu.im";
+    private static final String URL_DOMAIN = "";
     private static final String URL_SYNC_REQUEST
             = URL_DOMAIN + "/?method=sync&timestamp=%s&sign=%s&start=%d&device=%s";
     private static final String URL_GET_FAVOURITES
@@ -43,7 +43,7 @@ public class Requester {
             = URL_DOMAIN + "/?method=save-favourites&timestamp=%s&sign=%s&device=%s&favourites=%s&platform=android";
 
     //    private static final String DEVICE_UUID = android.os.Build.SERIAL;
-    private static final String APP_KEY = "133ff1e10a8b244767ef734fb86f37fd";
+    private static final String APP_KEY = "";
     public static final int DEFAULT_START_OFFSET = -1;
     private static final int TIME_STAMP_LENGTH = 10;
     private static final String KEY_LAST_QUERY_TIMESTAMP = "last_query_timestamp";
